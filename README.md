@@ -1,1 +1,5 @@
-# shockquiz
+# ShockQuiz
+
+## Packages:
+ - System.Web
+ - Newtonsoft.Json
