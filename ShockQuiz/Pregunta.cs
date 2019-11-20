@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 namespace ShockQuiz
 {
     class Pregunta
-    {
+    {/// <summary>
+    /// El objetivo de esta clase es al
+    /// </summary>
         private string iPregunta { get; }
         private string iCategoria { get; }
         private string iDificultad { get; }
-        private List<string> iRespuestas = new List<string>();
-        private string iRespuestaCorrecta { get; }
+        private List<Respuesta> iRespuestas = new List<Respuesta>();
+        private Respuesta iRespuestaCorrecta { get; }
 
-        public Pregunta(string pPregunta, string pCategoria, string pDificultad, List<string> pRespuestas, string pRespuestaCorrecta)
+        public Pregunta(string pPregunta, string pCategoria, string pDificultad, List<Respuesta> pRespuestas, Respuesta pRespuestaCorrecta)
         {
             this.iPregunta = pPregunta;
             this.iCategoria = pCategoria;
@@ -23,22 +25,40 @@ namespace ShockQuiz
             this.iRespuestaCorrecta = pRespuestaCorrecta;
         }
 
-        public bool Responder(string pRespuesta)
+        public ResultadoRespuesta Responder(string pRespuesta)
         {
-            return pRespuesta == iRespuestaCorrecta;
+            //Este método se encarga de comprobar si la respuesta ingresada es correcta, devolviendo
+            //true si es así y false en caso contrario.
+            return new ResultadoRespuesta(pRespuesta == iRespuestaCorrecta.iRespuesta, false, iRespuestaCorrecta.iRespuesta);
         }
 
-        public List<string> Respuestas()
+        public List<string> ObtenerRespuestas()
         {
+            //Este método se encarga de devolver las respuestas asociadas a la pregunta,
+            //ordenadas aleatoriamente.
             Random random = new Random();
             string temp;
-            List<string> lista = iRespuestas;
-            lista.Add(iRespuestaCorrecta);
+            List<string> lista = new List<string>();
+            foreach (Respuesta respuesta in iRespuestas)
+            {
+                lista.Add(respuesta.iRespuesta);
+            }
+            lista.Add(iRespuestaCorrecta.iRespuesta);
+            int a;
+            int b;
             for (int i = 0; i < lista.Count; i++)
             {
-                temp = lista[i];
-                lista[i] = lista[random.Next(lista.Count)];
-                lista[random.Next(lista.Count)] = temp;
+                for (int j = 0; j < lista.Count - i; j++)
+                {
+                    a = random.Next();
+                    b = random.Next();
+                    if (a > b)
+                    {
+                        temp = lista[j];
+                        lista[j] = lista[i];
+                        lista[i] = temp;
+                    }
+                }
             }
             return lista;
         }

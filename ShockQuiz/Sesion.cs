@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShockQuiz
 {
@@ -16,8 +14,7 @@ namespace ShockQuiz
         private DateTime iFechaFin;
         private Usuario iUsuario { get; }
         private List<Pregunta> iPreguntas;
-        private int iFactortiempo;
-        private int iFactorDificultad;
+        private int iRespuestasCorrectas = 0;
 
         public Sesion(int pCantidadPreguntas, string pCategoria, string pDificultad, double pPuntaje, DateTime pFecha, DateTime pFechaFin, Usuario pUsuario, List<Pregunta> pPreguntas)
         {
@@ -37,19 +34,26 @@ namespace ShockQuiz
         }
 
 
-        public Pregunta SiguientePregunta()
+        public List<string> ObtenerRespuestas()
         {
-            if (iPreguntas.Count() != 0)
+            return iPreguntas.First().ObtenerRespuestas();
+        }
+
+        public ResultadoRespuesta Responder(string pRespuesta)
+        {
+            Pregunta pregunta = iPreguntas.First();
+            ResultadoRespuesta resultado = pregunta.Responder(pRespuesta);
+            if (resultado.iEsCorrecta)
             {
-                Pregunta pregunta = this.iPreguntas.First();
-                this.iPreguntas.Remove(pregunta);
-                return pregunta;
+                iRespuestasCorrectas++;
             }
-            else
+            iPreguntas.Remove(pregunta);
+            if (iPreguntas.Count() == 0)
             {
-                ListaVaciaException listaVacia = new ListaVaciaException();
-                throw listaVacia;
+                resultado.iFinSesion = true;
+                Finalizar();
             }
+            return resultado;
         }
 
         public TimeSpan Duracion()
@@ -59,8 +63,10 @@ namespace ShockQuiz
 
         public void Finalizar()
         {
+            double factorTiempo = 1;
+            double factorDificultad = 1;
             this.iFechaFin = DateTime.Now;
-            
+            iPuntaje = (iRespuestasCorrectas / iCantidadPreguntas) * factorTiempo * factorDificultad;
         }
     }
 }
