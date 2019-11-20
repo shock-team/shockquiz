@@ -22,14 +22,9 @@ namespace ShockQuiz
         }
 
 
-        public bool Responder(Pregunta pPregunta, string pRespuesta)
+        public ResultadoRespuesta Responder(string pRespuesta)
         {
-            return pPregunta.Responder(pRespuesta);
-        }
-
-        public void FinalizarSesion()
-        {
-            iSesionActual.Finalizar();
+            return iSesionActual.Responder(pRespuesta);
         }
     }
 }

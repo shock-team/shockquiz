@@ -14,6 +14,7 @@ namespace ShockQuiz
 {
     public partial class Form1 : Form
     {
+        Fachada fachada = new Fachada();
 
         public void JSON()
         {
@@ -100,6 +101,11 @@ namespace ShockQuiz
             InitializeComponent();
             JSON();
            
+        }
+
+        private void BtnRespuesta1_Click(object sender, EventArgs e)
+        {
+            fachada.Responder(btnRespuesta1.Text);
         }
     }
 }

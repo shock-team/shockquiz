@@ -9,7 +9,7 @@ namespace ShockQuiz
     class Respuesta
     {
         private int RespuestaId { get; set; }
-        private string iRespuesta { get; set; }
+        public string iRespuesta { get; set; }
 
     }
 }

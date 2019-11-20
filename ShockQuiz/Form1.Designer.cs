@@ -28,32 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblPregunta = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.btnRespuesta3 = new System.Windows.Forms.Button();
+            this.btnRespuesta1 = new System.Windows.Forms.Button();
+            this.btnRespuesta2 = new System.Windows.Forms.Button();
+            this.btnRespuesta4 = new System.Windows.Forms.Button();
+            this.lblRespuestasActuales = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblTiempo = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblRespuestasTotales = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.lblCategoria = new System.Windows.Forms.Label();
+            this.lblDificultad = new System.Windows.Forms.Label();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // lblPregunta
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(217, 147);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(276, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Preguntaaaaaaaaaaaaaaaaaaaæaaaaaaaaaaaaaaaaaa";
+            this.lblPregunta.AutoSize = true;
+            this.lblPregunta.Location = new System.Drawing.Point(217, 147);
+            this.lblPregunta.Name = "lblPregunta";
+            this.lblPregunta.Size = new System.Drawing.Size(276, 13);
+            this.lblPregunta.TabIndex = 4;
+            this.lblPregunta.Text = "Preguntaaaaaaaaaaaaaaaaaaaæaaaaaaaaaaaaaaaaaa";
             // 
             // label2
             // 
@@ -64,57 +64,58 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Respuestas correctas";
             // 
-            // button1
+            // btnRespuesta3
             // 
-            this.button1.BackColor = System.Drawing.Color.Red;
-            this.button1.Location = new System.Drawing.Point(12, 287);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(317, 40);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnRespuesta3.BackColor = System.Drawing.Color.Red;
+            this.btnRespuesta3.Location = new System.Drawing.Point(12, 287);
+            this.btnRespuesta3.Name = "btnRespuesta3";
+            this.btnRespuesta3.Size = new System.Drawing.Size(317, 40);
+            this.btnRespuesta3.TabIndex = 6;
+            this.btnRespuesta3.Text = "button1";
+            this.btnRespuesta3.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // btnRespuesta1
             // 
-            this.button2.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button2.Location = new System.Drawing.Point(12, 241);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(317, 40);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnRespuesta1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnRespuesta1.Location = new System.Drawing.Point(12, 241);
+            this.btnRespuesta1.Name = "btnRespuesta1";
+            this.btnRespuesta1.Size = new System.Drawing.Size(317, 40);
+            this.btnRespuesta1.TabIndex = 7;
+            this.btnRespuesta1.Text = "button2";
+            this.btnRespuesta1.UseVisualStyleBackColor = false;
+            this.btnRespuesta1.Click += new System.EventHandler(this.BtnRespuesta1_Click);
             // 
-            // button3
+            // btnRespuesta2
             // 
-            this.button3.BackColor = System.Drawing.Color.Lime;
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.Red;
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.button3.Location = new System.Drawing.Point(386, 241);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(317, 40);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnRespuesta2.BackColor = System.Drawing.Color.Lime;
+            this.btnRespuesta2.FlatAppearance.BorderColor = System.Drawing.Color.Red;
+            this.btnRespuesta2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnRespuesta2.Location = new System.Drawing.Point(386, 241);
+            this.btnRespuesta2.Name = "btnRespuesta2";
+            this.btnRespuesta2.Size = new System.Drawing.Size(317, 40);
+            this.btnRespuesta2.TabIndex = 8;
+            this.btnRespuesta2.Text = "button3";
+            this.btnRespuesta2.UseVisualStyleBackColor = false;
             // 
-            // button4
+            // btnRespuesta4
             // 
-            this.button4.BackColor = System.Drawing.SystemColors.Control;
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Red;
-            this.button4.Location = new System.Drawing.Point(386, 287);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(317, 40);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = false;
+            this.btnRespuesta4.BackColor = System.Drawing.SystemColors.Control;
+            this.btnRespuesta4.FlatAppearance.BorderColor = System.Drawing.Color.Red;
+            this.btnRespuesta4.Location = new System.Drawing.Point(386, 287);
+            this.btnRespuesta4.Name = "btnRespuesta4";
+            this.btnRespuesta4.Size = new System.Drawing.Size(317, 40);
+            this.btnRespuesta4.TabIndex = 9;
+            this.btnRespuesta4.Text = "button4";
+            this.btnRespuesta4.UseVisualStyleBackColor = false;
             // 
-            // label3
+            // lblRespuestasActuales
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(651, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(14, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "X";
+            this.lblRespuestasActuales.AutoSize = true;
+            this.lblRespuestasActuales.Location = new System.Drawing.Point(651, 9);
+            this.lblRespuestasActuales.Name = "lblRespuestasActuales";
+            this.lblRespuestasActuales.Size = new System.Drawing.Size(14, 13);
+            this.lblRespuestasActuales.TabIndex = 10;
+            this.lblRespuestasActuales.Text = "X";
             // 
             // label4
             // 
@@ -125,14 +126,14 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "Tiempo";
             // 
-            // label5
+            // lblTiempo
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(651, 33);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 13);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "æ : æ : æ";
+            this.lblTiempo.AutoSize = true;
+            this.lblTiempo.Location = new System.Drawing.Point(651, 33);
+            this.lblTiempo.Name = "lblTiempo";
+            this.lblTiempo.Size = new System.Drawing.Size(55, 13);
+            this.lblTiempo.TabIndex = 12;
+            this.lblTiempo.Text = "æ : æ : æ";
             // 
             // label6
             // 
@@ -143,14 +144,14 @@
             this.label6.TabIndex = 13;
             this.label6.Text = "/";
             // 
-            // label7
+            // lblRespuestasTotales
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(689, 9);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(14, 13);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "Y";
+            this.lblRespuestasTotales.AutoSize = true;
+            this.lblRespuestasTotales.Location = new System.Drawing.Point(689, 9);
+            this.lblRespuestasTotales.Name = "lblRespuestasTotales";
+            this.lblRespuestasTotales.Size = new System.Drawing.Size(14, 13);
+            this.lblRespuestasTotales.TabIndex = 14;
+            this.lblRespuestasTotales.Text = "Y";
             // 
             // label8
             // 
@@ -170,54 +171,54 @@
             this.label9.TabIndex = 16;
             this.label9.Text = "Dificultad";
             // 
-            // label10
+            // lblCategoria
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(69, 9);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(16, 13);
-            this.label10.TabIndex = 17;
-            this.label10.Text = "☼";
+            this.lblCategoria.AutoSize = true;
+            this.lblCategoria.Location = new System.Drawing.Point(69, 9);
+            this.lblCategoria.Name = "lblCategoria";
+            this.lblCategoria.Size = new System.Drawing.Size(16, 13);
+            this.lblCategoria.TabIndex = 17;
+            this.lblCategoria.Text = "☼";
             // 
-            // label11
+            // lblDificultad
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(69, 33);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(13, 13);
-            this.label11.TabIndex = 18;
-            this.label11.Text = "‼";
+            this.lblDificultad.AutoSize = true;
+            this.lblDificultad.Location = new System.Drawing.Point(69, 33);
+            this.lblDificultad.Name = "lblDificultad";
+            this.lblDificultad.Size = new System.Drawing.Size(13, 13);
+            this.lblDificultad.TabIndex = 18;
+            this.lblDificultad.Text = "‼";
             // 
-            // button5
+            // btnSiguiente
             // 
-            this.button5.Location = new System.Drawing.Point(675, 136);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(27, 23);
-            this.button5.TabIndex = 19;
-            this.button5.Text = "→";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Location = new System.Drawing.Point(675, 136);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(27, 23);
+            this.btnSiguiente.TabIndex = 19;
+            this.btnSiguiente.Text = "→";
+            this.btnSiguiente.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(715, 339);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.label10);
+            this.Controls.Add(this.btnSiguiente);
+            this.Controls.Add(this.lblDificultad);
+            this.Controls.Add(this.lblCategoria);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.lblRespuestasTotales);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblTiempo);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.lblRespuestasActuales);
+            this.Controls.Add(this.btnRespuesta4);
+            this.Controls.Add(this.btnRespuesta2);
+            this.Controls.Add(this.btnRespuesta1);
+            this.Controls.Add(this.btnRespuesta3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblPregunta);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -227,22 +228,22 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblPregunta;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnRespuesta3;
+        private System.Windows.Forms.Button btnRespuesta1;
+        private System.Windows.Forms.Button btnRespuesta2;
+        private System.Windows.Forms.Button btnRespuesta4;
+        private System.Windows.Forms.Label lblRespuestasActuales;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblTiempo;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblRespuestasTotales;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label lblCategoria;
+        private System.Windows.Forms.Label lblDificultad;
+        private System.Windows.Forms.Button btnSiguiente;
     }
 }
 
