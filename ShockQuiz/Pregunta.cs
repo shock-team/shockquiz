@@ -30,7 +30,17 @@ namespace ShockQuiz
 
         public List<string> Respuestas()
         {
-            return iRespuestas;
+            Random random = new Random();
+            string temp;
+            List<string> lista = iRespuestas;
+            lista.Add(iRespuestaCorrecta);
+            for (int i = 0; i < lista.Count; i++)
+            {
+                temp = lista[i];
+                lista[i] = lista[random.Next(lista.Count)];
+                lista[random.Next(lista.Count)] = temp;
+            }
+            return lista;
         }
     }
 }

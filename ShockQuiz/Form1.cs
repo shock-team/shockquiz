@@ -67,10 +67,10 @@ namespace ShockQuiz
 
 
                         }
-                        MessageBox.Show("Respuestas: " +resShow[0]+", "+ resShow[1]+", "+ resShow[2]+", "+ resShow[3] +".");
+                        //MessageBox.Show("Respuestas: " +resShow[0]+", "+ resShow[1]+", "+ resShow[2]+", "+ resShow[3] +".");
 
                         //MessageBox.Show(HttpUtility.HtmlDecode(bResponseItem.incorrect_answers[0].ToString()));
-                        MessageBox.Show("Respuesta correcta: " + HttpUtility.HtmlDecode(bResponseItem.correct_answer.ToString()));
+                        //MessageBox.Show("Respuesta correcta: " + HttpUtility.HtmlDecode(bResponseItem.correct_answer.ToString()));
                         // Se muestra por pantalla cada item completo
                         //MessageBox.Show("Item completo -> "+ bResponseItem);
 

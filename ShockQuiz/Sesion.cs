@@ -12,17 +12,21 @@ namespace ShockQuiz
         private string iCategoria { get; }
         private string iDificultad { get; }
         private double iPuntaje;
-        private DateTime iFecha { get; }
+        private DateTime iFechaInicio;
+        private DateTime iFechaFin;
         private Usuario iUsuario { get; }
         private List<Pregunta> iPreguntas;
+        private int iFactortiempo;
+        private int iFactorDificultad;
 
-        public Sesion(int pCantidadPreguntas, string pCategoria, string pDificultad, double pPuntaje, DateTime pFecha, Usuario pUsuario, List<Pregunta> pPreguntas)
+        public Sesion(int pCantidadPreguntas, string pCategoria, string pDificultad, double pPuntaje, DateTime pFecha, DateTime pFechaFin, Usuario pUsuario, List<Pregunta> pPreguntas)
         {
             this.iCantidadPreguntas = pCantidadPreguntas;
             this.iCategoria = pCategoria;
             this.iDificultad = pDificultad;
             this.iPuntaje = pPuntaje;
-            this.iFecha = pFecha;
+            this.iFechaInicio = pFecha;
+            this.iFechaFin = pFechaFin;
             this.iUsuario = pUsuario;
             this.iPreguntas = pPreguntas;
         }
@@ -32,10 +36,6 @@ namespace ShockQuiz
             get { return this.iPuntaje; }
         }
 
-        public void Puntuar(double pPuntaje)
-        {
-            this.iPuntaje = pPuntaje;
-        }
 
         public Pregunta SiguientePregunta()
         {
@@ -50,6 +50,17 @@ namespace ShockQuiz
                 ListaVaciaException listaVacia = new ListaVaciaException();
                 throw listaVacia;
             }
+        }
+
+        public TimeSpan Duracion()
+        {
+            return iFechaFin - iFechaInicio;
+        }
+
+        public void Finalizar()
+        {
+            this.iFechaFin = DateTime.Now;
+            
         }
     }
 }
