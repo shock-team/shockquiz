@@ -10,26 +10,27 @@ namespace ShockQuiz
     {/// <summary>
     /// El objetivo de esta clase es al
     /// </summary>
-        private string iPregunta { get; }
-        private string iCategoria { get; }
-        private string iDificultad { get; }
-        private List<Respuesta> iRespuestas = new List<Respuesta>();
-        private Respuesta iRespuestaCorrecta { get; }
+        private int PreguntaId { get; }
+        private string Nombre { get; }
+        private string Categoria { get; }
+        private string Dificultad { get; }
+        private IEnumerable<Respuesta> Respuestas = new List<Respuesta>();
+        private Respuesta RespuestaCorrecta { get; }
 
         public Pregunta(string pPregunta, string pCategoria, string pDificultad, List<Respuesta> pRespuestas, Respuesta pRespuestaCorrecta)
         {
-            this.iPregunta = pPregunta;
-            this.iCategoria = pCategoria;
-            this.iDificultad = pDificultad;
-            this.iRespuestas = pRespuestas;
-            this.iRespuestaCorrecta = pRespuestaCorrecta;
+            this.Nombre = pPregunta;
+            this.Categoria = pCategoria;
+            this.Dificultad = pDificultad;
+            this.Respuestas = pRespuestas;
+            this.RespuestaCorrecta = pRespuestaCorrecta;
         }
 
         public ResultadoRespuesta Responder(string pRespuesta)
         {
             //Este método se encarga de comprobar si la respuesta ingresada es correcta, devolviendo
             //true si es así y false en caso contrario.
-            return new ResultadoRespuesta(pRespuesta == iRespuestaCorrecta.iRespuesta, false, iRespuestaCorrecta.iRespuesta);
+            return new ResultadoRespuesta(pRespuesta == RespuestaCorrecta.iRespuesta, false, RespuestaCorrecta.iRespuesta);
         }
 
         public PreguntaDTO ObtenerPreguntaYRespuestas()
@@ -39,11 +40,11 @@ namespace ShockQuiz
             Random random = new Random();
             string temp;
             List<string> lista = new List<string>();
-            foreach (Respuesta respuesta in iRespuestas)
+            foreach (Respuesta respuesta in Respuestas)
             {
                 lista.Add(respuesta.iRespuesta);
             }
-            lista.Add(iRespuestaCorrecta.iRespuesta);
+            lista.Add(RespuestaCorrecta.iRespuesta);
             int a;
             int b;
             for (int i = 0; i < lista.Count; i++)
@@ -61,7 +62,7 @@ namespace ShockQuiz
                 }
             }
             PreguntaDTO pregunta = new PreguntaDTO();
-            pregunta.iPregunta = iPregunta;
+            pregunta.iPregunta = Nombre;
             pregunta.iRespuestas = lista;
             return pregunta;
         }

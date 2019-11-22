@@ -9,6 +9,6 @@ namespace ShockQuiz
     public class PreguntaDTO
     {
         public string iPregunta { get; set; }
-        public List<string> iRespuestas { get; set; }
+        public IEnumerable<string> iRespuestas { get; set; }
     }
 }

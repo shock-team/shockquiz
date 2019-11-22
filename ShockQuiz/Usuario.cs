@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace ShockQuiz
 {
-    class Usuario
+    public class Usuario
     {
-        private string iNombre { get; }
-        private string iContraseña { get; }
+        private int UsuarioId { get; }
+        private string Nombre { get; }
+        private string Contraseña { get; }
 
         public Usuario(string pNombre, string pContraseña)
         {
-            this.iNombre = pNombre;
-            this.iContraseña = pContraseña;
+            this.Nombre = pNombre;
+            this.Contraseña = pContraseña;
         }
     }
 }
