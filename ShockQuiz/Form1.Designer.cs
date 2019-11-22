@@ -66,17 +66,18 @@
             // 
             // btnRespuesta3
             // 
-            this.btnRespuesta3.BackColor = System.Drawing.Color.Red;
+            this.btnRespuesta3.BackColor = System.Drawing.SystemColors.Control;
             this.btnRespuesta3.Location = new System.Drawing.Point(12, 287);
             this.btnRespuesta3.Name = "btnRespuesta3";
             this.btnRespuesta3.Size = new System.Drawing.Size(317, 40);
             this.btnRespuesta3.TabIndex = 6;
             this.btnRespuesta3.Text = "button1";
             this.btnRespuesta3.UseVisualStyleBackColor = false;
+            this.btnRespuesta3.Click += new System.EventHandler(this.BtnRespuesta3_Click);
             // 
             // btnRespuesta1
             // 
-            this.btnRespuesta1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnRespuesta1.BackColor = System.Drawing.SystemColors.Control;
             this.btnRespuesta1.Location = new System.Drawing.Point(12, 241);
             this.btnRespuesta1.Name = "btnRespuesta1";
             this.btnRespuesta1.Size = new System.Drawing.Size(317, 40);
@@ -87,7 +88,7 @@
             // 
             // btnRespuesta2
             // 
-            this.btnRespuesta2.BackColor = System.Drawing.Color.Lime;
+            this.btnRespuesta2.BackColor = System.Drawing.SystemColors.Control;
             this.btnRespuesta2.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.btnRespuesta2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btnRespuesta2.Location = new System.Drawing.Point(386, 241);
@@ -96,6 +97,7 @@
             this.btnRespuesta2.TabIndex = 8;
             this.btnRespuesta2.Text = "button3";
             this.btnRespuesta2.UseVisualStyleBackColor = false;
+            this.btnRespuesta2.Click += new System.EventHandler(this.BtnRespuesta2_Click);
             // 
             // btnRespuesta4
             // 
@@ -107,6 +109,7 @@
             this.btnRespuesta4.TabIndex = 9;
             this.btnRespuesta4.Text = "button4";
             this.btnRespuesta4.UseVisualStyleBackColor = false;
+            this.btnRespuesta4.Click += new System.EventHandler(this.BtnRespuesta4_Click);
             // 
             // lblRespuestasActuales
             // 
@@ -197,6 +200,7 @@
             this.btnSiguiente.TabIndex = 19;
             this.btnSiguiente.Text = "→";
             this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.BtnSiguiente_Click);
             // 
             // Form1
             // 

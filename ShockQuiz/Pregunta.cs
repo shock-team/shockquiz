@@ -32,7 +32,7 @@ namespace ShockQuiz
             return new ResultadoRespuesta(pRespuesta == iRespuestaCorrecta.iRespuesta, false, iRespuestaCorrecta.iRespuesta);
         }
 
-        public List<string> ObtenerRespuestas()
+        public PreguntaDTO ObtenerPreguntaYRespuestas()
         {
             //Este método se encarga de devolver las respuestas asociadas a la pregunta,
             //ordenadas aleatoriamente.
@@ -60,7 +60,10 @@ namespace ShockQuiz
                     }
                 }
             }
-            return lista;
+            PreguntaDTO pregunta = new PreguntaDTO();
+            pregunta.iPregunta = iPregunta;
+            pregunta.iRespuestas = lista;
+            return pregunta;
         }
     }
 }

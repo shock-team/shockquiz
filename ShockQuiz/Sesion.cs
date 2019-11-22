@@ -34,9 +34,9 @@ namespace ShockQuiz
         }
 
 
-        public List<string> ObtenerRespuestas()
+        public PreguntaDTO ObtenerPreguntaYRespuestas()
         {
-            return iPreguntas.First().ObtenerRespuestas();
+            return iPreguntas.First().ObtenerPreguntaYRespuestas();
         }
 
         public ResultadoRespuesta Responder(string pRespuesta)

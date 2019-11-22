@@ -2,11 +2,11 @@
 
 namespace ShockQuiz
 {
-    class Fachada
+    public class Fachada
     {
         private Sesion iSesionActual;
         private int iCantidadPreguntas;
-        private int iRespuestasCorrectas;
+        public int iRespuestasCorrectas { get; set; }
         private int iFactorDificultad;
         private int iFactorTiempo;
 
@@ -16,15 +16,20 @@ namespace ShockQuiz
             //Sesion sesion = new Sesion(iCantidadPreguntas, pCategoria, pDificultad, DateTime.Now, pUsuario, )
         }
 
-        public List<string> ObtenerRespuestas()
+        public PreguntaDTO ObtenerPreguntaYRespuestas()
         {
-            return iSesionActual.ObtenerRespuestas();
+            return iSesionActual.ObtenerPreguntaYRespuestas();
         }
 
 
         public ResultadoRespuesta Responder(string pRespuesta)
         {
-            return iSesionActual.Responder(pRespuesta);
+            ResultadoRespuesta resultado = iSesionActual.Responder(pRespuesta);
+            if (resultado.iEsCorrecta)
+            {
+                iRespuestasCorrectas++;
+            }
+            return resultado;
         }
     }
 }
