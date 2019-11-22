@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\EntityFramework\Repositorio.cs" />
+    <Compile Include="DAL\EntityFramework\ShockQuizDbContext.cs" />
     <Compile Include="DAL\IRepositorioSesion.cs" />
     <Compile Include="DAL\IRepositorioUsuario.cs" />
     <Compile Include="DAL\IRepositorioPregunta.cs" />
