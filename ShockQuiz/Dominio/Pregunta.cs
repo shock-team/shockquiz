@@ -1,28 +1,29 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShockQuiz
+namespace ShockQuiz.Dominio
 {
-    class Pregunta
+    public class Pregunta
     {/// <summary>
     /// El objetivo de esta clase es al
     /// </summary>
         private int PreguntaId { get; }
         private string Nombre { get; }
-        private string Categoria { get; }
-        private string Dificultad { get; }
-        private IEnumerable<Respuesta> Respuestas = new List<Respuesta>();
+        private Categoria Categoria { get; }
+        private Dificultad Dificultad { get; }
+        private IEnumerable<Respuesta> RespuestasIncorrectas = new List<Respuesta>();
         private Respuesta RespuestaCorrecta { get; }
 
-        public Pregunta(string pPregunta, string pCategoria, string pDificultad, List<Respuesta> pRespuestas, Respuesta pRespuestaCorrecta)
+        public Pregunta(string pPregunta, Categoria pCategoria, Dificultad pDificultad, List<Respuesta> pRespuestas, Respuesta pRespuestaCorrecta)
         {
             this.Nombre = pPregunta;
             this.Categoria = pCategoria;
             this.Dificultad = pDificultad;
-            this.Respuestas = pRespuestas;
+            this.RespuestasIncorrectas = pRespuestas;
             this.RespuestaCorrecta = pRespuestaCorrecta;
         }
 
@@ -40,7 +41,7 @@ namespace ShockQuiz
             Random random = new Random();
             string temp;
             List<string> lista = new List<string>();
-            foreach (Respuesta respuesta in Respuestas)
+            foreach (Respuesta respuesta in RespuestasIncorrectas)
             {
                 lista.Add(respuesta.iRespuesta);
             }

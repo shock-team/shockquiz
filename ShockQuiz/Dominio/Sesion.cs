@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ShockQuiz
+namespace ShockQuiz.Dominio
 {
     public class Sesion
     {
         private int SesionId { get; }
         private int CantidadPreguntas { get; }
-        private string Categoria { get; }
-        private string Dificultad { get; }
+        private Categoria Categoria { get; }
+        private Dificultad Dificultad { get; }
         private double Puntaje { get; set; }
         private DateTime FechaInicio;
         private DateTime FechaFin;
@@ -17,7 +17,7 @@ namespace ShockQuiz
         private List<Pregunta> Preguntas;
         private int RespuestasCorrectas = 0;
 
-        public Sesion(int pCantidadPreguntas, string pCategoria, string pDificultad, double pPuntaje, DateTime pFecha, DateTime pFechaFin, Usuario pUsuario, List<Pregunta> pPreguntas)
+        public Sesion(int pCantidadPreguntas, Categoria pCategoria, Dificultad pDificultad, double pPuntaje, DateTime pFecha, DateTime pFechaFin, Usuario pUsuario, List<Pregunta> pPreguntas)
         {
             this.CantidadPreguntas = pCantidadPreguntas;
             this.Categoria = pCategoria;

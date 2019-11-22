@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShockQuiz
+namespace ShockQuiz.Dominio
 {
     public class Usuario
     {
