@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ShockQuiz
 {
-    public class Respuesta
+    public class PreguntaDTO
     {
-        private int RespuestaId { get; set; }
-        public string iRespuesta { get; set; }
-
+        public string iPregunta { get; set; }
+        public IEnumerable<string> iRespuestas { get; set; }
     }
 }

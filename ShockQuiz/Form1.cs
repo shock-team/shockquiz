@@ -1,11 +1,9 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
 
@@ -61,9 +59,9 @@ namespace ShockQuiz
                             indices.Add(i);
                         }
                         int j = indices.Count;
-                        while (j>0  )
+                        while (j > 0)
                         {
-                            int x=indices[j];
+                            int x = indices[j];
 
 
 
@@ -91,21 +89,108 @@ namespace ShockQuiz
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: "+ ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
 
-            
+
         }
         public Form1()
         {
             InitializeComponent();
             JSON();
-           
+            SiguientePregunta();
         }
+
+        private void ColorBotonCorrecto(string pRespuesta)
+        {
+            if (btnRespuesta1.Text == pRespuesta)
+            {
+                btnRespuesta1.BackColor = System.Drawing.Color.Green;
+            }
+            else if (btnRespuesta2.Text == pRespuesta)
+            {
+                btnRespuesta2.BackColor = System.Drawing.Color.Green;
+            }
+            else if (btnRespuesta3.Text == pRespuesta)
+            {
+                btnRespuesta3.BackColor = System.Drawing.Color.Green;
+            }
+            else if (btnRespuesta4.Text == pRespuesta)
+            {
+                btnRespuesta4.BackColor = System.Drawing.Color.Green;
+            }
+            btnRespuesta1.Enabled = false;
+            btnRespuesta2.Enabled = false;
+            btnRespuesta3.Enabled = false;
+            btnRespuesta4.Enabled = false;
+        }
+
 
         private void BtnRespuesta1_Click(object sender, EventArgs e)
         {
-            fachada.Responder(btnRespuesta1.Text);
+            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta1.Text);
+            if (!resultado.iEsCorrecta)
+            {
+                btnRespuesta1.BackColor = System.Drawing.Color.Red;
+            }
+            ColorBotonCorrecto(resultado.iRespuestaCorrecta);
+            lblRespuestasActuales.Text = fachada.iRespuestasCorrectas.ToString();
+        }
+
+        private void BtnRespuesta2_Click(object sender, EventArgs e)
+        {
+            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta2.Text);
+            if (!resultado.iEsCorrecta)
+            {
+                btnRespuesta2.BackColor = System.Drawing.Color.Red;
+            }
+            ColorBotonCorrecto(resultado.iRespuestaCorrecta);
+            lblRespuestasActuales.Text = fachada.iRespuestasCorrectas.ToString();
+        }
+
+        private void BtnRespuesta3_Click(object sender, EventArgs e)
+        {
+            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta3.Text);
+            if (!resultado.iEsCorrecta)
+            {
+                btnRespuesta3.BackColor = System.Drawing.Color.Red;
+            }
+            ColorBotonCorrecto(resultado.iRespuestaCorrecta);
+            lblRespuestasActuales.Text = fachada.iRespuestasCorrectas.ToString();
+        }
+
+        private void BtnRespuesta4_Click(object sender, EventArgs e)
+        {
+            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta4.Text);
+            if (!resultado.iEsCorrecta)
+            {
+                btnRespuesta4.BackColor = System.Drawing.Color.Red;
+            }
+            ColorBotonCorrecto(resultado.iRespuestaCorrecta);
+            lblRespuestasActuales.Text = fachada.iRespuestasCorrectas.ToString();
+        }
+
+        private void SiguientePregunta()
+        {
+            PreguntaDTO actual = fachada.ObtenerPreguntaYRespuestas();
+            lblPregunta.Text = actual.iPregunta;
+            btnRespuesta1.Text = actual.iRespuestas[0];
+            btnRespuesta1.Enabled = true;
+            btnRespuesta1.BackColor = System.Drawing.SystemColors.Control;
+            btnRespuesta2.Text = actual.iRespuestas[1];
+            btnRespuesta2.Enabled = true;
+            btnRespuesta2.BackColor = System.Drawing.SystemColors.Control;
+            btnRespuesta3.Text = actual.iRespuestas[2];
+            btnRespuesta3.Enabled = true;
+            btnRespuesta3.BackColor = System.Drawing.SystemColors.Control;
+            btnRespuesta4.Text = actual.iRespuestas[3];
+            btnRespuesta4.Enabled = true;
+            btnRespuesta4.BackColor = System.Drawing.SystemColors.Control;
+        }
+
+        private void BtnSiguiente_Click(object sender, EventArgs e)
+        {
+            SiguientePregunta();
         }
     }
 }
