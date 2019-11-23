@@ -40,14 +40,14 @@ namespace ShockQuiz.Dominio
         {
             Pregunta pregunta = Preguntas.First();
             ResultadoRespuesta resultado = pregunta.Responder(pRespuesta);
-            if (resultado.iEsCorrecta)
+            if (resultado.EsCorrecta)
             {
                 RespuestasCorrectas++;
             }
             Preguntas.Remove(pregunta);
             if (Preguntas.Count() == 0)
             {
-                resultado.iFinSesion = true;
+                resultado.FinSesion = true;
                 Finalizar();
             }
             return resultado;

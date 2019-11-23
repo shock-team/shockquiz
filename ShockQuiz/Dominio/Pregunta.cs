@@ -31,7 +31,7 @@ namespace ShockQuiz.Dominio
         {
             //Este método se encarga de comprobar si la respuesta ingresada es correcta, devolviendo
             //true si es así y false en caso contrario.
-            return new ResultadoRespuesta(pRespuesta == RespuestaCorrecta.iRespuesta, false, RespuestaCorrecta.iRespuesta);
+            return new ResultadoRespuesta(pRespuesta == RespuestaCorrecta.DefRespuesta, false, RespuestaCorrecta.DefRespuesta);
         }
 
         public PreguntaDTO ObtenerPreguntaYRespuestas()
@@ -43,9 +43,9 @@ namespace ShockQuiz.Dominio
             List<string> lista = new List<string>();
             foreach (Respuesta respuesta in RespuestasIncorrectas)
             {
-                lista.Add(respuesta.iRespuesta);
+                lista.Add(respuesta.DefRespuesta);
             }
-            lista.Add(RespuestaCorrecta.iRespuesta);
+            lista.Add(RespuestaCorrecta.DefRespuesta);
             int a;
             int b;
             for (int i = 0; i < lista.Count; i++)

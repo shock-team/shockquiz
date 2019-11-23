@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ShockQuiz.Dominio;
 
 namespace ShockQuiz
 {
@@ -25,7 +26,7 @@ namespace ShockQuiz
         public ResultadoRespuesta Responder(string pRespuesta)
         {
             ResultadoRespuesta resultado = iSesionActual.Responder(pRespuesta);
-            if (resultado.iEsCorrecta)
+            if (resultado.EsCorrecta)
             {
                 iRespuestasCorrectas++;
             }

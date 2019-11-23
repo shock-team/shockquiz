@@ -8,15 +8,15 @@ namespace ShockQuiz.Dominio
 {
     public class ResultadoRespuesta
     {
-        public bool iEsCorrecta { get; }
-        public bool iFinSesion { get; set; }
-        public string iRespuestaCorrecta { get; }
+        public bool EsCorrecta { get; }
+        public bool FinSesion { get; set; }
+        public string RespuestaCorrecta { get; }
 
         public ResultadoRespuesta(bool pCorrecta, bool pFin, string pRespuesta)
         {
-            iEsCorrecta = pCorrecta;
-            iFinSesion = pFin;
-            iRespuestaCorrecta = pRespuesta;
+            EsCorrecta = pCorrecta;
+            FinSesion = pFin;
+            RespuestaCorrecta = pRespuesta;
         }
     }
 }

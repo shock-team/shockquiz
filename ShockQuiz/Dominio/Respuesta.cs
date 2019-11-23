@@ -9,7 +9,6 @@ namespace ShockQuiz.Dominio
     public class Respuesta
     {
         private int RespuestaId { get; set; }
-        public string iRespuesta { get; set; }
-
+        public string DefRespuesta { get; set; }
     }
 }
