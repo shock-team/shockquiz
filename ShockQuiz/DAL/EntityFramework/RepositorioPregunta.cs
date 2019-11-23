@@ -9,21 +9,28 @@ namespace ShockQuiz.DAL.EntityFramework
 {
     class RepositorioPregunta:Repositorio<Pregunta, ShockQuizDbContext>, IRepositorioPregunta
     {
+        static Random rnd = new Random();
         public RepositorioPregunta(ShockQuizDbContext pDbContext) : base(pDbContext) { }
+        
 
         public void AgregarConjunto(IEnumerable<Pregunta> pEntity)
         {
-            throw new NotImplementedException();
+            foreach (Pregunta item in pEntity)
+            {
+                iDbContext.Set<Pregunta>().Add(item);
+            }
         }
 
-        public IEnumerable<Pregunta> GetAll()
+        public IEnumerable<Pregunta> ObtenerTodas()
         {
-            throw new NotImplementedException();
+            return this.iDbContext.Set<Pregunta>();
         }
 
-        public IEnumerable<Pregunta> ObtenerPreguntas(string pCategoria, string pDificultad)
+        public IEnumerable<Pregunta> ObtenerPreguntas(Categoria pCategoria, Dificultad pDificultad, int pCantidad = 10)
         {
-            throw new NotImplementedException();
+            List<Pregunta> ans = new List<Pregunta>();
+            ans = this.iDbContext.Set<Pregunta>().Where(x => x.Categoria == pCategoria && x.Dificultad == pDificultad).ToList();
+            return ans.OrderBy(x => rnd.Next()).Take(pCantidad);
         }
     }
 }

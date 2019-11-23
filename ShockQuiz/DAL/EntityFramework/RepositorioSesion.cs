@@ -14,12 +14,14 @@ namespace ShockQuiz.DAL.EntityFramework
 
         public IEnumerable<Sesion> ObtenerRanking(int pTop)
         {
-            throw new NotImplementedException();
+            List<Sesion> aux = new List<Sesion>();
+            aux = this.iDbContext.Set<Sesion>().OrderByDescending(x => x.Puntaje).ToList();
+            return aux.Take(pTop);
         }
 
         public IEnumerable<Sesion> ObtenerTodas(string pUsuario)
         {
-            throw new NotImplementedException();
+            return this.iDbContext.Set<Sesion>().Where(x => x.Usuario.Nombre == pUsuario);
         }
     }
 }

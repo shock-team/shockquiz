@@ -7,7 +7,7 @@ namespace ShockQuiz.DAL
 
     {
         void AgregarConjunto(IEnumerable<Pregunta> pEntity);
-        IEnumerable<Pregunta> ObtenerPreguntas(string pCategoria, string pDificultad);
-        IEnumerable<Pregunta> GetAll();
+        IEnumerable<Pregunta> ObtenerPreguntas(Categoria pCategoria, Dificultad pDificultad, int pCantidad);
+        IEnumerable<Pregunta> ObtenerTodas();
     }
 }

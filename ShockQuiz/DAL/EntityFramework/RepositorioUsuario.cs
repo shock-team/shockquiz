@@ -7,28 +7,19 @@ using System.Threading.Tasks;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    class RepositorioUsuario:Repositorio<Sesion, ShockQuizDbContext>, IRepositorioUsuario
+    class RepositorioUsuario:Repositorio<Usuario, ShockQuizDbContext>, IRepositorioUsuario
     {
         public RepositorioUsuario(ShockQuizDbContext pDbContext) : base(pDbContext) { }
 
-        public void Agregar(Usuario pEntity)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Ascender(string pNombre)
         {
-            throw new NotImplementedException();
+            Usuario user = this.iDbContext.Set<Usuario>().Find(pNombre);
+            user.Admin = true;
         }
 
         public IEnumerable<Usuario> ObtenerTodos()
         {
-            throw new NotImplementedException();
-        }
-
-        Usuario IRepositorio<Usuario>.Obtener(string pNombre)
-        {
-            throw new NotImplementedException();
+            return this.iDbContext.Set<Usuario>();
         }
     }
 }
