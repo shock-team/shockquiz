@@ -7,14 +7,31 @@ namespace ShockQuiz.DAL.EntityFramework
         where TEntity : class
         where TDbContext : DbContext
     {
+        protected readonly TDbContext iDbContext;
+
+        public Repositorio(TDbContext pDbContext)
+        {
+            if (pDbContext == null)
+            {
+                throw new ArgumentNullException(nameof(pDbContext));
+            }
+
+            this.iDbContext = pDbContext;
+        }
+
         public void Agregar(TEntity pEntity)
         {
-            throw new NotImplementedException();
+            if (pEntity == null)
+            {
+                throw new ArgumentNullException(nameof(pEntity));
+            }
+
+            iDbContext.Set<TEntity>().Add(pEntity);
         }
 
         public TEntity Obtener(string pNombre)
         {
-            throw new NotImplementedException();
+            return this.iDbContext.Set<TEntity>().Find(pNombre);
         }
     }
 }
