@@ -18,7 +18,7 @@ namespace ShockQuiz.DAL.EntityFramework
 
         public IRepositorioSesion RepositorioSesion { get; private set; }
 
-        public void Save()
+        public void GuardarCambios()
         {
             this.iDbContext.SaveChanges();
         }

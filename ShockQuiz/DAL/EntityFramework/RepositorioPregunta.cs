@@ -13,9 +13,9 @@ namespace ShockQuiz.DAL.EntityFramework
         public RepositorioPregunta(ShockQuizDbContext pDbContext) : base(pDbContext) { }
         
 
-        public void AgregarConjunto(IEnumerable<Pregunta> pEntity)
+        public void AgregarConjunto(IEnumerable<Pregunta> pConjunto)
         {
-            foreach (Pregunta item in pEntity)
+            foreach (Pregunta item in pConjunto)
             {
                 iDbContext.Set<Pregunta>().Add(item);
             }

@@ -2,7 +2,7 @@
 {
     public interface IUnitOfWork
     {
-        void Save();
+        void GuardarCambios();
         IRepositorioPregunta RepositorioPreguntas { get; }
         IRepositorioUsuario RepositorioUsuarios { get; }
         IRepositorioSesion RepositorioSesion { get; }

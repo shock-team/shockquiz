@@ -13,8 +13,8 @@ namespace ShockQuiz.Dominio
     /// </summary>
         private int PreguntaId { get; }
         private string Nombre { get; }
-        public Categoria Categoria { get; }
-        public Dificultad Dificultad { get; }
+        virtual public Categoria Categoria { get; }
+        virtual public Dificultad Dificultad { get; }
         private IEnumerable<Respuesta> RespuestasIncorrectas = new List<Respuesta>();
         private Respuesta RespuestaCorrecta { get; }
 
