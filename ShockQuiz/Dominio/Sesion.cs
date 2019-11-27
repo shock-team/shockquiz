@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ShockQuiz
+namespace ShockQuiz.Dominio
 {
     public class Sesion
     {
         private int SesionId { get; }
         private int CantidadPreguntas { get; }
-        private string Categoria { get; }
-        private string Dificultad { get; }
-        private double Puntaje { get; set; }
+        public Categoria Categoria { get; }
+        public Dificultad Dificultad { get; }
+        public double Puntaje { get; set; }
         private DateTime FechaInicio;
         private DateTime FechaFin;
-        private Usuario Usuario { get; }
+        public Usuario Usuario { get; }
         private List<Pregunta> Preguntas;
         private int RespuestasCorrectas = 0;
 
-        public Sesion(int pCantidadPreguntas, string pCategoria, string pDificultad, double pPuntaje, DateTime pFecha, DateTime pFechaFin, Usuario pUsuario, List<Pregunta> pPreguntas)
+        public Sesion(int pCantidadPreguntas, Categoria pCategoria, Dificultad pDificultad, double pPuntaje, DateTime pFecha, DateTime pFechaFin, Usuario pUsuario, List<Pregunta> pPreguntas)
         {
             this.CantidadPreguntas = pCantidadPreguntas;
             this.Categoria = pCategoria;
@@ -40,14 +40,14 @@ namespace ShockQuiz
         {
             Pregunta pregunta = Preguntas.First();
             ResultadoRespuesta resultado = pregunta.Responder(pRespuesta);
-            if (resultado.iEsCorrecta)
+            if (resultado.EsCorrecta)
             {
                 RespuestasCorrectas++;
             }
             Preguntas.Remove(pregunta);
             if (Preguntas.Count() == 0)
             {
-                resultado.iFinSesion = true;
+                resultado.FinSesion = true;
                 Finalizar();
             }
             return resultado;

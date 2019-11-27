@@ -1,10 +1,11 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShockQuiz
+namespace ShockQuiz.Dominio
 {
     public class Pregunta
     {/// <summary>
@@ -12,17 +13,17 @@ namespace ShockQuiz
     /// </summary>
         private int PreguntaId { get; }
         private string Nombre { get; }
-        private string Categoria { get; }
-        private string Dificultad { get; }
-        private IEnumerable<Respuesta> Respuestas = new List<Respuesta>();
+        public Categoria Categoria { get; }
+        public Dificultad Dificultad { get; }
+        private IEnumerable<Respuesta> RespuestasIncorrectas = new List<Respuesta>();
         private Respuesta RespuestaCorrecta { get; }
 
-        public Pregunta(string pPregunta, string pCategoria, string pDificultad, List<Respuesta> pRespuestas, Respuesta pRespuestaCorrecta)
+        public Pregunta(string pPregunta, Categoria pCategoria, Dificultad pDificultad, List<Respuesta> pRespuestas, Respuesta pRespuestaCorrecta)
         {
             this.Nombre = pPregunta;
             this.Categoria = pCategoria;
             this.Dificultad = pDificultad;
-            this.Respuestas = pRespuestas;
+            this.RespuestasIncorrectas = pRespuestas;
             this.RespuestaCorrecta = pRespuestaCorrecta;
         }
 
@@ -30,7 +31,7 @@ namespace ShockQuiz
         {
             //Este método se encarga de comprobar si la respuesta ingresada es correcta, devolviendo
             //true si es así y false en caso contrario.
-            return new ResultadoRespuesta(pRespuesta == RespuestaCorrecta.iRespuesta, false, RespuestaCorrecta.iRespuesta);
+            return new ResultadoRespuesta(pRespuesta == RespuestaCorrecta.DefRespuesta, false, RespuestaCorrecta.DefRespuesta);
         }
 
         public PreguntaDTO ObtenerPreguntaYRespuestas()
@@ -40,11 +41,11 @@ namespace ShockQuiz
             Random random = new Random();
             string temp;
             List<string> lista = new List<string>();
-            foreach (Respuesta respuesta in Respuestas)
+            foreach (Respuesta respuesta in RespuestasIncorrectas)
             {
-                lista.Add(respuesta.iRespuesta);
+                lista.Add(respuesta.DefRespuesta);
             }
-            lista.Add(RespuestaCorrecta.iRespuesta);
+            lista.Add(RespuestaCorrecta.DefRespuesta);
             int a;
             int b;
             for (int i = 0; i < lista.Count; i++)
