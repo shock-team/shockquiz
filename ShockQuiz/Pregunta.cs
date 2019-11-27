@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShockQuiz
 {
-    class Pregunta
+    public class Pregunta
     {/// <summary>
     /// El objetivo de esta clase es al
     /// </summary>

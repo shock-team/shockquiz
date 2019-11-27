@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShockQuiz
 {
-    class ResultadoRespuesta
+    public class ResultadoRespuesta
     {
         public bool iEsCorrecta { get; }
         public bool iFinSesion { get; set; }
