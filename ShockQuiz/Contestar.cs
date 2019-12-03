@@ -7,10 +7,7 @@ using System.Text;
 using System.Web;
 using System.Windows.Forms;
 using ShockQuiz.Dominio;
-<<<<<<< HEAD:ShockQuiz/Contestar.cs
 using ShockQuiz.IO;
-=======
->>>>>>> 4ac8bb843540e464c3f787cb553c39f65231cecc:ShockQuiz/Form1.cs
 
 
 namespace ShockQuiz
@@ -153,11 +150,7 @@ namespace ShockQuiz
                 btnRespuesta1.BackColor = System.Drawing.Color.Red;
             }
             ColorBotonCorrecto(resultado.RespuestaCorrecta);
-<<<<<<< HEAD:ShockQuiz/Contestar.cs
             Finalizar(resultado.FinSesion);
-=======
-            lblRespuestasActuales.Text = fachada.iRespuestasCorrectas.ToString();
->>>>>>> 4ac8bb843540e464c3f787cb553c39f65231cecc:ShockQuiz/Form1.cs
         }
 
         private void BtnRespuesta2_Click(object sender, EventArgs e)
@@ -168,11 +161,7 @@ namespace ShockQuiz
                 btnRespuesta2.BackColor = System.Drawing.Color.Red;
             }
             ColorBotonCorrecto(resultado.RespuestaCorrecta);
-<<<<<<< HEAD:ShockQuiz/Contestar.cs
             Finalizar(resultado.FinSesion);
-=======
-            lblRespuestasActuales.Text = fachada.iRespuestasCorrectas.ToString();
->>>>>>> 4ac8bb843540e464c3f787cb553c39f65231cecc:ShockQuiz/Form1.cs
         }
 
         private void BtnRespuesta3_Click(object sender, EventArgs e)
@@ -183,11 +172,7 @@ namespace ShockQuiz
                 btnRespuesta3.BackColor = System.Drawing.Color.Red;
             }
             ColorBotonCorrecto(resultado.RespuestaCorrecta);
-<<<<<<< HEAD:ShockQuiz/Contestar.cs
             Finalizar(resultado.FinSesion);
-=======
-            lblRespuestasActuales.Text = fachada.iRespuestasCorrectas.ToString();
->>>>>>> 4ac8bb843540e464c3f787cb553c39f65231cecc:ShockQuiz/Form1.cs
         }
 
         private void BtnRespuesta4_Click(object sender, EventArgs e)
@@ -198,11 +183,7 @@ namespace ShockQuiz
                 btnRespuesta4.BackColor = System.Drawing.Color.Red;
             }
             ColorBotonCorrecto(resultado.RespuestaCorrecta);
-<<<<<<< HEAD:ShockQuiz/Contestar.cs
             Finalizar(resultado.FinSesion);
-=======
-            lblRespuestasActuales.Text = fachada.iRespuestasCorrectas.ToString();
->>>>>>> 4ac8bb843540e464c3f787cb553c39f65231cecc:ShockQuiz/Form1.cs
         }
 
         private void SiguientePregunta()
