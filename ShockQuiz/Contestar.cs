@@ -96,7 +96,7 @@ namespace ShockQuiz
 
 
         }
-        public Contestar(Categoria pCategoria, Dificultad pDificultad)
+        public Contestar(Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto)
         {
             InitializeComponent();
             JSON();
