@@ -12,9 +12,9 @@ using ShockQuiz.IO;
 
 namespace ShockQuiz
 {
-    public partial class Contestar : Form
+    public partial class SesionForm : Form
     {
-        Fachada fachada = new Fachada();
+        FachadaSesion fachada = new FachadaSesion();
 
         public void JSON()
         {
@@ -96,15 +96,16 @@ namespace ShockQuiz
 
 
         }
-        public Contestar(Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto)
+        public SesionForm(Usuario pUsuario, Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto, int pCantidad)
         {
             InitializeComponent();
             JSON();
             lblCategoria.Text = pCategoria.Nombre;
             lblDificultad.Text = pDificultad.Nombre;
+            fachada.IniciarSesion(pUsuario, pCategoria, pDificultad, pCantidad, pConjunto);
             lblRespuestasActuales.Text = "0";
             SiguientePregunta();
-            lblRespuestasTotales.Text = fachada.iCantidadPreguntas.ToString();
+            lblRespuestasTotales.Text = pCantidad.ToString();
             timer1.Start();
         }
 

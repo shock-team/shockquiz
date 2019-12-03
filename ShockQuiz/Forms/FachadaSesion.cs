@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ShockQuiz
 {
-    public class Fachada
+    public class FachadaSesion
     {
         private Sesion iSesionActual { get; set; }
         public int iCantidadPreguntas { get; set; }

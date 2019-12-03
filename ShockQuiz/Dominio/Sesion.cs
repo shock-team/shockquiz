@@ -7,19 +7,19 @@ namespace ShockQuiz.Dominio
 {
     public class Sesion
     {
-        public int SesionId { get; }
-        public int CantidadPreguntas { get; }
+        public int SesionId { get; set; }
+        public int CantidadPreguntas { get; set; }
         public int CategoriaId { get; set; }
-        public Categoria Categoria { get; }
+        public Categoria Categoria { get; set; }
         public int DificultadId { get; set; }
-        public Dificultad Dificultad { get; }
+        public Dificultad Dificultad { get; set; }
         public double Puntaje { get; set; }
-        public DateTime FechaInicio;
-        public DateTime FechaFin;
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
         public Usuario Usuario { get; set; }
         public int UsuarioId { get; set; }
         public List<Pregunta> Preguntas { get; set; }
-        public int RespuestasCorrectas {get; set; }
+        public int RespuestasCorrectas { get; set; }
 
         public PreguntaDTO ObtenerPreguntaYRespuestas()
         {
@@ -38,7 +38,22 @@ namespace ShockQuiz.Dominio
             if (Preguntas.Count() == 0)
             {
                 resultado.FinSesion = true;
-                Finalizar();
+                this.FechaFin = DateTime.Now;
+                double factorTiempo;
+                double duracionPromedio = Duracion().TotalSeconds / CantidadPreguntas;
+                if (duracionPromedio < Properties.Settings.Default.Limite1)
+                {
+                    factorTiempo = Properties.Settings.Default.FactorMinimo;
+                }
+                else if (duracionPromedio > Properties.Settings.Default.Limite2)
+                {
+                    factorTiempo = Properties.Settings.Default.FactorMaximo;
+                }
+                else
+                {
+                    factorTiempo = Properties.Settings.Default.FactorMedio;
+                }
+                Puntaje = (RespuestasCorrectas / CantidadPreguntas) * Dificultad.FactorDificultad * factorTiempo;
             }
             return resultado;
         }
@@ -46,14 +61,6 @@ namespace ShockQuiz.Dominio
         public TimeSpan Duracion()
         {
             return FechaFin - FechaInicio;
-        }
-
-        public void Finalizar()
-        {
-            double factorTiempo = 1;
-            double factorDificultad = 1;
-            this.FechaFin = DateTime.Now;
-            Puntaje = (RespuestasCorrectas / CantidadPreguntas) * factorTiempo * factorDificultad;
         }
     }
 }

@@ -60,11 +60,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contestar.cs">
+    <Compile Include="Forms\ConfigurarSesionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Contestar.Designer.cs">
-      <DependentUpon>Contestar.cs</DependentUpon>
+    <Compile Include="Forms\ConfigurarSesionForm.Designer.cs">
+      <DependentUpon>ConfigurarSesionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FachadaConfigurarSesion.cs" />
+    <Compile Include="Forms\MenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MenuForm.Designer.cs">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SesionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SesionForm.Designer.cs">
+      <DependentUpon>SesionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DAL\EntityFramework\Mapping\SesionMap.cs" />
     <Compile Include="DAL\EntityFramework\Mapping\UsuarioMap.cs" />
@@ -82,7 +95,7 @@
     <Compile Include="Dominio\Categoria.cs" />
     <Compile Include="Dominio\Conjunto.cs" />
     <Compile Include="Dominio\Dificultad.cs" />
-    <Compile Include="Fachada.cs" />
+    <Compile Include="Forms\FachadaSesion.cs" />
     <Compile Include="Forms\FachadaLogin.cs" />
     <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
@@ -98,8 +111,14 @@
     <Compile Include="Dominio\Respuesta.cs" />
     <Compile Include="Dominio\Sesion.cs" />
     <Compile Include="Dominio\Usuario.cs" />
-    <EmbeddedResource Include="Contestar.resx">
-      <DependentUpon>Contestar.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ConfigurarSesionForm.resx">
+      <DependentUpon>ConfigurarSesionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MenuForm.resx">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SesionForm.resx">
+      <DependentUpon>SesionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
