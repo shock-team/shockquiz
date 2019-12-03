@@ -8,14 +8,18 @@ namespace ShockQuiz.Dominio
     {
         public int SesionId { get; }
         public int CantidadPreguntas { get; }
+
+        public int CategoriaId { get; set; }
         public Categoria Categoria { get; }
+        public int DificultadId { get; set; }
         public Dificultad Dificultad { get; }
         public double Puntaje { get; set; }
         public DateTime FechaInicio;
         public DateTime FechaFin;
-        public Usuario Usuario { get; }
-        public List<Pregunta> Preguntas;
-        public int RespuestasCorrectas = 0;
+        public Usuario Usuario { get; set; }
+        public int UsuarioId { get; set; }
+        public List<Pregunta> Preguntas { get; set; }
+        public int RespuestasCorrectas {get; set; }
 
         public Sesion(int pCantidadPreguntas, Categoria pCategoria, Dificultad pDificultad, double pPuntaje, DateTime pFecha, DateTime pFechaFin, Usuario pUsuario, List<Pregunta> pPreguntas)
         {

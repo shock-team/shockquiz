@@ -21,6 +21,22 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
                 .HasColumnName("cantidadPreguntas")
                 .IsRequired();
 
+            this.HasRequired<Categoria>(x => x.Categoria)
+                .WithMany(x => x.Sesiones)
+                .HasForeignKey<int>(x => x.CategoriaId);
+
+            this.HasRequired<Dificultad>(x => x.Dificultad)
+                .WithMany(x => x.Sesiones)
+                .HasForeignKey<int>(x => x.DificultadId);
+
+            this.Property(x => x.Puntaje)
+                .HasColumnName("puntaje")
+                .IsRequired();
+
+            this.
+
+
+
             
 
 
