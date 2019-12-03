@@ -10,6 +10,7 @@ namespace ShockQuiz.DAL.EntityFramework
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ShockQuizDbContext, Configuration>());
         }
 
+        
         public DbSet<Pregunta> Preguntas { get; set; }
         public DbSet<Sesion> Sesiones { get; set; }
         public DbSet<Respuesta> Respuestas { get; set; }

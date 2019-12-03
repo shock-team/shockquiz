@@ -13,10 +13,26 @@ namespace ShockQuiz.DAL.EntityFramework
         private bool iDisposedValue = false;
 
         public IRepositorioPregunta RepositorioPreguntas { get; private set; }
+        public IRepositorioPregunta RepositorioPregunta { get; private set; }
+        public IRepositorioUsuario RepositorioUsuario { get; private set; }
+        public IRepositorioSesion RepositorioSesion { get; private set; }
 
         public IRepositorioUsuario RepositorioUsuarios { get; private set; }
 
         public IRepositorioSesion RepositorioSesion { get; private set; }
+
+        public UnitOfWork(ShockQuizDbContext pDbContext)
+        {
+            if (pDbContext == null)
+            {
+                throw new ArgumentNullException(nameof(pDbContext));
+            }
+
+            this.iDbContext = pDbContext;
+            this.RepositorioPregunta = new RepositorioPregunta(pDbContext);
+            this.RepositorioSesion = new RepositorioSesion(pDbContext);
+            this.RepositorioUsuario = new RepositorioUsuario(pDbContext);
+        }
 
         public void GuardarCambios()
         {
