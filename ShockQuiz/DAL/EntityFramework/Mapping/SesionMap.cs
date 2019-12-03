@@ -12,6 +12,8 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
     {
         public SesionMap()
         {
+            this.ToTable("Sesiones");
+
             this.HasKey(x => x.SesionId);
             this.Property(x => x.SesionId)
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)

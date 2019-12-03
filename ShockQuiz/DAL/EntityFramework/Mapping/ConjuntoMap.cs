@@ -7,6 +7,8 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
     {
         public ConjuntoMap()
         {
+            this.ToTable("Conjuntos");
+
             this.HasKey(x => x.ConjuntoId);
             this.Property(x => x.ConjuntoId)
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)

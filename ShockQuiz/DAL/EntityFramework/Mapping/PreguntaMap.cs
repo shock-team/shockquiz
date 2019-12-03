@@ -12,6 +12,8 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
     {
         public PreguntaMap()
         {
+            this.ToTable("Preguntas");
+
             this.HasKey(x => x.PreguntaId);
             this.Property(x => x.PreguntaId)
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)

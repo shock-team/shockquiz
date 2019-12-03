@@ -18,7 +18,7 @@ namespace ShockQuiz.Forms
         {
             InitializeComponent();
             List<Sesion> ranking = facha.ObtenerTop();
-            dgvRanking.DataSource = ranking.Select(x => new { x.Usuario, x.Puntaje, x.Categoria.Nombre, x.CantidadPreguntas }).ToList();
+            dgvRanking.DataSource = ranking.Select(x => new {x.Usuario, x.Puntaje, x.Categoria.Nombre, x.CantidadPreguntas}).ToList();
         }
     }
 }

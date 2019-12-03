@@ -60,6 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\EntityFramework\RepositorioCategoria.cs" />
+    <Compile Include="DAL\EntityFramework\RepositorioConjunto.cs" />
+    <Compile Include="DAL\EntityFramework\RepositorioDificultad.cs" />
     <Compile Include="Dominio\ConjuntoOTDB.cs" />
     <Compile Include="Forms\ConfiguracionAdminForm.cs">
       <SubType>Form</SubType>
