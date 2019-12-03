@@ -14,6 +14,10 @@ namespace ShockQuiz.Dominio
      /// </summary>
         public int PreguntaId { get; }
         public string Nombre { get; }
+        public int CategoriaId { get; set; }
+        virtual public Categoria Categoria { get; set; }
+        public int DificultadId { get; set; }
+        virtual public Dificultad Dificultad { get; set; }
         virtual public Categoria Categoria { get; }
         public int ConjuntoId { get; }
         virtual public Dificultad Dificultad { get; }
