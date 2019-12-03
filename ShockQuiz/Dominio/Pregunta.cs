@@ -10,18 +10,12 @@ namespace ShockQuiz.Dominio
 {
     public class Pregunta
     {/// <summary>
-    /// El objetivo de esta clase es al
-    /// </summary>
-        private int PreguntaId { get; }
-        private string Nombre { get; }
      /// El objetivo de esta clase es al
      /// </summary>
         public int PreguntaId { get; }
         public string Nombre { get; }
         virtual public Categoria Categoria { get; }
         virtual public Dificultad Dificultad { get; }
-        private IEnumerable<Respuesta> RespuestasIncorrectas = new List<Respuesta>();
-        private Respuesta RespuestaCorrecta { get; }
         public IEnumerable<Respuesta> RespuestasIncorrectas = new List<Respuesta>();
         public Respuesta RespuestaCorrecta { get; }
 

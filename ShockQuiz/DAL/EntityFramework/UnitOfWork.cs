@@ -12,14 +12,11 @@ namespace ShockQuiz.DAL.EntityFramework
         private readonly ShockQuizDbContext iDbContext;
         private bool iDisposedValue = false;
 
-        public IRepositorioPregunta RepositorioPreguntas { get; private set; }
         public IRepositorioPregunta RepositorioPregunta { get; private set; }
         public IRepositorioUsuario RepositorioUsuario { get; private set; }
         public IRepositorioSesion RepositorioSesion { get; private set; }
 
-        public IRepositorioUsuario RepositorioUsuarios { get; private set; }
 
-        public IRepositorioSesion RepositorioSesion { get; private set; }
 
         public UnitOfWork(ShockQuizDbContext pDbContext)
         {
