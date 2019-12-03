@@ -8,7 +8,7 @@ namespace ShockQuiz
 {
     public class PreguntaDTO
     {
-        public string iPregunta { get; set; }
-        public IEnumerable<string> iRespuestas { get; set; }
+        public string Pregunta { get; set; }
+        public IList<string> Respuestas { get; set; }
     }
 }
