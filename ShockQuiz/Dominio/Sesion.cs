@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ShockQuiz.IO;
 
 namespace ShockQuiz.Dominio
 {
@@ -8,7 +9,6 @@ namespace ShockQuiz.Dominio
     {
         public int SesionId { get; }
         public int CantidadPreguntas { get; }
-
         public int CategoriaId { get; set; }
         public Categoria Categoria { get; }
         public int DificultadId { get; set; }
@@ -20,20 +20,6 @@ namespace ShockQuiz.Dominio
         public int UsuarioId { get; set; }
         public List<Pregunta> Preguntas { get; set; }
         public int RespuestasCorrectas {get; set; }
-
-        public Sesion(int pCantidadPreguntas, Categoria pCategoria, Dificultad pDificultad, double pPuntaje, DateTime pFecha, DateTime pFechaFin, Usuario pUsuario, List<Pregunta> pPreguntas)
-        {
-            this.CantidadPreguntas = pCantidadPreguntas;
-            this.Categoria = pCategoria;
-            this.Dificultad = pDificultad;
-            this.Puntaje = pPuntaje;
-            this.FechaInicio = pFecha;
-            this.FechaFin = pFechaFin;
-            this.Usuario = pUsuario;
-            this.Preguntas = pPreguntas;
-        }
-
-
 
         public PreguntaDTO ObtenerPreguntaYRespuestas()
         {

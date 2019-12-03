@@ -26,10 +26,10 @@ namespace ShockQuiz.DAL.EntityFramework
             return this.iDbContext.Set<Pregunta>();
         }
 
-        public IEnumerable<Pregunta> ObtenerPreguntas(Categoria pCategoria, Dificultad pDificultad, int pCantidad = 10)
+        public IEnumerable<Pregunta> ObtenerPreguntas(Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto, int pCantidad = 10)
         {
             List<Pregunta> ans = new List<Pregunta>();
-            ans = this.iDbContext.Set<Pregunta>().Where(x => x.Categoria == pCategoria && x.Dificultad == pDificultad).ToList();
+            ans = this.iDbContext.Set<Pregunta>().Where(x => x.Categoria == pCategoria && x.Dificultad == pDificultad && x.ConjuntoId==pConjunto.ConjuntoId).ToList();
             return ans.OrderBy(x => rnd.Next()).Take(pCantidad);
         }
     }
