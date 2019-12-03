@@ -29,9 +29,9 @@ namespace ShockQuiz.DAL.EntityFramework
             iDbContext.Set<TEntity>().Add(pEntity);
         }
 
-        public TEntity Obtener(string pNombre)
+        public TEntity Obtener(int pId)
         {
-            return this.iDbContext.Set<TEntity>().Find(pNombre);
+            return this.iDbContext.Set<TEntity>().Find(pId);
         }
     }
 }

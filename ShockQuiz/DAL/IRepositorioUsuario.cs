@@ -7,5 +7,6 @@ namespace ShockQuiz.DAL
     {
         void Ascender(string pNombre);
         IEnumerable<Usuario> ObtenerTodos();
+        Usuario Obtener(string pNombre);
     }
 }

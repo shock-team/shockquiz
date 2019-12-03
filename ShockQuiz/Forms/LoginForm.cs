@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ShockQuiz.Forms
@@ -30,17 +23,39 @@ namespace ShockQuiz.Forms
                 if (facha.CheckLogin(txtUsuario.Text, txtContraseña.Text))
                 {
                     MessageBox.Show("Bienvenido " + txtUsuario.Text + "!","Iniciar sesión",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
-
+                    MenuForm menuForm = new MenuForm(txtUsuario.Text);
+                    menuForm.FormClosed += new FormClosedEventHandler(LoginForm_FormClosed);
+                    menuForm.Show();
+                    this.Hide();
                 }
                 else
                 {
                     MessageBox.Show("Contraseña incorrecta.", "Iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 } 
             }
-            catch (ArgumentNullException)
+            catch (InvalidOperationException)
             {
                 MessageBox.Show("Usuario inexistente.", "Iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnRegistro_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                facha.AddUser(txtUsuario.Text, txtContraseña.Text);
+                MessageBox.Show("Usuario " + txtUsuario.Text + " creado correctamente!", "Registro", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException)
+            {
+                MessageBox.Show("Usuario ya existente.", "Registro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

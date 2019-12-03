@@ -31,8 +31,23 @@ namespace ShockQuiz.Forms
             }
         }
 
-
-
-
+        public void AddUser(string pUser, string pPass)
+        {
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    Usuario user = new Usuario()
+                    {
+                        Nombre = pUser,
+                        Contraseña = pPass,
+                        Admin = false,
+                        Sesiones = new List<Sesion>()
+                    };
+                    bUoW.RepositorioUsuario.Agregar(user);
+                    bUoW.GuardarCambios();
+                }
+            }
+        }
     }
 }

@@ -7,16 +7,21 @@ namespace ShockQuiz.Dominio
 {
     public class Sesion
     {
-        public int SesionId { get; }
+        public int SesionId { get; set; }
         public int CantidadPreguntas { get; set; }
+        public int CategoriaId { get; set; }
         public Categoria Categoria { get; set; }
+        public int DificultadId { get; set; }
         public Dificultad Dificultad { get; set; }
         public double Puntaje { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
         public Usuario Usuario { get; set; }
+        public int UsuarioId { get; set; }
+        public Conjunto Conjunto { get; set; }
+        public int ConjuntoId { get; set; }
         public List<Pregunta> Preguntas { get; set; }
-        public int RespuestasCorrectas = 0;
+        public int RespuestasCorrectas { get; set; }
 
         public PreguntaDTO ObtenerPreguntaYRespuestas()
         {
@@ -35,7 +40,8 @@ namespace ShockQuiz.Dominio
             if (Preguntas.Count() == 0)
             {
                 resultado.FinSesion = true;
-                Finalizar();
+                this.FechaFin = DateTime.Now; 
+                Puntaje = Conjunto.CalcularPuntaje(this);
             }
             return resultado;
         }
@@ -45,12 +51,9 @@ namespace ShockQuiz.Dominio
             return FechaFin - FechaInicio;
         }
 
-        public void Finalizar()
+        public double TiempoLimite()
         {
-            double factorTiempo = 1;
-            double factorDificultad = 1;
-            this.FechaFin = DateTime.Now;
-            Puntaje = (RespuestasCorrectas / CantidadPreguntas) * factorTiempo * factorDificultad;
+            return CantidadPreguntas * Conjunto.tiempoEsperadoPorPregunta;
         }
     }
 }

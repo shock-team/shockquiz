@@ -4,6 +4,6 @@
         where TEntity : class
     {
         void Agregar(TEntity pEntity);
-        TEntity Obtener(string pNombre);
+        TEntity Obtener(int pId);
     }
 }

@@ -60,12 +60,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contestar.cs">
+    <Compile Include="Dominio\ConjuntoOTDB.cs" />
+    <Compile Include="Forms\ConfiguracionAdminForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Contestar.Designer.cs">
-      <DependentUpon>Contestar.cs</DependentUpon>
+    <Compile Include="Forms\ConfiguracionAdminForm.Designer.cs">
+      <DependentUpon>ConfiguracionAdminForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ConfigurarSesionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConfigurarSesionForm.Designer.cs">
+      <DependentUpon>ConfigurarSesionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FachadaConfigurarSesion.cs" />
+    <Compile Include="Forms\FachadaMenu.cs" />
+    <Compile Include="Forms\FachadaRanking.cs" />
+    <Compile Include="Forms\MenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MenuForm.Designer.cs">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RankingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RankingForm.Designer.cs">
+      <DependentUpon>RankingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SesionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SesionForm.Designer.cs">
+      <DependentUpon>SesionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EntityFramework\Mapping\CategoriaMap.cs" />
+    <Compile Include="DAL\EntityFramework\Mapping\ConjuntoMap.cs" />
+    <Compile Include="DAL\EntityFramework\Mapping\DificultadMap.cs" />
+    <Compile Include="DAL\EntityFramework\Mapping\PreguntaMap.cs" />
+    <Compile Include="DAL\EntityFramework\Mapping\RespuestaMap.cs" />
     <Compile Include="DAL\EntityFramework\Mapping\SesionMap.cs" />
     <Compile Include="DAL\EntityFramework\Mapping\UsuarioMap.cs" />
     <Compile Include="DAL\EntityFramework\Repositorio.cs" />
@@ -82,7 +115,7 @@
     <Compile Include="Dominio\Categoria.cs" />
     <Compile Include="Dominio\Conjunto.cs" />
     <Compile Include="Dominio\Dificultad.cs" />
-    <Compile Include="Fachada.cs" />
+    <Compile Include="Forms\FachadaSesion.cs" />
     <Compile Include="Forms\FachadaLogin.cs" />
     <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
@@ -93,16 +126,43 @@
     <Compile Include="IO\PreguntaDTO.cs" />
     <Compile Include="IO\ResultadoRespuesta.cs" />
     <Compile Include="Dominio\Pregunta.cs" />
+    <Compile Include="Migrations\201912032055427_test1.cs" />
+    <Compile Include="Migrations\201912032055427_test1.designer.cs">
+      <DependentUpon>201912032055427_test1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912032124222_test2.cs" />
+    <Compile Include="Migrations\201912032124222_test2.designer.cs">
+      <DependentUpon>201912032124222_test2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dominio\Respuesta.cs" />
     <Compile Include="Dominio\Sesion.cs" />
     <Compile Include="Dominio\Usuario.cs" />
-    <EmbeddedResource Include="Contestar.resx">
-      <DependentUpon>Contestar.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ConfiguracionAdminForm.resx">
+      <DependentUpon>ConfiguracionAdminForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConfigurarSesionForm.resx">
+      <DependentUpon>ConfigurarSesionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MenuForm.resx">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RankingForm.resx">
+      <DependentUpon>RankingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SesionForm.resx">
+      <DependentUpon>SesionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912032055427_test1.resx">
+      <DependentUpon>201912032055427_test1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912032124222_test2.resx">
+      <DependentUpon>201912032124222_test2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

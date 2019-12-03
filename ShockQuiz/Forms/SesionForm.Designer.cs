@@ -1,6 +1,6 @@
 ﻿namespace ShockQuiz
 {
-    partial class Contestar
+    partial class SesionForm
     {
         /// <summary>
         /// Variable del diseñador necesaria.

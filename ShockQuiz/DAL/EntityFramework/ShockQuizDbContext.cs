@@ -7,7 +7,7 @@ namespace ShockQuiz.DAL.EntityFramework
     {
         public ShockQuizDbContext() : base("ShockQuiz")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ShockQuizDbContext, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ShockQuizDbContext, Migrations.Configuration>());
         }
         
         public DbSet<Pregunta> Preguntas { get; set; }
@@ -16,6 +16,7 @@ namespace ShockQuiz.DAL.EntityFramework
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Dificultad> Dificultades { get; set; }
+        public DbSet<Conjunto> Conjuntos { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder pModelBuilder)
         {

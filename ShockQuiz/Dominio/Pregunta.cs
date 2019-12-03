@@ -12,13 +12,18 @@ namespace ShockQuiz.Dominio
     {/// <summary>
      /// El objetivo de esta clase es al
      /// </summary>
-        public int PreguntaId { get; }
-        public string Nombre { get; }
-        virtual public Categoria Categoria { get; }
-        public int ConjuntoId { get; }
-        virtual public Dificultad Dificultad { get; }
-        public IEnumerable<Respuesta> RespuestasIncorrectas = new List<Respuesta>();
-        public Respuesta RespuestaCorrecta { get; }
+        public int PreguntaId { get; set; }
+        public string Nombre { get; set; }
+        public int CategoriaId { get; set; }
+        public Categoria Categoria { get; set; }
+        public int DificultadId { get; set; }
+        public Dificultad Dificultad { get; set; }
+        public int ConjuntoId { get; set; }
+        public Conjunto Conjunto { get; set; }
+
+        public ICollection<Respuesta> RespuestasIncorrectas { get; set; }
+        
+        public virtual Respuesta RespuestaCorrecta { get; set; }
 
         public Pregunta(string pPregunta, Categoria pCategoria, Dificultad pDificultad, List<Respuesta> pRespuestas, Respuesta pRespuestaCorrecta)
         {
