@@ -1,6 +1,6 @@
 ﻿namespace ShockQuiz
 {
-    partial class Form1
+    partial class Contestar
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblPregunta = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnRespuesta3 = new System.Windows.Forms.Button();
@@ -36,7 +37,6 @@
             this.btnRespuesta4 = new System.Windows.Forms.Button();
             this.lblRespuestasActuales = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.lblTiempo = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblRespuestasTotales = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -44,25 +44,26 @@
             this.lblCategoria = new System.Windows.Forms.Label();
             this.lblDificultad = new System.Windows.Forms.Label();
             this.btnSiguiente = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lblTimer = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblPregunta
             // 
             this.lblPregunta.AutoSize = true;
-            this.lblPregunta.Location = new System.Drawing.Point(217, 147);
+            this.lblPregunta.Location = new System.Drawing.Point(368, 141);
             this.lblPregunta.Name = "lblPregunta";
-            this.lblPregunta.Size = new System.Drawing.Size(276, 13);
+            this.lblPregunta.Size = new System.Drawing.Size(0, 13);
             this.lblPregunta.TabIndex = 4;
-            this.lblPregunta.Text = "Preguntaaaaaaaaaaaaaaaaaaaæaaaaaaaaaaaaaaaaaa";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(534, 9);
+            this.label2.Location = new System.Drawing.Point(594, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 13);
+            this.label2.Size = new System.Drawing.Size(50, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Respuestas correctas";
+            this.label2.Text = "Pregunta";
             // 
             // btnRespuesta3
             // 
@@ -129,15 +130,6 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "Tiempo";
             // 
-            // lblTiempo
-            // 
-            this.lblTiempo.AutoSize = true;
-            this.lblTiempo.Location = new System.Drawing.Point(651, 33);
-            this.lblTiempo.Name = "lblTiempo";
-            this.lblTiempo.Size = new System.Drawing.Size(55, 13);
-            this.lblTiempo.TabIndex = 12;
-            this.lblTiempo.Text = "æ : æ : æ";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -202,11 +194,25 @@
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.BtnSiguiente_Click);
             // 
-            // Form1
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
+            // lblTimer
+            // 
+            this.lblTimer.AutoSize = true;
+            this.lblTimer.Location = new System.Drawing.Point(651, 33);
+            this.lblTimer.Name = "lblTimer";
+            this.lblTimer.Size = new System.Drawing.Size(0, 13);
+            this.lblTimer.TabIndex = 20;
+            // 
+            // Contestar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(715, 339);
+            this.Controls.Add(this.lblTimer);
             this.Controls.Add(this.btnSiguiente);
             this.Controls.Add(this.lblDificultad);
             this.Controls.Add(this.lblCategoria);
@@ -214,7 +220,6 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.lblRespuestasTotales);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.lblTiempo);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblRespuestasActuales);
             this.Controls.Add(this.btnRespuesta4);
@@ -223,7 +228,7 @@
             this.Controls.Add(this.btnRespuesta3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblPregunta);
-            this.Name = "Form1";
+            this.Name = "Contestar";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -240,7 +245,6 @@
         private System.Windows.Forms.Button btnRespuesta4;
         private System.Windows.Forms.Label lblRespuestasActuales;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label lblTiempo;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblRespuestasTotales;
         private System.Windows.Forms.Label label8;
@@ -248,6 +252,8 @@
         private System.Windows.Forms.Label lblCategoria;
         private System.Windows.Forms.Label lblDificultad;
         private System.Windows.Forms.Button btnSiguiente;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label lblTimer;
     }
 }
 
