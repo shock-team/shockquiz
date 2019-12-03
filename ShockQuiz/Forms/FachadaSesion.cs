@@ -10,7 +10,7 @@ namespace ShockQuiz
     public class FachadaSesion
     {
         private Sesion iSesionActual { get; set; }
-        public int iCantidadPreguntas { get; set; }
+        public Conjunto iConjunto { get; set; }
 
         public void IniciarSesion(Usuario pUsuario, Categoria pCategoria, Dificultad pDificultad, int pCantidad, Conjunto pConjunto)
         {
@@ -45,6 +45,21 @@ namespace ShockQuiz
                         bUoW.RepositorioSesion.Agregar(iSesionActual);
                     }
                 }
+            }
+            return resultado;
+        }
+
+        public ResultadoRespuesta RevisarTiempoLimite()
+        {
+            double tiempo = iSesionActual.TiempoLimite();
+            ResultadoRespuesta resultado = new ResultadoRespuesta();
+            resultado.FinSesion = false;
+            if ((DateTime.Now - iSesionActual.FechaInicio).TotalSeconds > tiempo)
+            {
+                foreach (Pregunta pregunta in iSesionActual.Preguntas)
+                {
+                    resultado = iSesionActual.Responder("");
+                }                
             }
             return resultado;
         }

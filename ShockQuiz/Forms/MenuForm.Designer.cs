@@ -50,7 +50,7 @@
             this.btnNuevaSesion.Name = "btnNuevaSesion";
             this.btnNuevaSesion.Size = new System.Drawing.Size(164, 23);
             this.btnNuevaSesion.TabIndex = 1;
-            this.btnNuevaSesion.Text = "Nueva sesión";
+            this.btnNuevaSesion.Text = "Iniciar";
             this.btnNuevaSesion.UseVisualStyleBackColor = true;
             this.btnNuevaSesion.Click += new System.EventHandler(this.BtnNuevaSesion_Click);
             // 

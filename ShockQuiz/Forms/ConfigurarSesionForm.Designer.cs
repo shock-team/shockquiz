@@ -119,7 +119,7 @@
             // 
             // btnIniciar
             // 
-            this.btnIniciar.Location = new System.Drawing.Point(193, 220);
+            this.btnIniciar.Location = new System.Drawing.Point(194, 220);
             this.btnIniciar.Name = "btnIniciar";
             this.btnIniciar.Size = new System.Drawing.Size(75, 23);
             this.btnIniciar.TabIndex = 9;
