@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShockQuiz.IO;
 
 namespace ShockQuiz.Dominio
 {
@@ -14,6 +15,7 @@ namespace ShockQuiz.Dominio
         public int PreguntaId { get; }
         public string Nombre { get; }
         virtual public Categoria Categoria { get; }
+        public int ConjuntoId { get; }
         virtual public Dificultad Dificultad { get; }
         public IEnumerable<Respuesta> RespuestasIncorrectas = new List<Respuesta>();
         public Respuesta RespuestaCorrecta { get; }
@@ -31,7 +33,11 @@ namespace ShockQuiz.Dominio
         {
             //Este método se encarga de comprobar si la respuesta ingresada es correcta, devolviendo
             //true si es así y false en caso contrario.
-            return new ResultadoRespuesta(pRespuesta == RespuestaCorrecta.DefRespuesta, false, RespuestaCorrecta.DefRespuesta);
+            ResultadoRespuesta resultado = new ResultadoRespuesta();
+            resultado.EsCorrecta = (pRespuesta == RespuestaCorrecta.DefRespuesta);
+            resultado.FinSesion = false;
+            resultado.RespuestaCorrecta = RespuestaCorrecta.DefRespuesta;
+            return resultado;
         }
 
         public PreguntaDTO ObtenerPreguntaYRespuestas()
@@ -63,8 +69,8 @@ namespace ShockQuiz.Dominio
                 }
             }
             PreguntaDTO pregunta = new PreguntaDTO();
-            pregunta.iPregunta = Nombre;
-            pregunta.iRespuestas = lista;
+            pregunta.Pregunta = Nombre;
+            pregunta.Respuestas = lista;
             return pregunta;
         }
     }

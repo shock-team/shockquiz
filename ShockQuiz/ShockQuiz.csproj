@@ -60,6 +60,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contestar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Contestar.Designer.cs">
+      <DependentUpon>Contestar.cs</DependentUpon>
+    </Compile>
     <Compile Include="DAL\EntityFramework\Mapping\SesionMap.cs" />
     <Compile Include="DAL\EntityFramework\Mapping\UsuarioMap.cs" />
     <Compile Include="DAL\EntityFramework\Repositorio.cs" />
@@ -74,8 +80,8 @@
     <Compile Include="DAL\IRepositorio.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
     <Compile Include="Dominio\Categoria.cs" />
+    <Compile Include="Dominio\Conjunto.cs" />
     <Compile Include="Dominio\Dificultad.cs" />
-    <Compile Include="Dominio\ResultadoRespuesta.cs" />
     <Compile Include="Fachada.cs" />
     <Compile Include="Forms\FachadaLogin.cs" />
     <Compile Include="Forms\LoginForm.cs">
@@ -84,6 +90,8 @@
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IO\PreguntaDTO.cs" />
+    <Compile Include="IO\ResultadoRespuesta.cs" />
     <Compile Include="JSON.cs" />
     <Compile Include="ListaVaciaException.cs" />
     <Compile Include="Dominio\Pregunta.cs" />
@@ -92,6 +100,9 @@
     <Compile Include="Dominio\Respuesta.cs" />
     <Compile Include="Dominio\Sesion.cs" />
     <Compile Include="Dominio\Usuario.cs" />
+    <EmbeddedResource Include="Contestar.resx">
+      <DependentUpon>Contestar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
