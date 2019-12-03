@@ -1,20 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ShockQuiz.Dominio;
+using ShockQuiz.IO;
+using ShockQuiz.DAL.EntityFramework;
+using System.Linq;
 
 namespace ShockQuiz
 {
     public class Fachada
     {
-        private Sesion iSesionActual;
-        private int iCantidadPreguntas;
-        public int iRespuestasCorrectas { get; set; }
-        private int iFactorDificultad;
-        private int iFactorTiempo;
+        private Sesion iSesionActual { get; set; }
+        public int iCantidadPreguntas { get; set; }
 
-        public void IniciarSesion(Usuario pUsuario, string pCategoria, string pDificultad)
+        public void IniciarSesion(Usuario pUsuario, Categoria pCategoria, Dificultad pDificultad, int pCantidad, Conjunto pConjunto)
         {
-
-            //Sesion sesion = new Sesion(iCantidadPreguntas, pCategoria, pDificultad, DateTime.Now, pUsuario, )
+            iSesionActual = new Sesion();
+            iSesionActual.Usuario = pUsuario;
+            iSesionActual.Categoria = pCategoria;
+            iSesionActual.Dificultad = pDificultad;
+            iSesionActual.FechaInicio = DateTime.Now;
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    iSesionActual.Preguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(pCategoria, pDificultad, pConjunto, pCantidad).ToList();
+                }
+            }
         }
 
         public PreguntaDTO ObtenerPreguntaYRespuestas()
@@ -22,15 +33,25 @@ namespace ShockQuiz
             return iSesionActual.ObtenerPreguntaYRespuestas();
         }
 
-
         public ResultadoRespuesta Responder(string pRespuesta)
         {
             ResultadoRespuesta resultado = iSesionActual.Responder(pRespuesta);
-            if (resultado.EsCorrecta)
+            if (resultado.FinSesion)
             {
-                iRespuestasCorrectas++;
+                using (var bDbContext = new ShockQuizDbContext())
+                {
+                    using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                    {
+                        bUoW.RepositorioSesion.Agregar(iSesionActual);
+                    }
+                }
             }
             return resultado;
+        }
+
+        public double ObtenerPuntaje()
+        {
+            return iSesionActual.Puntaje;
         }
     }
 }
