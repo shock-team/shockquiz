@@ -96,7 +96,7 @@ namespace ShockQuiz
 
 
         }
-        public SesionForm(Usuario pUsuario, Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto, int pCantidad)
+        public SesionForm(string pUsuario, Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto, int pCantidad)
         {
             InitializeComponent();
             JSON();

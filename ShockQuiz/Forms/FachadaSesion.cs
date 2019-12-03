@@ -12,10 +12,18 @@ namespace ShockQuiz
         private Sesion iSesionActual { get; set; }
         public Conjunto iConjunto { get; set; }
 
-        public void IniciarSesion(Usuario pUsuario, Categoria pCategoria, Dificultad pDificultad, int pCantidad, Conjunto pConjunto)
+        public void IniciarSesion(string pUsuario, Categoria pCategoria, Dificultad pDificultad, int pCantidad, Conjunto pConjunto)
         {
             iSesionActual = new Sesion();
-            iSesionActual.Usuario = pUsuario;
+            Usuario usuario;
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    usuario = bUoW.RepositorioUsuario.Obtener(pUsuario);
+                }
+            }
+            iSesionActual.Usuario = usuario;
             iSesionActual.Categoria = pCategoria;
             iSesionActual.Dificultad = pDificultad;
             iSesionActual.FechaInicio = DateTime.Now;

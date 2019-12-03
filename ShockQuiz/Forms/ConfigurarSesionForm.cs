@@ -13,13 +13,16 @@ namespace ShockQuiz.Forms
 {
     public partial class ConfigurarSesionForm : Form
     {
-        Usuario Usuario;
+        string Usuario;
         FachadaConfigurarSesion fachada = new FachadaConfigurarSesion();
 
-        public ConfigurarSesionForm(Usuario pUsuario)
+        public ConfigurarSesionForm(string pUsuario)
         {
             InitializeComponent();
             Usuario = pUsuario;
+            cbCategoria.DataSource = fachada.ObtenerCategorias();
+            cbConjunto.DataSource = fachada.ObtenerConjuntos();
+            cbDificultad.DataSource = fachada.ObtenerDificultades();
         }
 
         private void BtnIniciar_Click(object sender, EventArgs e)
