@@ -10,5 +10,7 @@ namespace ShockQuiz.Dominio
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
+
+        public int Multiplicador { get; set; }
     }
 }
