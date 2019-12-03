@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 using System.Windows.Forms;
+using ShockQuiz.Dominio;
 
 
 namespace ShockQuiz
@@ -129,44 +130,44 @@ namespace ShockQuiz
         private void BtnRespuesta1_Click(object sender, EventArgs e)
         {
             ResultadoRespuesta resultado = fachada.Responder(btnRespuesta1.Text);
-            if (!resultado.iEsCorrecta)
+            if (!resultado.EsCorrecta)
             {
                 btnRespuesta1.BackColor = System.Drawing.Color.Red;
             }
-            ColorBotonCorrecto(resultado.iRespuestaCorrecta);
+            ColorBotonCorrecto(resultado.RespuestaCorrecta);
             lblRespuestasActuales.Text = fachada.iRespuestasCorrectas.ToString();
         }
 
         private void BtnRespuesta2_Click(object sender, EventArgs e)
         {
             ResultadoRespuesta resultado = fachada.Responder(btnRespuesta2.Text);
-            if (!resultado.iEsCorrecta)
+            if (!resultado.EsCorrecta)
             {
                 btnRespuesta2.BackColor = System.Drawing.Color.Red;
             }
-            ColorBotonCorrecto(resultado.iRespuestaCorrecta);
+            ColorBotonCorrecto(resultado.RespuestaCorrecta);
             lblRespuestasActuales.Text = fachada.iRespuestasCorrectas.ToString();
         }
 
         private void BtnRespuesta3_Click(object sender, EventArgs e)
         {
             ResultadoRespuesta resultado = fachada.Responder(btnRespuesta3.Text);
-            if (!resultado.iEsCorrecta)
+            if (!resultado.EsCorrecta)
             {
                 btnRespuesta3.BackColor = System.Drawing.Color.Red;
             }
-            ColorBotonCorrecto(resultado.iRespuestaCorrecta);
+            ColorBotonCorrecto(resultado.RespuestaCorrecta);
             lblRespuestasActuales.Text = fachada.iRespuestasCorrectas.ToString();
         }
 
         private void BtnRespuesta4_Click(object sender, EventArgs e)
         {
             ResultadoRespuesta resultado = fachada.Responder(btnRespuesta4.Text);
-            if (!resultado.iEsCorrecta)
+            if (!resultado.EsCorrecta)
             {
                 btnRespuesta4.BackColor = System.Drawing.Color.Red;
             }
-            ColorBotonCorrecto(resultado.iRespuestaCorrecta);
+            ColorBotonCorrecto(resultado.RespuestaCorrecta);
             lblRespuestasActuales.Text = fachada.iRespuestasCorrectas.ToString();
         }
 
