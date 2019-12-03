@@ -7,17 +7,19 @@ namespace ShockQuiz.Dominio
 {
     public class Sesion
     {
-        public int SesionId { get; }
-        public int CantidadPreguntas { get; }
+        public int SesionId { get; set; }
+        public int CantidadPreguntas { get; set; }
         public int CategoriaId { get; set; }
-        public Categoria Categoria { get; }
+        public Categoria Categoria { get; set; }
         public int DificultadId { get; set; }
-        public Dificultad Dificultad { get; }
+        public Dificultad Dificultad { get; set; }
         public double Puntaje { get; set; }
-        public DateTime FechaInicio;
-        public DateTime FechaFin;
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
         public Usuario Usuario { get; set; }
         public int UsuarioId { get; set; }
+        public Conjunto Conjunto { get; set; }
+        public int ConjuntoId { get; set; }
         public List<Pregunta> Preguntas { get; set; }
         public int RespuestasCorrectas {get; set; }
 

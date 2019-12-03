@@ -10,6 +10,8 @@ namespace ShockQuiz.Dominio
     {
         public int RespuestaId { get; set; }
         public string DefRespuesta { get; set; }
+        public virtual Pregunta PreguntaCorrecta { get; set; }
+        public Pregunta Pregunta { get; set; }
         public int PreguntaId { get; set; }
     }
 }

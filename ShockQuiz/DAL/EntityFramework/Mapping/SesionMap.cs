@@ -33,13 +33,24 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
                 .HasColumnName("puntaje")
                 .IsRequired();
 
-            this.
+            this.Property(x => x.FechaFin)
+                .HasColumnName("fechaInicio")
+                .IsRequired();
 
+            this.Property(x => x.FechaFin)
+                .HasColumnName("fechaFin")
+                .IsRequired();
 
+            this.HasRequired<Usuario>(x => x.Usuario)
+                .WithMany(x => x.Sesiones)
+                .HasForeignKey<int>(x => x.UsuarioId);
 
-            
+            this.HasRequired<Conjunto>(x => x.Conjunto)
+                .WithMany(x => x.Sesiones)
+                .HasForeignKey<int>(x => x.ConjuntoId);
 
-
+            this.Ignore(x => x.Preguntas);
+            this.Ignore(x => x.RespuestasCorrectas);
         }
     }
 }
