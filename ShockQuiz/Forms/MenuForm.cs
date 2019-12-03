@@ -13,16 +13,28 @@ namespace ShockQuiz.Forms
 {
     public partial class MenuForm : Form
     {
-        public MenuForm(Usuario pUsuario)
+        FachadaMenu facha = new FachadaMenu();
+        public MenuForm(string pUsuario)
         {
             InitializeComponent();
-            btnConfiguracion.Enabled = (pUsuario.Admin);
-            btnConfiguracion.Visible = (pUsuario.Admin);
+            bool esAdmin = facha.EsAdmin(pUsuario);
+            btnConfiguracion.Enabled = esAdmin;
+            btnConfiguracion.Visible = esAdmin;
         }
 
         private void BtnNuevaSesion_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void MenuForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

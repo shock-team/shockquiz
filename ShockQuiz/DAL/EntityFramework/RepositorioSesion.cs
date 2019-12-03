@@ -12,7 +12,7 @@ namespace ShockQuiz.DAL.EntityFramework
     {
         public RepositorioSesion(ShockQuizDbContext pDbContext) : base(pDbContext) { }
 
-        public IEnumerable<Sesion> ObtenerRanking(int pTop)
+        public IEnumerable<Sesion> ObtenerRanking(int pTop = 15)
         {
             List<Sesion> aux = new List<Sesion>();
             aux = this.iDbContext.Set<Sesion>().OrderByDescending(x => x.Puntaje).ToList();

@@ -65,7 +65,7 @@
             // 
             // btnConfiguracion
             // 
-            this.btnConfiguracion.Location = new System.Drawing.Point(36, 163);
+            this.btnConfiguracion.Location = new System.Drawing.Point(36, 111);
             this.btnConfiguracion.Name = "btnConfiguracion";
             this.btnConfiguracion.Size = new System.Drawing.Size(164, 23);
             this.btnConfiguracion.TabIndex = 3;
@@ -74,18 +74,19 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(36, 111);
+            this.btnSalir.Location = new System.Drawing.Point(36, 152);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(164, 23);
             this.btnSalir.TabIndex = 4;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // MenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(238, 212);
+            this.ClientSize = new System.Drawing.Size(238, 187);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnConfiguracion);
             this.Controls.Add(this.btnRanking);
@@ -93,6 +94,7 @@
             this.Controls.Add(this.label1);
             this.Name = "MenuForm";
             this.Text = "MenuForm";
+            this.Load += new System.EventHandler(this.MenuForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

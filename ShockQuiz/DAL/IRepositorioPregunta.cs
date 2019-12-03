@@ -6,7 +6,7 @@ namespace ShockQuiz.DAL
     public interface IRepositorioPregunta : IRepositorio<Pregunta>
 
     {
-        void AgregarConjunto(IEnumerable<Pregunta> pConjunto);
+        void AgregarPreguntas(IEnumerable<Pregunta> pPreguntas);
         IEnumerable<Pregunta> ObtenerPreguntas(Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto, int pCantidad);
         IEnumerable<Pregunta> ObtenerTodas();
     }

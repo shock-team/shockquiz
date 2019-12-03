@@ -67,11 +67,19 @@
       <DependentUpon>ConfigurarSesionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FachadaConfigurarSesion.cs" />
+    <Compile Include="Forms\FachadaMenu.cs" />
+    <Compile Include="Forms\FachadaRanking.cs" />
     <Compile Include="Forms\MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\MenuForm.Designer.cs">
       <DependentUpon>MenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RankingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RankingForm.Designer.cs">
+      <DependentUpon>RankingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SesionForm.cs">
       <SubType>Form</SubType>
@@ -115,6 +123,10 @@
     <Compile Include="Migrations\201912032055427_test1.designer.cs">
       <DependentUpon>201912032055427_test1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912032124222_test2.cs" />
+    <Compile Include="Migrations\201912032124222_test2.designer.cs">
+      <DependentUpon>201912032124222_test2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -127,6 +139,9 @@
     <EmbeddedResource Include="Forms\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RankingForm.resx">
+      <DependentUpon>RankingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SesionForm.resx">
       <DependentUpon>SesionForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -135,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912032055427_test1.resx">
       <DependentUpon>201912032055427_test1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912032124222_test2.resx">
+      <DependentUpon>201912032124222_test2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

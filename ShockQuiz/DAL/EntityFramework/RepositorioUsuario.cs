@@ -21,5 +21,10 @@ namespace ShockQuiz.DAL.EntityFramework
         {
             return this.iDbContext.Set<Usuario>();
         }
+
+        public Usuario Obtener(string pNombre)
+        {
+            return this.iDbContext.Set<Usuario>().First(x => x.Nombre == pNombre);
+        }
     }
 }
