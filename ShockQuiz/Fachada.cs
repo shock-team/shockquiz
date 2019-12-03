@@ -1,30 +1,20 @@
-﻿using ShockQuiz.DAL.EntityFramework;
+﻿using System.Collections.Generic;
 using ShockQuiz.Dominio;
-using ShockQuiz.IO;
-using System;
-using System.Linq;
 
 namespace ShockQuiz
 {
     public class Fachada
     {
-        private Sesion iSesionActual { get; set; }
-        public int iCantidadPreguntas { get; set; }
+        private Sesion iSesionActual;
+        private int iCantidadPreguntas;
+        public int iRespuestasCorrectas { get; set; }
+        private int iFactorDificultad;
+        private int iFactorTiempo;
 
-        public void IniciarSesion(Usuario pUsuario, Categoria pCategoria, Dificultad pDificultad, int pCantidad, Conjunto pConjunto)
+        public void IniciarSesion(Usuario pUsuario, string pCategoria, string pDificultad)
         {
-            iSesionActual = new Sesion();
-            iSesionActual.Usuario = pUsuario;
-            iSesionActual.Categoria = pCategoria;
-            iSesionActual.Dificultad = pDificultad;
-            iSesionActual.FechaInicio = DateTime.Now;
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork())
-                {
-                    iSesionActual.Preguntas = bUoW.RepositorioPreguntas.ObtenerPreguntas(pCategoria, pDificultad, pConjunto, pCantidad).ToList();
-                }
-            }
+
+            //Sesion sesion = new Sesion(iCantidadPreguntas, pCategoria, pDificultad, DateTime.Now, pUsuario, )
         }
 
         public PreguntaDTO ObtenerPreguntaYRespuestas()
@@ -32,25 +22,15 @@ namespace ShockQuiz
             return iSesionActual.ObtenerPreguntaYRespuestas();
         }
 
+
         public ResultadoRespuesta Responder(string pRespuesta)
         {
             ResultadoRespuesta resultado = iSesionActual.Responder(pRespuesta);
-            if (resultado.FinSesion)
+            if (resultado.EsCorrecta)
             {
-                using (var bDbContext = new ShockQuizDbContext())
-                {
-                    using (UnitOfWork bUoW = new UnitOfWork())
-                    {
-                        bUoW.RepositorioSesion.Agregar(iSesionActual);
-                    }
-                }
+                iRespuestasCorrectas++;
             }
             return resultado;
-        }
-
-        public double ObtenerPuntaje()
-        {
-            return iSesionActual.Puntaje;
         }
     }
 }

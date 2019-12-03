@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ShockQuiz.IO;
 
 namespace ShockQuiz.Dominio
 {
@@ -64,8 +63,8 @@ namespace ShockQuiz.Dominio
                 }
             }
             PreguntaDTO pregunta = new PreguntaDTO();
-            pregunta.Pregunta = Nombre;
-            pregunta.Respuestas = lista;
+            pregunta.iPregunta = Nombre;
+            pregunta.iRespuestas = lista;
             return pregunta;
         }
     }
