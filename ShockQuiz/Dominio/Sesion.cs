@@ -40,22 +40,8 @@ namespace ShockQuiz.Dominio
             if (Preguntas.Count() == 0)
             {
                 resultado.FinSesion = true;
-                this.FechaFin = DateTime.Now;
-                double factorTiempo;
-                double duracionPromedio = Duracion().TotalSeconds / CantidadPreguntas;
-                if (duracionPromedio < Properties.Settings.Default.Limite1)
-                {
-                    factorTiempo = Properties.Settings.Default.FactorMinimo;
-                }
-                else if (duracionPromedio > Properties.Settings.Default.Limite2)
-                {
-                    factorTiempo = Properties.Settings.Default.FactorMaximo;
-                }
-                else
-                {
-                    factorTiempo = Properties.Settings.Default.FactorMedio;
-                }
-                Puntaje = (RespuestasCorrectas / CantidadPreguntas) * Dificultad.FactorDificultad * factorTiempo;
+                this.FechaFin = DateTime.Now; 
+                Puntaje = Conjunto.CalcularPuntaje(this);
             }
             return resultado;
         }
@@ -63,6 +49,11 @@ namespace ShockQuiz.Dominio
         public TimeSpan Duracion()
         {
             return FechaFin - FechaInicio;
+        }
+
+        public double TiempoLimite()
+        {
+            return CantidadPreguntas * Conjunto.tiempoEsperadoPorPregunta;
         }
     }
 }

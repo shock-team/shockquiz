@@ -214,6 +214,8 @@ namespace ShockQuiz
         private void Timer1_Tick(object sender, EventArgs e)
         {
             lblTimer.Text = timer1.ToString();
+            ResultadoRespuesta resultado = fachada.RevisarTiempoLimite();
+            Finalizar(resultado.FinSesion);
         }
     }
 }
