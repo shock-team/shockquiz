@@ -92,8 +92,6 @@
     </Compile>
     <Compile Include="IO\PreguntaDTO.cs" />
     <Compile Include="IO\ResultadoRespuesta.cs" />
-    <Compile Include="JSON.cs" />
-    <Compile Include="ListaVaciaException.cs" />
     <Compile Include="Dominio\Pregunta.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
