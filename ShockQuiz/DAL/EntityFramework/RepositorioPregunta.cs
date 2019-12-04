@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    class RepositorioPregunta:Repositorio<Pregunta, ShockQuizDbContext>, IRepositorioPregunta
+    public class RepositorioPregunta:Repositorio<Pregunta, ShockQuizDbContext>, IRepositorioPregunta
     {
         static Random rnd = new Random();
         public RepositorioPregunta(ShockQuizDbContext pDbContext) : base(pDbContext) { }

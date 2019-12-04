@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    class RepositorioConjunto : Repositorio<Conjunto, ShockQuizDbContext>
+    public class RepositorioConjunto : Repositorio<Conjunto, ShockQuizDbContext>
     {
         public RepositorioConjunto(ShockQuizDbContext pDbContext) : base(pDbContext) { }
 

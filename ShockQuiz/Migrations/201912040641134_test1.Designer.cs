@@ -7,13 +7,13 @@ namespace ShockQuiz.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.3.0")]
-    public sealed partial class test3 : IMigrationMetadata
+    public sealed partial class test1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(test3));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(test1));
         
         string IMigrationMetadata.Id
         {
-            get { return "201912032336101_test3"; }
+            get { return "201912040641134_test1"; }
         }
         
         string IMigrationMetadata.Source

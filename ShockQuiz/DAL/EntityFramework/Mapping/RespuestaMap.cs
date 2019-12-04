@@ -21,12 +21,11 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
 
             this.Property(x => x.DefRespuesta)
                 .HasColumnName("respuesta")
-                .HasMaxLength(100)
                 .IsRequired();
 
-            this.HasRequired<Pregunta>(x => x.Pregunta)
+            this.HasOptional(x => x.Pregunta)
                 .WithMany(x => x.RespuestasIncorrectas)
-                .HasForeignKey<int>(x => x.PreguntaId);
+                .HasForeignKey(x => x.PreguntaId);
         }
     }
 }

@@ -7,7 +7,7 @@ using ShockQuiz.DAL;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly ShockQuizDbContext iDbContext;
         private bool iDisposedValue = false;
@@ -38,6 +38,9 @@ namespace ShockQuiz.DAL.EntityFramework
             this.RepositorioDificultad = new RepositorioDificultad(pDbContext);
             this.RepositorioConjunto = new RepositorioConjunto(pDbContext);
         }
+
+
+
 
         public void GuardarCambios()
         {

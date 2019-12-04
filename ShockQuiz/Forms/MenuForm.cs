@@ -36,5 +36,19 @@ namespace ShockQuiz.Forms
         {
             this.Close();
         }
+
+        private void btnRanking_Click(object sender, EventArgs e)
+        {
+            RankingForm rankForm = new RankingForm();
+            rankForm.FormClosed += new FormClosedEventHandler(RankForm_FormClosed);
+            rankForm.Show();
+            this.Hide();
+        }
+
+
+        private void RankForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Show();
+        }
     }
 }

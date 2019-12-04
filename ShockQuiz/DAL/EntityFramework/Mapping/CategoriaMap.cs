@@ -15,7 +15,7 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
                 .HasColumnName("id");
 
             this.Property(x => x.Nombre)
-                .HasMaxLength(100)
+                .HasMaxLength(150)
                 .IsRequired()
                 .HasColumnName("nombre");
         }

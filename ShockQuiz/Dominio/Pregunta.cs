@@ -15,24 +15,15 @@ namespace ShockQuiz.Dominio
         public int PreguntaId { get; set; }
         public string Nombre { get; set; }
         public int CategoriaId { get; set; }
-        public Categoria Categoria { get; set; }
+        public virtual Categoria Categoria { get; set; }
         public int DificultadId { get; set; }
-        public Dificultad Dificultad { get; set; }
+        public virtual Dificultad Dificultad { get; set; }
         public int ConjuntoId { get; set; }
-        public Conjunto Conjunto { get; set; }
+        public virtual Conjunto Conjunto { get; set; }
 
-        public ICollection<Respuesta> RespuestasIncorrectas { get; set; }
+        public virtual ICollection<Respuesta> RespuestasIncorrectas { get; set; }
         
         public virtual Respuesta RespuestaCorrecta { get; set; }
-
-        public Pregunta(string pPregunta, Categoria pCategoria, Dificultad pDificultad, List<Respuesta> pRespuestas, Respuesta pRespuestaCorrecta)
-        {
-            this.Nombre = pPregunta;
-            this.Categoria = pCategoria;
-            this.Dificultad = pDificultad;
-            this.RespuestasIncorrectas = pRespuestas;
-            this.RespuestaCorrecta = pRespuestaCorrecta;
-        }
 
         public ResultadoRespuesta Responder(string pRespuesta)
         {

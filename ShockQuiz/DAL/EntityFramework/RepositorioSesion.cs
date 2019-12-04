@@ -8,7 +8,7 @@ using ShockQuiz.Dominio;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    class RepositorioSesion:Repositorio<Sesion, ShockQuizDbContext>, IRepositorioSesion
+    public class RepositorioSesion:Repositorio<Sesion, ShockQuizDbContext>, IRepositorioSesion
     {
         public RepositorioSesion(ShockQuizDbContext pDbContext) : base(pDbContext) { }
 
