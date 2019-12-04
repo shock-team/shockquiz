@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
@@ -32,6 +33,12 @@ namespace ShockQuiz.DAL.EntityFramework
         public TEntity Obtener(int pId)
         {
             return this.iDbContext.Set<TEntity>().Find(pId);
+        }
+
+        public TEntity GetEntity(string pNombre)
+        {
+            var manager = ((IObjectContextAdapter)iDbContext).ObjectContext.ObjectStateManager;
+
         }
     }
 }

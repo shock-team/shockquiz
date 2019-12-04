@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,9 +39,6 @@ namespace ShockQuiz.DAL.EntityFramework
             this.RepositorioDificultad = new RepositorioDificultad(pDbContext);
             this.RepositorioConjunto = new RepositorioConjunto(pDbContext);
         }
-
-
-
 
         public void GuardarCambios()
         {

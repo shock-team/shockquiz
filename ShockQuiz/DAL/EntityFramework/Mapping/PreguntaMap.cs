@@ -34,9 +34,6 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
             this.HasRequired<Conjunto>(x => x.Conjunto)
                 .WithMany(x => x.Preguntas)
                 .HasForeignKey<int>(x => x.ConjuntoId);
-
-            this.HasRequired(x => x.RespuestaCorrecta)
-                .WithRequiredPrincipal(x => x.PreguntaCorrecta);
         }
     }
 }

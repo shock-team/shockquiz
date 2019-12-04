@@ -23,8 +23,8 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
                 .HasColumnName("respuesta")
                 .IsRequired();
 
-            this.HasOptional(x => x.Pregunta)
-                .WithMany(x => x.RespuestasIncorrectas)
+            this.HasRequired(x => x.Pregunta)
+                .WithMany(x => x.Respuestas)
                 .HasForeignKey(x => x.PreguntaId);
         }
     }

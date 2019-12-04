@@ -40,22 +40,27 @@ namespace ShockQuiz.DAL.OpenTriviaDB
                     // Se iteran cada uno de los resultados.
                     foreach (var bResponseItem in mResponseJSON.results)
                     {
+
                         string preguntaDesc = HttpUtility.HtmlDecode(bResponseItem.question.ToString());
                         string categoria = HttpUtility.HtmlDecode(bResponseItem.category.ToString());
                         string dificultad = HttpUtility.HtmlDecode(bResponseItem.difficulty.ToString());
+
+                        List<Respuesta> respuestas = new List<Respuesta>();
                         Respuesta respuestaCorrecta = new Respuesta()
                         {
+                               EsCorrecta = true,
                                DefRespuesta = HttpUtility.HtmlDecode(bResponseItem.correct_answer.ToString())
                         };
-                       
-                        List<Respuesta> respuestasIncorrectas = new List<Respuesta>();
+                        respuestas.Add(respuestaCorrecta);
+
                         for (int i = 0; i < 3; i++)
                         {
                             Respuesta res = new Respuesta()
                             {
-                                DefRespuesta = HttpUtility.HtmlDecode(bResponseItem.incorrect_answers[i].ToString())
+                                DefRespuesta = HttpUtility.HtmlDecode(bResponseItem.incorrect_answers[i].ToString()),
+                                EsCorrecta = false
                             };
-                            respuestasIncorrectas.Add(res);
+                            respuestas.Add(res);
                         }
 
                         Pregunta pregunta = new Pregunta()
@@ -69,8 +74,7 @@ namespace ShockQuiz.DAL.OpenTriviaDB
                             {
                                 Nombre = dificultad
                             },
-                            RespuestasIncorrectas = respuestasIncorrectas,
-                            RespuestaCorrecta = respuestaCorrecta
+                            Respuestas = respuestas
                         };
                         listaPreguntas.Add(pregunta);
                     }

@@ -45,25 +45,24 @@ namespace unitTest
                 {
                     Nombre = "OpenAss"
                 },
-                RespuestaCorrecta = new Respuesta()
-                {
-
-                    DefRespuesta = "Correcta"
-                },
-                RespuestasIncorrectas = new List<Respuesta>()
+                Respuestas = new List<Respuesta>()
                 {
                     new Respuesta()
                     {
-                        DefRespuesta= "Incorrecta1"
+                        DefRespuesta= "Correcta",
+                        EsCorrecta=true
                     },
                     new Respuesta()
                     {
-                        DefRespuesta= "Incorrecta2"
+                        DefRespuesta= "Incorrecta1",
+                        EsCorrecta=false
+                    },
+                    new Respuesta()
+                    {
+                        DefRespuesta= "Incorrecta2",
+                        EsCorrecta=false
                     }
                 }
-
-
-
             };
 
             using (var bDbContext = new ShockQuizDbContext())
