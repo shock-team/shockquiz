@@ -27,8 +27,16 @@ namespace ShockQuiz.Forms
 
         private void BtnIniciar_Click(object sender, EventArgs e)
         {
-            SesionForm sesionForm = new SesionForm(Usuario, (Categoria)cbCategoria.SelectedItem, (Dificultad)cbDificultad.SelectedItem, (Conjunto)cbConjunto.SelectedItem, int.Parse(txtCantidad.Text));
-            sesionForm.Show();
+            int cantidadMinima = 10;
+            if (int.Parse(txtCantidad.Text) >= cantidadMinima)
+            {
+                SesionForm sesionForm = new SesionForm(Usuario, (Categoria)cbCategoria.SelectedItem, (Dificultad)cbDificultad.SelectedItem, (Conjunto)cbConjunto.SelectedItem, int.Parse(txtCantidad.Text));
+                sesionForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("La cantidad de preguntas debe ser al menos " + cantidadMinima.ToString(),"Error");
+            }
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
