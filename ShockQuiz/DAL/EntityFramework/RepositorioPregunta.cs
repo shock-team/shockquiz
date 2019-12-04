@@ -33,7 +33,7 @@ namespace ShockQuiz.DAL.EntityFramework
             return ans.OrderBy(x => rnd.Next()).Take(pCantidad);
         }
 
-        public string GetOrCreate(string pNombre,string pConjunto)
+        public string GetOrCreate(string pNombre, string pConjunto)
         {
             var manager = ((IObjectContextAdapter)iDbContext).ObjectContext;
 
@@ -58,6 +58,7 @@ namespace ShockQuiz.DAL.EntityFramework
             }
 
             return pNombre;
+        }
 
         public IEnumerable<Categoria> ObtenerCategorias(int pConjuntoId)
         {

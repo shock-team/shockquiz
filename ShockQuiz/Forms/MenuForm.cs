@@ -19,10 +19,18 @@ namespace ShockQuiz.Forms
 
         private void BtnNuevaSesion_Click(object sender, EventArgs e)
         {
-            ConfigurarSesionForm configurarSesionForm = new ConfigurarSesionForm(usuario);
-            configurarSesionForm.FormClosed += new FormClosedEventHandler(ConfigurarSesionForm_FormClosed);
-            configurarSesionForm.Show();
-            this.Hide();
+            try
+            {
+                ConfigurarSesionForm configurarSesionForm = new ConfigurarSesionForm(usuario);
+                configurarSesionForm.FormClosed += new FormClosedEventHandler(ConfigurarSesionForm_FormClosed);
+                configurarSesionForm.Show();
+                this.Hide();
+            }
+            catch (NotSupportedException)
+            {
+                MessageBox.Show("Ha habido un error con la base de datos");
+                throw;
+            }
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
