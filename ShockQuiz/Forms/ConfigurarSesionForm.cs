@@ -20,28 +20,32 @@ namespace ShockQuiz.Forms
         {
             InitializeComponent();
             Usuario = pUsuario;
-            cbCategoria.DataSource = fachada.ObtenerCategorias();
             cbConjunto.DataSource = fachada.ObtenerConjuntos();
             cbDificultad.DataSource = fachada.ObtenerDificultades();
         }
 
         private void BtnIniciar_Click(object sender, EventArgs e)
         {
-            int cantidadMinima = 10;
-            if (int.Parse(txtCantidad.Text) >= cantidadMinima)
-            {
-                SesionForm sesionForm = new SesionForm(Usuario, (Categoria)cbCategoria.SelectedItem, (Dificultad)cbDificultad.SelectedItem, (Conjunto)cbConjunto.SelectedItem, int.Parse(txtCantidad.Text));
-                sesionForm.Show();
-            }
-            else
-            {
-                MessageBox.Show("La cantidad de preguntas debe ser al menos " + cantidadMinima.ToString(),"Error");
-            }
+            SesionForm sesionForm = new SesionForm(Usuario, (Categoria)cbCategoria.SelectedItem, (Dificultad)cbDificultad.SelectedItem, (Conjunto)cbConjunto.SelectedItem, Decimal.ToInt32(nudCantidad.Value));
+            sesionForm.FormClosed += new FormClosedEventHandler(SesionForm_FormClosed);
+            sesionForm.Show();
+            this.Hide();
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void CbConjunto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Conjunto conjunto = (Conjunto)cbConjunto.SelectedItem;
+            cbCategoria.DataSource = fachada.ObtenerCategorias(conjunto.ConjuntoId);
+        }
+
+        private void SesionForm_FormClosed(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

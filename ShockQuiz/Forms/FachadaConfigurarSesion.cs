@@ -22,13 +22,13 @@ namespace ShockQuiz.Forms
             }
         }
 
-        public IEnumerable<Categoria> ObtenerCategorias()
+        public IEnumerable<Categoria> ObtenerCategorias(int pConjuntoId)
         {
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    return bUoW.RepositorioCategoria.ObtenerTodas();
+                    return bUoW.RepositorioPregunta.ObtenerCategorias(pConjuntoId);
                 }
             }
         }

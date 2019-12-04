@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ShockQuiz.Dominio;
+using System;
 using System.Windows.Forms;
 
 namespace ShockQuiz.Forms
@@ -17,25 +11,68 @@ namespace ShockQuiz.Forms
         public ConfiguracionAdminForm()
         {
             InitializeComponent();
+            cbConjunto.DataSource = fachada.ObtenerConjuntos();
         }
 
         private void BtnAdmin_Click(object sender, EventArgs e)
         {
-            fachada.UsuarioAAdmin(txtUsuario.Text);
-            MessageBox.Show("El usuario " + txtUsuario.Text + " ha pasado a ser administrador");
-            txtUsuario.Clear();
+            if (txtUsuario.Text != "")
+            {
+                bool resultado = fachada.UsuarioAAdmin(txtUsuario.Text);
+                if (resultado)
+                {
+                    MessageBox.Show("La operación se ha realizado con éxito", "Aviso");
+                }
+                else
+                {
+                    MessageBox.Show("No se ha encontrado al usuario", "Error");
+                }
+                txtUsuario.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Ingrese un usuario", "Error");
+            }
         }
 
         private void BtnUsuario_Click(object sender, EventArgs e)
         {
-            fachada.AdminAUsuario(txtUsuario.Text);
-            MessageBox.Show("El administrador " + txtUsuario.Text + " ha pasado a ser usuario");
-            txtUsuario.Clear();
+            if (txtUsuario.Text != "")
+            {
+                bool resultado = fachada.AdminAUsuario(txtUsuario.Text);
+                if (resultado)
+                {
+                    MessageBox.Show("La operación se ha realizado con éxito", "Aviso");
+                }
+                else
+                {
+                    MessageBox.Show("No se ha encontrado al usuario", "Error");
+                }
+                txtUsuario.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Ingrese un usuario", "Error");
+            }
         }
 
         private void BtnSalir_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void BtnAgregar_Click(object sender, EventArgs e)
+        {
+            if (nudCantidad.Value > 0)
+            {
+                Conjunto conjunto = (Conjunto)cbConjunto.SelectedItem;
+                conjunto.AgregarPreguntas(Decimal.ToInt32(nudCantidad.Value));
+            }
+            else
+            {
+                MessageBox.Show("La cantidad de preguntas a agregar debe ser mayor que 0", "Error");
+            }
+            nudCantidad.Value = 0;
         }
     }
 }

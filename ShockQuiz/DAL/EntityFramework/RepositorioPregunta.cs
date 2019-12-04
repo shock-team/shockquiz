@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
@@ -31,6 +29,19 @@ namespace ShockQuiz.DAL.EntityFramework
             List<Pregunta> ans = new List<Pregunta>();
             ans = this.iDbContext.Set<Pregunta>().Where(x => x.Categoria == pCategoria && x.Dificultad == pDificultad && x.ConjuntoId==pConjunto.ConjuntoId).ToList();
             return ans.OrderBy(x => rnd.Next()).Take(pCantidad);
+        }
+
+        public IEnumerable<Categoria> ObtenerCategorias(int pConjuntoId)
+        {
+            List<Categoria> listaCategorias = new List<Categoria>();
+            foreach (var pregunta in iDbContext.Set<Pregunta>().Where(x => x.ConjuntoId == pConjuntoId))
+            {
+                if (!listaCategorias.Contains(pregunta.Categoria))
+                {
+                    listaCategorias.Add(pregunta.Categoria);
+                }
+            }
+            return listaCategorias;
         }
     }
 }
