@@ -14,6 +14,14 @@ namespace ShockQuiz.Dominio
         public virtual ICollection<Sesion> Sesiones { get; set; }
         public virtual ICollection<Pregunta> Preguntas { get; set; }
 
-        public virtual double CalcularPuntaje(Sesion pSesion) { return pSesion.Duracion().TotalSeconds; }
+        public virtual double CalcularPuntaje(Sesion pSesion)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void AgregarPreguntas(int pCantidad)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

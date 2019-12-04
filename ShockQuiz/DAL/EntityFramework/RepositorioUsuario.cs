@@ -11,16 +11,32 @@ namespace ShockQuiz.DAL.EntityFramework
     {
         public RepositorioUsuario(ShockQuizDbContext pDbContext) : base(pDbContext) { }
 
-        public void Ascender(string pNombre)
+        public bool Ascender(string pNombre)
         {
             Usuario user = this.iDbContext.Set<Usuario>().Find(pNombre);
-            user.Admin = true;
+            if (user != null)
+            {
+                user.Admin = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public void Descender(string pNombre)
+        public bool Descender(string pNombre)
         {
             Usuario user = this.iDbContext.Set<Usuario>().Find(pNombre);
-            user.Admin = false;
+            if (user != null)
+            {
+                user.Admin = false;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public IEnumerable<Usuario> ObtenerTodos()

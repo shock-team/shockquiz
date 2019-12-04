@@ -11,24 +11,39 @@ namespace ShockQuiz.Forms
 {
     class FachadaConfiguracionAdmin
     {
-        public void AdminAUsuario(string pUsuario)
+        public bool AdminAUsuario(string pUsuario)
         {
+            bool resultado = false;
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    bUoW.RepositorioUsuario.Descender(pUsuario);
+                    resultado  = bUoW.RepositorioUsuario.Descender(pUsuario);
                 }
             }
+            return resultado;
         }
 
-        public void UsuarioAAdmin(string pUsuario)
+        public bool UsuarioAAdmin(string pUsuario)
+        {
+            bool resultado = false;
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    resultado = bUoW.RepositorioUsuario.Ascender(pUsuario);
+                }
+            }
+            return resultado;
+        }
+
+        public IEnumerable<Conjunto> ObtenerConjuntos()
         {
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    bUoW.RepositorioUsuario.Ascender(pUsuario);
+                    return bUoW.RepositorioConjunto.ObtenerTodas();
                 }
             }
         }

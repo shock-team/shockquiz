@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
@@ -60,6 +58,18 @@ namespace ShockQuiz.DAL.EntityFramework
             }
 
             return pNombre;
+
+        public IEnumerable<Categoria> ObtenerCategorias(int pConjuntoId)
+        {
+            List<Categoria> listaCategorias = new List<Categoria>();
+            foreach (var pregunta in iDbContext.Set<Pregunta>().Where(x => x.ConjuntoId == pConjuntoId))
+            {
+                if (!listaCategorias.Contains(pregunta.Categoria))
+                {
+                    listaCategorias.Add(pregunta.Categoria);
+                }
+            }
+            return listaCategorias;
         }
     }
 }
