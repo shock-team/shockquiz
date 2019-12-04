@@ -29,62 +29,67 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.btnCrearConjunto = new System.Windows.Forms.Button();
-            this.txtConjunto = new System.Windows.Forms.TextBox();
-            this.txtAscender = new System.Windows.Forms.TextBox();
-            this.btnAscender = new System.Windows.Forms.Button();
+            this.btnAdmin = new System.Windows.Forms.Button();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
+            this.btnUsuario = new System.Windows.Forms.Button();
+            this.btnSalir = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(247, 9);
+            this.label1.Location = new System.Drawing.Point(125, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Configuración";
             // 
-            // btnCrearConjunto
+            // btnAdmin
             // 
-            this.btnCrearConjunto.Location = new System.Drawing.Point(183, 58);
-            this.btnCrearConjunto.Name = "btnCrearConjunto";
-            this.btnCrearConjunto.Size = new System.Drawing.Size(104, 23);
-            this.btnCrearConjunto.TabIndex = 1;
-            this.btnCrearConjunto.Text = "Crear conjunto";
-            this.btnCrearConjunto.UseVisualStyleBackColor = true;
+            this.btnAdmin.Location = new System.Drawing.Point(183, 58);
+            this.btnAdmin.Name = "btnAdmin";
+            this.btnAdmin.Size = new System.Drawing.Size(104, 23);
+            this.btnAdmin.TabIndex = 1;
+            this.btnAdmin.Text = "Usuario a Admin";
+            this.btnAdmin.UseVisualStyleBackColor = true;
+            this.btnAdmin.Click += new System.EventHandler(this.BtnAdmin_Click);
             // 
-            // txtConjunto
+            // txtUsuario
             // 
-            this.txtConjunto.Location = new System.Drawing.Point(13, 60);
-            this.txtConjunto.Name = "txtConjunto";
-            this.txtConjunto.Size = new System.Drawing.Size(164, 20);
-            this.txtConjunto.TabIndex = 2;
+            this.txtUsuario.Location = new System.Drawing.Point(13, 60);
+            this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.Size = new System.Drawing.Size(164, 20);
+            this.txtUsuario.TabIndex = 2;
             // 
-            // txtAscender
+            // btnUsuario
             // 
-            this.txtAscender.Location = new System.Drawing.Point(293, 60);
-            this.txtAscender.Name = "txtAscender";
-            this.txtAscender.Size = new System.Drawing.Size(164, 20);
-            this.txtAscender.TabIndex = 3;
+            this.btnUsuario.Location = new System.Drawing.Point(183, 87);
+            this.btnUsuario.Name = "btnUsuario";
+            this.btnUsuario.Size = new System.Drawing.Size(104, 23);
+            this.btnUsuario.TabIndex = 4;
+            this.btnUsuario.Text = "Admin a Usuario";
+            this.btnUsuario.UseVisualStyleBackColor = true;
+            this.btnUsuario.Click += new System.EventHandler(this.BtnUsuario_Click);
             // 
-            // btnAscender
+            // btnSalir
             // 
-            this.btnAscender.Location = new System.Drawing.Point(463, 58);
-            this.btnAscender.Name = "btnAscender";
-            this.btnAscender.Size = new System.Drawing.Size(104, 23);
-            this.btnAscender.TabIndex = 4;
-            this.btnAscender.Text = "Ascender usuario";
-            this.btnAscender.UseVisualStyleBackColor = true;
+            this.btnSalir.Location = new System.Drawing.Point(212, 126);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(75, 23);
+            this.btnSalir.TabIndex = 5;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.BtnSalir_Click);
             // 
             // ConfiguracionAdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 320);
-            this.Controls.Add(this.btnAscender);
-            this.Controls.Add(this.txtAscender);
-            this.Controls.Add(this.txtConjunto);
-            this.Controls.Add(this.btnCrearConjunto);
+            this.ClientSize = new System.Drawing.Size(313, 159);
+            this.Controls.Add(this.btnSalir);
+            this.Controls.Add(this.btnUsuario);
+            this.Controls.Add(this.txtUsuario);
+            this.Controls.Add(this.btnAdmin);
             this.Controls.Add(this.label1);
             this.Name = "ConfiguracionAdminForm";
             this.Text = "ConfiguracionAdminForm";
@@ -96,9 +101,9 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnCrearConjunto;
-        private System.Windows.Forms.TextBox txtConjunto;
-        private System.Windows.Forms.TextBox txtAscender;
-        private System.Windows.Forms.Button btnAscender;
+        private System.Windows.Forms.Button btnAdmin;
+        private System.Windows.Forms.TextBox txtUsuario;
+        private System.Windows.Forms.Button btnUsuario;
+        private System.Windows.Forms.Button btnSalir;
     }
 }

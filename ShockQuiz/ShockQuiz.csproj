@@ -77,6 +77,7 @@
       <DependentUpon>ConfigurarSesionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FachadaConfigurarSesion.cs" />
+    <Compile Include="Forms\FachadaConfiguracionAdmin.cs" />
     <Compile Include="Forms\FachadaMenu.cs" />
     <Compile Include="Forms\FachadaRanking.cs" />
     <Compile Include="Forms\MenuForm.cs">

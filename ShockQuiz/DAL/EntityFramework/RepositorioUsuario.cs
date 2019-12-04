@@ -17,6 +17,12 @@ namespace ShockQuiz.DAL.EntityFramework
             user.Admin = true;
         }
 
+        public void Descender(string pNombre)
+        {
+            Usuario user = this.iDbContext.Set<Usuario>().Find(pNombre);
+            user.Admin = false;
+        }
+
         public IEnumerable<Usuario> ObtenerTodos()
         {
             return this.iDbContext.Set<Usuario>();
