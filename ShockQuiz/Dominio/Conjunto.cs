@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShockQuiz.Dominio
 {
-    public class Conjunto
+    public abstract class Conjunto
     {
         public int ConjuntoId { get; set; }
         public string Nombre { get; set; }

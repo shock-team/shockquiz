@@ -140,6 +140,10 @@
     <Compile Include="Migrations\201912041456584_owo.designer.cs">
       <DependentUpon>201912041456584_owo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912042215107_itworks.cs" />
+    <Compile Include="Migrations\201912042215107_itworks.designer.cs">
+      <DependentUpon>201912042215107_itworks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -169,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912041456584_owo.resx">
       <DependentUpon>201912041456584_owo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912042215107_itworks.resx">
+      <DependentUpon>201912042215107_itworks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

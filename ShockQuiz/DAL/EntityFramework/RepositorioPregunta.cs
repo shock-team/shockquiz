@@ -1,6 +1,8 @@
 ﻿using ShockQuiz.Dominio;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +33,33 @@ namespace ShockQuiz.DAL.EntityFramework
             List<Pregunta> ans = new List<Pregunta>();
             ans = this.iDbContext.Set<Pregunta>().Where(x => x.Categoria == pCategoria && x.Dificultad == pDificultad && x.ConjuntoId==pConjunto.ConjuntoId).ToList();
             return ans.OrderBy(x => rnd.Next()).Take(pCantidad);
+        }
+
+        public string GetOrCreate(string pNombre,string pConjunto)
+        {
+            var manager = ((IObjectContextAdapter)iDbContext).ObjectContext;
+
+            var dbPregunta = from t in iDbContext.Preguntas
+                             where t.Nombre == pNombre
+                             && t.Conjunto.Nombre == pConjunto
+                             select t;
+
+
+            if (dbPregunta.Count() > 0)
+            {
+                return dbPregunta.First().Nombre;
+            }
+
+            var cachedPregunta = manager.ObjectStateManager.GetObjectStateEntries(EntityState.Added)
+                                .Select(x => x.Entity)
+                                .OfType<Pregunta>()
+                                .SingleOrDefault(x => x.Nombre == pNombre);
+            if (cachedPregunta != null)
+            {
+                return cachedPregunta.Nombre;
+            }
+
+            return pNombre;
         }
     }
 }

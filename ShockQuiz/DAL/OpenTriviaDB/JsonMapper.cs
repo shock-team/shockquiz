@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
 using ShockQuiz.Dominio;
+using ShockQuiz.DAL.EntityFramework;
 
 namespace ShockQuiz.DAL.OpenTriviaDB
 {
@@ -17,7 +18,7 @@ namespace ShockQuiz.DAL.OpenTriviaDB
         public static List<Pregunta> Mapper(int pNumber = 10)
         {
             List<Pregunta> listaPreguntas = new List<Pregunta>();
-
+            string CONJUNTO = "OpenTDB";
             // Url
             var mUrl = "https://opentdb.com/api.php?amount="+pNumber+"&type=multiple";
 
@@ -62,21 +63,22 @@ namespace ShockQuiz.DAL.OpenTriviaDB
                             };
                             respuestas.Add(res);
                         }
-
-                        Pregunta pregunta = new Pregunta()
+                        using (var bDbContext = new ShockQuizDbContext())
                         {
-                            Nombre = preguntaDesc,
-                            Categoria = new Categoria()
+                            using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                             {
-                                Nombre = categoria
-                            },
-                            Dificultad = new Dificultad()
-                            {
-                                Nombre = dificultad
-                            },
-                            Respuestas = respuestas
-                        };
-                        listaPreguntas.Add(pregunta);
+                                Pregunta pregunta = new Pregunta()
+                                {
+                                    Nombre = bUoW.RepositorioPregunta.GetOrCreate(preguntaDesc, CONJUNTO),
+                                    Categoria = bUoW.RepositorioCategoria.GetOrCreate(categoria),
+                                    Dificultad = bUoW.RepositorioDificultad.GetOrCreate(dificultad),
+                                    Conjunto = bUoW.RepositorioConjunto.Get(CONJUNTO),
+                                    Respuestas = respuestas
+                                };
+                                bUoW.RepositorioPregunta.Agregar(pregunta);
+                                bUoW.GuardarCambios();
+                            }
+                        } 
                     }
                 }
             }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShockQuiz.Dominio
 {
-    class ConjuntoOTDB : Conjunto
+    public class ConjuntoOTDB : Conjunto
     {
         public override double CalcularPuntaje(Sesion pSesion)
         {

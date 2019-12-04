@@ -9,70 +9,148 @@ namespace unitTest
     [TestClass]
     public class UnitTest1
     {
-        //[TestMethod]
+        [TestMethod]
         public void TestMethod1()
         {
+            JsonMapper.Mapper(15);
+        }
 
-            List<Pregunta> listaPreguntas = JsonMapper.Mapper(1);
+        //[TestMethod]
+        public void TestMethodOwO()
+        {
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    foreach (Pregunta item in listaPreguntas)
+                    Conjunto otdb = new ConjuntoOTDB()
                     {
-                        bUoW.RepositorioPregunta.Agregar(item);
-                        bUoW.GuardarCambios();
-                    }
+                        Nombre = "OpenTDB",
+                        tiempoEsperadoPorPregunta = 40
+                    };
+                    bUoW.RepositorioConjunto.Agregar(otdb);
+                    bUoW.GuardarCambios();
                 }
             }
-
         }
-        [TestMethod]
-        public void TestMethod2()
-        {
-            Pregunta pregunta = new Pregunta()
-            {
-                Nombre = "Preguntaaaa?",
-                Categoria = new Categoria()
-                {
-                    Nombre = "Categoria"
-                },
-                Dificultad = new Dificultad()
-                {
-                    Nombre = "Dificultad"
-                },
-                Conjunto = new Conjunto()
-                {
-                    Nombre = "OpenAss"
-                },
-                Respuestas = new List<Respuesta>()
-                {
-                    new Respuesta()
-                    {
-                        DefRespuesta= "Correcta",
-                        EsCorrecta=true
-                    },
-                    new Respuesta()
-                    {
-                        DefRespuesta= "Incorrecta1",
-                        EsCorrecta=false
-                    },
-                    new Respuesta()
-                    {
-                        DefRespuesta= "Incorrecta2",
-                        EsCorrecta=false
-                    }
-                }
-            };
 
+        //[TestMethod]
+       /* public void TestMethod2()
+        {
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
+                    Pregunta pregunta = new Pregunta()
+                    {
+                        Nombre = "Pregunta?",
+                        Categoria = bUoW.RepositorioCategoria.GetOrCreateConjunto("Categoria 2"),
+                        Dificultad = new Dificultad()
+                        {
+                            Nombre = "Dificultad"
+                        },
+                        Conjunto = new Conjunto()
+                        {
+                            Nombre = "OpenAss"
+                        },
+                        Respuestas = new List<Respuesta>()
+                        {
+                            new Respuesta()
+                            {
+                                DefRespuesta= "Correcta",
+                                EsCorrecta=true
+                            },
+                            new Respuesta()
+                            {
+                                DefRespuesta= "Incorrecta1",
+                                EsCorrecta=false
+                            },
+                            new Respuesta()
+                            {
+                                DefRespuesta= "Incorrecta2",
+                                EsCorrecta=false
+                            }
+                        }
+                    };
                     bUoW.RepositorioPregunta.Agregar(pregunta);
                     bUoW.GuardarCambios();
                 }
             }
         }
+
+        //[TestMethod]
+        public void TestMethod3()
+        {
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    Pregunta pregunta = new Pregunta()
+                    {
+                        Nombre = "Pregunta?",
+                        Categoria = bUoW.RepositorioCategoria.GetOrCreateConjunto("Categoria 3"),
+                        Dificultad = bUoW.RepositorioDificultad.GetOrCreateDificultad("Dificultad owo"),
+                        Conjunto = new Conjunto()
+                        {
+                            Nombre = "OpenAss"
+                        },
+                        Respuestas = new List<Respuesta>()
+                        {
+                            new Respuesta()
+                            {
+                                DefRespuesta= "Correcta",
+                                EsCorrecta=true
+                            },
+                            new Respuesta()
+                            {
+                                DefRespuesta= "Incorrecta1",
+                                EsCorrecta=false
+                            },
+                            new Respuesta()
+                            {
+                                DefRespuesta= "Incorrecta2",
+                                EsCorrecta=false
+                            }
+                        }
+                    };
+                    bUoW.RepositorioPregunta.Agregar(pregunta);
+
+                    Pregunta pregunta2 = new Pregunta()
+                    {
+                        Nombre = "Pregunta re loca?",
+                        Categoria = bUoW.RepositorioCategoria.GetOrCreateConjunto("Categoria 3"),
+                        Dificultad = new Dificultad()
+                        {
+                            Nombre = "Dificultad"
+                        },
+                        Conjunto = new Conjunto()
+                        {
+                            Nombre = "OpenAss"
+                        },
+                        Respuestas = new List<Respuesta>()
+                        {
+                            new Respuesta()
+                            {
+                                DefRespuesta= "Correcta",
+                                EsCorrecta=true
+                            },
+                            new Respuesta()
+                            {
+                                DefRespuesta= "Incorrecta1",
+                                EsCorrecta=false
+                            },
+                            new Respuesta()
+                            {
+                                DefRespuesta= "Incorrecta2",
+                                EsCorrecta=false
+                            }
+                        }
+                    };
+                    bUoW.RepositorioPregunta.Agregar(pregunta2);
+
+                    bUoW.GuardarCambios();
+                }
+            }
+
+        }*/
     }
 }
