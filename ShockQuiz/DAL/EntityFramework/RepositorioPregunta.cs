@@ -33,7 +33,7 @@ namespace ShockQuiz.DAL.EntityFramework
             return ans.OrderBy(x => rnd.Next()).Take(pCantidad);
         }
 
-        public string GetOrCreate(string pNombre,string pConjunto)
+        public string GetOrCreate(string pNombre, string pConjunto)
         {
             var manager = ((IObjectContextAdapter)iDbContext).ObjectContext;
 
@@ -45,7 +45,7 @@ namespace ShockQuiz.DAL.EntityFramework
 
             if (dbPregunta.Count() > 0)
             {
-                return dbPregunta.First().Nombre;
+                return string.Empty;
             }
 
             var cachedPregunta = manager.ObjectStateManager.GetObjectStateEntries(EntityState.Added)
@@ -54,10 +54,11 @@ namespace ShockQuiz.DAL.EntityFramework
                                 .SingleOrDefault(x => x.Nombre == pNombre);
             if (cachedPregunta != null)
             {
-                return cachedPregunta.Nombre;
+                return string.Empty;
             }
 
             return pNombre;
+        }
 
         public IEnumerable<Categoria> ObtenerCategorias(int pConjuntoId)
         {

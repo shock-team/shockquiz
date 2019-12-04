@@ -75,8 +75,11 @@ namespace ShockQuiz.DAL.OpenTriviaDB
                                     Conjunto = bUoW.RepositorioConjunto.Get(CONJUNTO),
                                     Respuestas = respuestas
                                 };
-                                bUoW.RepositorioPregunta.Agregar(pregunta);
-                                bUoW.GuardarCambios();
+                                if (pregunta.Nombre != string.Empty)
+                                {
+                                    bUoW.RepositorioPregunta.Agregar(pregunta);
+                                    bUoW.GuardarCambios();
+                                }
                             }
                         } 
                     }

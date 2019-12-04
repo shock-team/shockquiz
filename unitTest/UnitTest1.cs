@@ -9,7 +9,7 @@ namespace unitTest
     [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
+        //[TestMethod]
         public void TestMethod1()
         {
             JsonMapper.Mapper(15);
@@ -34,7 +34,7 @@ namespace unitTest
         }
 
         //[TestMethod]
-       /* public void TestMethod2()
+        public void TestMethod2()
         {
             using (var bDbContext = new ShockQuizDbContext())
             {
@@ -43,15 +43,9 @@ namespace unitTest
                     Pregunta pregunta = new Pregunta()
                     {
                         Nombre = "Pregunta?",
-                        Categoria = bUoW.RepositorioCategoria.GetOrCreateConjunto("Categoria 2"),
-                        Dificultad = new Dificultad()
-                        {
-                            Nombre = "Dificultad"
-                        },
-                        Conjunto = new Conjunto()
-                        {
-                            Nombre = "OpenAss"
-                        },
+                        Categoria = bUoW.RepositorioCategoria.GetOrCreate("Categoria 2"),
+                        Dificultad = bUoW.RepositorioDificultad.GetOrCreate("Dificultad"),
+                        Conjunto = bUoW.RepositorioConjunto.Get("OpenTDB"),
                         Respuestas = new List<Respuesta>()
                         {
                             new Respuesta()
@@ -77,7 +71,7 @@ namespace unitTest
             }
         }
 
-        //[TestMethod]
+       [TestMethod]
         public void TestMethod3()
         {
             using (var bDbContext = new ShockQuizDbContext())
@@ -86,13 +80,10 @@ namespace unitTest
                 {
                     Pregunta pregunta = new Pregunta()
                     {
-                        Nombre = "Pregunta?",
-                        Categoria = bUoW.RepositorioCategoria.GetOrCreateConjunto("Categoria 3"),
-                        Dificultad = bUoW.RepositorioDificultad.GetOrCreateDificultad("Dificultad owo"),
-                        Conjunto = new Conjunto()
-                        {
-                            Nombre = "OpenAss"
-                        },
+                        Nombre = bUoW.RepositorioPregunta.GetOrCreate("Pregunta??", "OpenTDB2"),
+                        Categoria = bUoW.RepositorioCategoria.GetOrCreate("Categoria 2"),
+                        Dificultad = bUoW.RepositorioDificultad.GetOrCreate("Dificultad"),
+                        Conjunto = bUoW.RepositorioConjunto.Get("OpenTDB2"),
                         Respuestas = new List<Respuesta>()
                         {
                             new Respuesta()
@@ -112,45 +103,44 @@ namespace unitTest
                             }
                         }
                     };
-                    bUoW.RepositorioPregunta.Agregar(pregunta);
+                    if (pregunta.Nombre != string.Empty)
+                    {
+                        bUoW.RepositorioPregunta.Agregar(pregunta);
+                    }
 
                     Pregunta pregunta2 = new Pregunta()
                     {
-                        Nombre = "Pregunta re loca?",
-                        Categoria = bUoW.RepositorioCategoria.GetOrCreateConjunto("Categoria 3"),
-                        Dificultad = new Dificultad()
-                        {
-                            Nombre = "Dificultad"
-                        },
-                        Conjunto = new Conjunto()
-                        {
-                            Nombre = "OpenAss"
-                        },
+                        Nombre = bUoW.RepositorioPregunta.GetOrCreate("Pregunta??","OpenTDB2"),
+                        Categoria = bUoW.RepositorioCategoria.GetOrCreate("Categoria"),
+                        Dificultad = bUoW.RepositorioDificultad.GetOrCreate("Dificultad"),
+                        Conjunto = bUoW.RepositorioConjunto.Get("OpenTDB2"),
                         Respuestas = new List<Respuesta>()
                         {
                             new Respuesta()
                             {
-                                DefRespuesta= "Correcta",
+                                DefRespuesta= "Correcta  2",
                                 EsCorrecta=true
                             },
                             new Respuesta()
                             {
-                                DefRespuesta= "Incorrecta1",
+                                DefRespuesta= "Incorrecta1  2",
                                 EsCorrecta=false
                             },
                             new Respuesta()
                             {
-                                DefRespuesta= "Incorrecta2",
+                                DefRespuesta= "Incorrecta2  2",
                                 EsCorrecta=false
                             }
                         }
                     };
-                    bUoW.RepositorioPregunta.Agregar(pregunta2);
+                    if (pregunta2.Nombre != string.Empty)
+                    {
+                        bUoW.RepositorioPregunta.Agregar(pregunta2);
+                    }
 
                     bUoW.GuardarCambios();
                 }
             }
-
-        }*/
+        }
     }
 }
