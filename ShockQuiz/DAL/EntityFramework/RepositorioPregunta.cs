@@ -45,7 +45,7 @@ namespace ShockQuiz.DAL.EntityFramework
 
             if (dbPregunta.Count() > 0)
             {
-                return dbPregunta.First().Nombre;
+                return string.Empty;
             }
 
             var cachedPregunta = manager.ObjectStateManager.GetObjectStateEntries(EntityState.Added)
@@ -54,7 +54,7 @@ namespace ShockQuiz.DAL.EntityFramework
                                 .SingleOrDefault(x => x.Nombre == pNombre);
             if (cachedPregunta != null)
             {
-                return cachedPregunta.Nombre;
+                return string.Empty;
             }
 
             return pNombre;
