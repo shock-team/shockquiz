@@ -16,7 +16,6 @@ namespace ShockQuiz
     {
         FachadaSesion fachada = new FachadaSesion();
 
- 
         public SesionForm(Usuario pUsuario, Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto, int pCantidad)
         {
             InitializeComponent();

@@ -11,7 +11,7 @@ namespace ShockQuiz.DAL.EntityFramework
     {
         public RepositorioCategoria(ShockQuizDbContext pDbContext) : base(pDbContext) { }
 
-        public IEnumerable<Categoria> ObtenerTodas(string pUsuario)
+        public IEnumerable<Categoria> ObtenerTodas()
         {
             return this.iDbContext.Set<Categoria>();
         }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ShockQuiz.DAL;
 using ShockQuiz.Dominio;
+using ShockQuiz.DAL.EntityFramework;
 
 namespace ShockQuiz.Forms
 {
@@ -12,17 +13,35 @@ namespace ShockQuiz.Forms
     {
         public IEnumerable<Conjunto> ObtenerConjuntos()
         {
-            throw new NotImplementedException();
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    return bUoW.RepositorioConjunto.ObtenerTodas();
+                }
+            }
         }
 
         public IEnumerable<Categoria> ObtenerCategorias()
         {
-            throw new NotImplementedException();
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    return bUoW.RepositorioCategoria.ObtenerTodas();
+                }
+            }
         }
 
         public IEnumerable<Dificultad> ObtenerDificultades()
         {
-            throw new NotImplementedException();
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    return bUoW.RepositorioDificultad.ObtenerTodas();
+                }
+            }
         }
     }
 }
