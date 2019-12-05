@@ -21,6 +21,11 @@ namespace ShockQuiz.Forms
             {
                 cbConjunto.Items.Add(conjunto);
             }
+            if (cbConjunto.Items.Count == 1)
+            {
+                cbConjunto.SelectedIndex = 1;
+                cbConjunto.Enabled = false;
+            }
             IEnumerable<string> dificultades = fachada.ObtenerDificultades();
             foreach (string dificultad in dificultades)
             {
