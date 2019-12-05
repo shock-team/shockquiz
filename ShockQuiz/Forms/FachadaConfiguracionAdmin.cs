@@ -63,6 +63,12 @@ namespace ShockQuiz.Forms
             }
         }
 
+        /// <summary>
+        /// Crea una nueva instancia de ConjuntoOTDB y la guarda en la base de datos
+        /// </summary>
+        /// <param name="pNombre">Nombre del nuevo ConjuntoOTDB</param>
+        /// <param name="pTEPP">Cantidad de sengudos esperada por pregunta</param>
+        /// <param name="token">Si el checkbox del Token fue seleccionado o no</param>
         public void AñadirConjunto(string pNombre, int pTEPP, bool token)
         {
 
