@@ -10,7 +10,7 @@ namespace unitTest
     [TestClass]
     public class UnitTest2
     {
-        [TestMethod]
+        //[TestMethod]
         public void TestMethod1()
         {
             MessageBox.Show(JsonMapper.ObtenerToken());

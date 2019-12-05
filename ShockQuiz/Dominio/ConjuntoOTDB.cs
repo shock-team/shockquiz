@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using ShockQuiz.DAL.OpenTriviaDB;
 
 namespace ShockQuiz.Dominio
@@ -42,7 +43,8 @@ namespace ShockQuiz.Dominio
             {
                 FACTOR_TIEMPO = 3;
             }
-            return (pSesion.RespuestasCorrectas / pSesion.CantidadPreguntas) * FACTOR_DIFICULTAD * FACTOR_TIEMPO;
+            double puntaje = ((double)pSesion.RespuestasCorrectas / (double)pSesion.CantidadPreguntas) * FACTOR_DIFICULTAD * FACTOR_TIEMPO;
+            return Math.Round(puntaje,2);
         }
 
         public override void AgregarPreguntas(int pCantidad)
