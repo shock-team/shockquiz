@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using ShockQuiz.DAL;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly ShockQuizDbContext iDbContext;
         private bool iDisposedValue = false;
@@ -15,6 +16,11 @@ namespace ShockQuiz.DAL.EntityFramework
         public IRepositorioPregunta RepositorioPregunta { get; private set; }
         public IRepositorioUsuario RepositorioUsuario { get; private set; }
         public IRepositorioSesion RepositorioSesion { get; private set; }
+
+        public RepositorioCategoria RepositorioCategoria { get; private set; }
+        public RepositorioDificultad RepositorioDificultad { get; private set; }
+        public RepositorioConjunto RepositorioConjunto { get; private set; }
+
 
 
 
@@ -29,6 +35,9 @@ namespace ShockQuiz.DAL.EntityFramework
             this.RepositorioPregunta = new RepositorioPregunta(pDbContext);
             this.RepositorioSesion = new RepositorioSesion(pDbContext);
             this.RepositorioUsuario = new RepositorioUsuario(pDbContext);
+            this.RepositorioCategoria = new RepositorioCategoria(pDbContext);
+            this.RepositorioDificultad = new RepositorioDificultad(pDbContext);
+            this.RepositorioConjunto = new RepositorioConjunto(pDbContext);
         }
 
         public void GuardarCambios()

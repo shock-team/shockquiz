@@ -62,6 +62,7 @@
             this.btnRanking.TabIndex = 2;
             this.btnRanking.Text = "Ranking";
             this.btnRanking.UseVisualStyleBackColor = true;
+            this.btnRanking.Click += new System.EventHandler(this.btnRanking_Click);
             // 
             // btnConfiguracion
             // 
@@ -71,6 +72,7 @@
             this.btnConfiguracion.TabIndex = 3;
             this.btnConfiguracion.Text = "Configuración";
             this.btnConfiguracion.UseVisualStyleBackColor = true;
+            this.btnConfiguracion.Click += new System.EventHandler(this.BtnConfiguracion_Click);
             // 
             // btnSalir
             // 
@@ -93,8 +95,8 @@
             this.Controls.Add(this.btnNuevaSesion);
             this.Controls.Add(this.label1);
             this.Name = "MenuForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MenuForm";
-            this.Load += new System.EventHandler(this.MenuForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

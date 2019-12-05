@@ -12,6 +12,8 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
     {
         public UsuarioMap()
         {
+            this.ToTable("Usuarios");
+
             this.HasKey(pUsuario => pUsuario.UsuarioId);
             this.Property(pUsuario => pUsuario.UsuarioId)
                 .HasColumnName("id")

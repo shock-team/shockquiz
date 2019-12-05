@@ -1,36 +1,59 @@
-﻿using System;
+﻿using ShockQuiz.Dominio;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ShockQuiz.Dominio;
 
 namespace ShockQuiz.Forms
 {
     public partial class ConfigurarSesionForm : Form
     {
-        Usuario Usuario;
+        string Usuario;
         FachadaConfigurarSesion fachada = new FachadaConfigurarSesion();
 
-        public ConfigurarSesionForm(Usuario pUsuario)
+        public ConfigurarSesionForm(string pUsuario)
         {
             InitializeComponent();
             Usuario = pUsuario;
+            IEnumerable<string> conjuntos = fachada.ObtenerConjuntos();
+            foreach (string conjunto in conjuntos)
+            {
+                cbConjunto.Items.Add(conjunto);
+            }
+            IEnumerable<string> dificultades = fachada.ObtenerDificultades();
+            foreach (string dificultad in dificultades)
+            {
+                cbDificultad.Items.Add(dificultad);
+            }
         }
 
         private void BtnIniciar_Click(object sender, EventArgs e)
         {
-            SesionForm sesionForm = new SesionForm(Usuario, (Categoria)cbCategoria.SelectedItem, (Dificultad)cbDificultad.SelectedItem, (Conjunto)cbConjunto.SelectedItem, int.Parse(txtCantidad.Text));
+            SesionForm sesionForm = new SesionForm(Usuario, (string)cbCategoria.SelectedItem, (string)cbDificultad.SelectedItem, (string)cbConjunto.SelectedItem, Decimal.ToInt32(nudCantidad.Value));
+            sesionForm.FormClosed += new FormClosedEventHandler(SesionForm_FormClosed);
             sesionForm.Show();
+            this.Hide();
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void CbConjunto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbCategoria.Items.Clear();
+            string conjunto = (string)cbConjunto.SelectedItem;
+            List<string> categorias = fachada.ObtenerCategorias(conjunto).ToList();
+            foreach (string categoria in categorias)
+            {
+                cbCategoria.Items.Add(categoria);
+            }
+        }
+
+        private void SesionForm_FormClosed(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

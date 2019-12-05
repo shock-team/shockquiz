@@ -7,13 +7,15 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
     {
         public CategoriaMap()
         {
+            this.ToTable("Categorias");
+
             this.HasKey(x => x.Id);
             this.Property(x => x.Id)
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)
                 .HasColumnName("id");
 
             this.Property(x => x.Nombre)
-                .HasMaxLength(100)
+                .HasMaxLength(150)
                 .IsRequired()
                 .HasColumnName("nombre");
         }

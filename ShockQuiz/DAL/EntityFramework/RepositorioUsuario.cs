@@ -7,14 +7,36 @@ using System.Threading.Tasks;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    class RepositorioUsuario:Repositorio<Usuario, ShockQuizDbContext>, IRepositorioUsuario
+    public class RepositorioUsuario:Repositorio<Usuario, ShockQuizDbContext>, IRepositorioUsuario
     {
         public RepositorioUsuario(ShockQuizDbContext pDbContext) : base(pDbContext) { }
 
-        public void Ascender(string pNombre)
+        public bool Ascender(string pNombre)
         {
             Usuario user = this.iDbContext.Set<Usuario>().Find(pNombre);
-            user.Admin = true;
+            if (user != null)
+            {
+                user.Admin = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool Descender(string pNombre)
+        {
+            Usuario user = this.iDbContext.Set<Usuario>().Find(pNombre);
+            if (user != null)
+            {
+                user.Admin = false;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public IEnumerable<Usuario> ObtenerTodos()

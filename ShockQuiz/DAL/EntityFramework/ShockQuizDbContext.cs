@@ -1,15 +1,16 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Validation;
 using ShockQuiz.Dominio;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    class ShockQuizDbContext:DbContext
+    public class ShockQuizDbContext:DbContext
     {
         public ShockQuizDbContext() : base("ShockQuiz")
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ShockQuizDbContext, Migrations.Configuration>());
         }
-        
+
         public DbSet<Pregunta> Preguntas { get; set; }
         public DbSet<Sesion> Sesiones { get; set; }
         public DbSet<Respuesta> Respuestas { get; set; }
@@ -22,6 +23,19 @@ namespace ShockQuiz.DAL.EntityFramework
         {
             pModelBuilder.Configurations.AddFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());
             base.OnModelCreating(pModelBuilder);
+        }
+
+        public override int SaveChanges()
+        {
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                var newException = new FormattedDbEntityValidationException(e);
+                throw newException;
+            }
         }
     }
 }

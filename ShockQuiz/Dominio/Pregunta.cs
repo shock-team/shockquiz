@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using ShockQuiz.IO;
 
 namespace ShockQuiz.Dominio
@@ -20,28 +21,29 @@ namespace ShockQuiz.Dominio
         public Dificultad Dificultad { get; set; }
         public int ConjuntoId { get; set; }
         public Conjunto Conjunto { get; set; }
-
-        public ICollection<Respuesta> RespuestasIncorrectas { get; set; }
-        
-        public virtual Respuesta RespuestaCorrecta { get; set; }
-
-        public Pregunta(string pPregunta, Categoria pCategoria, Dificultad pDificultad, List<Respuesta> pRespuestas, Respuesta pRespuestaCorrecta)
-        {
-            this.Nombre = pPregunta;
-            this.Categoria = pCategoria;
-            this.Dificultad = pDificultad;
-            this.RespuestasIncorrectas = pRespuestas;
-            this.RespuestaCorrecta = pRespuestaCorrecta;
-        }
-
+        public ICollection<Respuesta> Respuestas { get; set; }
+       
         public ResultadoRespuesta Responder(string pRespuesta)
         {
             //Este método se encarga de comprobar si la respuesta ingresada es correcta, devolviendo
             //true si es así y false en caso contrario.
             ResultadoRespuesta resultado = new ResultadoRespuesta();
-            resultado.EsCorrecta = (pRespuesta == RespuestaCorrecta.DefRespuesta);
+            foreach (var item in Respuestas.ToList())
+            {
+                if (item.EsCorrecta == true)
+                {
+                    resultado.RespuestaCorrecta = item.DefRespuesta;
+                    if (item.DefRespuesta == pRespuesta)
+                    {
+                        resultado.EsCorrecta = true;
+                    }
+                    else
+                    {
+                        resultado.EsCorrecta = false;
+                    }
+                }
+            }
             resultado.FinSesion = false;
-            resultado.RespuestaCorrecta = RespuestaCorrecta.DefRespuesta;
             return resultado;
         }
 
@@ -52,11 +54,12 @@ namespace ShockQuiz.Dominio
             Random random = new Random();
             string temp;
             List<string> lista = new List<string>();
-            foreach (Respuesta respuesta in RespuestasIncorrectas)
+
+            foreach (var respuesta in Respuestas.ToList())
             {
                 lista.Add(respuesta.DefRespuesta);
             }
-            lista.Add(RespuestaCorrecta.DefRespuesta);
+
             int a;
             int b;
             for (int i = 0; i < lista.Count; i++)

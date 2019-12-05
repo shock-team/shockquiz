@@ -12,6 +12,8 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
     {
         public RespuestaMap()
         {
+            this.ToTable("Respuestas");
+
             this.HasKey(x => x.RespuestaId);
             this.Property(x => x.RespuestaId)
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)
@@ -19,12 +21,11 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
 
             this.Property(x => x.DefRespuesta)
                 .HasColumnName("respuesta")
-                .HasMaxLength(100)
                 .IsRequired();
 
-            this.HasRequired<Pregunta>(x => x.Pregunta)
-                .WithMany(x => x.RespuestasIncorrectas)
-                .HasForeignKey<int>(x => x.PreguntaId);
+            this.HasRequired(x => x.Pregunta)
+                .WithMany(x => x.Respuestas)
+                .HasForeignKey(x => x.PreguntaId);
         }
     }
 }

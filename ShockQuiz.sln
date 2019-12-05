@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29403.142
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShockQuiz", "ShockQuiz\ShockQuiz.csproj", "{4FF6B5D4-2EF6-4D6C-A6D7-BE8BDB06C5F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tets", "tets\tets.csproj", "{BBC3649B-D53B-4B5E-8105-C685A456D98C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unitTest", "unitTest\unitTest.csproj", "{9A76EE7E-EEAC-4183-BCB3-96636EC2AA4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{4FF6B5D4-2EF6-4D6C-A6D7-BE8BDB06C5F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FF6B5D4-2EF6-4D6C-A6D7-BE8BDB06C5F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FF6B5D4-2EF6-4D6C-A6D7-BE8BDB06C5F5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBC3649B-D53B-4B5E-8105-C685A456D98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBC3649B-D53B-4B5E-8105-C685A456D98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBC3649B-D53B-4B5E-8105-C685A456D98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBC3649B-D53B-4B5E-8105-C685A456D98C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A76EE7E-EEAC-4183-BCB3-96636EC2AA4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A76EE7E-EEAC-4183-BCB3-96636EC2AA4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A76EE7E-EEAC-4183-BCB3-96636EC2AA4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A76EE7E-EEAC-4183-BCB3-96636EC2AA4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,9 +1,12 @@
-﻿using System;
+﻿using ShockQuiz.Dominio;
+using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    abstract class Repositorio<TEntity, TDbContext> : IRepositorio<TEntity>
+    public abstract class Repositorio<TEntity, TDbContext> : IRepositorio<TEntity>
         where TEntity : class
         where TDbContext : DbContext
     {
@@ -33,5 +36,6 @@ namespace ShockQuiz.DAL.EntityFramework
         {
             return this.iDbContext.Set<TEntity>().Find(pId);
         }
+
     }
 }

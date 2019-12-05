@@ -60,6 +60,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\EntityFramework\FormattedDbEntityValidationException.cs" />
+    <Compile Include="DAL\EntityFramework\RepositorioCategoria.cs" />
+    <Compile Include="DAL\EntityFramework\RepositorioConjunto.cs" />
+    <Compile Include="DAL\EntityFramework\RepositorioDificultad.cs" />
+    <Compile Include="DAL\OpenTriviaDB\JsonMapper.cs" />
     <Compile Include="Dominio\ConjuntoOTDB.cs" />
     <Compile Include="Forms\ConfiguracionAdminForm.cs">
       <SubType>Form</SubType>
@@ -74,6 +79,7 @@
       <DependentUpon>ConfigurarSesionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FachadaConfigurarSesion.cs" />
+    <Compile Include="Forms\FachadaConfiguracionAdmin.cs" />
     <Compile Include="Forms\FachadaMenu.cs" />
     <Compile Include="Forms\FachadaRanking.cs" />
     <Compile Include="Forms\MenuForm.cs">
@@ -126,13 +132,25 @@
     <Compile Include="IO\PreguntaDTO.cs" />
     <Compile Include="IO\ResultadoRespuesta.cs" />
     <Compile Include="Dominio\Pregunta.cs" />
-    <Compile Include="Migrations\201912032055427_test1.cs" />
-    <Compile Include="Migrations\201912032055427_test1.designer.cs">
-      <DependentUpon>201912032055427_test1.cs</DependentUpon>
+    <Compile Include="Migrations\201912040641134_test1.cs" />
+    <Compile Include="Migrations\201912040641134_test1.designer.cs">
+      <DependentUpon>201912040641134_test1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912032124222_test2.cs" />
-    <Compile Include="Migrations\201912032124222_test2.designer.cs">
-      <DependentUpon>201912032124222_test2.cs</DependentUpon>
+    <Compile Include="Migrations\201912041456584_owo.cs" />
+    <Compile Include="Migrations\201912041456584_owo.designer.cs">
+      <DependentUpon>201912041456584_owo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912042215107_itworks.cs" />
+    <Compile Include="Migrations\201912042215107_itworks.designer.cs">
+      <DependentUpon>201912042215107_itworks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912050016514_alatio.cs" />
+    <Compile Include="Migrations\201912050016514_alatio.designer.cs">
+      <DependentUpon>201912050016514_alatio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912050519183_alaa.cs" />
+    <Compile Include="Migrations\201912050519183_alaa.designer.cs">
+      <DependentUpon>201912050519183_alaa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -158,11 +176,20 @@
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912032055427_test1.resx">
-      <DependentUpon>201912032055427_test1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912040641134_test1.resx">
+      <DependentUpon>201912040641134_test1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912032124222_test2.resx">
-      <DependentUpon>201912032124222_test2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912041456584_owo.resx">
+      <DependentUpon>201912041456584_owo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912042215107_itworks.resx">
+      <DependentUpon>201912042215107_itworks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912050016514_alatio.resx">
+      <DependentUpon>201912050016514_alatio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912050519183_alaa.resx">
+      <DependentUpon>201912050519183_alaa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -172,6 +199,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -186,6 +214,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\next.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

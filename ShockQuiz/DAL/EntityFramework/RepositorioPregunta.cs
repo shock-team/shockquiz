@@ -1,13 +1,13 @@
 ﻿using ShockQuiz.Dominio;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    class RepositorioPregunta:Repositorio<Pregunta, ShockQuizDbContext>, IRepositorioPregunta
+    public class RepositorioPregunta:Repositorio<Pregunta, ShockQuizDbContext>, IRepositorioPregunta
     {
         static Random rnd = new Random();
         public RepositorioPregunta(ShockQuizDbContext pDbContext) : base(pDbContext) { }
@@ -28,9 +28,60 @@ namespace ShockQuiz.DAL.EntityFramework
 
         public IEnumerable<Pregunta> ObtenerPreguntas(Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto, int pCantidad = 10)
         {
-            List<Pregunta> ans = new List<Pregunta>();
-            ans = this.iDbContext.Set<Pregunta>().Where(x => x.Categoria == pCategoria && x.Dificultad == pDificultad && x.ConjuntoId==pConjunto.ConjuntoId).ToList();
-            return ans.OrderBy(x => rnd.Next()).Take(pCantidad);
+
+            var list = from t in iDbContext.Preguntas
+                       .Include(x => x.Respuestas)
+                       .Include(x => x.Categoria)
+                       .Include(x => x.Dificultad)
+                       .Include(x => x.Conjunto)
+                       where t.Categoria.Nombre == pCategoria.Nombre
+                       && t.Dificultad.Nombre == pDificultad.Nombre
+                       && t.Conjunto.Nombre == pConjunto.Nombre
+                       select t;
+
+            return list.ToList().OrderBy(x => rnd.Next()).Take(pCantidad);
+        }
+
+        public string GetOrCreate(string pNombre, string pConjunto)
+        {
+            var manager = ((IObjectContextAdapter)iDbContext).ObjectContext;
+
+            var dbPregunta = from t in iDbContext.Preguntas
+                             where t.Nombre == pNombre
+                             && t.Conjunto.Nombre == pConjunto
+                             select t;
+
+
+            if (dbPregunta.Count() > 0)
+            {
+                return string.Empty;
+            }
+
+            var cachedPregunta = manager.ObjectStateManager.GetObjectStateEntries(EntityState.Added)
+                                .Select(x => x.Entity)
+                                .OfType<Pregunta>()
+                                .SingleOrDefault(x => x.Nombre == pNombre);
+            if (cachedPregunta != null)
+            {
+                return string.Empty;
+            }
+
+            return pNombre;
+        }
+
+        public IEnumerable<Categoria> ObtenerCategorias(string pConjunto)
+        {
+            List<Categoria> listaCategorias = new List<Categoria>();
+            List<Pregunta> listaPreguntas = new List<Pregunta>();
+            listaPreguntas = (from t in iDbContext.Preguntas.Include(x => x.Categoria).Include(x => x.Conjunto) where t.Conjunto.Nombre == pConjunto select t).ToList();
+            foreach (Pregunta pregunta in listaPreguntas)
+            {
+                if (!listaCategorias.Contains(pregunta.Categoria))
+                {
+                    listaCategorias.Add(pregunta.Categoria);
+                }
+            }
+            return listaCategorias;
         }
     }
 }

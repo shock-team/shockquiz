@@ -5,24 +5,58 @@ using System.Text;
 using System.Threading.Tasks;
 using ShockQuiz.DAL;
 using ShockQuiz.Dominio;
+using ShockQuiz.DAL.EntityFramework;
 
 namespace ShockQuiz.Forms
 {
     public class FachadaConfigurarSesion
     {
-        public IEnumerable<Conjunto> ObtenerConjuntos()
+        public IEnumerable<string> ObtenerConjuntos()
         {
-            throw new NotImplementedException();
+            List<string> conjuntos = new List<string>();
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    foreach (Conjunto conjunto in bUoW.RepositorioConjunto.ObtenerTodas())
+                    {
+                        conjuntos.Add(conjunto.Nombre);
+                    }
+                }
+            }
+            return conjuntos;
         }
 
-        public IEnumerable<Categoria> ObtenerCategorias()
+        public IEnumerable<string> ObtenerCategorias(string pConjunto)
         {
-            throw new NotImplementedException();
+            List<string> categorias = new List<string>();
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    foreach (Categoria categoria in bUoW.RepositorioPregunta.ObtenerCategorias(pConjunto))
+                    {
+                        categorias.Add(categoria.Nombre); 
+                    }
+                }
+            }
+            return categorias;
         }
 
-        public IEnumerable<Dificultad> ObtenerDificultades()
+        public IEnumerable<string> ObtenerDificultades()
         {
-            throw new NotImplementedException();
+            List<string> dificultades = new List<string>();
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    foreach (Dificultad dificultad in bUoW.RepositorioDificultad.ObtenerTodas())
+                    {
+                        dificultades.Add(dificultad.Nombre);
+                    }
+                }
+            }
+            return dificultades;
         }
     }
 }

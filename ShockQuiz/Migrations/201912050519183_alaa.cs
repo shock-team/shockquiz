@@ -3,16 +3,16 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class test2 : DbMigration
+    public partial class alaa : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Dificultads", "FactorDificultad", c => c.Double(nullable: false));
+            AddColumn("dbo.Conjuntos", "tokenAPI", c => c.String());
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Dificultads", "FactorDificultad");
+            DropColumn("dbo.Conjuntos", "tokenAPI");
         }
     }
 }
