@@ -109,6 +109,7 @@ namespace ShockQuiz
         private void SiguientePregunta()
         {
             PreguntaDTO actual = fachada.ObtenerPreguntaYRespuestas();
+            MessageBox.Show(actual.Respuestas.Count.ToString());
             lblPregunta.Text = actual.Pregunta;
             btnRespuesta1.Text = actual.Respuestas[0];
             btnRespuesta1.Enabled = true;

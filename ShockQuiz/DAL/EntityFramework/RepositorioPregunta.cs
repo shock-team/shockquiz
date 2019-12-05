@@ -28,11 +28,18 @@ namespace ShockQuiz.DAL.EntityFramework
 
         public IEnumerable<Pregunta> ObtenerPreguntas(Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto, int pCantidad = 10)
         {
-            List<Pregunta> ans = new List<Pregunta>();
-            List<Pregunta> ans2 = new List<Pregunta>();
-            ans = this.iDbContext.Set<Pregunta>().ToList();
-            ans2 = ans.Where(x => x.Categoria.Nombre == pCategoria.Nombre && x.Dificultad.Nombre == pDificultad.Nombre && x.Conjunto.Nombre == pConjunto.Nombre).ToList();
-            return ans2.OrderBy(x => rnd.Next()).Take(pCantidad);
+
+            var list = from t in iDbContext.Preguntas
+                       .Include(x => x.Respuestas)
+                       .Include(x => x.Categoria)
+                       .Include(x => x.Dificultad)
+                       .Include(x => x.Conjunto)
+                       where t.Categoria.Nombre == pCategoria.Nombre
+                       && t.Dificultad.Nombre == pDificultad.Nombre
+                       && t.Conjunto.Nombre == pConjunto.Nombre
+                       select t;
+
+            return list.ToList().OrderBy(x => rnd.Next()).Take(pCantidad);
         }
 
         public string GetOrCreate(string pNombre, string pConjunto)
