@@ -9,10 +9,10 @@ namespace unitTest
     [TestClass]
     public class UnitTest1
     {
-        //[TestMethod]
+        [TestMethod]
         public void TestMethod1()
         {
-            JsonMapper.Mapper(60);
+            JsonMapper.Mapper(15);
         }
 
         //[TestMethod]
@@ -143,7 +143,7 @@ namespace unitTest
             }
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void TestMethod4()
         {
             using (var bDbContext = new ShockQuizDbContext())

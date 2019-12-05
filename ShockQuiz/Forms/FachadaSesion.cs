@@ -4,6 +4,7 @@ using ShockQuiz.Dominio;
 using ShockQuiz.IO;
 using ShockQuiz.DAL.EntityFramework;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace ShockQuiz
 {

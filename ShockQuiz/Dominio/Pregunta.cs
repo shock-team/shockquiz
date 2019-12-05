@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using ShockQuiz.IO;
 
 namespace ShockQuiz.Dominio
@@ -27,7 +28,7 @@ namespace ShockQuiz.Dominio
             //Este método se encarga de comprobar si la respuesta ingresada es correcta, devolviendo
             //true si es así y false en caso contrario.
             ResultadoRespuesta resultado = new ResultadoRespuesta();
-            foreach (var item in Respuestas)
+            foreach (var item in Respuestas.ToList())
             {
                 if (item.EsCorrecta == true)
                 {
@@ -53,7 +54,8 @@ namespace ShockQuiz.Dominio
             Random random = new Random();
             string temp;
             List<string> lista = new List<string>();
-            foreach (Respuesta respuesta in Respuestas)
+
+            foreach (var respuesta in Respuestas.ToList())
             {
                 lista.Add(respuesta.DefRespuesta);
             }
