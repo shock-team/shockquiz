@@ -55,14 +55,22 @@ namespace ShockQuiz
             btnRespuesta4.Enabled = false;
         }
 
-        private void Finalizar(bool pFin)
+        private void Finalizar(ResultadoRespuesta pResultado)
         {
-            if (pFin)
+            if (pResultado.TiempoLimiteFinalizado)
             {
                 timer1.Stop();
                 btnSiguiente.Enabled = false;
                 fachada.GuardarSesion();
-                MessageBox.Show("Puntaje: " + fachada.ObtenerPuntaje().ToString(), "Fin de la partida");
+                MessageBox.Show("Tiempo agotado! Puntaje: "+ fachada.ObtenerPuntaje(), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close();
+            }
+            else if (pResultado.FinSesion)
+            {
+                timer1.Stop();
+                btnSiguiente.Enabled = false;
+                fachada.GuardarSesion();
+                MessageBox.Show("Puntaje: " + fachada.ObtenerPuntaje(), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); ;
                 this.Close();
             }
         }
@@ -75,7 +83,7 @@ namespace ShockQuiz
                 btnRespuesta1.BackColor = System.Drawing.Color.Red;
             }
             ColorBotonCorrecto(resultado.RespuestaCorrecta);
-            Finalizar(resultado.FinSesion);
+            Finalizar(resultado);
         }
 
         private void BtnRespuesta2_Click(object sender, EventArgs e)
@@ -86,7 +94,7 @@ namespace ShockQuiz
                 btnRespuesta2.BackColor = System.Drawing.Color.Red;
             }
             ColorBotonCorrecto(resultado.RespuestaCorrecta);
-            Finalizar(resultado.FinSesion);
+            Finalizar(resultado);
         }
 
         private void BtnRespuesta3_Click(object sender, EventArgs e)
@@ -97,7 +105,7 @@ namespace ShockQuiz
                 btnRespuesta3.BackColor = System.Drawing.Color.Red;
             }
             ColorBotonCorrecto(resultado.RespuestaCorrecta);
-            Finalizar(resultado.FinSesion);
+            Finalizar(resultado);
         }
 
         private void BtnRespuesta4_Click(object sender, EventArgs e)
@@ -108,7 +116,7 @@ namespace ShockQuiz
                 btnRespuesta4.BackColor = System.Drawing.Color.Red;
             }
             ColorBotonCorrecto(resultado.RespuestaCorrecta);
-            Finalizar(resultado.FinSesion);
+            Finalizar(resultado);
         }
 
         private void SiguientePregunta()
@@ -140,7 +148,7 @@ namespace ShockQuiz
             segTimer += 1;
             lblTimer.Text = segTimer + " s";
             ResultadoRespuesta resultado = fachada.RevisarTiempoLimite();
-            Finalizar(resultado.FinSesion);
+            Finalizar(resultado);
         }
     }
 }
