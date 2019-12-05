@@ -73,7 +73,7 @@ namespace ShockQuiz.DAL.EntityFramework
         {
             List<Categoria> listaCategorias = new List<Categoria>();
             List<Pregunta> listaPreguntas = new List<Pregunta>();
-            listaPreguntas = (from t in iDbContext.Preguntas where t.Conjunto.Nombre == pConjunto select t).ToList();
+            listaPreguntas = (from t in iDbContext.Preguntas.Include(x => x.Categoria).Include(x => x.Conjunto) where t.Conjunto.Nombre == pConjunto select t).ToList();
             foreach (Pregunta pregunta in listaPreguntas)
             {
                 if (!listaCategorias.Contains(pregunta.Categoria))

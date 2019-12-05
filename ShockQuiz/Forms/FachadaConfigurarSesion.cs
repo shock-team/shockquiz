@@ -11,37 +11,52 @@ namespace ShockQuiz.Forms
 {
     public class FachadaConfigurarSesion
     {
-        public IEnumerable<Conjunto> ObtenerConjuntos()
+        public IEnumerable<string> ObtenerConjuntos()
         {
+            List<string> conjuntos = new List<string>();
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    return bUoW.RepositorioConjunto.ObtenerTodas();
+                    foreach (Conjunto conjunto in bUoW.RepositorioConjunto.ObtenerTodas())
+                    {
+                        conjuntos.Add(conjunto.Nombre);
+                    }
                 }
             }
+            return conjuntos;
         }
 
-        public IEnumerable<Categoria> ObtenerCategorias(string pConjunto)
+        public IEnumerable<string> ObtenerCategorias(string pConjunto)
         {
+            List<string> categorias = new List<string>();
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    return bUoW.RepositorioPregunta.ObtenerCategorias(pConjunto);
+                    foreach (Categoria categoria in bUoW.RepositorioPregunta.ObtenerCategorias(pConjunto))
+                    {
+                        categorias.Add(categoria.Nombre); 
+                    }
                 }
             }
+            return categorias;
         }
 
-        public IEnumerable<Dificultad> ObtenerDificultades()
+        public IEnumerable<string> ObtenerDificultades()
         {
+            List<string> dificultades = new List<string>();
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    return bUoW.RepositorioDificultad.ObtenerTodas();
+                    foreach (Dificultad dificultad in bUoW.RepositorioDificultad.ObtenerTodas())
+                    {
+                        dificultades.Add(dificultad.Nombre);
+                    }
                 }
             }
+            return dificultades;
         }
     }
 }

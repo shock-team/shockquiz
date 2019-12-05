@@ -13,7 +13,7 @@ namespace ShockQuiz
         private Sesion iSesionActual { get; set; }
         public Conjunto iConjunto { get; set; }
 
-        public void IniciarSesion(string pUsuario, Categoria pCategoria, Dificultad pDificultad, int pCantidad, Conjunto pConjunto)
+        public void IniciarSesion(string pUsuario, string pCategoria, string pDificultad, int pCantidad, string pConjunto)
         {
             iSesionActual = new Sesion();
             Usuario usuario;
@@ -25,16 +25,21 @@ namespace ShockQuiz
                 }
             }
             iSesionActual.Usuario = usuario;
-            iSesionActual.Categoria = pCategoria;
-            iSesionActual.Dificultad = pDificultad;
             iSesionActual.FechaInicio = DateTime.Now;
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    iSesionActual.Preguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(pCategoria, pDificultad, pConjunto, pCantidad).ToList();
+                    Categoria categoria = bUoW.RepositorioCategoria.ObtenerTodas().Where(x => x.Nombre == pCategoria).Single();
+                    iSesionActual.Categoria = categoria;
+                    Dificultad dificultad = bUoW.RepositorioDificultad.ObtenerTodas().Where(x => x.Nombre == pDificultad).Single();
+                    iSesionActual.Dificultad = dificultad;
+                    Conjunto conjunto = bUoW.RepositorioConjunto.ObtenerTodas().Where(x => x.Nombre == pConjunto).Single();
+                    iSesionActual.Conjunto = conjunto;
+                    iSesionActual.Preguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(categoria, dificultad, conjunto, pCantidad).ToList();
                 }
             }
+            iSesionActual.CantidadPreguntas = pCantidad;
         }
 
         public PreguntaDTO ObtenerPreguntaYRespuestas()
