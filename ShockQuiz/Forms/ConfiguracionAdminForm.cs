@@ -82,13 +82,12 @@ namespace ShockQuiz.Forms
                 Conjunto conjunto = (Conjunto)cbConjunto.SelectedItem;
                 try
                 {
-                    conjunto.AgregarPreguntas(conjunto.Token,Decimal.ToInt32(nudCantidad.Value));
+                    conjunto.AgregarPreguntas(Decimal.ToInt32(nudCantidad.Value), conjunto.Token);
                     MessageBox.Show(Decimal.ToInt32(nudCantidad.Value) + " preguntas añadidas correctamente!","Éxito",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 }
                 catch (Exception)
                 {
-
-                    throw;
+                    MessageBox.Show("Ha habido un error con la base de datos", "Error");
                 }
             }
             else

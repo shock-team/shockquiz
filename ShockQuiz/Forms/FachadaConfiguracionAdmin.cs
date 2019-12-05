@@ -12,6 +12,11 @@ namespace ShockQuiz.Forms
 {
     class FachadaConfiguracionAdmin
     {
+        /// <summary>
+        /// Reduce la autoridad de un administrador a usuario
+        /// </summary>
+        /// <param name="pUsuario">El administrador</param>
+        /// <returns></returns>
         public bool AdminAUsuario(string pUsuario)
         {
             bool resultado = false;
@@ -25,6 +30,11 @@ namespace ShockQuiz.Forms
             return resultado;
         }
 
+        /// <summary>
+        /// Incrementa la autoridad de un usuario a administrador
+        /// </summary>
+        /// <param name="pUsuario">El usuario</param>
+        /// <returns></returns>
         public bool UsuarioAAdmin(string pUsuario)
         {
             bool resultado = false;
@@ -38,6 +48,10 @@ namespace ShockQuiz.Forms
             return resultado;
         }
 
+        /// <summary>
+        /// Devuelve los conjuntos presentes en la base de datos de la aplicación
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Conjunto> ObtenerConjuntos()
         {
             using (var bDbContext = new ShockQuizDbContext())

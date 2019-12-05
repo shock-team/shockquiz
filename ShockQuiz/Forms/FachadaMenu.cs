@@ -10,6 +10,11 @@ namespace ShockQuiz.Forms
 {
     class FachadaMenu
     {
+        /// <summary>
+        /// Verifica si un usuario es administrados
+        /// </summary>
+        /// <param name="pUsuario">El usuario a verificar</param>
+        /// <returns></returns>
         public bool EsAdmin(string pUsuario)
         {
             using (var bDbContext = new ShockQuizDbContext())

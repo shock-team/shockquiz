@@ -66,6 +66,7 @@
     <Compile Include="DAL\EntityFramework\RepositorioDificultad.cs" />
     <Compile Include="DAL\OpenTriviaDB\JsonMapper.cs" />
     <Compile Include="Dominio\ConjuntoOTDB.cs" />
+    <Compile Include="Excepciones\PreguntasInsuficientesException.cs" />
     <Compile Include="Forms\ConfiguracionAdminForm.cs">
       <SubType>Form</SubType>
     </Compile>

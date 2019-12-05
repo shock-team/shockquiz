@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using ShockQuiz.Excepciones;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
@@ -38,8 +39,14 @@ namespace ShockQuiz.DAL.EntityFramework
                        && t.Dificultad.Nombre == pDificultad.Nombre
                        && t.Conjunto.Nombre == pConjunto.Nombre
                        select t;
-
-            return list.ToList().OrderBy(x => rnd.Next()).Take(pCantidad);
+            if (list.Count() >= pCantidad)
+            {
+                return list.ToList().OrderBy(x => rnd.Next()).Take(pCantidad);
+            }
+            else
+            {
+                throw new PreguntasInsuficientesException();
+            }
         }
 
         public string GetOrCreate(string pNombre, string pConjunto)

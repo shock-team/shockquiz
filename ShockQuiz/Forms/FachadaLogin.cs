@@ -11,6 +11,12 @@ namespace ShockQuiz.Forms
 {
     class FachadaLogin
     {
+        /// <summary>
+        /// Verifica si el nombre de usuario ingresado y su contraseña coinciden en la base de datos
+        /// </summary>
+        /// <param name="pUser">Nombre del usuario</param>
+        /// <param name="pPass">Contraseña del usuario</param>
+        /// <returns></returns>
         public bool CheckLogin(string pUser, string pPass)
         {
             using (var bDbContext = new ShockQuizDbContext())
@@ -31,6 +37,11 @@ namespace ShockQuiz.Forms
             }
         }
 
+        /// <summary>
+        /// Registra a un usuario en la base de datos de la aplicación
+        /// </summary>
+        /// <param name="pUser">Nombre del usuario</param>
+        /// <param name="pPass">Contraseña del usuario</param>
         public void AddUser(string pUser, string pPass)
         {
             using (var bDbContext = new ShockQuizDbContext())

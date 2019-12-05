@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using ShockQuiz.Excepciones;
 
 namespace ShockQuiz.Forms
 {
@@ -29,10 +30,18 @@ namespace ShockQuiz.Forms
 
         private void BtnIniciar_Click(object sender, EventArgs e)
         {
-            SesionForm sesionForm = new SesionForm(Usuario, (string)cbCategoria.SelectedItem, (string)cbDificultad.SelectedItem, (string)cbConjunto.SelectedItem, Decimal.ToInt32(nudCantidad.Value));
-            sesionForm.FormClosed += new FormClosedEventHandler(SesionForm_FormClosed);
-            sesionForm.Show();
-            this.Hide();
+            try
+            {
+                SesionForm sesionForm = new SesionForm(fachada.IniciarSesion(Usuario, (string)cbCategoria.SelectedItem, (string)cbDificultad.SelectedItem, Decimal.ToInt32(nudCantidad.Value), (string)cbConjunto.SelectedItem), (string)cbCategoria.SelectedItem, (string)cbDificultad.SelectedItem, Decimal.ToInt32(nudCantidad.Value));
+                sesionForm.FormClosed += new FormClosedEventHandler(SesionForm_FormClosed);
+                sesionForm.Show();
+                this.Hide();
+            }
+            catch (PreguntasInsuficientesException)
+            {
+                MessageBox.Show("No hay preguntas suficientes para la selección", "Error");
+            }
+            
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
