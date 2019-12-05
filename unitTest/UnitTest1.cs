@@ -3,6 +3,7 @@ using ShockQuiz.DAL.EntityFramework;
 using ShockQuiz.DAL.OpenTriviaDB;
 using ShockQuiz.Dominio;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace unitTest
 {
@@ -143,7 +144,7 @@ namespace unitTest
             }
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void TestMethod4()
         {
             using (var bDbContext = new ShockQuizDbContext())
@@ -153,6 +154,26 @@ namespace unitTest
                     bUoW.RepositorioConjunto.ObtenerTodas();
                 }
             }
+        }
+
+        [TestMethod]
+        public void TestMethod5()
+        {
+                List<Categoria> listaCategorias = new List<Categoria>();
+                List<Pregunta> listaPreguntas = new List<Pregunta>();
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                listaPreguntas = (from t in bDbContext.Preguntas where t.Conjunto.Nombre == "OpenTDB" select t).ToList();
+                foreach (Pregunta pregunta in listaPreguntas)
+                {
+                    if (!listaCategorias.Contains(pregunta.Categoria))
+                    {
+                        listaCategorias.Add(pregunta.Categoria);
+                    }
+                }
+            }
+                
+            Assert.AreEqual(0,listaCategorias.Count);
         }
     }
 }

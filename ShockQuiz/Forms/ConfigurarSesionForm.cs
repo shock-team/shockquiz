@@ -1,13 +1,8 @@
-﻿using System;
+﻿using ShockQuiz.Dominio;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ShockQuiz.Dominio;
 
 namespace ShockQuiz.Forms
 {
@@ -48,7 +43,8 @@ namespace ShockQuiz.Forms
         private void CbConjunto_SelectedIndexChanged(object sender, EventArgs e)
         {
             Conjunto conjunto = (Conjunto)cbConjunto.SelectedItem;
-            IEnumerable<Categoria> categorias = fachada.ObtenerCategorias(conjunto.ConjuntoId);
+            List<Categoria> categorias = new List<Categoria>();
+            categorias = fachada.ObtenerCategorias(conjunto.Nombre).ToList();
             foreach (Categoria categoria in categorias)
             {
                 cbCategoria.Items.Add(categoria);

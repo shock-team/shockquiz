@@ -62,11 +62,13 @@
             // 
             // cbConjunto
             // 
+            this.cbConjunto.DisplayMember = "Categoria";
             this.cbConjunto.FormattingEnabled = true;
             this.cbConjunto.Location = new System.Drawing.Point(78, 42);
             this.cbConjunto.Name = "cbConjunto";
             this.cbConjunto.Size = new System.Drawing.Size(191, 21);
             this.cbConjunto.TabIndex = 2;
+            this.cbConjunto.ValueMember = "Categoria";
             this.cbConjunto.SelectedIndexChanged += new System.EventHandler(this.CbConjunto_SelectedIndexChanged);
             // 
             // cbDificultad

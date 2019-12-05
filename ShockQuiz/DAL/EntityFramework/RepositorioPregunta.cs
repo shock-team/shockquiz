@@ -31,7 +31,7 @@ namespace ShockQuiz.DAL.EntityFramework
             List<Pregunta> ans = new List<Pregunta>();
             List<Pregunta> ans2 = new List<Pregunta>();
             ans = this.iDbContext.Set<Pregunta>().ToList();
-            ans2 = ans.Where(x => x.Categoria.Nombre == pCategoria.Nombre && x.Dificultad.Nombre == pDificultad.Nombre && x.ConjuntoId == pConjunto.ConjuntoId).ToList();
+            ans2 = ans.Where(x => x.Categoria.Nombre == pCategoria.Nombre && x.Dificultad.Nombre == pDificultad.Nombre && x.Conjunto.Nombre == pConjunto.Nombre).ToList();
             return ans2.OrderBy(x => rnd.Next()).Take(pCantidad);
         }
 
@@ -62,10 +62,12 @@ namespace ShockQuiz.DAL.EntityFramework
             return pNombre;
         }
 
-        public IEnumerable<Categoria> ObtenerCategorias(int pConjuntoId)
+        public IEnumerable<Categoria> ObtenerCategorias(string pConjunto)
         {
             List<Categoria> listaCategorias = new List<Categoria>();
-            foreach (var pregunta in iDbContext.Set<Pregunta>().Where(x => x.ConjuntoId == pConjuntoId))
+            List<Pregunta> listaPreguntas = new List<Pregunta>();
+            listaPreguntas = (from t in iDbContext.Preguntas where t.Conjunto.Nombre == pConjunto select t).ToList();
+            foreach (Pregunta pregunta in listaPreguntas)
             {
                 if (!listaCategorias.Contains(pregunta.Categoria))
                 {
