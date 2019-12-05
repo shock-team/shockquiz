@@ -30,5 +30,16 @@ namespace ShockQuiz.Forms
         {
             this.Close();
         }
+
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            List<Sesion> ranking = facha.ObtenerTop(Decimal.ToInt32(nudTop.Value));
+            dgvRanking.DataSource = ranking.Select(x => new {
+                x.Usuario.Nombre,
+                x.Puntaje,
+                Fecha = x.FechaInicio,
+                Duración = x.Duracion()
+            }).ToList();
+        }
     }
 }
