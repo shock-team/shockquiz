@@ -10,53 +10,37 @@ namespace ShockQuiz
 {
     public class FachadaSesion
     {
-        private Sesion iSesionActual { get; set; }
+        /// <summary>
+        /// El objetivo de esta clase es funcionar como intermediario entre la interfaz gráfica
+        /// correspondiente a la sesión de preguntas, y las clases con las que se interactúa.
+        /// </summary>
+        public Sesion iSesionActual { get; set; }
         public Conjunto iConjunto { get; set; }
 
-        public void IniciarSesion(string pUsuario, string pCategoria, string pDificultad, int pCantidad, string pConjunto)
-        {
-            iSesionActual = new Sesion();
-            Usuario usuario;
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    usuario = bUoW.RepositorioUsuario.Obtener(pUsuario);
-                }
-            }
-            iSesionActual.Usuario = usuario;
-            iSesionActual.UsuarioId = usuario.UsuarioId;
-            iSesionActual.FechaInicio = DateTime.Now;
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    Categoria categoria = bUoW.RepositorioCategoria.ObtenerTodas().Where(x => x.Nombre == pCategoria).Single();
-                    iSesionActual.Categoria = categoria;
-                    iSesionActual.CategoriaId = categoria.Id;
-                    Dificultad dificultad = bUoW.RepositorioDificultad.ObtenerTodas().Where(x => x.Nombre == pDificultad).Single();
-                    iSesionActual.Dificultad = dificultad;
-                    iSesionActual.DificultadId = dificultad.Id;
-                    Conjunto conjunto = bUoW.RepositorioConjunto.ObtenerTodas().Where(x => x.Nombre == pConjunto).Single();
-                    iSesionActual.Conjunto = conjunto;
-                    iSesionActual.ConjuntoId = conjunto.ConjuntoId;
-                    iSesionActual.Preguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(categoria, dificultad, conjunto, pCantidad).ToList();
-                }
-            }
-            iSesionActual.CantidadPreguntas = pCantidad;
-        }
-
+        /// <summary>
+        /// Devuelve un PreguntaDTO correspondiente a la siguiente de la sesión
+        /// </summary>
+        /// <returns></returns>
         public PreguntaDTO ObtenerPreguntaYRespuestas()
         {
             return iSesionActual.ObtenerPreguntaYRespuestas();
         }
 
+        /// <summary>
+        ///Devuelve el resultado de responder a una pregunta
+        /// </summary>
+        /// <param name="pRespuesta">La respuesta seleccionada por el usuario</param>
+        /// <returns></returns>
         public ResultadoRespuesta Responder(string pRespuesta)
         {
             ResultadoRespuesta resultado = iSesionActual.Responder(pRespuesta);
             return resultado;
         }
 
+        /// <summary>
+        /// Devuelve un resultado al verificar que la sesión actual no se exceda del tiempo límite
+        /// </summary>
+        /// <returns></returns>
         public ResultadoRespuesta RevisarTiempoLimite()
         {
             double tiempo = iSesionActual.TiempoLimite();
@@ -73,11 +57,18 @@ namespace ShockQuiz
             return resultado;
         }
 
+        /// <summary>
+        /// Devuelve el puntaje de la sesión actual
+        /// </summary>
+        /// <returns></returns>
         public double ObtenerPuntaje()
         {
             return iSesionActual.Puntaje;
         }
 
+        /// <summary>
+        /// Guarda la sesión actual en la base datos
+        /// </summary>
         public void GuardarSesion()
         {
             using (var bDbContext = new ShockQuizDbContext())

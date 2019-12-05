@@ -47,13 +47,8 @@ namespace ShockQuiz.Dominio
             return Math.Round(puntaje,2);
         }
 
-        public override void AgregarPreguntas(int pCantidad)
-        {
-            string pToken = null;
-            JsonMapper.AlmacenarPreguntas(pToken,pCantidad);
-        }
 
-        public override void AgregarPreguntas(string pToken, int pCantidad)
+        public override void AgregarPreguntas(int pCantidad, string pToken = null)
         {
             if (pCantidad > 50)
             {
