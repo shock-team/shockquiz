@@ -14,6 +14,9 @@ namespace ShockQuiz.DAL.EntityFramework
         {
         }
 
+        /// <summary>
+        /// Devuelve una excepción más detallada referida a entidades de Entity Framework.
+        /// </summary>
         public override string Message
         {
             get

@@ -25,6 +25,10 @@ namespace ShockQuiz.DAL.EntityFramework
             base.OnModelCreating(pModelBuilder);
         }
 
+        /// <summary>
+        /// Guarda las entidades en la base de datos.
+        /// </summary>
+        /// <returns></returns>
         public override int SaveChanges()
         {
             try
