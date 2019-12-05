@@ -28,25 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuForm));
             this.btnNuevaSesion = new System.Windows.Forms.Button();
             this.btnRanking = new System.Windows.Forms.Button();
             this.btnConfiguracion = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(78, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Menu Principal";
             // 
             // btnNuevaSesion
             // 
-            this.btnNuevaSesion.Location = new System.Drawing.Point(36, 53);
+            this.btnNuevaSesion.Location = new System.Drawing.Point(24, 28);
             this.btnNuevaSesion.Name = "btnNuevaSesion";
             this.btnNuevaSesion.Size = new System.Drawing.Size(164, 23);
             this.btnNuevaSesion.TabIndex = 1;
@@ -56,7 +49,7 @@
             // 
             // btnRanking
             // 
-            this.btnRanking.Location = new System.Drawing.Point(36, 82);
+            this.btnRanking.Location = new System.Drawing.Point(24, 57);
             this.btnRanking.Name = "btnRanking";
             this.btnRanking.Size = new System.Drawing.Size(164, 23);
             this.btnRanking.TabIndex = 2;
@@ -66,7 +59,7 @@
             // 
             // btnConfiguracion
             // 
-            this.btnConfiguracion.Location = new System.Drawing.Point(36, 111);
+            this.btnConfiguracion.Location = new System.Drawing.Point(24, 86);
             this.btnConfiguracion.Name = "btnConfiguracion";
             this.btnConfiguracion.Size = new System.Drawing.Size(164, 23);
             this.btnConfiguracion.TabIndex = 3;
@@ -76,7 +69,8 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(36, 152);
+            this.btnSalir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnSalir.Location = new System.Drawing.Point(24, 134);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(164, 23);
             this.btnSalir.TabIndex = 4;
@@ -84,30 +78,41 @@
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnConfiguracion);
+            this.groupBox1.Controls.Add(this.btnSalir);
+            this.groupBox1.Controls.Add(this.btnRanking);
+            this.groupBox1.Controls.Add(this.btnNuevaSesion);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(214, 163);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Menú Principal";
+            // 
             // MenuForm
             // 
+            this.AcceptButton = this.btnNuevaSesion;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnSalir;
             this.ClientSize = new System.Drawing.Size(238, 187);
-            this.Controls.Add(this.btnSalir);
-            this.Controls.Add(this.btnConfiguracion);
-            this.Controls.Add(this.btnRanking);
-            this.Controls.Add(this.btnNuevaSesion);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MenuForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MenuForm";
+            this.Text = "Menú Principal";
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnNuevaSesion;
         private System.Windows.Forms.Button btnRanking;
         private System.Windows.Forms.Button btnConfiguracion;
         private System.Windows.Forms.Button btnSalir;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
