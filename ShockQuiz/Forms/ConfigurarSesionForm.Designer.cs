@@ -60,6 +60,7 @@
             this.cbConjunto.Location = new System.Drawing.Point(63, 30);
             this.cbConjunto.Name = "cbConjunto";
             this.cbConjunto.Size = new System.Drawing.Size(240, 21);
+            this.cbConjunto.Sorted = true;
             this.cbConjunto.TabIndex = 0;
             this.cbConjunto.ValueMember = "Categoria";
             this.cbConjunto.SelectedIndexChanged += new System.EventHandler(this.CbConjunto_SelectedIndexChanged);
@@ -80,6 +81,7 @@
             this.cbCategoria.Location = new System.Drawing.Point(63, 118);
             this.cbCategoria.Name = "cbCategoria";
             this.cbCategoria.Size = new System.Drawing.Size(240, 21);
+            this.cbCategoria.Sorted = true;
             this.cbCategoria.TabIndex = 2;
             // 
             // label3
@@ -135,7 +137,7 @@
             // 
             this.nudCantidad.Location = new System.Drawing.Point(126, 156);
             this.nudCantidad.Minimum = new decimal(new int[] {
-            1,
+            10,
             0,
             0,
             0});
@@ -143,7 +145,7 @@
             this.nudCantidad.Size = new System.Drawing.Size(125, 20);
             this.nudCantidad.TabIndex = 3;
             this.nudCantidad.Value = new decimal(new int[] {
-            1,
+            10,
             0,
             0,
             0});
