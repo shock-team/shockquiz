@@ -12,7 +12,7 @@ namespace unitTest
         //[TestMethod]
         public void TestMethod1()
         {
-            JsonMapper.Mapper(15);
+            JsonMapper.Mapper(60);
         }
 
         //[TestMethod]
@@ -71,7 +71,7 @@ namespace unitTest
             }
         }
 
-       [TestMethod]
+       //[TestMethod]
         public void TestMethod3()
         {
             using (var bDbContext = new ShockQuizDbContext())
@@ -139,6 +139,18 @@ namespace unitTest
                     }
 
                     bUoW.GuardarCambios();
+                }
+            }
+        }
+
+        [TestMethod]
+        public void TestMethod4()
+        {
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    bUoW.RepositorioConjunto.ObtenerTodas();
                 }
             }
         }

@@ -15,7 +15,7 @@ namespace ShockQuiz.DAL.EntityFramework
 
         public IEnumerable<Dificultad> ObtenerTodas()
         {
-            return this.iDbContext.Set<Dificultad>();
+            return this.iDbContext.Set<Dificultad>().ToList();
         }
 
         public Dificultad GetOrCreate(string pNombre)

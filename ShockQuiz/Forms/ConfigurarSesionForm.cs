@@ -20,8 +20,16 @@ namespace ShockQuiz.Forms
         {
             InitializeComponent();
             Usuario = pUsuario;
-            cbConjunto.DataSource = fachada.ObtenerConjuntos();
-            cbDificultad.DataSource = fachada.ObtenerDificultades();
+            IEnumerable<Conjunto> conjuntos = fachada.ObtenerConjuntos();
+            foreach (Conjunto conjunto in conjuntos)
+            {
+                cbConjunto.Items.Add(conjunto);
+            }
+            IEnumerable<Dificultad> dificultades = fachada.ObtenerDificultades();
+            foreach (Dificultad dificultad in dificultades)
+            {
+                cbDificultad.Items.Add(dificultad);
+            }
         }
 
         private void BtnIniciar_Click(object sender, EventArgs e)
@@ -40,7 +48,11 @@ namespace ShockQuiz.Forms
         private void CbConjunto_SelectedIndexChanged(object sender, EventArgs e)
         {
             Conjunto conjunto = (Conjunto)cbConjunto.SelectedItem;
-            cbCategoria.DataSource = fachada.ObtenerCategorias(conjunto.ConjuntoId);
+            IEnumerable<Categoria> categorias = fachada.ObtenerCategorias(conjunto.ConjuntoId);
+            foreach (Categoria categoria in categorias)
+            {
+                cbCategoria.Items.Add(categoria);
+            }
         }
 
         private void SesionForm_FormClosed(object sender, EventArgs e)
