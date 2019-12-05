@@ -10,7 +10,8 @@ namespace ShockQuiz.Dominio
     {
         public int ConjuntoId { get; set; }
         public string Nombre { get; set; }
-        public double tiempoEsperadoPorPregunta { get; set; }
+        public double TiempoEsperadoPorPregunta { get; set; }
+        public string Token { get; set; }
         public ICollection<Sesion> Sesiones { get; set; }
         public ICollection<Pregunta> Preguntas { get; set; }
 
@@ -21,7 +22,10 @@ namespace ShockQuiz.Dominio
 
         public virtual void AgregarPreguntas(int pCantidad)
         {
-            throw new NotImplementedException();
+        }
+
+        public virtual void AgregarPreguntas(string pToken,int pCantidad)
+        {
         }
     }
 }

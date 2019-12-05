@@ -148,6 +148,10 @@
     <Compile Include="Migrations\201912050016514_alatio.designer.cs">
       <DependentUpon>201912050016514_alatio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912050519183_alaa.cs" />
+    <Compile Include="Migrations\201912050519183_alaa.designer.cs">
+      <DependentUpon>201912050519183_alaa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -184,6 +188,9 @@
     <EmbeddedResource Include="Migrations\201912050016514_alatio.resx">
       <DependentUpon>201912050016514_alatio.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912050519183_alaa.resx">
+      <DependentUpon>201912050519183_alaa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -192,6 +199,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -206,6 +214,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\next.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

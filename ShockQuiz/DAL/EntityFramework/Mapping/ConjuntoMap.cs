@@ -18,6 +18,14 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
                 .HasMaxLength(100)
                 .IsRequired()
                 .HasColumnName("nombre");
+
+            this.Property(x => x.TiempoEsperadoPorPregunta)
+                .IsRequired();
+
+            this.Property(x => x.Token)
+                .IsOptional()
+                .HasColumnName("tokenAPI");
+                
         }
     }
 }

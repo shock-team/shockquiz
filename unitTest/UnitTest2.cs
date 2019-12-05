@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShockQuiz;
+using ShockQuiz.DAL.OpenTriviaDB;
 using ShockQuiz.Dominio;
 
 namespace unitTest
@@ -12,24 +13,7 @@ namespace unitTest
         [TestMethod]
         public void TestMethod1()
         {
-            Categoria cat = new Categoria
-            {
-                Nombre = "Politics"
-            };
-
-            Dificultad dif = new Dificultad
-            {
-                Nombre = "medium"
-            };
-
-            Conjunto con = new ConjuntoOTDB
-            {
-                Nombre = "OpenTDB",
-                tiempoEsperadoPorPregunta = 40
-            };
-
-            SesionForm form = new SesionForm("asd", cat, dif, con, 1);
-            form.Show();
+            MessageBox.Show(JsonMapper.ObtenerToken());
         }
     }
 }

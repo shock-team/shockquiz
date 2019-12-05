@@ -67,7 +67,7 @@
             this.cbConjunto.Location = new System.Drawing.Point(78, 42);
             this.cbConjunto.Name = "cbConjunto";
             this.cbConjunto.Size = new System.Drawing.Size(191, 21);
-            this.cbConjunto.TabIndex = 2;
+            this.cbConjunto.TabIndex = 0;
             this.cbConjunto.ValueMember = "Categoria";
             this.cbConjunto.SelectedIndexChanged += new System.EventHandler(this.CbConjunto_SelectedIndexChanged);
             // 
@@ -77,7 +77,7 @@
             this.cbDificultad.Location = new System.Drawing.Point(78, 86);
             this.cbDificultad.Name = "cbDificultad";
             this.cbDificultad.Size = new System.Drawing.Size(191, 21);
-            this.cbDificultad.TabIndex = 3;
+            this.cbDificultad.TabIndex = 1;
             // 
             // cbCategoria
             // 
@@ -85,7 +85,7 @@
             this.cbCategoria.Location = new System.Drawing.Point(78, 130);
             this.cbCategoria.Name = "cbCategoria";
             this.cbCategoria.Size = new System.Drawing.Size(191, 21);
-            this.cbCategoria.TabIndex = 4;
+            this.cbCategoria.TabIndex = 2;
             // 
             // label3
             // 
@@ -116,20 +116,22 @@
             // 
             // btnIniciar
             // 
-            this.btnIniciar.Location = new System.Drawing.Point(194, 220);
+            this.btnIniciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIniciar.Location = new System.Drawing.Point(26, 208);
             this.btnIniciar.Name = "btnIniciar";
-            this.btnIniciar.Size = new System.Drawing.Size(75, 23);
-            this.btnIniciar.TabIndex = 9;
+            this.btnIniciar.Size = new System.Drawing.Size(243, 33);
+            this.btnIniciar.TabIndex = 4;
             this.btnIniciar.Text = "Iniciar";
             this.btnIniciar.UseVisualStyleBackColor = true;
             this.btnIniciar.Click += new System.EventHandler(this.BtnIniciar_Click);
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(109, 220);
+            this.btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancelar.Location = new System.Drawing.Point(26, 247);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelar.TabIndex = 10;
+            this.btnCancelar.Size = new System.Drawing.Size(243, 23);
+            this.btnCancelar.TabIndex = 5;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.BtnCancelar_Click);
@@ -144,7 +146,7 @@
             0});
             this.nudCantidad.Name = "nudCantidad";
             this.nudCantidad.Size = new System.Drawing.Size(125, 20);
-            this.nudCantidad.TabIndex = 11;
+            this.nudCantidad.TabIndex = 3;
             this.nudCantidad.Value = new decimal(new int[] {
             1,
             0,
@@ -153,9 +155,11 @@
             // 
             // ConfigurarSesionForm
             // 
+            this.AcceptButton = this.btnIniciar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(296, 259);
+            this.CancelButton = this.btnCancelar;
+            this.ClientSize = new System.Drawing.Size(296, 278);
             this.Controls.Add(this.nudCantidad);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnIniciar);
@@ -168,6 +172,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ConfigurarSesionForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ConfigurarSesionForm";
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
             this.ResumeLayout(false);

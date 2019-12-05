@@ -15,12 +15,50 @@ namespace ShockQuiz.DAL.OpenTriviaDB
 {
     public class JsonMapper
     {
-        public static List<Pregunta> Mapper(int pNumber = 10)
+        public static string ObtenerToken()
+        {
+            var mUrl = "https://opentdb.com/api_token.php?command=request";
+            HttpWebRequest mRequest = (HttpWebRequest)WebRequest.Create(mUrl);
+
+            try
+            {
+                WebResponse mResponse = mRequest.GetResponse();
+
+                using (Stream responseStream = mResponse.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                    dynamic mResponseJSON = JsonConvert.DeserializeObject(reader.ReadToEnd());
+                    return HttpUtility.HtmlDecode(mResponseJSON.token.ToString());
+                }
+            }
+            catch (WebException ex)
+            {
+                WebResponse mErrorResponse = ex.Response;
+                using (Stream mResponseStream = mErrorResponse.GetResponseStream())
+                {
+                    StreamReader mReader = new StreamReader(mResponseStream, Encoding.GetEncoding("utf-8"));
+                    String mErrorText = mReader.ReadToEnd();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return string.Empty;
+        }
+    
+
+        public static List<Pregunta> Mapper(string pToken = null, int pNumber = 10)
         {
             List<Pregunta> listaPreguntas = new List<Pregunta>();
             string CONJUNTO = "OpenTDB";
-            // Url
-            var mUrl = "https://opentdb.com/api.php?amount="+pNumber+"&type=multiple";
+
+            var mUrl = "https://opentdb.com/api.php?amount=" + pNumber + "&type=multiple"; 
+            if (pToken != null)
+            {
+                mUrl = "https://opentdb.com/api.php?amount=" + pNumber + "&type=multiple&token=" + pToken;
+            }
+
 
             // Se crea el request http
             HttpWebRequest mRequest = (HttpWebRequest)WebRequest.Create(mUrl);
@@ -92,8 +130,6 @@ namespace ShockQuiz.DAL.OpenTriviaDB
                 {
                     StreamReader mReader = new StreamReader(mResponseStream, Encoding.GetEncoding("utf-8"));
                     String mErrorText = mReader.ReadToEnd();
-
-                    MessageBox.Show("Error: " + mErrorText);
                 }
             }
             catch (Exception)

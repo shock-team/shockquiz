@@ -15,6 +15,7 @@ namespace ShockQuiz
     public partial class SesionForm : Form
     {
         FachadaSesion fachada = new FachadaSesion();
+        int segTimer = 0;
 
         public SesionForm(string pUsuario, string pCategoria, string pDificultad, string pConjunto, int pCantidad)
         {
@@ -25,6 +26,8 @@ namespace ShockQuiz
             lblRespuestasActuales.Text = "0";
             SiguientePregunta();
             lblRespuestasTotales.Text = pCantidad.ToString();
+
+            timer1.Interval = 1000;
             timer1.Start();
         }
 
@@ -56,9 +59,11 @@ namespace ShockQuiz
         {
             if (pFin)
             {
-                MessageBox.Show("Puntaje: " + fachada.ObtenerPuntaje().ToString(), "Fin de la partida");
                 timer1.Stop();
                 btnSiguiente.Enabled = false;
+                fachada.GuardarSesion();
+                MessageBox.Show("Puntaje: " + fachada.ObtenerPuntaje().ToString(), "Fin de la partida");
+                this.Close();
             }
         }
 
@@ -109,7 +114,6 @@ namespace ShockQuiz
         private void SiguientePregunta()
         {
             PreguntaDTO actual = fachada.ObtenerPreguntaYRespuestas();
-            MessageBox.Show(actual.Respuestas.Count.ToString());
             lblPregunta.Text = actual.Pregunta;
             btnRespuesta1.Text = actual.Respuestas[0];
             btnRespuesta1.Enabled = true;
@@ -133,7 +137,8 @@ namespace ShockQuiz
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            lblTimer.Text = timer1.ToString();
+            segTimer += 1;
+            lblTimer.Text = segTimer + " s";
             ResultadoRespuesta resultado = fachada.RevisarTiempoLimite();
             Finalizar(resultado.FinSesion);
         }

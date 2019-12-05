@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShockQuiz.DAL.OpenTriviaDB;
 
 namespace ShockQuiz.Dominio
 {
@@ -12,7 +13,7 @@ namespace ShockQuiz.Dominio
         {
             int TIEMPO_LIMITE_1 = 5;
             int TIEMPO_LIMITE_2 = 20;
-            double FACTOR_DIFICULTAD;
+            double FACTOR_DIFICULTAD=1;
             switch (pSesion.Dificultad.Nombre)
             {
                 case "hard":
@@ -23,25 +24,48 @@ namespace ShockQuiz.Dominio
                     FACTOR_DIFICULTAD = 3;
                     break;
 
-                default:
+                case "easy":
                     FACTOR_DIFICULTAD = 1;
                     break;
             }
-            double FACTOR_TIEMPO;
+            double FACTOR_TIEMPO=1;
             double tiempoPorPregunta = pSesion.Duracion().TotalSeconds / pSesion.CantidadPreguntas;
             if (tiempoPorPregunta < TIEMPO_LIMITE_1)
             {
                 FACTOR_TIEMPO = 5;
             }
-            else if (tiempoPorPregunta > TIEMPO_LIMITE_2)
+            if (tiempoPorPregunta > TIEMPO_LIMITE_2)
             {
                 FACTOR_TIEMPO = 1;
             }
-            else
+            if (tiempoPorPregunta >= TIEMPO_LIMITE_1 && tiempoPorPregunta <= TIEMPO_LIMITE_2)
             {
                 FACTOR_TIEMPO = 3;
             }
             return (pSesion.RespuestasCorrectas / pSesion.CantidadPreguntas) * FACTOR_DIFICULTAD * FACTOR_TIEMPO;
+        }
+
+        public override void AgregarPreguntas(int pCantidad)
+        {
+            string pToken = null;
+            JsonMapper.Mapper(pToken,pCantidad);
+        }
+
+        public override void AgregarPreguntas(string pToken, int pCantidad)
+        {
+            if (pCantidad > 50)
+            {
+                int aux = pCantidad;
+                while (aux > 0)
+                {
+                    JsonMapper.Mapper(pToken, aux);
+                    aux -= 50;
+                }
+            }
+            else
+            {
+                JsonMapper.Mapper(pToken, pCantidad);
+            }
         }
     }
 }

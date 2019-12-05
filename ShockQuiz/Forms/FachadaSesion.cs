@@ -25,6 +25,7 @@ namespace ShockQuiz
                 }
             }
             iSesionActual.Usuario = usuario;
+            iSesionActual.UsuarioId = usuario.UsuarioId;
             iSesionActual.FechaInicio = DateTime.Now;
             using (var bDbContext = new ShockQuizDbContext())
             {
@@ -32,10 +33,13 @@ namespace ShockQuiz
                 {
                     Categoria categoria = bUoW.RepositorioCategoria.ObtenerTodas().Where(x => x.Nombre == pCategoria).Single();
                     iSesionActual.Categoria = categoria;
+                    iSesionActual.CategoriaId = categoria.Id;
                     Dificultad dificultad = bUoW.RepositorioDificultad.ObtenerTodas().Where(x => x.Nombre == pDificultad).Single();
                     iSesionActual.Dificultad = dificultad;
+                    iSesionActual.DificultadId = dificultad.Id;
                     Conjunto conjunto = bUoW.RepositorioConjunto.ObtenerTodas().Where(x => x.Nombre == pConjunto).Single();
                     iSesionActual.Conjunto = conjunto;
+                    iSesionActual.ConjuntoId = conjunto.ConjuntoId;
                     iSesionActual.Preguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(categoria, dificultad, conjunto, pCantidad).ToList();
                 }
             }
@@ -81,6 +85,22 @@ namespace ShockQuiz
         public double ObtenerPuntaje()
         {
             return iSesionActual.Puntaje;
+        }
+
+        public void GuardarSesion()
+        {
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    this.iSesionActual.Categoria = null;
+                    this.iSesionActual.Conjunto = null;
+                    this.iSesionActual.Dificultad = null;
+                    this.iSesionActual.Usuario = null;
+                    bUoW.RepositorioSesion.Agregar(this.iSesionActual);
+                    bUoW.GuardarCambios();
+                }
+            }
         }
     }
 }

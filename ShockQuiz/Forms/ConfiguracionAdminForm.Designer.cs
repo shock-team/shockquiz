@@ -35,21 +35,31 @@
             this.btnSalir = new System.Windows.Forms.Button();
             this.cbConjunto = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnAgregar = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.nudCantidad = new System.Windows.Forms.NumericUpDown();
+            this.btnAgregar = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cbToken = new System.Windows.Forms.CheckBox();
+            this.btnAddConjunto = new System.Windows.Forms.Button();
+            this.nudAddConjunto = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtAddConjunto = new System.Windows.Forms.TextBox();
+            this.helpToken = new System.Windows.Forms.HelpProvider();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAddConjunto)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(125, 9);
+            this.label1.Location = new System.Drawing.Point(269, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 0;
@@ -57,9 +67,9 @@
             // 
             // btnAdmin
             // 
-            this.btnAdmin.Location = new System.Drawing.Point(16, 57);
+            this.btnAdmin.Location = new System.Drawing.Point(9, 76);
             this.btnAdmin.Name = "btnAdmin";
-            this.btnAdmin.Size = new System.Drawing.Size(125, 23);
+            this.btnAdmin.Size = new System.Drawing.Size(245, 23);
             this.btnAdmin.TabIndex = 1;
             this.btnAdmin.Text = "Usuario a Admin";
             this.btnAdmin.UseVisualStyleBackColor = true;
@@ -67,16 +77,16 @@
             // 
             // txtUsuario
             // 
-            this.txtUsuario.Location = new System.Drawing.Point(62, 31);
+            this.txtUsuario.Location = new System.Drawing.Point(55, 24);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(199, 20);
             this.txtUsuario.TabIndex = 2;
             // 
             // btnUsuario
             // 
-            this.btnUsuario.Location = new System.Drawing.Point(147, 57);
+            this.btnUsuario.Location = new System.Drawing.Point(9, 105);
             this.btnUsuario.Name = "btnUsuario";
-            this.btnUsuario.Size = new System.Drawing.Size(114, 23);
+            this.btnUsuario.Size = new System.Drawing.Size(245, 23);
             this.btnUsuario.TabIndex = 4;
             this.btnUsuario.Text = "Admin a Usuario";
             this.btnUsuario.UseVisualStyleBackColor = true;
@@ -84,9 +94,10 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(212, 257);
+            this.btnSalir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnSalir.Location = new System.Drawing.Point(311, 280);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(75, 23);
+            this.btnSalir.Size = new System.Drawing.Size(265, 23);
             this.btnSalir.TabIndex = 5;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = true;
@@ -106,12 +117,21 @@
             this.groupBox1.Controls.Add(this.txtUsuario);
             this.groupBox1.Controls.Add(this.btnAdmin);
             this.groupBox1.Controls.Add(this.btnUsuario);
-            this.groupBox1.Location = new System.Drawing.Point(13, 23);
+            this.groupBox1.Location = new System.Drawing.Point(311, 25);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(274, 101);
+            this.groupBox1.Size = new System.Drawing.Size(274, 134);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Modificar autoridad";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 27);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Usuario";
             // 
             // groupBox2
             // 
@@ -120,30 +140,44 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.cbConjunto);
-            this.groupBox2.Location = new System.Drawing.Point(13, 131);
+            this.groupBox2.Location = new System.Drawing.Point(6, 185);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(274, 120);
+            this.groupBox2.Size = new System.Drawing.Size(293, 129);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Agregar preguntas a un conjunto";
             // 
-            // label2
+            // nudCantidad
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 34);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Usuario";
+            this.nudCantidad.Location = new System.Drawing.Point(68, 69);
+            this.nudCantidad.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.nudCantidad.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudCantidad.Name = "nudCantidad";
+            this.nudCantidad.Size = new System.Drawing.Size(112, 20);
+            this.nudCantidad.TabIndex = 10;
+            this.nudCantidad.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
-            // label3
+            // btnAgregar
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 41);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Conjunto";
+            this.btnAgregar.Location = new System.Drawing.Point(13, 95);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(271, 23);
+            this.btnAgregar.TabIndex = 9;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.BtnAgregar_Click);
             // 
             // label4
             // 
@@ -154,39 +188,122 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Cantidad";
             // 
-            // btnAgregar
+            // label3
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(186, 69);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
-            this.btnAgregar.TabIndex = 9;
-            this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = true;
-            this.btnAgregar.Click += new System.EventHandler(this.BtnAgregar_Click);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 41);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Conjunto";
             // 
-            // nudCantidad
+            // groupBox3
             // 
-            this.nudCantidad.Location = new System.Drawing.Point(68, 69);
-            this.nudCantidad.Name = "nudCantidad";
-            this.nudCantidad.Size = new System.Drawing.Size(112, 20);
-            this.nudCantidad.TabIndex = 10;
+            this.groupBox3.Controls.Add(this.cbToken);
+            this.groupBox3.Controls.Add(this.btnAddConjunto);
+            this.groupBox3.Controls.Add(this.nudAddConjunto);
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.label5);
+            this.groupBox3.Controls.Add(this.txtAddConjunto);
+            this.groupBox3.Location = new System.Drawing.Point(13, 25);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(292, 154);
+            this.groupBox3.TabIndex = 9;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Añadir Conjunto";
+            // 
+            // cbToken
+            // 
+            this.cbToken.AutoSize = true;
+            this.cbToken.Location = new System.Drawing.Point(12, 95);
+            this.cbToken.Name = "cbToken";
+            this.cbToken.Size = new System.Drawing.Size(84, 17);
+            this.cbToken.TabIndex = 5;
+            this.cbToken.Text = "Pedir Token";
+            this.cbToken.UseVisualStyleBackColor = true;
+            // 
+            // btnAddConjunto
+            // 
+            this.btnAddConjunto.Location = new System.Drawing.Point(6, 125);
+            this.btnAddConjunto.Name = "btnAddConjunto";
+            this.btnAddConjunto.Size = new System.Drawing.Size(280, 23);
+            this.btnAddConjunto.TabIndex = 4;
+            this.btnAddConjunto.Text = "Añadir";
+            this.btnAddConjunto.UseVisualStyleBackColor = true;
+            this.btnAddConjunto.Click += new System.EventHandler(this.btnAddConjunto_Click);
+            // 
+            // nudAddConjunto
+            // 
+            this.nudAddConjunto.Location = new System.Drawing.Point(108, 59);
+            this.nudAddConjunto.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.nudAddConjunto.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudAddConjunto.Name = "nudAddConjunto";
+            this.nudAddConjunto.Size = new System.Drawing.Size(120, 20);
+            this.nudAddConjunto.TabIndex = 3;
+            this.nudAddConjunto.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(9, 50);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(95, 35);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Tiempo Esperado por Pregunta";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(9, 27);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(44, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Nombre";
+            // 
+            // txtAddConjunto
+            // 
+            this.txtAddConjunto.Location = new System.Drawing.Point(108, 24);
+            this.txtAddConjunto.Name = "txtAddConjunto";
+            this.txtAddConjunto.Size = new System.Drawing.Size(120, 20);
+            this.txtAddConjunto.TabIndex = 0;
             // 
             // ConfiguracionAdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(302, 287);
+            this.CancelButton = this.btnSalir;
+            this.ClientSize = new System.Drawing.Size(595, 316);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.label1);
+            this.HelpButton = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ConfiguracionAdminForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ConfiguracionAdminForm";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAddConjunto)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -207,5 +324,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown nudCantidad;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtAddConjunto;
+        private System.Windows.Forms.NumericUpDown nudAddConjunto;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnAddConjunto;
+        private System.Windows.Forms.CheckBox cbToken;
+        private System.Windows.Forms.HelpProvider helpToken;
     }
 }

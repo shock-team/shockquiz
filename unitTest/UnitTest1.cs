@@ -10,10 +10,10 @@ namespace unitTest
     [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
+        //[TestMethod]
         public void TestMethod1()
         {
-            JsonMapper.Mapper(15);
+            JsonMapper.Mapper("arre",150);
         }
 
         //[TestMethod]
@@ -26,7 +26,7 @@ namespace unitTest
                     Conjunto otdb = new ConjuntoOTDB()
                     {
                         Nombre = "OpenTDB",
-                        tiempoEsperadoPorPregunta = 40
+                        TiempoEsperadoPorPregunta = 40
                     };
                     bUoW.RepositorioConjunto.Agregar(otdb);
                     bUoW.GuardarCambios();
@@ -156,7 +156,7 @@ namespace unitTest
             }
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void TestMethod5()
         {
                 List<Categoria> listaCategorias = new List<Categoria>();

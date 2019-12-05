@@ -21,7 +21,7 @@ namespace ShockQuiz.Dominio
         public Conjunto Conjunto { get; set; }
         public int ConjuntoId { get; set; }
         public List<Pregunta> Preguntas { get; set; }
-        public int RespuestasCorrectas { get; set; }
+        public int RespuestasCorrectas { get; set; } = 0;
 
         public PreguntaDTO ObtenerPreguntaYRespuestas()
         {
@@ -53,7 +53,7 @@ namespace ShockQuiz.Dominio
 
         public double TiempoLimite()
         {
-            return CantidadPreguntas * Conjunto.tiempoEsperadoPorPregunta;
+            return CantidadPreguntas * Conjunto.TiempoEsperadoPorPregunta;
         }
     }
 }

@@ -15,8 +15,15 @@ namespace ShockQuiz.DAL.EntityFramework
         public IEnumerable<Sesion> ObtenerRanking(int pTop = 15)
         {
             List<Sesion> aux = new List<Sesion>();
-            aux = this.iDbContext.Set<Sesion>().OrderByDescending(x => x.Puntaje).ToList();
-            return aux.Take(pTop);
+            aux = this.iDbContext.Set<Sesion>().OrderByDescending(x => x.Puntaje).Take(pTop).ToList();
+            foreach (var item in aux)
+            {
+                var user = from t in iDbContext.Usuarios
+                where t.UsuarioId == item.UsuarioId
+                select t;
+                item.Usuario = user.First();
+            }
+            return aux;
         }
 
         public IEnumerable<Sesion> ObtenerTodas(string pUsuario)

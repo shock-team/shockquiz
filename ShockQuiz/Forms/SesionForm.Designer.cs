@@ -50,11 +50,12 @@
             // 
             // lblPregunta
             // 
-            this.lblPregunta.AutoSize = true;
-            this.lblPregunta.Location = new System.Drawing.Point(368, 141);
+            this.lblPregunta.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPregunta.Location = new System.Drawing.Point(29, 74);
             this.lblPregunta.Name = "lblPregunta";
-            this.lblPregunta.Size = new System.Drawing.Size(0, 13);
+            this.lblPregunta.Size = new System.Drawing.Size(589, 138);
             this.lblPregunta.TabIndex = 4;
+            this.lblPregunta.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -71,7 +72,7 @@
             this.btnRespuesta3.Location = new System.Drawing.Point(12, 287);
             this.btnRespuesta3.Name = "btnRespuesta3";
             this.btnRespuesta3.Size = new System.Drawing.Size(317, 40);
-            this.btnRespuesta3.TabIndex = 6;
+            this.btnRespuesta3.TabIndex = 2;
             this.btnRespuesta3.Text = "Respuesta 3";
             this.btnRespuesta3.UseVisualStyleBackColor = false;
             this.btnRespuesta3.Click += new System.EventHandler(this.BtnRespuesta3_Click);
@@ -82,7 +83,7 @@
             this.btnRespuesta1.Location = new System.Drawing.Point(12, 241);
             this.btnRespuesta1.Name = "btnRespuesta1";
             this.btnRespuesta1.Size = new System.Drawing.Size(317, 40);
-            this.btnRespuesta1.TabIndex = 7;
+            this.btnRespuesta1.TabIndex = 0;
             this.btnRespuesta1.Text = "Respuesta 1";
             this.btnRespuesta1.UseVisualStyleBackColor = false;
             this.btnRespuesta1.Click += new System.EventHandler(this.BtnRespuesta1_Click);
@@ -95,7 +96,7 @@
             this.btnRespuesta2.Location = new System.Drawing.Point(386, 241);
             this.btnRespuesta2.Name = "btnRespuesta2";
             this.btnRespuesta2.Size = new System.Drawing.Size(317, 40);
-            this.btnRespuesta2.TabIndex = 8;
+            this.btnRespuesta2.TabIndex = 1;
             this.btnRespuesta2.Text = "Respuesta 2";
             this.btnRespuesta2.UseVisualStyleBackColor = false;
             this.btnRespuesta2.Click += new System.EventHandler(this.BtnRespuesta2_Click);
@@ -107,7 +108,7 @@
             this.btnRespuesta4.Location = new System.Drawing.Point(386, 287);
             this.btnRespuesta4.Name = "btnRespuesta4";
             this.btnRespuesta4.Size = new System.Drawing.Size(317, 40);
-            this.btnRespuesta4.TabIndex = 9;
+            this.btnRespuesta4.TabIndex = 3;
             this.btnRespuesta4.Text = "Respuesta 4";
             this.btnRespuesta4.UseVisualStyleBackColor = false;
             this.btnRespuesta4.Click += new System.EventHandler(this.BtnRespuesta4_Click);
@@ -186,12 +187,13 @@
             // 
             // btnSiguiente
             // 
+            this.btnSiguiente.BackgroundImage = global::ShockQuiz.Properties.Resources.next;
+            this.btnSiguiente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSiguiente.Location = new System.Drawing.Point(654, 114);
+            this.btnSiguiente.Location = new System.Drawing.Point(638, 114);
             this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(49, 49);
-            this.btnSiguiente.TabIndex = 19;
-            this.btnSiguiente.Text = "→";
+            this.btnSiguiente.Size = new System.Drawing.Size(65, 65);
+            this.btnSiguiente.TabIndex = 4;
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.BtnSiguiente_Click);
             // 
@@ -205,11 +207,13 @@
             this.lblTimer.AutoSize = true;
             this.lblTimer.Location = new System.Drawing.Point(651, 33);
             this.lblTimer.Name = "lblTimer";
-            this.lblTimer.Size = new System.Drawing.Size(0, 13);
+            this.lblTimer.Size = new System.Drawing.Size(21, 13);
             this.lblTimer.TabIndex = 20;
+            this.lblTimer.Text = "0 s";
             // 
             // SesionForm
             // 
+            this.AcceptButton = this.btnSiguiente;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(715, 339);
@@ -229,6 +233,7 @@
             this.Controls.Add(this.btnRespuesta3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblPregunta);
+            this.MaximizeBox = false;
             this.Name = "SesionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Partida";

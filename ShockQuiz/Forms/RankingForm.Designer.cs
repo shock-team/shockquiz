@@ -71,6 +71,7 @@
             this.ClientSize = new System.Drawing.Size(673, 350);
             this.Controls.Add(this.Ranking);
             this.Name = "RankingForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RankingForm";
             ((System.ComponentModel.ISupportInitialize)(this.dgvRanking)).EndInit();
             this.Ranking.ResumeLayout(false);
