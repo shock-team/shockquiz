@@ -15,7 +15,7 @@ namespace ShockQuiz.DAL.EntityFramework
 
         public IEnumerable<Categoria> ObtenerTodas()
         {
-            return this.iDbContext.Set<Categoria>();
+            return this.iDbContext.Set<Categoria>().ToList();
         }
 
         public Categoria GetOrCreate(string pNombre)

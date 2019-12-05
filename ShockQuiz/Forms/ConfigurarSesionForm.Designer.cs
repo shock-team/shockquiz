@@ -136,7 +136,7 @@
             // 
             this.nudCantidad.Location = new System.Drawing.Point(144, 175);
             this.nudCantidad.Minimum = new decimal(new int[] {
-            10,
+            1,
             0,
             0,
             0});
@@ -144,7 +144,7 @@
             this.nudCantidad.Size = new System.Drawing.Size(125, 20);
             this.nudCantidad.TabIndex = 11;
             this.nudCantidad.Value = new decimal(new int[] {
-            10,
+            1,
             0,
             0,
             0});

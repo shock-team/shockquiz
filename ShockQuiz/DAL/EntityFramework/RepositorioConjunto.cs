@@ -15,7 +15,7 @@ namespace ShockQuiz.DAL.EntityFramework
 
         public IEnumerable<Conjunto> ObtenerTodas()
         {
-            return this.iDbContext.Set<Conjunto>();
+            return this.iDbContext.Set<Conjunto>().ToList();
         }
 
         public Conjunto Get(string pNombre)

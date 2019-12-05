@@ -15,11 +15,11 @@ namespace ShockQuiz.Dominio
             double FACTOR_DIFICULTAD;
             switch (pSesion.Dificultad.Nombre)
             {
-                case "Alta":
+                case "hard":
                     FACTOR_DIFICULTAD = 5;
                     break;
 
-                case "Media":
+                case "medium":
                     FACTOR_DIFICULTAD = 3;
                     break;
 
