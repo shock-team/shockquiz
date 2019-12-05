@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SesionForm));
             this.lblPregunta = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnRespuesta3 = new System.Windows.Forms.Button();
@@ -233,6 +234,7 @@
             this.Controls.Add(this.btnRespuesta3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblPregunta);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "SesionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

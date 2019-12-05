@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigurarSesionForm));
             this.label2 = new System.Windows.Forms.Label();
             this.cbConjunto = new System.Windows.Forms.ComboBox();
             this.cbDificultad = new System.Windows.Forms.ComboBox();
@@ -177,9 +178,10 @@
             this.CancelButton = this.btnCancelar;
             this.ClientSize = new System.Drawing.Size(346, 293);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ConfigurarSesionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ConfigurarSesionForm";
+            this.Text = "Iniciando Partida";
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

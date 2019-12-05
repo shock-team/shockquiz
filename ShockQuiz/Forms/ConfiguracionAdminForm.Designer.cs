@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguracionAdminForm));
             this.btnAdmin = new System.Windows.Forms.Button();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.btnUsuario = new System.Windows.Forms.Button();
@@ -114,7 +115,7 @@
             this.groupBox1.Size = new System.Drawing.Size(274, 134);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Modificar autoridad";
+            this.groupBox1.Text = "Modificar Autoridad";
             // 
             // label2
             // 
@@ -137,7 +138,7 @@
             this.groupBox2.Size = new System.Drawing.Size(293, 129);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Agregar preguntas a un conjunto";
+            this.groupBox2.Text = "Agregar Preguntas";
             // 
             // nudCantidad
             // 
@@ -216,7 +217,7 @@
             // 
             // btnAddConjunto
             // 
-            this.btnAddConjunto.Location = new System.Drawing.Point(6, 125);
+            this.btnAddConjunto.Location = new System.Drawing.Point(6, 118);
             this.btnAddConjunto.Name = "btnAddConjunto";
             this.btnAddConjunto.Size = new System.Drawing.Size(280, 23);
             this.btnAddConjunto.TabIndex = 4;
@@ -292,6 +293,7 @@
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.groupBox4);
             this.HelpButton = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfiguracionAdminForm";
