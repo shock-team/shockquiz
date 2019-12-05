@@ -29,6 +29,7 @@ namespace ShockQuiz.Forms
 
         private void BtnIniciar_Click(object sender, EventArgs e)
         {
+
             SesionForm sesionForm = new SesionForm(Usuario, (string)cbCategoria.SelectedItem, (string)cbDificultad.SelectedItem, (string)cbConjunto.SelectedItem, Decimal.ToInt32(nudCantidad.Value));
             sesionForm.FormClosed += new FormClosedEventHandler(SesionForm_FormClosed);
             sesionForm.Show();
