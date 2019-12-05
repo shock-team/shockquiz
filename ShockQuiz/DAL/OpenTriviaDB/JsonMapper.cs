@@ -15,6 +15,10 @@ namespace ShockQuiz.DAL.OpenTriviaDB
 {
     public class JsonMapper
     {
+        /// <summary>
+        /// Devuelve el token alfanumérico proveniente de la API de OpenTDB. Se utiliza para que la API
+        /// no envíe Preguntas repetidas.
+        /// </summary>
         public static string ObtenerToken()
         {
             var mUrl = "https://opentdb.com/api_token.php?command=request";
@@ -47,8 +51,13 @@ namespace ShockQuiz.DAL.OpenTriviaDB
             return string.Empty;
         }
     
-
-        public static List<Pregunta> Mapper(string pToken = null, int pNumber = 10)
+        /// <summary>
+        /// Obtiene de OpenTDB una cantidad <paramref name="pNumber"/> de Preguntas y las almacena en la base de datos.
+        /// </summary>
+        /// <param name="pToken">API Token</param>
+        /// <param name="pNumber">Cantidad de Preguntas</param>
+        /// <returns></returns>
+        public static List<Pregunta> AlmacenarPreguntas(string pToken = null, int pNumber = 10)
         {
             List<Pregunta> listaPreguntas = new List<Pregunta>();
             string CONJUNTO = "OpenTDB";
@@ -135,7 +144,6 @@ namespace ShockQuiz.DAL.OpenTriviaDB
             catch (Exception)
             {
                 throw;
-                //MessageBox.Show("Error: " + ex.Message);
             }
             return listaPreguntas;
         }

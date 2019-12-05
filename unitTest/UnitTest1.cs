@@ -13,7 +13,7 @@ namespace unitTest
         //[TestMethod]
         public void TestMethod1()
         {
-            JsonMapper.Mapper("arre",150);
+            JsonMapper.AlmacenarPreguntas("arre",150);
         }
 
         //[TestMethod]

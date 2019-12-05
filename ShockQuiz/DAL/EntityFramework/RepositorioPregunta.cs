@@ -13,7 +13,10 @@ namespace ShockQuiz.DAL.EntityFramework
         static Random rnd = new Random();
         public RepositorioPregunta(ShockQuizDbContext pDbContext) : base(pDbContext) { }
         
-
+        /// <summary>
+        /// Agrega una lista <paramref name="pPreguntas"/> a la base de datos.
+        /// </summary>
+        /// <param name="pPreguntas">IEnumerable de Preguntas</param>
         public void AgregarPreguntas(IEnumerable<Pregunta> pPreguntas)
         {
             foreach (Pregunta item in pPreguntas)
@@ -22,11 +25,24 @@ namespace ShockQuiz.DAL.EntityFramework
             }
         }
 
+        /// <summary>
+        /// Obtiene todas las Preguntas de la base de datos.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Pregunta> ObtenerTodas()
         {
             return this.iDbContext.Set<Pregunta>();
         }
 
+        /// <summary>
+        /// Obtiene una <paramref name="pCantidad"/> determinada (o no) de preguntas filtradas por 
+        /// <paramref name="pCategoria"/>, <paramref name="pConjunto"/> y <paramref name="pDificultad"/>.
+        /// </summary>
+        /// <param name="pCategoria">Categría</param>
+        /// <param name="pDificultad">Dificultad</param>
+        /// <param name="pConjunto">Conjunto</param>
+        /// <param name="pCantidad">Cantidad de Preguntas</param>
+        /// <returns></returns>
         public IEnumerable<Pregunta> ObtenerPreguntas(Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto, int pCantidad = 10)
         {
 
@@ -76,6 +92,11 @@ namespace ShockQuiz.DAL.EntityFramework
             return pNombre;
         }
 
+        /// <summary>
+        /// Devuelve una lista de las Categorías de un <paramref name="pConjunto"/>.
+        /// </summary>
+        /// <param name="pConjunto"></param>
+        /// <returns></returns>
         public IEnumerable<Categoria> ObtenerCategorias(string pConjunto)
         {
             List<Categoria> listaCategorias = new List<Categoria>();

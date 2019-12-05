@@ -12,6 +12,11 @@ namespace ShockQuiz.DAL.EntityFramework
     {
         public RepositorioSesion(ShockQuizDbContext pDbContext) : base(pDbContext) { }
 
+        /// <summary>
+        /// Devuelve un <paramref name="pTop"/> de Sesiones ordenadas por puntaje.
+        /// </summary>
+        /// <param name="pTop"></param>
+        /// <returns></returns>
         public IEnumerable<Sesion> ObtenerRanking(int pTop = 15)
         {
             List<Sesion> aux = new List<Sesion>();
@@ -26,6 +31,11 @@ namespace ShockQuiz.DAL.EntityFramework
             return aux;
         }
 
+        /// <summary>
+        /// Devuelve todas las Sesiones de la base de datos.
+        /// </summary>
+        /// <param name="pUsuario"></param>
+        /// <returns></returns>
         public IEnumerable<Sesion> ObtenerTodas(string pUsuario)
         {
             return this.iDbContext.Set<Sesion>().Where(x => x.Usuario.Nombre == pUsuario);

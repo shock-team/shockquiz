@@ -47,6 +47,7 @@ namespace ShockQuiz.Dominio
             return Math.Round(puntaje,2);
         }
 
+
         public override void AgregarPreguntas(int pCantidad, string pToken = null)
         {
             if (pCantidad > 50)
@@ -54,13 +55,13 @@ namespace ShockQuiz.Dominio
                 int aux = pCantidad;
                 while (aux > 0)
                 {
-                    JsonMapper.Mapper(pToken, aux);
+                    JsonMapper.AlmacenarPreguntas(pToken, aux);
                     aux -= 50;
                 }
             }
             else
             {
-                JsonMapper.Mapper(pToken, pCantidad);
+                JsonMapper.AlmacenarPreguntas(pToken, pCantidad);
             }
         }
     }
