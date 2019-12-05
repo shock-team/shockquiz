@@ -13,7 +13,7 @@ namespace ShockQuiz.Dominio
         public bool EsCorrecta { get; set; }
 
         public int PreguntaId { get; set; }
-        public virtual Pregunta Pregunta { get; set; }
+        public Pregunta Pregunta { get; set; }
 
     }
 }

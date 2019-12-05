@@ -72,7 +72,7 @@
             this.btnRespuesta3.Name = "btnRespuesta3";
             this.btnRespuesta3.Size = new System.Drawing.Size(317, 40);
             this.btnRespuesta3.TabIndex = 6;
-            this.btnRespuesta3.Text = "button1";
+            this.btnRespuesta3.Text = "Respuesta 3";
             this.btnRespuesta3.UseVisualStyleBackColor = false;
             this.btnRespuesta3.Click += new System.EventHandler(this.BtnRespuesta3_Click);
             // 
@@ -83,7 +83,7 @@
             this.btnRespuesta1.Name = "btnRespuesta1";
             this.btnRespuesta1.Size = new System.Drawing.Size(317, 40);
             this.btnRespuesta1.TabIndex = 7;
-            this.btnRespuesta1.Text = "button2";
+            this.btnRespuesta1.Text = "Respuesta 1";
             this.btnRespuesta1.UseVisualStyleBackColor = false;
             this.btnRespuesta1.Click += new System.EventHandler(this.BtnRespuesta1_Click);
             // 
@@ -96,7 +96,7 @@
             this.btnRespuesta2.Name = "btnRespuesta2";
             this.btnRespuesta2.Size = new System.Drawing.Size(317, 40);
             this.btnRespuesta2.TabIndex = 8;
-            this.btnRespuesta2.Text = "button3";
+            this.btnRespuesta2.Text = "Respuesta 2";
             this.btnRespuesta2.UseVisualStyleBackColor = false;
             this.btnRespuesta2.Click += new System.EventHandler(this.BtnRespuesta2_Click);
             // 
@@ -108,7 +108,7 @@
             this.btnRespuesta4.Name = "btnRespuesta4";
             this.btnRespuesta4.Size = new System.Drawing.Size(317, 40);
             this.btnRespuesta4.TabIndex = 9;
-            this.btnRespuesta4.Text = "button4";
+            this.btnRespuesta4.Text = "Respuesta 4";
             this.btnRespuesta4.UseVisualStyleBackColor = false;
             this.btnRespuesta4.Click += new System.EventHandler(this.BtnRespuesta4_Click);
             // 
@@ -186,9 +186,10 @@
             // 
             // btnSiguiente
             // 
-            this.btnSiguiente.Location = new System.Drawing.Point(675, 136);
+            this.btnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSiguiente.Location = new System.Drawing.Point(654, 114);
             this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(27, 23);
+            this.btnSiguiente.Size = new System.Drawing.Size(49, 49);
             this.btnSiguiente.TabIndex = 19;
             this.btnSiguiente.Text = "→";
             this.btnSiguiente.UseVisualStyleBackColor = true;
@@ -207,7 +208,7 @@
             this.lblTimer.Size = new System.Drawing.Size(0, 13);
             this.lblTimer.TabIndex = 20;
             // 
-            // Contestar
+            // SesionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -228,8 +229,9 @@
             this.Controls.Add(this.btnRespuesta3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblPregunta);
-            this.Name = "Contestar";
-            this.Text = "Form1";
+            this.Name = "SesionForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Partida";
             this.ResumeLayout(false);
             this.PerformLayout();
 

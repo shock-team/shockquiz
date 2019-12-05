@@ -12,7 +12,7 @@ namespace ShockQuiz.Dominio
         public string Nombre { get; set; }
         public string Contraseña { get; set; }
         public bool Admin { get; set; }
-        public virtual ICollection<Sesion> Sesiones { get; set; }
+        public ICollection<Sesion> Sesiones { get; set; }
 
         public bool ContraseñaCorrecta(string pPass)
         {

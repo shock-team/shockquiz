@@ -11,8 +11,8 @@ namespace ShockQuiz.Dominio
         public int ConjuntoId { get; set; }
         public string Nombre { get; set; }
         public double tiempoEsperadoPorPregunta { get; set; }
-        public virtual ICollection<Sesion> Sesiones { get; set; }
-        public virtual ICollection<Pregunta> Preguntas { get; set; }
+        public ICollection<Sesion> Sesiones { get; set; }
+        public ICollection<Pregunta> Preguntas { get; set; }
 
         public virtual double CalcularPuntaje(Sesion pSesion)
         {

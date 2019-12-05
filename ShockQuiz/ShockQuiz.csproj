@@ -144,6 +144,10 @@
     <Compile Include="Migrations\201912042215107_itworks.designer.cs">
       <DependentUpon>201912042215107_itworks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912050016514_alatio.cs" />
+    <Compile Include="Migrations\201912050016514_alatio.designer.cs">
+      <DependentUpon>201912050016514_alatio.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -176,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912042215107_itworks.resx">
       <DependentUpon>201912042215107_itworks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912050016514_alatio.resx">
+      <DependentUpon>201912050016514_alatio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

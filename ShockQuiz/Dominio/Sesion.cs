@@ -10,15 +10,15 @@ namespace ShockQuiz.Dominio
         public int SesionId { get; set; }
         public int CantidadPreguntas { get; set; }
         public int CategoriaId { get; set; }
-        public virtual Categoria Categoria { get; set; }
+        public Categoria Categoria { get; set; }
         public int DificultadId { get; set; }
-        public virtual Dificultad Dificultad { get; set; }
+        public Dificultad Dificultad { get; set; }
         public double Puntaje { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public Usuario Usuario { get; set; }
         public int UsuarioId { get; set; }
-        public virtual Conjunto Conjunto { get; set; }
+        public Conjunto Conjunto { get; set; }
         public int ConjuntoId { get; set; }
         public List<Pregunta> Preguntas { get; set; }
         public int RespuestasCorrectas { get; set; }
