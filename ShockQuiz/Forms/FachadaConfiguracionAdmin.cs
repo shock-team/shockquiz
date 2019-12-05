@@ -13,39 +13,20 @@ namespace ShockQuiz.Forms
     class FachadaConfiguracionAdmin
     {
         /// <summary>
-        /// Reduce la autoridad de un administrador a usuario
-        /// </summary>
-        /// <param name="pUsuario">El administrador</param>
-        /// <returns></returns>
-        public bool AdminAUsuario(string pUsuario)
-        {
-            bool resultado = false;
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    resultado  = bUoW.RepositorioUsuario.Descender(pUsuario);
-                }
-            }
-            return resultado;
-        }
-
-        /// <summary>
         /// Incrementa la autoridad de un usuario a administrador
         /// </summary>
         /// <param name="pUsuario">El usuario</param>
         /// <returns></returns>
-        public bool UsuarioAAdmin(string pUsuario)
+        public void UsuarioAAdmin(string pUsuario)
         {
-            bool resultado = false;
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    resultado = bUoW.RepositorioUsuario.Ascender(pUsuario);
+                    bUoW.RepositorioUsuario.Ascender(pUsuario);
+                    bUoW.GuardarCambios();
                 }
             }
-            return resultado;
         }
 
         /// <summary>

@@ -30,7 +30,6 @@
         {
             this.btnAdmin = new System.Windows.Forms.Button();
             this.txtUsuario = new System.Windows.Forms.TextBox();
-            this.btnUsuario = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.cbConjunto = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -74,16 +73,6 @@
             this.txtUsuario.Size = new System.Drawing.Size(199, 20);
             this.txtUsuario.TabIndex = 2;
             // 
-            // btnUsuario
-            // 
-            this.btnUsuario.Location = new System.Drawing.Point(9, 105);
-            this.btnUsuario.Name = "btnUsuario";
-            this.btnUsuario.Size = new System.Drawing.Size(245, 23);
-            this.btnUsuario.TabIndex = 4;
-            this.btnUsuario.Text = "Admin a Usuario";
-            this.btnUsuario.UseVisualStyleBackColor = true;
-            this.btnUsuario.Click += new System.EventHandler(this.BtnUsuario_Click);
-            // 
             // btnSalir
             // 
             this.btnSalir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -108,10 +97,9 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtUsuario);
             this.groupBox1.Controls.Add(this.btnAdmin);
-            this.groupBox1.Controls.Add(this.btnUsuario);
             this.groupBox1.Location = new System.Drawing.Point(338, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(274, 134);
+            this.groupBox1.Size = new System.Drawing.Size(274, 111);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Modificar autoridad";
@@ -313,7 +301,6 @@
         #endregion
         private System.Windows.Forms.Button btnAdmin;
         private System.Windows.Forms.TextBox txtUsuario;
-        private System.Windows.Forms.Button btnUsuario;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.ComboBox cbConjunto;
         private System.Windows.Forms.GroupBox groupBox1;

@@ -31,9 +31,9 @@
             this.dgvRanking = new System.Windows.Forms.DataGridView();
             this.btnSalir = new System.Windows.Forms.Button();
             this.Ranking = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.nudTop = new System.Windows.Forms.NumericUpDown();
             this.btnActualizar = new System.Windows.Forms.Button();
+            this.nudTop = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRanking)).BeginInit();
             this.Ranking.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTop)).BeginInit();
@@ -71,14 +71,16 @@
             this.Ranking.TabStop = false;
             this.Ranking.Text = "Ranking";
             // 
-            // label1
+            // btnActualizar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 301);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Top número:";
+            this.btnActualizar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnActualizar.Location = new System.Drawing.Point(205, 296);
+            this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Size = new System.Drawing.Size(75, 23);
+            this.btnActualizar.TabIndex = 4;
+            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.UseVisualStyleBackColor = true;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
             // nudTop
             // 
@@ -102,15 +104,14 @@
             0,
             0});
             // 
-            // btnActualizar
+            // label1
             // 
-            this.btnActualizar.Location = new System.Drawing.Point(205, 296);
-            this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(75, 23);
-            this.btnActualizar.TabIndex = 4;
-            this.btnActualizar.Text = "Actualizar";
-            this.btnActualizar.UseVisualStyleBackColor = true;
-            //this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 301);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Top número:";
             // 
             // RankingForm
             // 

@@ -1,13 +1,10 @@
 ﻿using ShockQuiz.Dominio;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    public class RepositorioUsuario:Repositorio<Usuario, ShockQuizDbContext>, IRepositorioUsuario
+    public class RepositorioUsuario : Repositorio<Usuario, ShockQuizDbContext>, IRepositorioUsuario
     {
         public RepositorioUsuario(ShockQuizDbContext pDbContext) : base(pDbContext) { }
 
@@ -16,37 +13,10 @@ namespace ShockQuiz.DAL.EntityFramework
         /// </summary>
         /// <param name="pNombre">Nombre del Usuario</param>
         /// <returns></returns>
-        public bool Ascender(string pNombre)
+        public void Ascender(string pNombre)
         {
-            Usuario user = this.iDbContext.Set<Usuario>().Find(pNombre);
-            if (user != null)
-            {
-                user.Admin = true;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Quita privilegios de administrador al Usuario <paramref name="pNombre"/>.
-        /// </summary>
-        /// <param name="pNombre">Nombre del Usuario</param>
-        /// <returns></returns>
-        public bool Descender(string pNombre)
-        {
-            Usuario user = this.iDbContext.Set<Usuario>().Find(pNombre);
-            if (user != null)
-            {
-                user.Admin = false;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            Usuario user = Obtener(pNombre);
+            user.Admin = true;
         }
 
         /// <summary>

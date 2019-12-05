@@ -5,8 +5,7 @@ namespace ShockQuiz.DAL
 {
     public interface IRepositorioUsuario : IRepositorio<Usuario>
     {
-        bool Ascender(string pNombre);
-        bool Descender(string pNombre);
+        void Ascender(string pNombre);
         IEnumerable<Usuario> ObtenerTodos();
         Usuario Obtener(string pNombre);
     }

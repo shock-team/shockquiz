@@ -23,7 +23,7 @@ namespace ShockQuiz.Forms
             }
             if (cbConjunto.Items.Count == 1)
             {
-                cbConjunto.SelectedIndex = 1;
+                cbConjunto.SelectedIndex = 0;
                 cbConjunto.Enabled = false;
             }
             IEnumerable<string> dificultades = fachada.ObtenerDificultades();
