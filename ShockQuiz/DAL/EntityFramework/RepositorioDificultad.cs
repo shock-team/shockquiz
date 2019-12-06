@@ -1,11 +1,8 @@
 ﻿using ShockQuiz.Dominio;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
@@ -35,7 +32,7 @@ namespace ShockQuiz.DAL.EntityFramework
 
             var dbDificultad = from t in iDbContext.Dificultades
                                where t.Nombre == pNombre
-                              select t;
+                               select t;
 
             if (dbDificultad.Count() > 0)
             {

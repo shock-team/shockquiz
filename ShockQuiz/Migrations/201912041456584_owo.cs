@@ -1,8 +1,7 @@
 ﻿namespace ShockQuiz.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class owo : DbMigration
     {
         public override void Up()
@@ -16,7 +15,7 @@
             CreateIndex("dbo.Respuestas", "PreguntaId");
             AddForeignKey("dbo.Respuestas", "PreguntaId", "dbo.Preguntas", "id", cascadeDelete: true);
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Respuestas", "PreguntaId", "dbo.Preguntas");

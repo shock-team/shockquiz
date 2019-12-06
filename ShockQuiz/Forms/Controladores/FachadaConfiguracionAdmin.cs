@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ShockQuiz.Dominio;
-using ShockQuiz.DAL;
-using ShockQuiz.DAL.EntityFramework;
+﻿using ShockQuiz.DAL.EntityFramework;
 using ShockQuiz.DAL.OpenTriviaDB;
+using ShockQuiz.Dominio;
+using System.Collections.Generic;
 
 namespace ShockQuiz.Forms
 {

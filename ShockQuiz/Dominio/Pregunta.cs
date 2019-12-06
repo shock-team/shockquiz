@@ -1,11 +1,8 @@
 ﻿
+using ShockQuiz.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ShockQuiz.IO;
 
 namespace ShockQuiz.Dominio
 {
@@ -22,7 +19,7 @@ namespace ShockQuiz.Dominio
         public int ConjuntoId { get; set; }
         public Conjunto Conjunto { get; set; }
         public ICollection<Respuesta> Respuestas { get; set; }
-       
+
         public ResultadoRespuesta Responder(string pRespuesta)
         {
             //Este método se encarga de comprobar si la respuesta ingresada es correcta, devolviendo

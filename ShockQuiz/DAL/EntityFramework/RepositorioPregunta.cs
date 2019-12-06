@@ -1,18 +1,18 @@
 ﻿using ShockQuiz.Dominio;
+using ShockQuiz.Excepciones;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using ShockQuiz.Excepciones;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    public class RepositorioPregunta:Repositorio<Pregunta, ShockQuizDbContext>, IRepositorioPregunta
+    public class RepositorioPregunta : Repositorio<Pregunta, ShockQuizDbContext>, IRepositorioPregunta
     {
         static Random rnd = new Random();
         public RepositorioPregunta(ShockQuizDbContext pDbContext) : base(pDbContext) { }
-        
+
         /// <summary>
         /// Agrega una lista <paramref name="pPreguntas"/> a la base de datos.
         /// </summary>

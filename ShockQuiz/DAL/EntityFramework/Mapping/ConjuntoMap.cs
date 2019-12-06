@@ -25,7 +25,7 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
             this.Property(x => x.Token)
                 .IsOptional()
                 .HasColumnName("tokenAPI");
-                
+
         }
     }
 }

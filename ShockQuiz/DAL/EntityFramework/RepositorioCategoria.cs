@@ -1,15 +1,12 @@
 ﻿using ShockQuiz.Dominio;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    public class RepositorioCategoria:Repositorio<Categoria, ShockQuizDbContext>
+    public class RepositorioCategoria : Repositorio<Categoria, ShockQuizDbContext>
     {
         public RepositorioCategoria(ShockQuizDbContext pDbContext) : base(pDbContext) { }
 
@@ -34,8 +31,8 @@ namespace ShockQuiz.DAL.EntityFramework
             var manager = ((IObjectContextAdapter)iDbContext).ObjectContext;
 
             var dbCategoria = from t in iDbContext.Categorias
-                             where t.Nombre == pNombre
-                             select t;
+                              where t.Nombre == pNombre
+                              select t;
 
             if (dbCategoria.Count() > 0)
             {

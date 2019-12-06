@@ -1,7 +1,5 @@
 ﻿using ShockQuiz.Dominio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace ShockQuiz.Forms
@@ -62,7 +60,7 @@ namespace ShockQuiz.Forms
                 try
                 {
                     conjunto.AgregarPreguntas(Decimal.ToInt32(nudCantidad.Value), conjunto.Token);
-                    MessageBox.Show(Decimal.ToInt32(nudCantidad.Value) + " preguntas añadidas correctamente!","Éxito",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    MessageBox.Show(Decimal.ToInt32(nudCantidad.Value) + " preguntas añadidas correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception)
                 {

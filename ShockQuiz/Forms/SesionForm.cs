@@ -1,13 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Web;
-using System.Windows.Forms;
-using ShockQuiz.Dominio;
+﻿using ShockQuiz.Dominio;
 using ShockQuiz.IO;
+using System;
+using System.Windows.Forms;
 
 
 namespace ShockQuiz
@@ -62,7 +56,7 @@ namespace ShockQuiz
                 timer1.Stop();
                 btnSiguiente.Enabled = false;
                 fachada.GuardarSesion();
-                MessageBox.Show("¡Tiempo agotado! Puntaje: "+ fachada.ObtenerPuntaje(), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("¡Tiempo agotado! Puntaje: " + fachada.ObtenerPuntaje(), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.Close();
             }
             else if (pResultado.FinSesion)

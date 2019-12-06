@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ShockQuiz.DAL.EntityFramework;
 using ShockQuiz.Dominio;
 using ShockQuiz.IO;
-using ShockQuiz.DAL.EntityFramework;
-using System.Linq;
-using System.Windows.Forms;
+using System;
 
 namespace ShockQuiz
 {
@@ -48,7 +45,7 @@ namespace ShockQuiz
             resultado.FinSesion = false;
             if ((DateTime.Now - iSesionActual.FechaInicio).TotalSeconds > tiempo)
             {
-                for (int i = iSesionActual.Preguntas.Count; i > 0 ; i--)
+                for (int i = iSesionActual.Preguntas.Count; i > 0; i--)
                 {
                     resultado = iSesionActual.Responder("");
                 }

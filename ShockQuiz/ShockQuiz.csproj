@@ -100,10 +100,10 @@
     <Compile Include="Forms\ConfigurarSesionForm.Designer.cs">
       <DependentUpon>ConfigurarSesionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FachadaConfigurarSesion.cs" />
-    <Compile Include="Forms\FachadaConfiguracionAdmin.cs" />
-    <Compile Include="Forms\FachadaMenu.cs" />
-    <Compile Include="Forms\FachadaRanking.cs" />
+    <Compile Include="Forms\Controladores\FachadaConfigurarSesion.cs" />
+    <Compile Include="Forms\Controladores\FachadaConfiguracionAdmin.cs" />
+    <Compile Include="Forms\Controladores\FachadaMenu.cs" />
+    <Compile Include="Forms\Controladores\FachadaRanking.cs" />
     <Compile Include="Forms\MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,8 +143,8 @@
     <Compile Include="Dominio\Categoria.cs" />
     <Compile Include="Dominio\Conjunto.cs" />
     <Compile Include="Dominio\Dificultad.cs" />
-    <Compile Include="Forms\FachadaSesion.cs" />
-    <Compile Include="Forms\FachadaLogin.cs" />
+    <Compile Include="Forms\Controladores\FachadaSesion.cs" />
+    <Compile Include="Forms\Controladores\FachadaLogin.cs" />
     <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

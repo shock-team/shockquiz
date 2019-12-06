@@ -2,7 +2,7 @@
 
 namespace ShockQuiz.DAL
 {
-    public interface IUnitOfWork:IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         void GuardarCambios();
         IRepositorioPregunta RepositorioPregunta { get; }

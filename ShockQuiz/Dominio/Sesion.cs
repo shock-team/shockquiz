@@ -1,8 +1,7 @@
-﻿using System;
+﻿using ShockQuiz.IO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-using ShockQuiz.IO;
 
 namespace ShockQuiz.Dominio
 {
@@ -37,7 +36,7 @@ namespace ShockQuiz.Dominio
             {
                 RespuestasCorrectas++;
             }
-            
+
             Preguntas.Remove(pregunta);
             if (Preguntas.Count() == 0)
             {

@@ -22,7 +22,7 @@ namespace ShockQuiz.Forms
             {
                 if (facha.CheckLogin(txtUsuario.Text, txtContraseña.Text))
                 {
-                    MessageBox.Show("Bienvenido " + txtUsuario.Text + "!","Iniciar sesión",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Bienvenido " + txtUsuario.Text + "!", "Iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     MenuForm menuForm = new MenuForm(txtUsuario.Text);
                     menuForm.FormClosed += new FormClosedEventHandler(LoginForm_FormClosed);
                     menuForm.Show();
@@ -31,7 +31,7 @@ namespace ShockQuiz.Forms
                 else
                 {
                     MessageBox.Show("Contraseña incorrecta.", "Iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                } 
+                }
             }
             catch (InvalidOperationException)
             {

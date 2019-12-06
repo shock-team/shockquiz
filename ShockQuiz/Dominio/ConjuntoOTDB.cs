@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ShockQuiz.DAL.OpenTriviaDB;
+﻿using ShockQuiz.DAL.OpenTriviaDB;
+using System;
 
 namespace ShockQuiz.Dominio
 {
@@ -14,7 +9,7 @@ namespace ShockQuiz.Dominio
         {
             int TIEMPO_LIMITE_1 = 5;
             int TIEMPO_LIMITE_2 = 20;
-            double FACTOR_DIFICULTAD=1;
+            double FACTOR_DIFICULTAD = 1;
             switch (pSesion.Dificultad.Nombre)
             {
                 case "hard":
@@ -29,7 +24,7 @@ namespace ShockQuiz.Dominio
                     FACTOR_DIFICULTAD = 1;
                     break;
             }
-            double FACTOR_TIEMPO=1;
+            double FACTOR_TIEMPO = 1;
             double tiempoPorPregunta = pSesion.Duracion().TotalSeconds / pSesion.CantidadPreguntas;
             if (tiempoPorPregunta < TIEMPO_LIMITE_1)
             {
@@ -44,7 +39,7 @@ namespace ShockQuiz.Dominio
                 FACTOR_TIEMPO = 3;
             }
             double puntaje = ((double)pSesion.RespuestasCorrectas / (double)pSesion.CantidadPreguntas) * FACTOR_DIFICULTAD * FACTOR_TIEMPO;
-            return Math.Round(puntaje,2);
+            return Math.Round(puntaje, 2);
         }
 
 

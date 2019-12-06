@@ -1,9 +1,8 @@
-﻿using ShockQuiz.Dominio;
+﻿using ShockQuiz.Excepciones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using ShockQuiz.Excepciones;
 
 namespace ShockQuiz.Forms
 {
@@ -46,7 +45,7 @@ namespace ShockQuiz.Forms
             {
                 MessageBox.Show("No hay preguntas suficientes para la selección", "Error");
             }
-            
+
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)

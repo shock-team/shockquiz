@@ -1,11 +1,8 @@
-﻿using System;
+﻿using ShockQuiz.DAL.EntityFramework;
+using ShockQuiz.Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ShockQuiz.DAL;
-using ShockQuiz.Dominio;
-using ShockQuiz.DAL.EntityFramework;
 
 namespace ShockQuiz.Forms
 {
@@ -46,7 +43,7 @@ namespace ShockQuiz.Forms
                 {
                     foreach (Categoria categoria in bUoW.RepositorioPregunta.ObtenerCategorias(pConjunto))
                     {
-                        categorias.Add(categoria.Nombre); 
+                        categorias.Add(categoria.Nombre);
                     }
                 }
             }

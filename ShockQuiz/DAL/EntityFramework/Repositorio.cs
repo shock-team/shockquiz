@@ -1,7 +1,5 @@
-﻿using ShockQuiz.Dominio;
-using System;
+﻿using System;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 
 
 namespace ShockQuiz.DAL.EntityFramework

@@ -1,14 +1,10 @@
-﻿using System;
+﻿using ShockQuiz.Dominio;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ShockQuiz.DAL;
-using ShockQuiz.Dominio;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    public class RepositorioSesion:Repositorio<Sesion, ShockQuizDbContext>, IRepositorioSesion
+    public class RepositorioSesion : Repositorio<Sesion, ShockQuizDbContext>, IRepositorioSesion
     {
         public RepositorioSesion(ShockQuizDbContext pDbContext) : base(pDbContext) { }
 
@@ -24,8 +20,8 @@ namespace ShockQuiz.DAL.EntityFramework
             foreach (var item in aux)
             {
                 var user = from t in iDbContext.Usuarios
-                where t.UsuarioId == item.UsuarioId
-                select t;
+                           where t.UsuarioId == item.UsuarioId
+                           select t;
                 item.Usuario = user.First();
             }
             return aux;
