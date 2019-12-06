@@ -154,6 +154,7 @@
     <Compile Include="IO\PreguntaDTO.cs" />
     <Compile Include="IO\ResultadoRespuesta.cs" />
     <Compile Include="Dominio\Pregunta.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Migrations\201912040641134_test1.cs" />
     <Compile Include="Migrations\201912040641134_test1.designer.cs">
       <DependentUpon>201912040641134_test1.cs</DependentUpon>
