@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ShockQuiz.Forms;
+using System;
 using System.Windows.Forms;
-using ShockQuiz.Forms;
 
 namespace ShockQuiz
 {
@@ -15,9 +12,17 @@ namespace ShockQuiz
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new LoginForm());
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex);
+            }
+            
         }
     }
 }

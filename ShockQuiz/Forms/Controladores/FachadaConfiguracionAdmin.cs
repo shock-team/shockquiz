@@ -1,43 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ShockQuiz.Dominio;
-using ShockQuiz.DAL;
-using ShockQuiz.DAL.EntityFramework;
+﻿using ShockQuiz.DAL.EntityFramework;
 using ShockQuiz.DAL.OpenTriviaDB;
+using ShockQuiz.Dominio;
+using System.Collections.Generic;
 
 namespace ShockQuiz.Forms
 {
     class FachadaConfiguracionAdmin
     {
-        public bool AdminAUsuario(string pUsuario)
+        /// <summary>
+        /// Incrementa la autoridad de un usuario a administrador
+        /// </summary>
+        /// <param name="pUsuario">El usuario</param>
+        /// <returns></returns>
+        public void UsuarioAAdmin(string pUsuario)
         {
-            bool resultado = false;
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    resultado  = bUoW.RepositorioUsuario.Descender(pUsuario);
+                    bUoW.RepositorioUsuario.Ascender(pUsuario);
+                    bUoW.GuardarCambios();
                 }
             }
-            return resultado;
         }
 
-        public bool UsuarioAAdmin(string pUsuario)
-        {
-            bool resultado = false;
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    resultado = bUoW.RepositorioUsuario.Ascender(pUsuario);
-                }
-            }
-            return resultado;
-        }
-
+        /// <summary>
+        /// Devuelve los conjuntos presentes en la base de datos de la aplicación
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Conjunto> ObtenerConjuntos()
         {
             using (var bDbContext = new ShockQuizDbContext())
@@ -49,6 +39,12 @@ namespace ShockQuiz.Forms
             }
         }
 
+        /// <summary>
+        /// Crea una nueva instancia de ConjuntoOTDB y la guarda en la base de datos
+        /// </summary>
+        /// <param name="pNombre">Nombre del nuevo ConjuntoOTDB</param>
+        /// <param name="pTEPP">Cantidad de sengudos esperada por pregunta</param>
+        /// <param name="token">Si el checkbox del Token fue seleccionado o no</param>
         public void AñadirConjunto(string pNombre, int pTEPP, bool token)
         {
 

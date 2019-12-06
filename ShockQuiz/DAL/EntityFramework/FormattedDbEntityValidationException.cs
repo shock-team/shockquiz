@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity.Validation;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
@@ -14,6 +11,9 @@ namespace ShockQuiz.DAL.EntityFramework
         {
         }
 
+        /// <summary>
+        /// Devuelve una excepción más detallada referida a entidades de Entity Framework.
+        /// </summary>
         public override string Message
         {
             get

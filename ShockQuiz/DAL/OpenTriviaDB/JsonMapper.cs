@@ -1,20 +1,21 @@
 ﻿using Newtonsoft.Json;
+using ShockQuiz.DAL.EntityFramework;
+using ShockQuiz.Dominio;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
-using System.Windows.Forms;
-using ShockQuiz.Dominio;
-using ShockQuiz.DAL.EntityFramework;
 
 namespace ShockQuiz.DAL.OpenTriviaDB
 {
     public class JsonMapper
     {
+        /// <summary>
+        /// Devuelve el token alfanumérico proveniente de la API de OpenTDB. Se utiliza para que la API
+        /// no envíe Preguntas repetidas.
+        /// </summary>
         public static string ObtenerToken()
         {
             var mUrl = "https://opentdb.com/api_token.php?command=request";
@@ -46,14 +47,19 @@ namespace ShockQuiz.DAL.OpenTriviaDB
             }
             return string.Empty;
         }
-    
 
-        public static List<Pregunta> Mapper(string pToken = null, int pNumber = 10)
+        /// <summary>
+        /// Obtiene de OpenTDB una cantidad <paramref name="pNumber"/> de Preguntas y las almacena en la base de datos.
+        /// </summary>
+        /// <param name="pToken">API Token</param>
+        /// <param name="pNumber">Cantidad de Preguntas</param>
+        /// <returns></returns>
+        public static List<Pregunta> AlmacenarPreguntas(string pToken = null, int pNumber = 10)
         {
             List<Pregunta> listaPreguntas = new List<Pregunta>();
             string CONJUNTO = "OpenTDB";
 
-            var mUrl = "https://opentdb.com/api.php?amount=" + pNumber + "&type=multiple"; 
+            var mUrl = "https://opentdb.com/api.php?amount=" + pNumber + "&type=multiple";
             if (pToken != null)
             {
                 mUrl = "https://opentdb.com/api.php?amount=" + pNumber + "&type=multiple&token=" + pToken;
@@ -87,8 +93,8 @@ namespace ShockQuiz.DAL.OpenTriviaDB
                         List<Respuesta> respuestas = new List<Respuesta>();
                         Respuesta respuestaCorrecta = new Respuesta()
                         {
-                               EsCorrecta = true,
-                               DefRespuesta = HttpUtility.HtmlDecode(bResponseItem.correct_answer.ToString())
+                            EsCorrecta = true,
+                            DefRespuesta = HttpUtility.HtmlDecode(bResponseItem.correct_answer.ToString())
                         };
                         respuestas.Add(respuestaCorrecta);
 
@@ -119,7 +125,7 @@ namespace ShockQuiz.DAL.OpenTriviaDB
                                     bUoW.GuardarCambios();
                                 }
                             }
-                        } 
+                        }
                     }
                 }
             }
@@ -135,7 +141,6 @@ namespace ShockQuiz.DAL.OpenTriviaDB
             catch (Exception)
             {
                 throw;
-                //MessageBox.Show("Error: " + ex.Message);
             }
             return listaPreguntas;
         }

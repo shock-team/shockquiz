@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ShockQuiz.Dominio;
 using System.Data.Entity.ModelConfiguration;
-using ShockQuiz.Dominio;
 
 namespace ShockQuiz.DAL.EntityFramework.Mapping
 {
-    class PreguntaMap:EntityTypeConfiguration<Pregunta>
+    class PreguntaMap : EntityTypeConfiguration<Pregunta>
     {
         public PreguntaMap()
         {

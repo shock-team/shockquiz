@@ -1,10 +1,10 @@
-﻿using System.Data.Entity;
+﻿using ShockQuiz.Dominio;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
-using ShockQuiz.Dominio;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
-    public class ShockQuizDbContext:DbContext
+    public class ShockQuizDbContext : DbContext
     {
         public ShockQuizDbContext() : base("ShockQuiz")
         {
@@ -25,6 +25,10 @@ namespace ShockQuiz.DAL.EntityFramework
             base.OnModelCreating(pModelBuilder);
         }
 
+        /// <summary>
+        /// Guarda las entidades en la base de datos.
+        /// </summary>
+        /// <returns></returns>
         public override int SaveChanges()
         {
             try

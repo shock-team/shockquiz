@@ -1,9 +1,6 @@
 ﻿namespace ShockQuiz.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ShockQuiz.DAL.EntityFramework.ShockQuizDbContext>
     {

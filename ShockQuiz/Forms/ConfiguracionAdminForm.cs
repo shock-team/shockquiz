@@ -1,7 +1,5 @@
 ﻿using ShockQuiz.Dominio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace ShockQuiz.Forms
@@ -32,33 +30,12 @@ namespace ShockQuiz.Forms
         {
             if (txtUsuario.Text != "")
             {
-                bool resultado = fachada.UsuarioAAdmin(txtUsuario.Text);
-                if (resultado)
+                try
                 {
+                    fachada.UsuarioAAdmin(txtUsuario.Text);
                     MessageBox.Show("La operación se ha realizado con éxito", "Aviso");
                 }
-                else
-                {
-                    MessageBox.Show("No se ha encontrado al usuario", "Error");
-                }
-                txtUsuario.Clear();
-            }
-            else
-            {
-                MessageBox.Show("Ingrese un usuario", "Error");
-            }
-        }
-
-        private void BtnUsuario_Click(object sender, EventArgs e)
-        {
-            if (txtUsuario.Text != "")
-            {
-                bool resultado = fachada.AdminAUsuario(txtUsuario.Text);
-                if (resultado)
-                {
-                    MessageBox.Show("La operación se ha realizado con éxito", "Aviso");
-                }
-                else
+                catch (InvalidOperationException)
                 {
                     MessageBox.Show("No se ha encontrado al usuario", "Error");
                 }
@@ -82,13 +59,12 @@ namespace ShockQuiz.Forms
                 Conjunto conjunto = (Conjunto)cbConjunto.SelectedItem;
                 try
                 {
-                    conjunto.AgregarPreguntas(conjunto.Token,Decimal.ToInt32(nudCantidad.Value));
-                    MessageBox.Show(Decimal.ToInt32(nudCantidad.Value) + " preguntas añadidas correctamente!","Éxito",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    conjunto.AgregarPreguntas(Decimal.ToInt32(nudCantidad.Value), conjunto.Token);
+                    MessageBox.Show(Decimal.ToInt32(nudCantidad.Value) + " preguntas añadidas correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception)
                 {
-
-                    throw;
+                    MessageBox.Show("Ha habido un error con la base de datos", "Error");
                 }
             }
             else

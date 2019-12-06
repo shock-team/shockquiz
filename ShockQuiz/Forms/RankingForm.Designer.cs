@@ -28,11 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RankingForm));
             this.dgvRanking = new System.Windows.Forms.DataGridView();
             this.btnSalir = new System.Windows.Forms.Button();
             this.Ranking = new System.Windows.Forms.GroupBox();
+            this.btnActualizar = new System.Windows.Forms.Button();
+            this.nudTop = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRanking)).BeginInit();
             this.Ranking.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTop)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvRanking
@@ -40,12 +45,13 @@
             this.dgvRanking.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRanking.Location = new System.Drawing.Point(6, 19);
             this.dgvRanking.Name = "dgvRanking";
-            this.dgvRanking.Size = new System.Drawing.Size(627, 263);
+            this.dgvRanking.Size = new System.Drawing.Size(454, 263);
             this.dgvRanking.TabIndex = 0;
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(558, 297);
+            this.btnSalir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnSalir.Location = new System.Drawing.Point(385, 296);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(75, 23);
             this.btnSalir.TabIndex = 1;
@@ -55,26 +61,75 @@
             // 
             // Ranking
             // 
+            this.Ranking.Controls.Add(this.btnActualizar);
+            this.Ranking.Controls.Add(this.nudTop);
+            this.Ranking.Controls.Add(this.label1);
             this.Ranking.Controls.Add(this.btnSalir);
             this.Ranking.Controls.Add(this.dgvRanking);
             this.Ranking.Location = new System.Drawing.Point(12, 12);
             this.Ranking.Name = "Ranking";
-            this.Ranking.Size = new System.Drawing.Size(649, 330);
+            this.Ranking.Size = new System.Drawing.Size(468, 330);
             this.Ranking.TabIndex = 2;
             this.Ranking.TabStop = false;
             this.Ranking.Text = "Ranking";
+            // 
+            // btnActualizar
+            // 
+            this.btnActualizar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnActualizar.Location = new System.Drawing.Point(205, 296);
+            this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Size = new System.Drawing.Size(75, 23);
+            this.btnActualizar.TabIndex = 4;
+            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.UseVisualStyleBackColor = true;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            // 
+            // nudTop
+            // 
+            this.nudTop.Location = new System.Drawing.Point(79, 299);
+            this.nudTop.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudTop.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudTop.Name = "nudTop";
+            this.nudTop.Size = new System.Drawing.Size(120, 20);
+            this.nudTop.TabIndex = 3;
+            this.nudTop.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 301);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Top número:";
             // 
             // RankingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(673, 350);
+            this.CancelButton = this.btnSalir;
+            this.ClientSize = new System.Drawing.Size(495, 351);
             this.Controls.Add(this.Ranking);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RankingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "RankingForm";
+            this.Text = "Ranking";
             ((System.ComponentModel.ISupportInitialize)(this.dgvRanking)).EndInit();
             this.Ranking.ResumeLayout(false);
+            this.Ranking.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTop)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -84,5 +139,8 @@
         private System.Windows.Forms.DataGridView dgvRanking;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.GroupBox Ranking;
+        private System.Windows.Forms.Button btnActualizar;
+        private System.Windows.Forms.NumericUpDown nudTop;
+        private System.Windows.Forms.Label label1;
     }
 }

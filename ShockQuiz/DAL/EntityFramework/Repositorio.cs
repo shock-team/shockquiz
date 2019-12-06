@@ -1,7 +1,5 @@
-﻿using ShockQuiz.Dominio;
-using System;
+﻿using System;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 
 
 namespace ShockQuiz.DAL.EntityFramework
@@ -22,6 +20,10 @@ namespace ShockQuiz.DAL.EntityFramework
             this.iDbContext = pDbContext;
         }
 
+        /// <summary>
+        /// Agrega una entidad genérica a la base de datos.
+        /// </summary>
+        /// <param name="pEntity"></param>
         public void Agregar(TEntity pEntity)
         {
             if (pEntity == null)
@@ -32,6 +34,11 @@ namespace ShockQuiz.DAL.EntityFramework
             iDbContext.Set<TEntity>().Add(pEntity);
         }
 
+        /// <summary>
+        /// Devuelve una entidad genérica de la base de datos a partir de su <paramref name="pId"/>
+        /// </summary>
+        /// <param name="pId"></param>
+        /// <returns></returns>
         public TEntity Obtener(int pId)
         {
             return this.iDbContext.Set<TEntity>().Find(pId);

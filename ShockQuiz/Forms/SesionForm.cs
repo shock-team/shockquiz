@@ -1,13 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Web;
-using System.Windows.Forms;
-using ShockQuiz.Dominio;
+﻿using ShockQuiz.Dominio;
 using ShockQuiz.IO;
+using System;
+using System.Windows.Forms;
 
 
 namespace ShockQuiz
@@ -17,16 +11,15 @@ namespace ShockQuiz
         FachadaSesion fachada = new FachadaSesion();
         int segTimer = 0;
 
-        public SesionForm(string pUsuario, string pCategoria, string pDificultad, string pConjunto, int pCantidad)
+        public SesionForm(Sesion pSesion, string pCategoria, string pDificultad, int pCantidad)
         {
             InitializeComponent();
             lblCategoria.Text = pCategoria;
             lblDificultad.Text = pDificultad;
-            fachada.IniciarSesion(pUsuario, pCategoria, pDificultad, pCantidad, pConjunto);
+            fachada.iSesionActual = pSesion;
             lblRespuestasActuales.Text = "0";
             SiguientePregunta();
             lblRespuestasTotales.Text = pCantidad.ToString();
-
             timer1.Interval = 1000;
             timer1.Start();
         }
@@ -53,6 +46,7 @@ namespace ShockQuiz
             btnRespuesta2.Enabled = false;
             btnRespuesta3.Enabled = false;
             btnRespuesta4.Enabled = false;
+            btnSiguiente.Enabled = true;
         }
 
         private void Finalizar(ResultadoRespuesta pResultado)
@@ -62,7 +56,7 @@ namespace ShockQuiz
                 timer1.Stop();
                 btnSiguiente.Enabled = false;
                 fachada.GuardarSesion();
-                MessageBox.Show("Tiempo agotado! Puntaje: "+ fachada.ObtenerPuntaje(), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("¡Tiempo agotado! Puntaje: " + fachada.ObtenerPuntaje(), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.Close();
             }
             else if (pResultado.FinSesion)
@@ -136,6 +130,7 @@ namespace ShockQuiz
             btnRespuesta4.Enabled = true;
             btnRespuesta4.BackColor = System.Drawing.SystemColors.Control;
             lblRespuestasActuales.Text = (int.Parse(lblRespuestasActuales.Text) + 1).ToString();
+            btnSiguiente.Enabled = false;
         }
 
         private void BtnSiguiente_Click(object sender, EventArgs e)

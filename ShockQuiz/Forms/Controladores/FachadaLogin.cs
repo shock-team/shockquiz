@@ -1,16 +1,18 @@
-﻿using System;
+﻿using ShockQuiz.DAL.EntityFramework;
+using ShockQuiz.Dominio;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ShockQuiz.DAL;
-using ShockQuiz.DAL.EntityFramework;
-using ShockQuiz.Dominio;
 
 namespace ShockQuiz.Forms
 {
     class FachadaLogin
     {
+        /// <summary>
+        /// Verifica si el nombre de usuario ingresado y su contraseña coinciden en la base de datos
+        /// </summary>
+        /// <param name="pUser">Nombre del usuario</param>
+        /// <param name="pPass">Contraseña del usuario</param>
+        /// <returns></returns>
         public bool CheckLogin(string pUser, string pPass)
         {
             using (var bDbContext = new ShockQuizDbContext())
@@ -31,17 +33,28 @@ namespace ShockQuiz.Forms
             }
         }
 
+        /// <summary>
+        /// Registra a un usuario en la base de datos de la aplicación
+        /// </summary>
+        /// <param name="pUser">Nombre del usuario</param>
+        /// <param name="pPass">Contraseña del usuario</param>
         public void AddUser(string pUser, string pPass)
         {
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
+                    bool admin = false;
+                    if (bUoW.RepositorioUsuario.ObtenerTodos().Count() == 0)
+                    {
+                        admin = true;
+                    }
+
                     Usuario user = new Usuario()
                     {
                         Nombre = pUser,
                         Contraseña = pPass,
-                        Admin = false,
+                        Admin = admin,
                         Sesiones = new List<Sesion>()
                     };
                     bUoW.RepositorioUsuario.Agregar(user);

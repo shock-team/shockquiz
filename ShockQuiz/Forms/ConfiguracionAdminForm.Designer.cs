@@ -28,10 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguracionAdminForm));
             this.btnAdmin = new System.Windows.Forms.Button();
             this.txtUsuario = new System.Windows.Forms.TextBox();
-            this.btnUsuario = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.cbConjunto = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -49,21 +48,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtAddConjunto = new System.Windows.Forms.TextBox();
             this.helpToken = new System.Windows.Forms.HelpProvider();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAddConjunto)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(269, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Configuración";
             // 
             // btnAdmin
             // 
@@ -82,20 +74,10 @@
             this.txtUsuario.Size = new System.Drawing.Size(199, 20);
             this.txtUsuario.TabIndex = 2;
             // 
-            // btnUsuario
-            // 
-            this.btnUsuario.Location = new System.Drawing.Point(9, 105);
-            this.btnUsuario.Name = "btnUsuario";
-            this.btnUsuario.Size = new System.Drawing.Size(245, 23);
-            this.btnUsuario.TabIndex = 4;
-            this.btnUsuario.Text = "Admin a Usuario";
-            this.btnUsuario.UseVisualStyleBackColor = true;
-            this.btnUsuario.Click += new System.EventHandler(this.BtnUsuario_Click);
-            // 
             // btnSalir
             // 
             this.btnSalir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnSalir.Location = new System.Drawing.Point(311, 280);
+            this.btnSalir.Location = new System.Drawing.Point(347, 307);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(265, 23);
             this.btnSalir.TabIndex = 5;
@@ -116,13 +98,12 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtUsuario);
             this.groupBox1.Controls.Add(this.btnAdmin);
-            this.groupBox1.Controls.Add(this.btnUsuario);
-            this.groupBox1.Location = new System.Drawing.Point(311, 25);
+            this.groupBox1.Location = new System.Drawing.Point(338, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(274, 134);
+            this.groupBox1.Size = new System.Drawing.Size(274, 111);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Modificar autoridad";
+            this.groupBox1.Text = "Modificar Autoridad";
             // 
             // label2
             // 
@@ -140,12 +121,12 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.cbConjunto);
-            this.groupBox2.Location = new System.Drawing.Point(6, 185);
+            this.groupBox2.Location = new System.Drawing.Point(10, 179);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(293, 129);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Agregar preguntas a un conjunto";
+            this.groupBox2.Text = "Agregar Preguntas";
             // 
             // nudCantidad
             // 
@@ -205,7 +186,7 @@
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.txtAddConjunto);
-            this.groupBox3.Location = new System.Drawing.Point(13, 25);
+            this.groupBox3.Location = new System.Drawing.Point(10, 19);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(292, 154);
             this.groupBox3.TabIndex = 9;
@@ -224,7 +205,7 @@
             // 
             // btnAddConjunto
             // 
-            this.btnAddConjunto.Location = new System.Drawing.Point(6, 125);
+            this.btnAddConjunto.Location = new System.Drawing.Point(6, 118);
             this.btnAddConjunto.Name = "btnAddConjunto";
             this.btnAddConjunto.Size = new System.Drawing.Size(280, 23);
             this.btnAddConjunto.TabIndex = 4;
@@ -279,23 +260,33 @@
             this.txtAddConjunto.Size = new System.Drawing.Size(120, 20);
             this.txtAddConjunto.TabIndex = 0;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.groupBox2);
+            this.groupBox4.Controls.Add(this.groupBox3);
+            this.groupBox4.Location = new System.Drawing.Point(6, 10);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(317, 320);
+            this.groupBox4.TabIndex = 10;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "OpenTDB";
+            // 
             // ConfiguracionAdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnSalir;
-            this.ClientSize = new System.Drawing.Size(595, 316);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
+            this.ClientSize = new System.Drawing.Size(633, 340);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnSalir);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.groupBox4);
             this.HelpButton = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfiguracionAdminForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ConfiguracionAdminForm";
+            this.Text = "Configuración";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -304,17 +295,14 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAddConjunto)).EndInit();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnAdmin;
         private System.Windows.Forms.TextBox txtUsuario;
-        private System.Windows.Forms.Button btnUsuario;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.ComboBox cbConjunto;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -332,5 +320,6 @@
         private System.Windows.Forms.Button btnAddConjunto;
         private System.Windows.Forms.CheckBox cbToken;
         private System.Windows.Forms.HelpProvider helpToken;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
 }
