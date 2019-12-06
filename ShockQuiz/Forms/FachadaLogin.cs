@@ -48,11 +48,17 @@ namespace ShockQuiz.Forms
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
+                    bool admin = false;
+                    if (bUoW.RepositorioUsuario.ObtenerTodos().Count() == 0)
+                    {
+                        admin = true;
+                    }
+
                     Usuario user = new Usuario()
                     {
                         Nombre = pUser,
                         Contraseña = pPass,
-                        Admin = false,
+                        Admin = admin,
                         Sesiones = new List<Sesion>()
                     };
                     bUoW.RepositorioUsuario.Agregar(user);
