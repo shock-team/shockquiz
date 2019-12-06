@@ -122,11 +122,21 @@ namespace ShockQuiz.DAL.OpenTriviaDB
                                 if (pregunta.Nombre != string.Empty)
                                 {
                                     bUoW.RepositorioPregunta.Agregar(pregunta);
-                                    bUoW.GuardarCambios();
+                                    
                                 }
                             }
                         }
                     }
+
+                    using (var bDbContext = new ShockQuizDbContext())
+                    {
+                        using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                        {
+                            bUoW.GuardarCambios();
+                        }
+                    }
+
+
                 }
             }
             catch (WebException ex)
