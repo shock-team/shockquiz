@@ -49,6 +49,7 @@
             this.txtAddConjunto = new System.Windows.Forms.TextBox();
             this.helpToken = new System.Windows.Forms.HelpProvider();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnDispose = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
@@ -61,7 +62,7 @@
             // 
             this.btnAdmin.Location = new System.Drawing.Point(9, 76);
             this.btnAdmin.Name = "btnAdmin";
-            this.btnAdmin.Size = new System.Drawing.Size(245, 23);
+            this.btnAdmin.Size = new System.Drawing.Size(265, 23);
             this.btnAdmin.TabIndex = 1;
             this.btnAdmin.Text = "Usuario a Admin";
             this.btnAdmin.UseVisualStyleBackColor = true;
@@ -100,7 +101,7 @@
             this.groupBox1.Controls.Add(this.btnAdmin);
             this.groupBox1.Location = new System.Drawing.Point(338, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(274, 111);
+            this.groupBox1.Size = new System.Drawing.Size(283, 111);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Modificar Autoridad";
@@ -123,7 +124,7 @@
             this.groupBox2.Controls.Add(this.cbConjunto);
             this.groupBox2.Location = new System.Drawing.Point(10, 179);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(293, 129);
+            this.groupBox2.Size = new System.Drawing.Size(293, 159);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Agregar Preguntas";
@@ -152,7 +153,7 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(13, 95);
+            this.btnAgregar.Location = new System.Drawing.Point(12, 118);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(271, 23);
             this.btnAgregar.TabIndex = 9;
@@ -266,17 +267,28 @@
             this.groupBox4.Controls.Add(this.groupBox3);
             this.groupBox4.Location = new System.Drawing.Point(6, 10);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(317, 320);
+            this.groupBox4.Size = new System.Drawing.Size(317, 344);
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "OpenTDB";
+            // 
+            // btnDispose
+            // 
+            this.btnDispose.Location = new System.Drawing.Point(347, 147);
+            this.btnDispose.Name = "btnDispose";
+            this.btnDispose.Size = new System.Drawing.Size(265, 23);
+            this.btnDispose.TabIndex = 11;
+            this.btnDispose.Text = "Limpiar DB";
+            this.btnDispose.UseVisualStyleBackColor = true;
+            this.btnDispose.Click += new System.EventHandler(this.btnDispose_Click);
             // 
             // ConfiguracionAdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnSalir;
-            this.ClientSize = new System.Drawing.Size(633, 340);
+            this.ClientSize = new System.Drawing.Size(633, 366);
+            this.Controls.Add(this.btnDispose);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.groupBox4);
@@ -321,5 +333,6 @@
         private System.Windows.Forms.CheckBox cbToken;
         private System.Windows.Forms.HelpProvider helpToken;
         private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button btnDispose;
     }
 }

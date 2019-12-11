@@ -36,14 +36,28 @@ namespace ShockQuiz.Forms
         {
             try
             {
-                SesionForm sesionForm = new SesionForm(fachada.IniciarSesion(Usuario, (string)cbCategoria.SelectedItem, (string)cbDificultad.SelectedItem, Decimal.ToInt32(nudCantidad.Value), (string)cbConjunto.SelectedItem), (string)cbCategoria.SelectedItem, (string)cbDificultad.SelectedItem, Decimal.ToInt32(nudCantidad.Value));
+                SesionForm sesionForm = new SesionForm(fachada.IniciarSesion(
+                    Usuario,
+                    (string)cbCategoria.SelectedItem,
+                    (string)cbDificultad.SelectedItem,
+                    Decimal.ToInt32(nudCantidad.Value),
+                    (string)cbConjunto.SelectedItem),
+                    (string)cbCategoria.SelectedItem,
+                    (string)cbDificultad.SelectedItem,
+                    Decimal.ToInt32(nudCantidad.Value));
+
                 sesionForm.FormClosed += new FormClosedEventHandler(SesionForm_FormClosed);
                 sesionForm.Show();
                 this.Hide();
             }
+            catch(InvalidOperationException)
+            {
+                MessageBox.Show("Seleccione una dificultad y categoría.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
             catch (PreguntasInsuficientesException)
             {
-                MessageBox.Show("No hay preguntas suficientes para la selección", "Error");
+                MessageBox.Show("No hay preguntas suficientes para la selección", "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
 
         }

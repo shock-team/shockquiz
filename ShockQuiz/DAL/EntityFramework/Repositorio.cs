@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
 
-
 namespace ShockQuiz.DAL.EntityFramework
 {
     public abstract class Repositorio<TEntity, TDbContext> : IRepositorio<TEntity>
