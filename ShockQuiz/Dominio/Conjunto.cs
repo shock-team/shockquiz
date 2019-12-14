@@ -17,10 +17,6 @@ namespace ShockQuiz.Dominio
             throw new NotImplementedException();
         }
 
-        public virtual void AgregarPreguntas(int pCantidad)
-        {
-        }
-
         public virtual void AgregarPreguntas(int pCantidad, string pToken = null)
         {
         }
