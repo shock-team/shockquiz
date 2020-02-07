@@ -44,19 +44,17 @@ namespace ShockQuiz.Dominio
             return resultado;
         }
 
-        public PreguntaDTO ObtenerPreguntaYRespuestas()
+        public IList<string> ObtenerRespuestas()
         {
             //Este método se encarga de devolver las respuestas asociadas a la pregunta,
             //ordenadas aleatoriamente.
             Random random = new Random();
             string temp;
             List<string> lista = new List<string>();
-
             foreach (var respuesta in Respuestas.ToList())
             {
                 lista.Add(respuesta.DefRespuesta);
             }
-
             int a;
             int b;
             for (int i = 0; i < lista.Count; i++)
@@ -73,10 +71,7 @@ namespace ShockQuiz.Dominio
                     }
                 }
             }
-            PreguntaDTO pregunta = new PreguntaDTO();
-            pregunta.Pregunta = Nombre;
-            pregunta.Respuestas = lista;
-            return pregunta;
+            return lista;
         }
     }
 }

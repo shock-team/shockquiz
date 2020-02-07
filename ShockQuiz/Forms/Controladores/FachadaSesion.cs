@@ -20,7 +20,10 @@ namespace ShockQuiz
         /// <returns></returns>
         public PreguntaDTO ObtenerPreguntaYRespuestas()
         {
-            return iSesionActual.ObtenerPreguntaYRespuestas();
+            PreguntaDTO preguntaYRespuestas = new PreguntaDTO();
+            preguntaYRespuestas.Pregunta = iSesionActual.ObtenerPregunta();
+            preguntaYRespuestas.Respuestas = iSesionActual.ObtenerRespuestas();
+            return preguntaYRespuestas;
         }
 
         /// <summary>
