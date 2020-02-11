@@ -44,7 +44,7 @@ namespace ShockQuiz.Dominio
             return resultado;
         }
 
-        public IList<string> ObtenerRespuestas()
+        public List<string> ObtenerRespuestas()
         {
             //Este método se encarga de devolver las respuestas asociadas a la pregunta,
             //ordenadas aleatoriamente.

@@ -13,20 +13,15 @@ namespace ShockQuiz.Forms
         /// datos de la aplicación
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<string> ObtenerConjuntos()
+        public IEnumerable<Conjunto> ObtenerConjuntos()
         {
-            List<string> conjuntos = new List<string>();
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    foreach (Conjunto conjunto in bUoW.RepositorioConjunto.ObtenerTodas())
-                    {
-                        conjuntos.Add(conjunto.Nombre);
-                    }
+                    return bUoW.RepositorioConjunto.ObtenerTodas();
                 }
             }
-            return conjuntos;
         }
 
         /// <summary>
@@ -34,53 +29,43 @@ namespace ShockQuiz.Forms
         /// </summary>
         /// <param name="pConjunto">Nombre del conjunto de preguntas</param>
         /// <returns></returns>
-        public IEnumerable<string> ObtenerCategorias(string pConjunto)
+        public IEnumerable<Categoria> ObtenerCategorias(int pConjunto)
         {
-            List<string> categorias = new List<string>();
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    foreach (Categoria categoria in bUoW.RepositorioPregunta.ObtenerCategorias(pConjunto))
-                    {
-                        categorias.Add(categoria.Nombre);
-                    }
+                    return bUoW.RepositorioPregunta.ObtenerCategorias(pConjunto);
                 }
             }
-            return categorias;
         }
 
         /// <summary>
-        /// Devuelve el nombre de las dificultades de las preguntas presentes en la base de datos
+        /// Devuelve el las dificultades de las preguntas presentes en la base de datos
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<string> ObtenerDificultades()
+        public IEnumerable<Dificultad> ObtenerDificultades()
         {
-            List<string> dificultades = new List<string>();
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    foreach (Dificultad dificultad in bUoW.RepositorioDificultad.ObtenerTodas())
-                    {
-                        dificultades.Add(dificultad.Nombre);
-                    }
+                    return bUoW.RepositorioDificultad.ObtenerTodas();
                 }
             }
-            return dificultades;
         }
 
         /// <summary>
         /// Crea y devuelve una nueva sesión de preguntas a partir de los parámetros seleccionados,
         /// obteniendo sus instancias de la base de datos.
         /// </summary>
-        /// <param name="pUsuario">Nombre del usuario de la sesión</param>
-        /// <param name="pCategoria">Nombre de la categoría de las preguntas</param>
-        /// <param name="pDificultad">Nombre de la dificultad</param>
+        /// <param name="pUsuario">Id del usuario de la sesión</param>
+        /// <param name="pCategoria">La categoría de las preguntas</param>
+        /// <param name="pDificultad">La dificultad</param>
         /// <param name="pCantidad">Cantidad de preguntas de la sesión</param>
         /// <param name="pConjunto">Conjunto del que se obtienen las preguntas de la sesión</param>
         /// <returns></returns>
-        public Sesion IniciarSesion(string pUsuario, string pCategoria, string pDificultad, int pCantidad, string pConjunto)
+        public Sesion IniciarSesion(int pUsuario, Categoria pCategoria, Dificultad pDificultad, int pCantidad, Conjunto pConjunto)
         {
             Sesion sesion = new Sesion();
             Usuario usuario;
@@ -89,27 +74,18 @@ namespace ShockQuiz.Forms
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
                     usuario = bUoW.RepositorioUsuario.Obtener(pUsuario);
+                    sesion.Usuario = usuario;
+                    sesion.UsuarioId = usuario.UsuarioId;
+                    sesion.Preguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(pCategoria, pDificultad, pConjunto, pCantidad).ToList();
                 }
             }
-            sesion.Usuario = usuario;
-            sesion.UsuarioId = usuario.UsuarioId;
             sesion.FechaInicio = DateTime.Now;
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    Categoria categoria = bUoW.RepositorioCategoria.ObtenerTodas().Where(x => x.Nombre == pCategoria).Single();
-                    sesion.Categoria = categoria;
-                    sesion.CategoriaId = categoria.Id;
-                    Dificultad dificultad = bUoW.RepositorioDificultad.ObtenerTodas().Where(x => x.Nombre == pDificultad).Single();
-                    sesion.Dificultad = dificultad;
-                    sesion.DificultadId = dificultad.Id;
-                    Conjunto conjunto = bUoW.RepositorioConjunto.ObtenerTodas().Where(x => x.Nombre == pConjunto).Single();
-                    sesion.Conjunto = conjunto;
-                    sesion.ConjuntoId = conjunto.ConjuntoId;
-                    sesion.Preguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(categoria, dificultad, conjunto, pCantidad).ToList();
-                }
-            }
+            sesion.Categoria = pCategoria;
+            sesion.CategoriaId = pCategoria.Id;
+            sesion.Dificultad = pDificultad;
+            sesion.DificultadId = pDificultad.Id;
+            sesion.Conjunto = pConjunto;
+            sesion.ConjuntoId = pConjunto.ConjuntoId;
             sesion.CantidadPreguntas = pCantidad;
             return sesion;
         }

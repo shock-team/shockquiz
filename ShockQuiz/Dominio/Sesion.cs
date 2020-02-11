@@ -23,12 +23,12 @@ namespace ShockQuiz.Dominio
         public List<Pregunta> Preguntas { get; set; }
         public int RespuestasCorrectas { get; set; } = 0;
 
-        public IList<string> ObtenerRespuestas()
+        public List<string> ObtenerRespuestas()
         {
             return Preguntas.First().ObtenerRespuestas();
         }
 
-        public string ObtenerPreunta()
+        public string ObtenerPregunta()
         {
             return Preguntas.First().Nombre;
         }

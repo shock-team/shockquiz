@@ -3,20 +3,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using ShockQuiz.Dominio;
 
 namespace ShockQuiz.Forms
 {
     public partial class ConfigurarSesionForm : Form
     {
-        string Usuario;
+        int idUsuario;
         FachadaConfigurarSesion fachada = new FachadaConfigurarSesion();
 
-        public ConfigurarSesionForm(string pUsuario)
+        public ConfigurarSesionForm(int pUsuario)
         {
             InitializeComponent();
-            Usuario = pUsuario;
-            IEnumerable<string> conjuntos = fachada.ObtenerConjuntos();
-            foreach (string conjunto in conjuntos)
+            idUsuario = pUsuario;
+            cbConjunto.DisplayMember = "Nombre";
+            cbConjunto.ValueMember = "Id";
+            cbDificultad.DisplayMember = "Nombre";
+            cbDificultad.ValueMember = "Id";
+            cbCategoria.DisplayMember = "Nombre";
+            cbCategoria.ValueMember = "Id";
+            foreach (Conjunto conjunto in fachada.ObtenerConjuntos())
             {
                 cbConjunto.Items.Add(conjunto);
             }
@@ -25,8 +31,7 @@ namespace ShockQuiz.Forms
                 cbConjunto.SelectedIndex = 0;
                 cbConjunto.Enabled = false;
             }
-            IEnumerable<string> dificultades = fachada.ObtenerDificultades();
-            foreach (string dificultad in dificultades)
+            foreach (Dificultad dificultad in fachada.ObtenerDificultades())
             {
                 cbDificultad.Items.Add(dificultad);
             }
@@ -36,7 +41,7 @@ namespace ShockQuiz.Forms
         {
             try
             {
-                SesionForm sesionForm = new SesionForm(fachada.IniciarSesion(Usuario, (string)cbCategoria.SelectedItem, (string)cbDificultad.SelectedItem, Decimal.ToInt32(nudCantidad.Value), (string)cbConjunto.SelectedItem), (string)cbCategoria.SelectedItem, (string)cbDificultad.SelectedItem, Decimal.ToInt32(nudCantidad.Value));
+                SesionForm sesionForm = new SesionForm(fachada.IniciarSesion(idUsuario, (Categoria)cbCategoria.SelectedItem, (Dificultad)cbDificultad.SelectedItem, Decimal.ToInt32(nudCantidad.Value), (Conjunto)cbConjunto.SelectedItem), (Categoria)cbCategoria.SelectedItem, (Dificultad)cbDificultad.SelectedItem, Decimal.ToInt32(nudCantidad.Value));
                 sesionForm.FormClosed += new FormClosedEventHandler(SesionForm_FormClosed);
                 sesionForm.Show();
                 this.Hide();
@@ -56,9 +61,9 @@ namespace ShockQuiz.Forms
         private void CbConjunto_SelectedIndexChanged(object sender, EventArgs e)
         {
             cbCategoria.Items.Clear();
-            string conjunto = (string)cbConjunto.SelectedItem;
-            List<string> categorias = fachada.ObtenerCategorias(conjunto).ToList();
-            foreach (string categoria in categorias)
+            Conjunto conjunto = (Conjunto)cbConjunto.SelectedItem;
+            List<Categoria> categorias = fachada.ObtenerCategorias(conjunto.ConjuntoId).ToList();
+            foreach (Categoria categoria in categorias)
             {
                 cbCategoria.Items.Add(categoria);
             }
