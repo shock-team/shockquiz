@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using ShockQuiz.Excepciones;
 
 namespace ShockQuiz.Forms
 {
@@ -20,22 +21,21 @@ namespace ShockQuiz.Forms
         {
             try
             {
-                if (facha.CheckLogin(txtUsuario.Text, txtContraseña.Text))
-                {
-                    MessageBox.Show("Bienvenido " + txtUsuario.Text + "!", "Iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    MenuForm menuForm = new MenuForm(txtUsuario.Text);
-                    menuForm.FormClosed += new FormClosedEventHandler(LoginForm_FormClosed);
-                    menuForm.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Contraseña incorrecta.", "Iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                int usuario = facha.CheckLogin(txtUsuario.Text, txtContraseña.Text);
+                MessageBox.Show("Bienvenido " + txtUsuario.Text + "!", "Iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                bool esAdmin = facha.EsAdmin(txtUsuario.Text);
+                MenuForm menuForm = new MenuForm(usuario, esAdmin);
+                menuForm.FormClosed += new FormClosedEventHandler(LoginForm_FormClosed);
+                menuForm.Show();
+                this.Hide();
             }
             catch (InvalidOperationException)
             {
                 MessageBox.Show("Usuario inexistente.", "Iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ContraseñaIncorrectaException)
+            {
+                MessageBox.Show("Contraseña incorrecta.", "Iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

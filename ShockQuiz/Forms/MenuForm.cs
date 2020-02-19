@@ -5,14 +5,12 @@ namespace ShockQuiz.Forms
 {
     public partial class MenuForm : Form
     {
-        FachadaMenu facha = new FachadaMenu();
-        string usuario;
+        int idUsuario;
 
-        public MenuForm(string pUsuario)
+        public MenuForm(int pUsuario, bool esAdmin)
         {
             InitializeComponent();
-            bool esAdmin = facha.EsAdmin(pUsuario);
-            usuario = pUsuario;
+            idUsuario = pUsuario;
             btnConfiguracion.Enabled = esAdmin;
             btnConfiguracion.Visible = esAdmin;
         }
@@ -21,7 +19,7 @@ namespace ShockQuiz.Forms
         {
             try
             {
-                ConfigurarSesionForm configurarSesionForm = new ConfigurarSesionForm(usuario);
+                ConfigurarSesionForm configurarSesionForm = new ConfigurarSesionForm(idUsuario);
                 configurarSesionForm.FormClosed += new FormClosedEventHandler(ConfigurarSesionForm_FormClosed);
                 configurarSesionForm.Show();
                 this.Hide();

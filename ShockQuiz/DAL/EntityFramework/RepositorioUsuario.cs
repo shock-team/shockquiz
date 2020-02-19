@@ -15,7 +15,7 @@ namespace ShockQuiz.DAL.EntityFramework
         /// <returns></returns>
         public void Ascender(string pNombre)
         {
-            Usuario user = Obtener(pNombre);
+            Usuario user = ObtenerPorNombre(pNombre);
             user.Admin = true;
         }
 
@@ -33,7 +33,7 @@ namespace ShockQuiz.DAL.EntityFramework
         /// </summary>
         /// <param name="pNombre"></param>
         /// <returns></returns>
-        public Usuario Obtener(string pNombre)
+        public Usuario ObtenerPorNombre(string pNombre)
         {
             return this.iDbContext.Set<Usuario>().First(x => x.Nombre == pNombre);
         }

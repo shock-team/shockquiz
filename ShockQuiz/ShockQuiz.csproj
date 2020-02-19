@@ -113,6 +113,7 @@
     <Compile Include="DAL\EntityFramework\RepositorioDificultad.cs" />
     <Compile Include="DAL\OpenTriviaDB\JsonMapper.cs" />
     <Compile Include="Dominio\ConjuntoOTDB.cs" />
+    <Compile Include="Excepciones\ContraseñaIncorrectaException.cs" />
     <Compile Include="Excepciones\PreguntasInsuficientesException.cs" />
     <Compile Include="Forms\ConfiguracionAdminForm.cs">
       <SubType>Form</SubType>
@@ -128,7 +129,6 @@
     </Compile>
     <Compile Include="Forms\Controladores\FachadaConfigurarSesion.cs" />
     <Compile Include="Forms\Controladores\FachadaConfiguracionAdmin.cs" />
-    <Compile Include="Forms\Controladores\FachadaMenu.cs" />
     <Compile Include="Forms\Controladores\FachadaRanking.cs" />
     <Compile Include="Forms\MenuForm.cs">
       <SubType>Form</SubType>

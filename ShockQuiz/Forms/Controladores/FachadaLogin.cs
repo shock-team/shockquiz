@@ -2,6 +2,7 @@
 using ShockQuiz.Dominio;
 using System.Collections.Generic;
 using System.Linq;
+using ShockQuiz.Excepciones;
 
 namespace ShockQuiz.Forms
 {
@@ -13,21 +14,21 @@ namespace ShockQuiz.Forms
         /// <param name="pUser">Nombre del usuario</param>
         /// <param name="pPass">Contraseña del usuario</param>
         /// <returns></returns>
-        public bool CheckLogin(string pUser, string pPass)
+        public int CheckLogin(string pUser, string pPass)
         {
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    Usuario user = bUoW.RepositorioUsuario.Obtener(pUser);
+                    Usuario user = bUoW.RepositorioUsuario.ObtenerPorNombre(pUser);
 
                     if (user.ContraseñaCorrecta(pPass))
                     {
-                        return true;
+                        return user.UsuarioId;
                     }
                     else
                     {
-                        return false;
+                        throw new ContraseñaIncorrectaException();
                     }
                 }
             }
@@ -59,6 +60,31 @@ namespace ShockQuiz.Forms
                     };
                     bUoW.RepositorioUsuario.Agregar(user);
                     bUoW.GuardarCambios();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Verifica si un usuario es administrador
+        /// </summary>
+        /// <param name="pUsuario">El usuario a verificar</param>
+        /// <returns></returns>
+        public bool EsAdmin(string pUsuario)
+        {
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    Usuario user = bUoW.RepositorioUsuario.ObtenerPorNombre(pUsuario);
+
+                    if (user.Admin)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
         }

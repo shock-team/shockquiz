@@ -12,7 +12,6 @@ namespace ShockQuiz
         /// correspondiente a la sesión de preguntas, y las clases con las que se interactúa.
         /// </summary>
         public Sesion iSesionActual { get; set; }
-        public Conjunto iConjunto { get; set; }
 
         /// <summary>
         /// Devuelve un PreguntaDTO correspondiente a la siguiente de la sesión
@@ -20,7 +19,10 @@ namespace ShockQuiz
         /// <returns></returns>
         public PreguntaDTO ObtenerPreguntaYRespuestas()
         {
-            return iSesionActual.ObtenerPreguntaYRespuestas();
+            PreguntaDTO preguntaYRespuestas = new PreguntaDTO();
+            preguntaYRespuestas.Pregunta = iSesionActual.ObtenerPregunta();
+            preguntaYRespuestas.Respuestas = iSesionActual.ObtenerRespuestas();
+            return preguntaYRespuestas;
         }
 
         /// <summary>

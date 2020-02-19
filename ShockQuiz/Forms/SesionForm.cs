@@ -11,11 +11,11 @@ namespace ShockQuiz
         FachadaSesion fachada = new FachadaSesion();
         int segTimer = 0;
 
-        public SesionForm(Sesion pSesion, string pCategoria, string pDificultad, int pCantidad)
+        public SesionForm(Sesion pSesion, Categoria pCategoria, Dificultad pDificultad, int pCantidad)
         {
             InitializeComponent();
-            lblCategoria.Text = pCategoria;
-            lblDificultad.Text = pDificultad;
+            lblCategoria.Text = pCategoria.Nombre;
+            lblDificultad.Text = pDificultad.Nombre;
             fachada.iSesionActual = pSesion;
             lblRespuestasActuales.Text = "0";
             SiguientePregunta();
