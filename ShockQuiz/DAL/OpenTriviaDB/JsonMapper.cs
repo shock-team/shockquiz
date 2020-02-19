@@ -7,6 +7,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Web;
+using System.Windows.Forms;
 
 namespace ShockQuiz.DAL.OpenTriviaDB
 {
@@ -78,39 +79,39 @@ namespace ShockQuiz.DAL.OpenTriviaDB
                 using (Stream responseStream = mResponse.GetResponseStream())
                 {
                     StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-
                     // Se parsea la respuesta y se serializa a JSON a un objeto dynamic
                     dynamic mResponseJSON = JsonConvert.DeserializeObject(reader.ReadToEnd());
 
-                    // Se iteran cada uno de los resultados.
-                    foreach (var bResponseItem in mResponseJSON.results)
+                    using (var bDbContext = new ShockQuizDbContext())
                     {
-
-                        string preguntaDesc = HttpUtility.HtmlDecode(bResponseItem.question.ToString());
-                        string categoria = HttpUtility.HtmlDecode(bResponseItem.category.ToString());
-                        string dificultad = HttpUtility.HtmlDecode(bResponseItem.difficulty.ToString());
-
-                        List<Respuesta> respuestas = new List<Respuesta>();
-                        Respuesta respuestaCorrecta = new Respuesta()
+                        using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                         {
-                            EsCorrecta = true,
-                            DefRespuesta = HttpUtility.HtmlDecode(bResponseItem.correct_answer.ToString())
-                        };
-                        respuestas.Add(respuestaCorrecta);
-
-                        for (int i = 0; i < 3; i++)
-                        {
-                            Respuesta res = new Respuesta()
+                            // Se iteran cada uno de los resultados.
+                            foreach (var bResponseItem in mResponseJSON.results)
                             {
-                                DefRespuesta = HttpUtility.HtmlDecode(bResponseItem.incorrect_answers[i].ToString()),
-                                EsCorrecta = false
-                            };
-                            respuestas.Add(res);
-                        }
-                        using (var bDbContext = new ShockQuizDbContext())
-                        {
-                            using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                            {
+
+                                string preguntaDesc = HttpUtility.HtmlDecode(bResponseItem.question.ToString());
+                                string categoria = HttpUtility.HtmlDecode(bResponseItem.category.ToString());
+                                string dificultad = HttpUtility.HtmlDecode(bResponseItem.difficulty.ToString());
+
+                                List<Respuesta> respuestas = new List<Respuesta>();
+                                Respuesta respuestaCorrecta = new Respuesta()
+                                {
+                                    EsCorrecta = true,
+                                    DefRespuesta = HttpUtility.HtmlDecode(bResponseItem.correct_answer.ToString())
+                                };
+                                respuestas.Add(respuestaCorrecta);
+
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Respuesta res = new Respuesta()
+                                    {
+                                        DefRespuesta = HttpUtility.HtmlDecode(bResponseItem.incorrect_answers[i].ToString()),
+                                        EsCorrecta = false
+                                    };
+                                    respuestas.Add(res);
+                                }
+
                                 Pregunta pregunta = new Pregunta()
                                 {
                                     Nombre = bUoW.RepositorioPregunta.GetOrCreate(preguntaDesc, CONJUNTO),
@@ -122,13 +123,15 @@ namespace ShockQuiz.DAL.OpenTriviaDB
                                 if (pregunta.Nombre != string.Empty)
                                 {
                                     bUoW.RepositorioPregunta.Agregar(pregunta);
-                                    bUoW.GuardarCambios();
                                 }
                             }
+                            bUoW.GuardarCambios();
                         }
                     }
                 }
             }
+            
+
             catch (WebException ex)
             {
                 WebResponse mErrorResponse = ex.Response;

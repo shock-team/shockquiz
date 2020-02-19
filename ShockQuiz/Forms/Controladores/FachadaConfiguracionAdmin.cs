@@ -2,6 +2,8 @@
 using ShockQuiz.DAL.OpenTriviaDB;
 using ShockQuiz.Dominio;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace ShockQuiz.Forms
 {
@@ -70,6 +72,28 @@ namespace ShockQuiz.Forms
             }
         }
 
-
+        public void LimpiarDB()
+        {
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    bDbContext.Set<Respuesta>().RemoveRange(bDbContext.Set<Respuesta>());
+                    bUoW.GuardarCambios();
+                    bDbContext.Set<Pregunta>().RemoveRange(bDbContext.Set<Pregunta>());
+                    bUoW.GuardarCambios();
+                    bDbContext.Set<Sesion>().RemoveRange(bDbContext.Set<Sesion>());
+                    bUoW.GuardarCambios();
+                    bDbContext.Set<Usuario>().RemoveRange(bDbContext.Set<Usuario>());
+                    bUoW.GuardarCambios();
+                    bDbContext.Set<Categoria>().RemoveRange(bDbContext.Set<Categoria>());
+                    bUoW.GuardarCambios();
+                    bDbContext.Set<Conjunto>().RemoveRange(bDbContext.Set<Conjunto>());
+                    bUoW.GuardarCambios();
+                    bDbContext.Set<Dificultad>().RemoveRange(bDbContext.Set<Dificultad>());
+                    bUoW.GuardarCambios();
+                }
+            }
+        }
     }
 }

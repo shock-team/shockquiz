@@ -71,6 +71,7 @@ namespace ShockQuiz.Forms
             {
                 MessageBox.Show("La cantidad de preguntas a agregar debe ser mayor que 0", "Error");
             }
+
         }
 
         private void btnAddConjunto_Click(object sender, EventArgs e)
@@ -86,6 +87,24 @@ namespace ShockQuiz.Forms
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        private void btnDispose_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("¿Estas seguro de borar toda la información?", "Confirmar limpieza de DB", MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                try
+                {
+                    fachada.LimpiarDB();
+                    MessageBox.Show("Operación realiazada correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Error?!");
+                    throw;
+                }
             }
         }
     }

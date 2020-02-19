@@ -46,9 +46,14 @@ namespace ShockQuiz.Forms
                 sesionForm.Show();
                 this.Hide();
             }
+            catch(InvalidOperationException)
+            {
+                MessageBox.Show("Seleccione una dificultad y categoría.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
             catch (PreguntasInsuficientesException)
             {
-                MessageBox.Show("No hay preguntas suficientes para la selección", "Error");
+                MessageBox.Show("No hay preguntas suficientes para la selección", "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
 
         }

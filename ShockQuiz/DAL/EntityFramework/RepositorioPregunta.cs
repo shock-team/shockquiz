@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
@@ -69,13 +70,11 @@ namespace ShockQuiz.DAL.EntityFramework
         {
             var manager = ((IObjectContextAdapter)iDbContext).ObjectContext;
 
-            var dbPregunta = from t in iDbContext.Preguntas
-                             where t.Nombre == pNombre
-                             && t.Conjunto.Nombre == pConjunto
-                             select t;
+            var dbPregunta = iDbContext.Preguntas.ToList().Where(x => x.Nombre == pNombre && x.Conjunto.Nombre == pConjunto).Any();
 
+            
 
-            if (dbPregunta.Count() > 0)
+            if (dbPregunta)
             {
                 return string.Empty;
             }

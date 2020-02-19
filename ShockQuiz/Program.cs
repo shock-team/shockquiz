@@ -18,12 +18,14 @@ namespace ShockQuiz
             /*try
             {
                 Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
+                Application.SetCompatibleTextRenderingDefault(false);;
                 Application.Run(new LoginForm());
             }
             catch (Exception ex)
             {
                 Logger.LogError(ex);
+                throw;
+               
             }
             */
         }
