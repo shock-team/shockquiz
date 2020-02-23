@@ -22,10 +22,29 @@ namespace ShockQuiz.Forms
             try
             {
                 int usuario = facha.CheckLogin(txtUsuario.Text, txtContraseña.Text);
-                MessageBox.Show("Bienvenido " + txtUsuario.Text + "!", "Iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 bool esAdmin = facha.EsAdmin(txtUsuario.Text);
                 MenuForm menuForm = new MenuForm(usuario, esAdmin);
                 menuForm.FormClosed += new FormClosedEventHandler(LoginForm_FormClosed);
+
+                if (facha.ExisteSesionNoFinalizada(txtUsuario.Text))
+                {
+                    DialogResult dialogResult = MessageBox.Show("Existe una sesión sin finalizar, ¿desea continuarla?", "SI O NO LOCO", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        var sesion = facha.ObtenerSesionNoFinalizada(txtUsuario.Text);
+                        SesionForm sesionForm = new SesionForm(sesion, sesion.Categoria.Nombre, sesion.Dificultad.Nombre, sesion.CantidadPreguntas);
+                        sesionForm.FormClosed += new FormClosedEventHandler(LoginForm_FormClosed);
+                        sesionForm.Show();
+                        this.Hide();
+
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        menuForm.Show();
+                        this.Hide();
+                    }
+                }
+         
                 menuForm.Show();
                 this.Hide();
             }

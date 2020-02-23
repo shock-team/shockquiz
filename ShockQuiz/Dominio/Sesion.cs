@@ -22,6 +22,7 @@ namespace ShockQuiz.Dominio
         public int ConjuntoId { get; set; }
         public List<Pregunta> Preguntas { get; set; }
         public int RespuestasCorrectas { get; set; } = 0;
+        public string PreguntasString { get; set; }
 
         public List<string> ObtenerRespuestas()
         {
@@ -33,23 +34,22 @@ namespace ShockQuiz.Dominio
             return Preguntas.First().Nombre;
         }
 
-        public ResultadoRespuesta Responder(string pRespuesta)
+        public bool Actualizar(bool pEsCorrecta, string pPreguntas)
         {
-            Pregunta pregunta = Preguntas.First();
-            ResultadoRespuesta resultado = pregunta.Responder(pRespuesta);
-            if (resultado.EsCorrecta)
+            bool finSesion = false;
+            CantidadPreguntas--;
+            if (pEsCorrecta)
             {
                 RespuestasCorrectas++;
             }
 
-            Preguntas.Remove(pregunta);
-            if (Preguntas.Count() == 0)
+            if (CantidadPreguntas == 0)
             {
-                resultado.FinSesion = true;
+                finSesion = true;
                 this.FechaFin = DateTime.Now;
                 this.Puntaje = Conjunto.CalcularPuntaje(this);
             }
-            return resultado;
+            return finSesion;
         }
 
         public TimeSpan Duracion()

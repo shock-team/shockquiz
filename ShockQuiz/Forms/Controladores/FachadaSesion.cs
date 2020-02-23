@@ -5,13 +5,14 @@ using System;
 
 namespace ShockQuiz
 {
+    /// <summary>
+    /// El objetivo de esta clase es funcionar como intermediario entre la interfaz gráfica
+    /// correspondiente a la sesión de preguntas, y las clases con las que se interactúa.
+    /// </summary>
     public class FachadaSesion
     {
-        /// <summary>
-        /// El objetivo de esta clase es funcionar como intermediario entre la interfaz gráfica
-        /// correspondiente a la sesión de preguntas, y las clases con las que se interactúa.
-        /// </summary>
-        public Sesion iSesionActual { get; set; }
+        public int iSesionId { get; set; }
+        public string iPreguntasId { get; set; }
 
         /// <summary>
         /// Devuelve un PreguntaDTO correspondiente a la siguiente de la sesión
@@ -20,8 +21,17 @@ namespace ShockQuiz
         public PreguntaDTO ObtenerPreguntaYRespuestas()
         {
             PreguntaDTO preguntaYRespuestas = new PreguntaDTO();
-            preguntaYRespuestas.Pregunta = iSesionActual.ObtenerPregunta();
-            preguntaYRespuestas.Respuestas = iSesionActual.ObtenerRespuestas();
+            int idPregunta = int.Parse(iPreguntasId.Substring(0, iPreguntasId.IndexOf("-")));
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    Pregunta pregunta = bUoW.RepositorioPregunta.Obtener(idPregunta);
+                    preguntaYRespuestas.Pregunta = pregunta.Nombre;
+                    preguntaYRespuestas.Respuestas = pregunta.ObtenerRespuestas();
+                }
+            }
+
             return preguntaYRespuestas;
         }
 
@@ -32,7 +42,21 @@ namespace ShockQuiz
         /// <returns></returns>
         public ResultadoRespuesta Responder(string pRespuesta)
         {
-            ResultadoRespuesta resultado = iSesionActual.Responder(pRespuesta);
+            int idPregunta = int.Parse(iPreguntasId.Substring(0, iPreguntasId.IndexOf("-")));
+            iPreguntasId = iPreguntasId.Substring(iPreguntasId.IndexOf("-") + 1, iPreguntasId.Length);
+
+            ResultadoRespuesta resultado;
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    Pregunta pregunta = bUoW.RepositorioPregunta.Obtener(idPregunta);
+                    resultado = pregunta.Responder(pRespuesta);
+                    Sesion sesion = bUoW.RepositorioSesion.Obtener(iSesionId);
+                    resultado.FinSesion=sesion.Actualizar(resultado.EsCorrecta, iPreguntasId);
+                    bUoW.GuardarCambios();
+                }
+            }
             return resultado;
         }
 
@@ -42,6 +66,9 @@ namespace ShockQuiz
         /// <returns></returns>
         public ResultadoRespuesta RevisarTiempoLimite()
         {
+
+
+
             double tiempo = iSesionActual.TiempoLimite();
             ResultadoRespuesta resultado = new ResultadoRespuesta();
             resultado.FinSesion = false;
@@ -62,7 +89,16 @@ namespace ShockQuiz
         /// <returns></returns>
         public double ObtenerPuntaje()
         {
-            return iSesionActual.Puntaje;
+            Sesion sesion;
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    sesion = bUoW.RepositorioSesion.Obtener(iSesionId);
+                }
+
+            }
+            return sesion.Puntaje;
         }
 
         /// <summary>
@@ -78,7 +114,6 @@ namespace ShockQuiz
                     this.iSesionActual.Conjunto = null;
                     this.iSesionActual.Dificultad = null;
                     this.iSesionActual.Usuario = null;
-                    bUoW.RepositorioSesion.Agregar(this.iSesionActual);
                     bUoW.GuardarCambios();
                 }
             }

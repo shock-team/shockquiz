@@ -44,7 +44,7 @@ namespace ShockQuiz.DAL.EntityFramework
         /// <param name="pConjunto">Conjunto</param>
         /// <param name="pCantidad">Cantidad de Preguntas</param>
         /// <returns></returns>
-        public IEnumerable<Pregunta> ObtenerPreguntas(Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto, int pCantidad = 10)
+        public string ObtenerPreguntas(Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto, int pCantidad = 10)
         {
 
             var list = from t in iDbContext.Preguntas
@@ -58,7 +58,14 @@ namespace ShockQuiz.DAL.EntityFramework
                        select t;
             if (list.Count() >= pCantidad)
             {
-                return list.ToList().OrderBy(x => rnd.Next()).Take(pCantidad);
+                string preguntas = string.Empty;
+                List<Pregunta> listaPreguntas = list.ToList().OrderBy(x => rnd.Next()).Take(pCantidad).ToList();
+                foreach (var item in listaPreguntas)
+                {
+                    preguntas += item.PreguntaId.ToString() + "-";
+                }
+                //preguntas = preguntas.Substring(0, preguntas.Length - 1);
+                return preguntas;
             }
             else
             {

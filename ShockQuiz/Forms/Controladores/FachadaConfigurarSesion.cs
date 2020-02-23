@@ -76,7 +76,7 @@ namespace ShockQuiz.Forms
                     usuario = bUoW.RepositorioUsuario.Obtener(pUsuario);
                     sesion.Usuario = usuario;
                     sesion.UsuarioId = usuario.UsuarioId;
-                    sesion.Preguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(pCategoria, pDificultad, pConjunto, pCantidad).ToList();
+                    sesion.PreguntasString = bUoW.RepositorioPregunta.ObtenerPreguntas(pCategoria, pDificultad, pConjunto, pCantidad);
                 }
             }
             sesion.FechaInicio = DateTime.Now;
@@ -87,7 +87,24 @@ namespace ShockQuiz.Forms
             sesion.Conjunto = pConjunto;
             sesion.ConjuntoId = pConjunto.ConjuntoId;
             sesion.CantidadPreguntas = pCantidad;
+            sesion.FechaFin = DateTime.Parse("2222-02-02 22:22");
             return sesion;
+        }
+
+        public void GuardarSesion(Sesion pSesion)
+        {
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    pSesion.Categoria = null;
+                    pSesion.Conjunto = null;
+                    pSesion.Dificultad = null;
+                    pSesion.Usuario = null;
+                    bUoW.RepositorioSesion.Agregar(pSesion);
+                    bUoW.GuardarCambios();
+                }
+            }
         }
     }
 }

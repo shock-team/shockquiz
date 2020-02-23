@@ -34,6 +34,35 @@ namespace ShockQuiz.Forms
             }
         }
 
+        public bool ExisteSesionNoFinalizada(string pUser)
+        {
+            bool res = false;
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    Usuario user = bUoW.RepositorioUsuario.ObtenerPorNombre(pUser);
+                    res = bUoW.RepositorioSesion.ExisteSesionNoFinalizada(user.UsuarioId);
+                }
+            }
+            return res;
+        }
+
+        public Sesion ObtenerSesionNoFinalizada(string pUser)
+        {
+            Sesion res;
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    Usuario user = bUoW.RepositorioUsuario.ObtenerPorNombre(pUser);
+                    res = bUoW.RepositorioSesion.ObtenerSesionNoFinalizada(user.UsuarioId);
+                }
+            }
+            return res;
+        }
+
+
         /// <summary>
         /// Registra a un usuario en la base de datos de la aplicación
         /// </summary>
