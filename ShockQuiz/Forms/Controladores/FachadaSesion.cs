@@ -44,7 +44,6 @@ namespace ShockQuiz
         {
             int idPregunta = int.Parse(iPreguntasId.Substring(0, iPreguntasId.IndexOf("-")));
             iPreguntasId = iPreguntasId.Substring(iPreguntasId.IndexOf("-") + 1, iPreguntasId.Length);
-
             ResultadoRespuesta resultado;
             using (var bDbContext = new ShockQuizDbContext())
             {
@@ -66,21 +65,27 @@ namespace ShockQuiz
         /// <returns></returns>
         public ResultadoRespuesta RevisarTiempoLimite()
         {
-
-
-
-            double tiempo = iSesionActual.TiempoLimite();
-            ResultadoRespuesta resultado = new ResultadoRespuesta();
-            resultado.FinSesion = false;
-            if ((DateTime.Now - iSesionActual.FechaInicio).TotalSeconds > tiempo)
+            using (var bDbContext = new ShockQuizDbContext())
             {
-                for (int i = iSesionActual.Preguntas.Count; i > 0; i--)
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    resultado = iSesionActual.Responder("");
+                    ResultadoRespuesta resultado = new ResultadoRespuesta();
+                    Sesion sesionActual = bUoW.RepositorioSesion.Obtener(iSesionId);
+                    if (sesionActual.RevisarTiempoLimite())
+                    {
+                        while (sesionActual.CantidadPreguntas > 0)
+                        {
+                            Responder("");
+                        }
+                        resultado.FinSesion = true;
+                    }
+                    else
+                    {
+                        resultado.FinSesion = false;
+                    }
+                    return resultado;
                 }
-                resultado.TiempoLimiteFinalizado = true;
             }
-            return resultado;
         }
 
         /// <summary>

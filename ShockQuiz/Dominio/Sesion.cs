@@ -61,5 +61,15 @@ namespace ShockQuiz.Dominio
         {
             return CantidadPreguntas * Conjunto.TiempoEsperadoPorPregunta;
         }
+
+        /// <summary>
+        /// Devuelve un resultado al verificar que la sesión actual no se exceda del tiempo límite
+        /// </summary>
+        /// <returns></returns>
+        public bool RevisarTiempoLimite()
+        {
+            double tiempo = TiempoLimite();
+            return (DateTime.Now - FechaInicio).TotalSeconds > tiempo;
+        }
     }
 }
