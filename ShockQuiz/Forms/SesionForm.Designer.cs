@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SesionForm));
             this.lblPregunta = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,8 +44,9 @@
             this.lblCategoria = new System.Windows.Forms.Label();
             this.lblDificultad = new System.Windows.Forms.Label();
             this.btnSiguiente = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblTimer = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // lblPregunta
@@ -198,11 +198,6 @@
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.BtnSiguiente_Click);
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
             // lblTimer
             // 
             this.lblTimer.AutoSize = true;
@@ -212,12 +207,30 @@
             this.lblTimer.TabIndex = 20;
             this.lblTimer.Text = "0 s";
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(605, 49);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(98, 10);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar.TabIndex = 21;
+            this.progressBar.Value = 100;
+            // 
+            // backgroundWorker
+            // 
+            this.backgroundWorker.WorkerReportsProgress = true;
+            this.backgroundWorker.WorkerSupportsCancellation = true;
+            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
+            this.backgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker_ProgressChanged);
+            this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
+            // 
             // SesionForm
             // 
             this.AcceptButton = this.btnSiguiente;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(715, 339);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.lblTimer);
             this.Controls.Add(this.btnSiguiente);
             this.Controls.Add(this.lblDificultad);
@@ -239,6 +252,7 @@
             this.Name = "SesionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Partida";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SesionForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,8 +275,9 @@
         private System.Windows.Forms.Label lblCategoria;
         private System.Windows.Forms.Label lblDificultad;
         private System.Windows.Forms.Button btnSiguiente;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lblTimer;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.ComponentModel.BackgroundWorker backgroundWorker;
     }
 }
 
