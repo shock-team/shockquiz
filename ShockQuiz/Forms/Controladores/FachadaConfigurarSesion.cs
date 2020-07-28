@@ -1,6 +1,10 @@
 ﻿using ShockQuiz.DAL.EntityFramework;
+using ShockQuiz.DAL;
 using ShockQuiz.Dominio;
+using Newtonsoft.Json;
 using System;
+using System.Web;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -87,6 +91,9 @@ namespace ShockQuiz.Forms
             sesion.Conjunto = pConjunto;
             sesion.ConjuntoId = pConjunto.ConjuntoId;
             sesion.CantidadPreguntas = pCantidad;
+
+            RepositorioSesionActiva.GuardarSesionActiva(sesion);
+
             return sesion;
         }
     }

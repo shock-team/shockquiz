@@ -1,4 +1,6 @@
-﻿namespace ShockQuiz.Dominio
+﻿using Newtonsoft.Json;
+
+namespace ShockQuiz.Dominio
 {
     public class Respuesta
     {
@@ -7,6 +9,7 @@
         public bool EsCorrecta { get; set; }
 
         public int PreguntaId { get; set; }
+        [JsonIgnore]
         public Pregunta Pregunta { get; set; }
 
     }

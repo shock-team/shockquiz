@@ -1,9 +1,11 @@
 ﻿using ShockQuiz.Excepciones;
+using ShockQuiz.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using ShockQuiz.Dominio;
+using System.IO;
 
 namespace ShockQuiz.Forms
 {
@@ -35,6 +37,29 @@ namespace ShockQuiz.Forms
             {
                 cbDificultad.Items.Add(dificultad);
             }
+
+            ChequearSesionActiva();
+        }
+
+        private void ChequearSesionActiva()
+        {
+            if (RepositorioSesionActiva.ExisteSesionActiva())
+            {
+                DialogResult dialogResult = MessageBox.Show("Existe una partida que aún no ha finalizado, ¿Desea continuarla?", "Resumir Partida", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Sesion sesionActiva = RepositorioSesionActiva.TraerSesionActiva();
+                    sesionActiva.FechaInicio = DateTime.Now;
+                    SesionForm sesionForm = new SesionForm(sesionActiva, sesionActiva.Categoria, sesionActiva.Dificultad, sesionActiva.Preguntas.Count);
+                    sesionForm.FormClosed += new FormClosedEventHandler(SesionForm_FormClosed);
+                    sesionForm.Show();
+                    this.Hide();
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    RepositorioSesionActiva.EliminarSesionActiva();
+                }
+            }
         }
 
         private void BtnIniciar_Click(object sender, EventArgs e)
@@ -48,7 +73,7 @@ namespace ShockQuiz.Forms
             }
             catch(InvalidOperationException)
             {
-                MessageBox.Show("Seleccione una dificultad y categoría.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Seleccione una dificultad y una categoría.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
             catch (PreguntasInsuficientesException)
@@ -76,6 +101,7 @@ namespace ShockQuiz.Forms
 
         private void SesionForm_FormClosed(object sender, EventArgs e)
         {
+            this.Show();
             this.Close();
         }
     }

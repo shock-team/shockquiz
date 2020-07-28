@@ -1,17 +1,25 @@
 ﻿using ShockQuiz.DAL.EntityFramework;
 using ShockQuiz.Dominio;
 using ShockQuiz.IO;
+using ShockQuiz.DAL;
 using System;
+using System.Windows.Forms;
 
 namespace ShockQuiz
 {
+    /// <summary>
+    /// El objetivo de esta clase es funcionar como intermediario entre la interfaz gráfica
+    /// correspondiente a la sesión de preguntas, y las clases con las que se interactúa.
+    /// </summary>
     public class FachadaSesion
     {
-        /// <summary>
-        /// El objetivo de esta clase es funcionar como intermediario entre la interfaz gráfica
-        /// correspondiente a la sesión de preguntas, y las clases con las que se interactúa.
-        /// </summary>
         public Sesion iSesionActual { get; set; }
+        public int tiempoRestante { get; set; }
+
+        public FachadaSesion()
+        {
+            tiempoRestante = RepositorioSesionActiva.TiempoRestante();
+        }
 
         /// <summary>
         /// Devuelve un PreguntaDTO correspondiente a la siguiente de la sesión
@@ -26,13 +34,16 @@ namespace ShockQuiz
         }
 
         /// <summary>
-        ///Devuelve el resultado de responder a una pregunta
+        ///Devuelve el resultado de responder a una pregunta y actualiza el tiempo restante
+        ///en el archivo temporal de sesion activa.
         /// </summary>
         /// <param name="pRespuesta">La respuesta seleccionada por el usuario</param>
         /// <returns></returns>
         public ResultadoRespuesta Responder(string pRespuesta)
         {
             ResultadoRespuesta resultado = iSesionActual.Responder(pRespuesta);
+            iSesionActual.TiempoRestante = tiempoRestante;
+            RepositorioSesionActiva.GuardarSesionActiva(iSesionActual);
             return resultado;
         }
 
@@ -40,9 +51,9 @@ namespace ShockQuiz
         /// Devuelve un resultado al verificar que la sesión actual no se exceda del tiempo límite
         /// </summary>
         /// <returns></returns>
-        public ResultadoRespuesta RevisarTiempoLimite()
+        public ResultadoRespuesta RevisarTiempoLimite(int pTiempo)
         {
-            double tiempo = iSesionActual.TiempoLimite();
+            double tiempo = pTiempo;
             ResultadoRespuesta resultado = new ResultadoRespuesta();
             resultado.FinSesion = false;
             if ((DateTime.Now - iSesionActual.FechaInicio).TotalSeconds > tiempo)
@@ -66,10 +77,11 @@ namespace ShockQuiz
         }
 
         /// <summary>
-        /// Guarda la sesión actual en la base datos
+        /// Guarda la sesión actual en la base datos y elimina el archivo temporal de la sesion aun no finalizada
         /// </summary>
         public void GuardarSesion()
         {
+            RepositorioSesionActiva.EliminarSesionActiva();
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
@@ -81,6 +93,23 @@ namespace ShockQuiz
                     bUoW.RepositorioSesion.Agregar(this.iSesionActual);
                     bUoW.GuardarCambios();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Si existe una sesión activa devuelve el tiempo restante de la misma, sino,
+        /// lo calcula y devuelve normalmente.
+        /// </summary>
+        /// <returns></returns>
+        public int ObtenerTiempoLimite()
+        {
+            if (RepositorioSesionActiva.ExisteSesionActiva() && tiempoRestante != 0)
+            {
+                return tiempoRestante;
+            }
+            else
+            {
+                return (int)iSesionActual.TiempoLimite();
             }
         }
     }

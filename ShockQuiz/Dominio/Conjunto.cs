@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace ShockQuiz.Dominio
@@ -9,7 +10,9 @@ namespace ShockQuiz.Dominio
         public string Nombre { get; set; }
         public double TiempoEsperadoPorPregunta { get; set; }
         public string Token { get; set; }
+        [JsonIgnore]
         public ICollection<Sesion> Sesiones { get; set; }
+        [JsonIgnore]
         public ICollection<Pregunta> Preguntas { get; set; }
 
         public virtual double CalcularPuntaje(Sesion pSesion)

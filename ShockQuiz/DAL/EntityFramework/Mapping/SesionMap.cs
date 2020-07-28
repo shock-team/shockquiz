@@ -48,6 +48,7 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
 
             this.Ignore(x => x.Preguntas);
             this.Ignore(x => x.RespuestasCorrectas);
+            this.Ignore(x => x.TiempoRestante);
         }
     }
 }

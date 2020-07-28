@@ -1,4 +1,5 @@
-﻿using ShockQuiz.IO;
+﻿using Newtonsoft.Json;
+using ShockQuiz.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace ShockQuiz.Dominio
         public int ConjuntoId { get; set; }
         public List<Pregunta> Preguntas { get; set; }
         public int RespuestasCorrectas { get; set; } = 0;
+        public int TiempoRestante { get; set; } 
 
         public List<string> ObtenerRespuestas()
         {

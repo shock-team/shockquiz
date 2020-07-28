@@ -1,4 +1,5 @@
 ﻿
+using Newtonsoft.Json;
 using ShockQuiz.IO;
 using System;
 using System.Collections.Generic;
@@ -7,16 +8,17 @@ using System.Linq;
 namespace ShockQuiz.Dominio
 {
     public class Pregunta
-    {/// <summary>
-     /// El objetivo de esta clase es al
-     /// </summary>
+    {
         public int PreguntaId { get; set; }
         public string Nombre { get; set; }
         public int CategoriaId { get; set; }
+        [JsonIgnore]
         public Categoria Categoria { get; set; }
         public int DificultadId { get; set; }
+        [JsonIgnore]
         public Dificultad Dificultad { get; set; }
         public int ConjuntoId { get; set; }
+        [JsonIgnore]
         public Conjunto Conjunto { get; set; }
         public ICollection<Respuesta> Respuestas { get; set; }
 

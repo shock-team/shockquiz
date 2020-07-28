@@ -10,7 +10,6 @@ namespace ShockQuiz.DAL.EntityFramework
         public IRepositorioPregunta RepositorioPregunta { get; private set; }
         public IRepositorioUsuario RepositorioUsuario { get; private set; }
         public IRepositorioSesion RepositorioSesion { get; private set; }
-
         public RepositorioCategoria RepositorioCategoria { get; private set; }
         public RepositorioDificultad RepositorioDificultad { get; private set; }
         public RepositorioConjunto RepositorioConjunto { get; private set; }

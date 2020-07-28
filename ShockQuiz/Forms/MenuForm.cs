@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ShockQuiz.DAL;
+using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ShockQuiz.Forms
@@ -21,7 +23,11 @@ namespace ShockQuiz.Forms
             {
                 ConfigurarSesionForm configurarSesionForm = new ConfigurarSesionForm(idUsuario);
                 configurarSesionForm.FormClosed += new FormClosedEventHandler(ConfigurarSesionForm_FormClosed);
-                configurarSesionForm.Show();
+                if (!Application.OpenForms.OfType<SesionForm>().Any())
+                {
+                    configurarSesionForm.Show();
+
+                }
                 this.Hide();
             }
             catch (NotSupportedException)

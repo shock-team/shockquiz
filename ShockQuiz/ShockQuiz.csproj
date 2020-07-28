@@ -121,6 +121,7 @@
     <Compile Include="DAL\EntityFramework\RepositorioConjunto.cs" />
     <Compile Include="DAL\EntityFramework\RepositorioDificultad.cs" />
     <Compile Include="DAL\OpenTriviaDB\JsonMapper.cs" />
+    <Compile Include="DAL\RepositorioSesionActiva.cs" />
     <Compile Include="Dominio\ConjuntoOTDB.cs" />
     <Compile Include="Excepciones\ContraseñaIncorrectaException.cs" />
     <Compile Include="Excepciones\PreguntasInsuficientesException.cs" />
@@ -262,6 +263,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="etc_wit_symbol_i01.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
