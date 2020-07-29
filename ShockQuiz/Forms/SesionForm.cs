@@ -88,11 +88,10 @@ namespace ShockQuiz
 
         private void BtnRespuesta1_Click(object sender, EventArgs e)
         {
-            fachada.tiempoRestante = segTimer;
             ResultadoRespuesta resultado = fachada.RevisarTiempoLimite(limitTime);
             if (!resultado.TiempoLimiteFinalizado)
             {
-                resultado = fachada.Responder(btnRespuesta1.Text);
+                resultado = fachada.Responder(btnRespuesta1.Text, segTimer);
                 if (!resultado.EsCorrecta)
                 {
                     btnRespuesta1.BackColor = System.Drawing.Color.Red;
@@ -104,11 +103,10 @@ namespace ShockQuiz
 
         private void BtnRespuesta2_Click(object sender, EventArgs e)
         {
-            fachada.tiempoRestante = segTimer;
             ResultadoRespuesta resultado = fachada.RevisarTiempoLimite(limitTime);
             if (!resultado.TiempoLimiteFinalizado)
             {
-                resultado = fachada.Responder(btnRespuesta2.Text);
+                resultado = fachada.Responder(btnRespuesta2.Text, segTimer);
                 if (!resultado.EsCorrecta)
                 {
                     btnRespuesta2.BackColor = System.Drawing.Color.Red;
@@ -120,11 +118,10 @@ namespace ShockQuiz
 
         private void BtnRespuesta3_Click(object sender, EventArgs e)
         {
-            fachada.tiempoRestante = segTimer;
             ResultadoRespuesta resultado = fachada.RevisarTiempoLimite(limitTime);
             if (!resultado.TiempoLimiteFinalizado)
             {
-                resultado = fachada.Responder(btnRespuesta3.Text);
+                resultado = fachada.Responder(btnRespuesta3.Text, segTimer);
                 if (!resultado.EsCorrecta)
                 {
                     btnRespuesta3.BackColor = System.Drawing.Color.Red;
@@ -136,11 +133,10 @@ namespace ShockQuiz
 
         private void BtnRespuesta4_Click(object sender, EventArgs e)
         {
-            fachada.tiempoRestante = segTimer;
             ResultadoRespuesta resultado = fachada.RevisarTiempoLimite(limitTime);
             if (!resultado.TiempoLimiteFinalizado)
             {
-                resultado = fachada.Responder(btnRespuesta4.Text);
+                resultado = fachada.Responder(btnRespuesta4.Text, segTimer);
                 if (!resultado.EsCorrecta)
                 {
                     btnRespuesta4.BackColor = System.Drawing.Color.Red;

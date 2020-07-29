@@ -14,11 +14,9 @@ namespace ShockQuiz
     public class FachadaSesion
     {
         public Sesion iSesionActual { get; set; }
-        public int tiempoRestante { get; set; }
 
         public FachadaSesion()
         {
-            tiempoRestante = RepositorioSesionActiva.TiempoRestante();
         }
 
         /// <summary>
@@ -39,10 +37,10 @@ namespace ShockQuiz
         /// </summary>
         /// <param name="pRespuesta">La respuesta seleccionada por el usuario</param>
         /// <returns></returns>
-        public ResultadoRespuesta Responder(string pRespuesta)
+        public ResultadoRespuesta Responder(string pRespuesta, int pTiempoRestante)
         {
             ResultadoRespuesta resultado = iSesionActual.Responder(pRespuesta);
-            iSesionActual.TiempoRestante = tiempoRestante;
+            iSesionActual.TiempoRestante = pTiempoRestante;
             RepositorioSesionActiva.GuardarSesionActiva(iSesionActual);
             return resultado;
         }
@@ -103,9 +101,9 @@ namespace ShockQuiz
         /// <returns></returns>
         public int ObtenerTiempoLimite()
         {
-            if (RepositorioSesionActiva.ExisteSesionActiva() && tiempoRestante != 0)
+            if (RepositorioSesionActiva.ExisteSesionActiva() && iSesionActual.TiempoRestante != 0)
             {
-                return tiempoRestante;
+                return iSesionActual.TiempoRestante;
             }
             else
             {
