@@ -7,7 +7,6 @@ namespace ShockQuiz.DAL
     {
         IEnumerable<Sesion> ObtenerTodas(string pUsuario);
         IEnumerable<Sesion> ObtenerRanking(int pTop);
-        bool ExisteSesionNoFinalizada(int pUsuarioId);
-        Sesion ObtenerSesionNoFinalizada(int pUsuarioId);
+        IEnumerable<Sesion> ObtenerSesionActiva();
     }
 }

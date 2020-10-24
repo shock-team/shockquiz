@@ -11,25 +11,21 @@ namespace ShockQuiz
         FachadaSesion fachada = new FachadaSesion();
         int segTimer = 0;
 
-        public SesionForm(int pSesionId, string pPreguntasString, string pCategoria, string pDificultad, int pCantidad)
+        public SesionForm(int pSesionId, string pCategoria, string pDificultad, int pCantidad)
         {
             InitializeComponent();
             lblCategoria.Text = pCategoria;
             lblDificultad.Text = pDificultad;
-            fachada.iSesionId = pSesionId;
-            fachada.iPreguntasId = pPreguntasString;
+            fachada.idSesionActual = pSesionId;
             lblRespuestasActuales.Text = "0";
-<<<<<<< Updated upstream
-=======
 
             //Timer
-            limitTime = (int)fachada.iSesionActual.TiempoLimite();
+            //limitTime = (int)fachada.iSesionActual.TiempoLimite();
             //progressBar.Maximum = limitTime;
             //progressBar.Value = segTimer = limitTime;
             //lblTimer.Text = segTimer + " seg.";
             
 
->>>>>>> Stashed changes
             SiguientePregunta();
             lblRespuestasTotales.Text = pCantidad.ToString();
             timer1.Interval = 1000;

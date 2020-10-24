@@ -76,7 +76,6 @@ namespace ShockQuiz.Forms
                     usuario = bUoW.RepositorioUsuario.Obtener(pUsuario);
                     sesion.Usuario = usuario;
                     sesion.UsuarioId = usuario.UsuarioId;
-                    sesion.PreguntasString = bUoW.RepositorioPregunta.ObtenerPreguntas(pCategoria, pDificultad, pConjunto, pCantidad);
                 }
             }
             sesion.FechaInicio = DateTime.Now;

@@ -26,13 +26,13 @@ namespace ShockQuiz.Forms
                 MenuForm menuForm = new MenuForm(usuario, esAdmin);
                 menuForm.FormClosed += new FormClosedEventHandler(LoginForm_FormClosed);
 
-                if (facha.ExisteSesionNoFinalizada(txtUsuario.Text))
+                if (!facha.ObtenerSesionNoFinalizada().Equals(null))
                 {
                     DialogResult dialogResult = MessageBox.Show("Existe una sesión sin finalizar, ¿desea continuarla?", "SI O NO LOCO", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        var sesion = facha.ObtenerSesionNoFinalizada(txtUsuario.Text);
-                        SesionForm sesionForm = new SesionForm(sesion, sesion.Categoria.Nombre, sesion.Dificultad.Nombre, sesion.CantidadPreguntas);
+                        var sesion = facha.ObtenerSesionNoFinalizada();
+                        SesionForm sesionForm = new SesionForm(sesion.SesionId, sesion.Categoria.Nombre, sesion.Dificultad.Nombre, sesion.CantidadPreguntas);
                         sesionForm.FormClosed += new FormClosedEventHandler(LoginForm_FormClosed);
                         sesionForm.Show();
                         this.Hide();

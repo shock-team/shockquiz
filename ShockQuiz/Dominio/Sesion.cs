@@ -22,31 +22,27 @@ namespace ShockQuiz.Dominio
         public int ConjuntoId { get; set; }
         public ICollection<Pregunta> Preguntas { get; set; }
         public int RespuestasCorrectas { get; set; } = 0;
-<<<<<<< Updated upstream
-        public string PreguntasString { get; set; }
-=======
         public int SegundosTranscurridos { get; set; }
->>>>>>> Stashed changes
 
         public List<string> ObtenerRespuestas()
         {
             return Preguntas.First().ObtenerRespuestas();
         }
 
-        public string ObtenerPregunta()
+        public int ObtenerPregunta()
         {
-            return Preguntas.First().Nombre;
+            return Preguntas.First().PreguntaId;
         }
 
-        public bool Actualizar(bool pEsCorrecta, string pPreguntas)
+        public bool Responder(bool pEsCorrecta)
         {
             bool finSesion = false;
+            Preguntas.Remove(Preguntas.First());
             CantidadPreguntas--;
             if (pEsCorrecta)
             {
                 RespuestasCorrectas++;
             }
-
             if (CantidadPreguntas == 0)
             {
                 finSesion = true;
