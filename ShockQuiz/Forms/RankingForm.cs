@@ -19,7 +19,7 @@ namespace ShockQuiz.Forms
                 x.Usuario.Nombre,
                 x.Puntaje,
                 Fecha = x.FechaInicio,
-                Duración = x.Duracion()
+                Duración = x.SegundosTranscurridos
             })
                 .ToList();
         }
@@ -37,7 +37,7 @@ namespace ShockQuiz.Forms
                 x.Usuario.Nombre,
                 x.Puntaje,
                 Fecha = x.FechaInicio,
-                Duración = x.Duracion()
+                Duración = x.SegundosTranscurridos
             }).ToList();
         }
     }

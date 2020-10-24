@@ -37,6 +37,7 @@ namespace ShockQuiz.DAL.EntityFramework
             return this.iDbContext.Set<Sesion>().Where(x => x.Usuario.Nombre == pUsuario);
         }
 
+<<<<<<< Updated upstream
         public bool ExisteSesionNoFinalizada(int pUsuarioId)
         {
             System.DateTime fechaFin = System.DateTime.Parse("2222-02-02 22:22");
@@ -59,6 +60,14 @@ namespace ShockQuiz.DAL.EntityFramework
             sesion.Categoria = this.iDbContext.Set<Categoria>().Where(x => x.Id == sesion.CategoriaId).FirstOrDefault();
             sesion.Dificultad = this.iDbContext.Set<Dificultad>().Where(x => x.Id == sesion.DificultadId).FirstOrDefault();
             return sesion;
+=======
+        public IEnumerable<Sesion> ObtenerSesionActiva()
+        {
+            var sesionActiva = from s in iDbContext.Sesiones
+                               where s.FechaFin.Equals(null)
+                               select s;
+            return sesionActiva;
+>>>>>>> Stashed changes
         }
     }
 }

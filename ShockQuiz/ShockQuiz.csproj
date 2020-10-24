@@ -111,6 +111,7 @@
     <Compile Include="Dominio\ConjuntoOTDB.cs" />
     <Compile Include="Excepciones\ContraseñaIncorrectaException.cs" />
     <Compile Include="Excepciones\PreguntasInsuficientesException.cs" />
+    <Compile Include="Forms\AyudanteTimer.cs" />
     <Compile Include="Forms\ConfiguracionAdminForm.cs">
       <SubType>Form</SubType>
     </Compile>

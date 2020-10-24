@@ -59,7 +59,6 @@ namespace ShockQuiz.Forms
             {
                 MessageBox.Show("No hay preguntas suficientes para la selección", "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
-
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)

@@ -19,6 +19,17 @@ namespace ShockQuiz
             fachada.iSesionId = pSesionId;
             fachada.iPreguntasId = pPreguntasString;
             lblRespuestasActuales.Text = "0";
+<<<<<<< Updated upstream
+=======
+
+            //Timer
+            limitTime = (int)fachada.iSesionActual.TiempoLimite();
+            //progressBar.Maximum = limitTime;
+            //progressBar.Value = segTimer = limitTime;
+            //lblTimer.Text = segTimer + " seg.";
+            
+
+>>>>>>> Stashed changes
             SiguientePregunta();
             lblRespuestasTotales.Text = pCantidad.ToString();
             timer1.Interval = 1000;

@@ -20,9 +20,13 @@ namespace ShockQuiz.Dominio
         public int UsuarioId { get; set; }
         public Conjunto Conjunto { get; set; }
         public int ConjuntoId { get; set; }
-        public List<Pregunta> Preguntas { get; set; }
+        public ICollection<Pregunta> Preguntas { get; set; }
         public int RespuestasCorrectas { get; set; } = 0;
+<<<<<<< Updated upstream
         public string PreguntasString { get; set; }
+=======
+        public int SegundosTranscurridos { get; set; }
+>>>>>>> Stashed changes
 
         public List<string> ObtenerRespuestas()
         {
@@ -52,9 +56,11 @@ namespace ShockQuiz.Dominio
             return finSesion;
         }
 
-        public TimeSpan Duracion()
+        public ResultadoRespuesta RevisarTiempoLimite(int pTiempo)
         {
-            return FechaFin - FechaInicio;
+            ResultadoRespuesta resultado = new ResultadoRespuesta();
+            resultado.FinSesion = (pTiempo > TiempoLimite());
+            return resultado;
         }
 
         public double TiempoLimite()

@@ -25,7 +25,7 @@ namespace ShockQuiz.Dominio
                     break;
             }
             double FACTOR_TIEMPO = 1;
-            double tiempoPorPregunta = pSesion.Duracion().TotalSeconds / pSesion.CantidadPreguntas;
+            double tiempoPorPregunta = pSesion.SegundosTranscurridos / pSesion.CantidadPreguntas;
             if (tiempoPorPregunta < TIEMPO_LIMITE_1)
             {
                 FACTOR_TIEMPO = 5;
