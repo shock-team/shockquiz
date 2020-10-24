@@ -31,8 +31,7 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
                 .IsRequired();
 
             this.Property(x => x.FechaFin)
-                .HasColumnName("fechaInicio")
-                .IsRequired();
+                .HasColumnName("fechaInicio");
 
             this.Property(x => x.FechaFin)
                 .HasColumnName("fechaFin")

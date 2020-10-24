@@ -9,7 +9,6 @@ namespace ShockQuiz
     public partial class SesionForm : Form
     {
         FachadaSesion fachada = new FachadaSesion();
-        int segTimer = 0;
 
         public SesionForm(int pSesionId, string pCategoria, string pDificultad, int pCantidad)
         {
@@ -18,18 +17,8 @@ namespace ShockQuiz
             lblDificultad.Text = pDificultad;
             fachada.idSesionActual = pSesionId;
             lblRespuestasActuales.Text = "0";
-
-            //Timer
-            //limitTime = (int)fachada.iSesionActual.TiempoLimite();
-            //progressBar.Maximum = limitTime;
-            //progressBar.Value = segTimer = limitTime;
-            //lblTimer.Text = segTimer + " seg.";
-            
-
             SiguientePregunta();
             lblRespuestasTotales.Text = pCantidad.ToString();
-            timer1.Interval = 1000;
-            timer1.Start();
         }
 
         private void ColorBotonCorrecto(string pRespuesta)
@@ -61,7 +50,6 @@ namespace ShockQuiz
         {
             if (pResultado.TiempoLimiteFinalizado)
             {
-                timer1.Stop();
                 btnSiguiente.Enabled = false;
                 fachada.GuardarSesion();
                 MessageBox.Show("¡Tiempo agotado! Puntaje: " + fachada.ObtenerPuntaje(), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -69,7 +57,6 @@ namespace ShockQuiz
             }
             else if (pResultado.FinSesion)
             {
-                timer1.Stop();
                 btnSiguiente.Enabled = false;
                 fachada.GuardarSesion();
                 MessageBox.Show("Puntaje: " + fachada.ObtenerPuntaje(), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); ;
@@ -79,66 +66,51 @@ namespace ShockQuiz
 
         private void BtnRespuesta1_Click(object sender, EventArgs e)
         {
-            ResultadoRespuesta resultado = fachada.RevisarTiempoLimite();
-            if (!resultado.TiempoLimiteFinalizado)
+            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta1.Text);
+            if (!resultado.EsCorrecta)
             {
-                resultado = fachada.Responder(btnRespuesta1.Text);
-                if (!resultado.EsCorrecta)
-                {
-                    btnRespuesta1.BackColor = System.Drawing.Color.Red;
-                }
-                ColorBotonCorrecto(resultado.RespuestaCorrecta);
+                btnRespuesta1.BackColor = System.Drawing.Color.Red;
             }
+            ColorBotonCorrecto(resultado.RespuestaCorrecta);
             Finalizar(resultado);
         }
 
         private void BtnRespuesta2_Click(object sender, EventArgs e)
         {
-            ResultadoRespuesta resultado = fachada.RevisarTiempoLimite();
-            if (!resultado.TiempoLimiteFinalizado)
+            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta2.Text);
+            if (!resultado.EsCorrecta)
             {
-                resultado = fachada.Responder(btnRespuesta2.Text);
-                if (!resultado.EsCorrecta)
-                {
-                    btnRespuesta1.BackColor = System.Drawing.Color.Red;
-                }
-                ColorBotonCorrecto(resultado.RespuestaCorrecta);
+                btnRespuesta2.BackColor = System.Drawing.Color.Red;
             }
+            ColorBotonCorrecto(resultado.RespuestaCorrecta);
             Finalizar(resultado);
         }
 
         private void BtnRespuesta3_Click(object sender, EventArgs e)
         {
-            ResultadoRespuesta resultado = fachada.RevisarTiempoLimite();
-            if (!resultado.TiempoLimiteFinalizado)
+            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta3.Text);
+            if (!resultado.EsCorrecta)
             {
-                resultado = fachada.Responder(btnRespuesta3.Text);
-                if (!resultado.EsCorrecta)
-                {
-                    btnRespuesta1.BackColor = System.Drawing.Color.Red;
-                }
-                ColorBotonCorrecto(resultado.RespuestaCorrecta);
+                btnRespuesta3.BackColor = System.Drawing.Color.Red;
             }
+            ColorBotonCorrecto(resultado.RespuestaCorrecta);
             Finalizar(resultado);
         }
 
         private void BtnRespuesta4_Click(object sender, EventArgs e)
         {
-            ResultadoRespuesta resultado = fachada.RevisarTiempoLimite();
-            if (!resultado.TiempoLimiteFinalizado)
+            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta4.Text);
+            if (!resultado.EsCorrecta)
             {
-                resultado = fachada.Responder(btnRespuesta4.Text);
-                if (!resultado.EsCorrecta)
-                {
-                    btnRespuesta1.BackColor = System.Drawing.Color.Red;
-                }
-                ColorBotonCorrecto(resultado.RespuestaCorrecta);
+                btnRespuesta4.BackColor = System.Drawing.Color.Red;
             }
+            ColorBotonCorrecto(resultado.RespuestaCorrecta);
             Finalizar(resultado);
         }
 
         private void SiguientePregunta()
         {
+            fachada.IniciarTimer();
             PreguntaDTO actual = fachada.ObtenerPreguntaYRespuestas();
             lblPregunta.Text = actual.Pregunta;
             btnRespuesta1.Text = actual.Respuestas[0];
@@ -162,10 +134,12 @@ namespace ShockQuiz
             SiguientePregunta();
         }
 
-        private void Timer1_Tick(object sender, EventArgs e)
+        public void FinTiempoLimite()
         {
-            segTimer += 1;
-            lblTimer.Text = segTimer + " s";
+            btnSiguiente.Enabled = false;
+            fachada.FinTiempoLimite();
+            MessageBox.Show("¡Tiempo agotado! Puntaje: " + fachada.ObtenerPuntaje(), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            this.Close();
         }
     }
 }

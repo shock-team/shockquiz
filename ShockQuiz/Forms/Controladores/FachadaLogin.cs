@@ -41,10 +41,15 @@ namespace ShockQuiz.Forms
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    res = bUoW.RepositorioSesion.ObtenerSesionActiva().First();
+                    IEnumerable<Sesion> sesionesActivas = bUoW.RepositorioSesion.ObtenerSesionActiva();
+                    if (sesionesActivas.Count() > 0)
+                    {
+                        res = sesionesActivas.First();
+                    }
+                    
                 }
             }
-            return res;
+            return null;
         }
 
 

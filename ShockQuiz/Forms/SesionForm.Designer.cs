@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SesionForm));
             this.lblPregunta = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,7 +44,6 @@
             this.lblCategoria = new System.Windows.Forms.Label();
             this.lblDificultad = new System.Windows.Forms.Label();
             this.btnSiguiente = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblTimer = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -198,11 +196,6 @@
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.BtnSiguiente_Click);
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
             // lblTimer
             // 
             this.lblTimer.AutoSize = true;
@@ -261,7 +254,6 @@
         private System.Windows.Forms.Label lblCategoria;
         private System.Windows.Forms.Label lblDificultad;
         private System.Windows.Forms.Button btnSiguiente;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lblTimer;
     }
 }

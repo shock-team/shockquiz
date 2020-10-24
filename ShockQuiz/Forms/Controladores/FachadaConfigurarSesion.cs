@@ -65,7 +65,7 @@ namespace ShockQuiz.Forms
         /// <param name="pCantidad">Cantidad de preguntas de la sesión</param>
         /// <param name="pConjunto">Conjunto del que se obtienen las preguntas de la sesión</param>
         /// <returns></returns>
-        public Sesion IniciarSesion(int pUsuario, Categoria pCategoria, Dificultad pDificultad, int pCantidad, Conjunto pConjunto)
+        public Sesion IniciarSesion(int pUsuario, int pCategoria, int pDificultad, int pCantidad, int pConjunto)
         {
             Sesion sesion = new Sesion();
             Usuario usuario;
@@ -76,17 +76,17 @@ namespace ShockQuiz.Forms
                     usuario = bUoW.RepositorioUsuario.Obtener(pUsuario);
                     sesion.Usuario = usuario;
                     sesion.UsuarioId = usuario.UsuarioId;
+                    sesion.Conjunto = bUoW.RepositorioConjunto.Obtener(pConjunto);
+                    sesion.Categoria = bUoW.RepositorioCategoria.Obtener(pCategoria);
+                    sesion.Dificultad = bUoW.RepositorioDificultad.Obtener(pDificultad);
                 }
             }
             sesion.FechaInicio = DateTime.Now;
-            sesion.Categoria = pCategoria;
-            sesion.CategoriaId = pCategoria.Id;
-            sesion.Dificultad = pDificultad;
-            sesion.DificultadId = pDificultad.Id;
-            sesion.Conjunto = pConjunto;
-            sesion.ConjuntoId = pConjunto.ConjuntoId;
+            sesion.CategoriaId = pCategoria;
+            sesion.DificultadId = pDificultad;
+            sesion.ConjuntoId = pConjunto;
             sesion.CantidadPreguntas = pCantidad;
-            sesion.FechaFin = DateTime.Parse("2222-02-02 22:22");
+            sesion.FechaFin = DateTime.Parse("01-01-2399");
             return sesion;
         }
 
