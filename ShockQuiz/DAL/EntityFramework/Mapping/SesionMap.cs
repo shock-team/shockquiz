@@ -46,6 +46,8 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
                 .HasForeignKey<int>(x => x.ConjuntoId);
 
             this.Property(x => x.RespuestasCorrectas);
+
+            this.Ignore(x => x.Preguntas);
         }
     }
 }
