@@ -70,7 +70,8 @@ namespace ShockQuiz.DAL.EntityFramework
         {
             var manager = ((IObjectContextAdapter)iDbContext).ObjectContext;
 
-            var dbPregunta = iDbContext.Preguntas.ToList().Where(x => x.Nombre == pNombre && x.Conjunto.Nombre == pConjunto).Any();
+            var dbPregunta = iDbContext.Preguntas.Include(x => x.Conjunto).ToList()
+                .Where(x => x.Nombre == pNombre && x.Conjunto.Nombre == pConjunto).Any();
 
             
 
