@@ -1,6 +1,7 @@
 ﻿using ShockQuiz.Dominio;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
@@ -37,13 +38,23 @@ namespace ShockQuiz.DAL.EntityFramework
             return this.iDbContext.Set<Sesion>().Where(x => x.Usuario.Nombre == pUsuario);
         }
 
-
+        /// <summary>
+        /// Devuelve la sesion que se encuentre activa en la base de datos.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Sesion> ObtenerSesionActiva()
         {
-            var sesionActiva = from s in iDbContext.Sesiones
-                               where s.FechaFin.Equals(null)
+            var sesionActiva = from s in iDbContext.Sesiones.Include("Conjunto")
+                               where !s.SesionFinalizada
                                select s;
             return sesionActiva;
+        }
+
+        public Sesion ObtenerUltimaSesion()
+        {
+            var ultimaSesion = from s in iDbContext.Sesiones.Include("Conjunto")
+                               select s;
+            return ultimaSesion.OrderByDescending(x => x.SesionId).First();
         }
     }
 }

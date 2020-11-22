@@ -18,11 +18,12 @@ namespace ShockQuiz.Dominio
         public DateTime FechaFin { get; set; }
         public Usuario Usuario { get; set; }
         public int UsuarioId { get; set; }
-        public Conjunto Conjunto { get; set; } = new ConjuntoOTDB();
+        public Conjunto Conjunto { get; set; }
         public int ConjuntoId { get; set; }
         public ICollection<Pregunta> Preguntas { get; set; }
         public int RespuestasCorrectas { get; set; } = 0;
         public int SegundosTranscurridos { get; set; }
+        public bool SesionFinalizada { get; set; }
 
         public List<string> ObtenerRespuestas()
         {

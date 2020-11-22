@@ -44,7 +44,7 @@ namespace ShockQuiz.DAL.EntityFramework
         /// <param name="pConjunto">Conjunto</param>
         /// <param name="pCantidad">Cantidad de Preguntas</param>
         /// <returns></returns>
-        public string ObtenerPreguntas(Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto, int pCantidad = 10)
+        public IEnumerable<Pregunta> ObtenerPreguntas(int pCategoria, int pDificultad, int pConjunto, int pCantidad = 10)
         {
 
             var list = from t in iDbContext.Preguntas
@@ -52,20 +52,13 @@ namespace ShockQuiz.DAL.EntityFramework
                        .Include(x => x.Categoria)
                        .Include(x => x.Dificultad)
                        .Include(x => x.Conjunto)
-                       where t.Categoria.Nombre == pCategoria.Nombre
-                       && t.Dificultad.Nombre == pDificultad.Nombre
-                       && t.Conjunto.Nombre == pConjunto.Nombre
+                       where t.Categoria.Id == pCategoria
+                       && t.Dificultad.Id == pDificultad
+                       && t.Conjunto.ConjuntoId == pConjunto
                        select t;
             if (list.Count() >= pCantidad)
             {
-                string preguntas = string.Empty;
-                List<Pregunta> listaPreguntas = list.ToList().OrderBy(x => rnd.Next()).Take(pCantidad).ToList();
-                foreach (var item in listaPreguntas)
-                {
-                    preguntas += item.PreguntaId.ToString() + "-";
-                }
-                //preguntas = preguntas.Substring(0, preguntas.Length - 1);
-                return preguntas;
+                return list;
             }
             else
             {
@@ -116,6 +109,14 @@ namespace ShockQuiz.DAL.EntityFramework
                 }
             }
             return listaCategorias;
+        }
+
+        public IEnumerable<Pregunta> ObtenerPreguntasPorSesion(int pIdSesion)
+        {
+            var preguntasFiltradas = (from p in iDbContext.Preguntas.Include(x => x.Respuestas)
+                                      where p.SesionActualId == pIdSesion
+                                      select p);
+            return preguntasFiltradas;
         }
     }
 }

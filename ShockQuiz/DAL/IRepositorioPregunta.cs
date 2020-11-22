@@ -7,9 +7,10 @@ namespace ShockQuiz.DAL
 
     {
         void AgregarPreguntas(IEnumerable<Pregunta> pPreguntas);
-        string ObtenerPreguntas(Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto, int pCantidad);
+        IEnumerable<Pregunta> ObtenerPreguntas(int pCategoria, int pDificultad, int pConjunto, int pCantidad);
         IEnumerable<Pregunta> ObtenerTodas();
         string GetOrCreate(string pNombre, string pConjunto);
         IEnumerable<Categoria> ObtenerCategorias(int pConjunto);
+        IEnumerable<Pregunta> ObtenerPreguntasPorSesion(int pIdSesion);
     }
 }

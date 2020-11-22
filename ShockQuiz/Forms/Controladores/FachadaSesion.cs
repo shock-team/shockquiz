@@ -2,6 +2,7 @@
 using ShockQuiz.Dominio;
 using ShockQuiz.IO;
 using ShockQuiz.Forms;
+using System.Linq;
 
 namespace ShockQuiz
 {
@@ -12,6 +13,7 @@ namespace ShockQuiz
     public class FachadaSesion
     {
         public int idSesionActual { get; set; }
+        public int idPreguntaActual { get; set; }
         public AyudanteTimer ayudanteTimer { get; set; }
 
         /// <summary>
@@ -24,12 +26,11 @@ namespace ShockQuiz
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    Sesion sesionActual = bUoW.RepositorioSesion.Obtener(idSesionActual);
                     PreguntaDTO preguntaYRespuestas = new PreguntaDTO();
-                    int idPregunta = sesionActual.ObtenerPregunta();
-                    Pregunta pregunta = bUoW.RepositorioPregunta.Obtener(idPregunta);
+                    Pregunta pregunta = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(idSesionActual).First();
                     preguntaYRespuestas.Pregunta = pregunta.Nombre;
                     preguntaYRespuestas.Respuestas = pregunta.ObtenerRespuestas();
+                    idPreguntaActual = pregunta.PreguntaId;
                     return preguntaYRespuestas;
                 }
             }            
@@ -48,10 +49,12 @@ namespace ShockQuiz
                 {
                     ResultadoRespuesta resultado;
                     Sesion sesionActual = bUoW.RepositorioSesion.Obtener(idSesionActual);
-                    int idPregunta = sesionActual.ObtenerPregunta();
-                    Pregunta pregunta = bUoW.RepositorioPregunta.Obtener(idPregunta);
+                    Pregunta pregunta = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(sesionActual.SesionId).First();
+                    pregunta.SesionActualId = 0;
                     resultado = pregunta.Responder(pRespuesta);
                     resultado.FinSesion = sesionActual.Responder(resultado.EsCorrecta);
+                    sesionActual.SesionFinalizada = resultado.FinSesion;
+                    bUoW.GuardarCambios();
                     return resultado;
                 }
             }        
@@ -68,8 +71,10 @@ namespace ShockQuiz
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
                     Sesion sesionActual = bUoW.RepositorioSesion.Obtener(idSesionActual);
+                    sesionActual.SesionFinalizada = true;
                     while (sesionActual.CantidadPreguntas > 0)
                     {
+                        idPreguntaActual = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(idSesionActual).First().PreguntaId;
                         Responder("");
                     }
                     bUoW.GuardarCambios();
@@ -116,6 +121,7 @@ namespace ShockQuiz
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
                     Sesion sesionActual = bUoW.RepositorioSesion.Obtener(idSesionActual);
+                    sesionActual.Conjunto = bUoW.RepositorioConjunto.Obtener(sesionActual.ConjuntoId);
                     ayudanteTimer = new AyudanteTimer(System.Convert.ToInt32(sesionActual.TiempoLimite() - sesionActual.SegundosTranscurridos));
                 }
             }

@@ -68,25 +68,36 @@ namespace ShockQuiz.Forms
         public Sesion IniciarSesion(int pUsuario, int pCategoria, int pDificultad, int pCantidad, int pConjunto)
         {
             Sesion sesion = new Sesion();
-            Usuario usuario;
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    usuario = bUoW.RepositorioUsuario.Obtener(pUsuario);
-                    sesion.Usuario = usuario;
-                    sesion.UsuarioId = usuario.UsuarioId;
-                    sesion.Conjunto = bUoW.RepositorioConjunto.Obtener(pConjunto);
-                    sesion.Categoria = bUoW.RepositorioCategoria.Obtener(pCategoria);
-                    sesion.Dificultad = bUoW.RepositorioDificultad.Obtener(pDificultad);
-                }
-            }
             sesion.FechaInicio = DateTime.Now;
             sesion.CategoriaId = pCategoria;
             sesion.DificultadId = pDificultad;
             sesion.ConjuntoId = pConjunto;
             sesion.CantidadPreguntas = pCantidad;
+            sesion.UsuarioId = pUsuario;
             sesion.FechaFin = DateTime.Parse("01-01-2399");
+            sesion.SesionFinalizada = false;
+
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    sesion.Usuario = bUoW.RepositorioUsuario.Obtener(pUsuario);
+                    sesion.Conjunto = bUoW.RepositorioConjunto.Obtener(pConjunto);
+                    sesion.Categoria = bUoW.RepositorioCategoria.Obtener(pCategoria);
+                    sesion.Dificultad = bUoW.RepositorioDificultad.Obtener(pDificultad);
+
+                    bUoW.RepositorioSesion.Agregar(sesion);
+                    bUoW.GuardarCambios();
+
+                    int idSesion = bUoW.RepositorioSesion.ObtenerUltimaSesion().SesionId;
+                    IEnumerable<Pregunta> listaDePreguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(pCategoria, pDificultad, pConjunto, pCantidad);
+                    foreach (Pregunta pregunta in listaDePreguntas)
+                    {
+                        pregunta.SesionActualId = idSesion;
+                    }
+                    bUoW.GuardarCambios();
+                }
+            }
             return sesion;
         }
 

@@ -46,7 +46,6 @@ namespace ShockQuiz.Forms
                     {
                         res = sesionesActivas.First();
                     }
-                    
                 }
             }
             return null;
