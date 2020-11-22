@@ -18,6 +18,7 @@ namespace ShockQuiz.Dominio
         public Dificultad Dificultad { get; set; }
         public int ConjuntoId { get; set; }
         public Conjunto Conjunto { get; set; }
+        public string ConjuntoNombre { get; set; }
         public ICollection<Respuesta> Respuestas { get; set; }
         //public Sesion SesionActual { get; set; }
         public int SesionActualId { get; set; }
