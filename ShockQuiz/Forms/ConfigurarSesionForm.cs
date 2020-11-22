@@ -41,10 +41,10 @@ namespace ShockQuiz.Forms
         {
             try
             {
-                var categoria = cbCategoria.SelectedItem;
-                var dificultad = cbDificultad.SelectedItem;
-                var sesion = fachada.IniciarSesion(idUsuario, ((Categoria)categoria).Id, ((Dificultad)dificultad).Id, Decimal.ToInt32(nudCantidad.Value), ((Conjunto)cbConjunto.SelectedItem).ConjuntoId);
-                SesionForm sesionForm = new SesionForm(sesion.SesionId, categoria.ToString(), dificultad.ToString(), Decimal.ToInt32(nudCantidad.Value));
+                var categoria = (Categoria)cbCategoria.SelectedItem;
+                var dificultad = (Dificultad)cbDificultad.SelectedItem;
+                var sesion = fachada.IniciarSesion(idUsuario, categoria.Id, dificultad.Id, Decimal.ToInt32(nudCantidad.Value), ((Conjunto)cbConjunto.SelectedItem).ConjuntoId);
+                SesionForm sesionForm = new SesionForm(sesion.SesionId, categoria.Nombre, dificultad.Nombre, Decimal.ToInt32(nudCantidad.Value));
                 sesionForm.FormClosed += new FormClosedEventHandler(SesionForm_FormClosed);
                 sesionForm.Show();
                 this.Hide();
