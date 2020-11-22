@@ -38,7 +38,6 @@ namespace ShockQuiz.Dominio
         public bool Responder(bool pEsCorrecta)
         {
             bool finSesion = false;
-            Preguntas.Remove(Preguntas.First());
             CantidadPreguntas--;
             if (pEsCorrecta)
             {
