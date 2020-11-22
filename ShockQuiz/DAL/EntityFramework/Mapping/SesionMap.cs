@@ -45,8 +45,6 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
                 .WithMany(x => x.Sesiones)
                 .HasForeignKey<int>(x => x.ConjuntoId);
 
-            this.HasMany<Pregunta>(x => x.Preguntas);
-
             this.Property(x => x.RespuestasCorrectas);
         }
     }

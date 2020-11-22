@@ -36,7 +36,7 @@ namespace ShockQuiz.DAL.EntityFramework
         public Usuario ObtenerPorNombre(string pNombre)
         {
             var usuarios = (from u in iDbContext.Usuarios
-                            where u.Nombre == pNombre
+                            where u.Nombre.Equals(pNombre)
                             select u);
             return usuarios.First();
         }

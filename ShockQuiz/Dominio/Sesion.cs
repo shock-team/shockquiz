@@ -18,7 +18,7 @@ namespace ShockQuiz.Dominio
         public DateTime FechaFin { get; set; }
         public Usuario Usuario { get; set; }
         public int UsuarioId { get; set; }
-        public Conjunto Conjunto { get; set; }
+        public Conjunto Conjunto { get; set; } = new ConjuntoOTDB();
         public int ConjuntoId { get; set; }
         public ICollection<Pregunta> Preguntas { get; set; }
         public int RespuestasCorrectas { get; set; } = 0;
