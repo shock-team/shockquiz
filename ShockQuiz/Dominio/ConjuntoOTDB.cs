@@ -29,7 +29,7 @@ namespace ShockQuiz.Dominio
                     break;
             }
             double FACTOR_TIEMPO = 1;
-            double tiempoPorPregunta = pSesion.SegundosTranscurridos / pSesion.CantidadPreguntas;
+            double tiempoPorPregunta = pSesion.SegundosTranscurridos / pSesion.CantidadTotalPreguntas;
             if (tiempoPorPregunta < TIEMPO_LIMITE_1)
             {
                 FACTOR_TIEMPO = 5;
@@ -42,7 +42,7 @@ namespace ShockQuiz.Dominio
             {
                 FACTOR_TIEMPO = 3;
             }
-            double puntaje = ((double)pSesion.RespuestasCorrectas / (double)pSesion.CantidadPreguntas) * FACTOR_DIFICULTAD * FACTOR_TIEMPO;
+            double puntaje = ((double)pSesion.RespuestasCorrectas / (double)pSesion.PreguntasRestantes) * FACTOR_DIFICULTAD * FACTOR_TIEMPO;
             return Math.Round(puntaje, 2);
         }
 

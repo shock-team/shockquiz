@@ -72,7 +72,8 @@ namespace ShockQuiz.Forms
             sesion.CategoriaId = pCategoria;
             sesion.DificultadId = pDificultad;
             sesion.ConjuntoId = pConjunto;
-            sesion.CantidadPreguntas = pCantidad;
+            sesion.PreguntasRestantes = pCantidad;
+            sesion.CantidadTotalPreguntas = pCantidad;
             sesion.UsuarioId = pUsuario;
             sesion.FechaFin = DateTime.Parse("01-01-2399");
             sesion.SesionFinalizada = false;

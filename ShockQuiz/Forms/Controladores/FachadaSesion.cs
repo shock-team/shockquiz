@@ -48,11 +48,12 @@ namespace ShockQuiz
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
                     ResultadoRespuesta resultado;
-                    Sesion sesionActual = bUoW.RepositorioSesion.Obtener(idSesionActual);
-                    Pregunta pregunta = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(sesionActual.SesionId).First();
+                    Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionId(idSesionActual);
+                    Pregunta pregunta = bUoW.RepositorioPregunta.Obtener(idPreguntaActual);
                     pregunta.SesionActualId = 0;
                     resultado = pregunta.Responder(pRespuesta);
                     resultado.FinSesion = sesionActual.Responder(resultado.EsCorrecta);
+                    sesionActual.Responder(resultado.EsCorrecta);
                     sesionActual.SesionFinalizada = resultado.FinSesion;
                     bUoW.GuardarCambios();
                     return resultado;
@@ -72,7 +73,7 @@ namespace ShockQuiz
                 {
                     Sesion sesionActual = bUoW.RepositorioSesion.Obtener(idSesionActual);
                     sesionActual.SesionFinalizada = true;
-                    while (sesionActual.CantidadPreguntas > 0)
+                    while (sesionActual.PreguntasRestantes > 0)
                     {
                         idPreguntaActual = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(idSesionActual).First().PreguntaId;
                         Responder("");

@@ -178,9 +178,9 @@
     <Compile Include="IO\ResultadoRespuesta.cs" />
     <Compile Include="Dominio\Pregunta.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="Migrations\202011222112572_init.cs" />
-    <Compile Include="Migrations\202011222112572_init.designer.cs">
-      <DependentUpon>202011222112572_init.cs</DependentUpon>
+    <Compile Include="Migrations\202011222216209_init.cs" />
+    <Compile Include="Migrations\202011222216209_init.designer.cs">
+      <DependentUpon>202011222216209_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202011222242190_sd.cs" />
     <Compile Include="Migrations\202011222242190_sd.designer.cs">
@@ -210,8 +210,8 @@
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011222112572_init.resx">
-      <DependentUpon>202011222112572_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011222216209_init.resx">
+      <DependentUpon>202011222216209_init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011222242190_sd.resx">
       <DependentUpon>202011222242190_sd.cs</DependentUpon>

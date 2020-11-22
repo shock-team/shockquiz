@@ -52,9 +52,20 @@ namespace ShockQuiz.DAL.EntityFramework
 
         public Sesion ObtenerUltimaSesion()
         {
-            var ultimaSesion = from s in iDbContext.Sesiones.Include("Conjunto")
+            var ultimaSesion = from s in iDbContext.Sesiones
+                               .Include("Conjunto")
                                select s;
             return ultimaSesion.OrderByDescending(x => x.SesionId).First();
+        }
+
+        public Sesion ObtenerSesionId(int pIdSesion)
+        {
+            var sesionActiva = from s in iDbContext.Sesiones
+                               .Include("Conjunto")
+                               .Include("Dificultad")
+                               where s.SesionId == pIdSesion
+                               select s;
+            return sesionActiva.First();
         }
     }
 }
