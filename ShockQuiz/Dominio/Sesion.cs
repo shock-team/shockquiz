@@ -8,7 +8,8 @@ namespace ShockQuiz.Dominio
     public class Sesion
     {
         public int SesionId { get; set; }
-        public int CantidadPreguntas { get; set; }
+        public int PreguntasRestantes { get; set; }
+        public int CantidadTotalPreguntas { get; set; }
         public int CategoriaId { get; set; }
         public Categoria Categoria { get; set; }
         public int DificultadId { get; set; }
@@ -38,12 +39,12 @@ namespace ShockQuiz.Dominio
         public bool Responder(bool pEsCorrecta)
         {
             bool finSesion = false;
-            CantidadPreguntas--;
+            PreguntasRestantes--;
             if (pEsCorrecta)
             {
                 RespuestasCorrectas++;
             }
-            if (CantidadPreguntas == 0)
+            if (PreguntasRestantes == 0)
             {
                 finSesion = true;
                 this.FechaFin = DateTime.Now;
@@ -61,7 +62,7 @@ namespace ShockQuiz.Dominio
 
         public double TiempoLimite()
         {
-            return CantidadPreguntas * Conjunto.TiempoEsperadoPorPregunta;
+            return CantidadTotalPreguntas * Conjunto.TiempoEsperadoPorPregunta;
         }
 
         /// <summary>

@@ -52,6 +52,7 @@
                     {
                         id = c.Int(nullable: false, identity: true),
                         cantidadPreguntas = c.Int(nullable: false),
+                        CantidadTotalPreguntas = c.Int(nullable: false),
                         CategoriaId = c.Int(nullable: false),
                         DificultadId = c.Int(nullable: false),
                         puntaje = c.Double(nullable: false),
@@ -61,6 +62,7 @@
                         ConjuntoId = c.Int(nullable: false),
                         RespuestasCorrectas = c.Int(nullable: false),
                         SegundosTranscurridos = c.Int(nullable: false),
+                        SesionFinalizada = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.id)
                 .ForeignKey("dbo.Categorias", t => t.CategoriaId, cascadeDelete: true)

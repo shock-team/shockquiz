@@ -13,7 +13,7 @@ namespace ShockQuiz.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202011222112572_init"; }
+            get { return "202011222216209_init"; }
         }
         
         string IMigrationMetadata.Source

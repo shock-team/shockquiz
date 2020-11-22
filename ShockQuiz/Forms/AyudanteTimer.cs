@@ -18,7 +18,7 @@ namespace ShockQuiz.Forms
         public AyudanteTimer(int pTiempoLimite)
         {
             int INTERVALO_DE_TIEMPO = 1000;
-            TiempoLimite = pTiempoLimite;  
+            TiempoLimite = pTiempoLimite;
             TimerActivo = new System.Timers.Timer(INTERVALO_DE_TIEMPO);
             TimerActivo.Elapsed += OnTimedEvent;
             TimerActivo.Start();
@@ -30,9 +30,17 @@ namespace ShockQuiz.Forms
             if ((TiempoLimite - TiempoTranscurrido) <= 0)
             {
                 TimerActivo.Stop();
-                var formActiva = Application.OpenForms.Cast<SesionForm>().Last();
-                formActiva.FinTiempoLimite();
+                foreach (Form form in Application.OpenForms)
+                {
+                    if (form.GetType() == typeof(SesionForm))
+                    {
+                        ((SesionForm)form).FinTiempoLimite();
+                    }
+                }
+
             }
+
         }
+
     }
 }
