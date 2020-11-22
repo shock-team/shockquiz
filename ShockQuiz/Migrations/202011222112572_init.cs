@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class test : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
@@ -21,10 +21,11 @@
                 c => new
                     {
                         id = c.Int(nullable: false, identity: true),
-                        nombre = c.String(nullable: false),
+                        nombre = c.String(nullable: false, maxLength: 4000),
                         CategoriaId = c.Int(nullable: false),
                         DificultadId = c.Int(nullable: false),
                         ConjuntoId = c.Int(nullable: false),
+                        idSesionActual = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.id)
                 .ForeignKey("dbo.Categorias", t => t.CategoriaId, cascadeDelete: true)
@@ -41,7 +42,7 @@
                         id = c.Int(nullable: false, identity: true),
                         nombre = c.String(nullable: false, maxLength: 100),
                         TiempoEsperadoPorPregunta = c.Double(nullable: false),
-                        tokenAPI = c.String(),
+                        tokenAPI = c.String(maxLength: 4000),
                     })
                 .PrimaryKey(t => t.id);
             
@@ -58,6 +59,8 @@
                         fechaFin = c.DateTime(nullable: false),
                         UsuarioId = c.Int(nullable: false),
                         ConjuntoId = c.Int(nullable: false),
+                        RespuestasCorrectas = c.Int(nullable: false),
+                        SegundosTranscurridos = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.id)
                 .ForeignKey("dbo.Categorias", t => t.CategoriaId, cascadeDelete: true)
@@ -95,7 +98,7 @@
                 c => new
                     {
                         id = c.Int(nullable: false, identity: true),
-                        respuesta = c.String(nullable: false),
+                        respuesta = c.String(nullable: false, maxLength: 4000),
                         EsCorrecta = c.Boolean(nullable: false),
                         PreguntaId = c.Int(nullable: false),
                     })

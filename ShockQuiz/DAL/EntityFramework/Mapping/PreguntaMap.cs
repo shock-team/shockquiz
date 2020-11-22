@@ -37,6 +37,8 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
             this.Property(x => x.SesionActualId)
                 .IsRequired()
                 .HasColumnName("idSesionActual");
+
+            this.Ignore(x => x.ConjuntoNombre);
         }
     }
 }

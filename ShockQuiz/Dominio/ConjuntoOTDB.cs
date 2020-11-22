@@ -1,10 +1,14 @@
 ﻿using ShockQuiz.DAL.OpenTriviaDB;
+using ShockQuiz.Forms;
 using System;
+using System.Collections.Generic;
 
 namespace ShockQuiz.Dominio
 {
     public class ConjuntoOTDB : Conjunto
     {
+        FachadaConfiguracionAdmin fachada = new FachadaConfiguracionAdmin();
+
         public override double CalcularPuntaje(Sesion pSesion)
         {
             int TIEMPO_LIMITE_1 = 5;
@@ -50,13 +54,15 @@ namespace ShockQuiz.Dominio
                 int aux = pCantidad;
                 while (aux > 0)
                 {
-                    JsonMapper.AlmacenarPreguntas(pToken, aux);
+                    List<Pregunta> preguntas = JsonMapper.GetPreguntas(pToken, aux);
+                    fachada.AlmacenarPreguntas(preguntas);
                     aux -= 50;
                 }
             }
             else
             {
-                JsonMapper.AlmacenarPreguntas(pToken, pCantidad);
+                List<Pregunta> preguntas = JsonMapper.GetPreguntas(pToken, pCantidad);
+                fachada.AlmacenarPreguntas(preguntas);
             }
         }
     }
