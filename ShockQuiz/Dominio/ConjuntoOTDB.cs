@@ -42,7 +42,7 @@ namespace ShockQuiz.Dominio
             {
                 FACTOR_TIEMPO = 3;
             }
-            double puntaje = ((double)pSesion.RespuestasCorrectas / (double)pSesion.PreguntasRestantes) * FACTOR_DIFICULTAD * FACTOR_TIEMPO;
+            double puntaje = ((double)pSesion.RespuestasCorrectas / (double)pSesion.CantidadTotalPreguntas) * FACTOR_DIFICULTAD * FACTOR_TIEMPO;
             return Math.Round(puntaje, 2);
         }
 

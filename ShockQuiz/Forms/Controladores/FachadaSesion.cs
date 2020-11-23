@@ -4,6 +4,7 @@ using ShockQuiz.IO;
 using ShockQuiz.Forms;
 using System.Linq;
 using System;
+using System.Collections.Generic;
 
 namespace ShockQuiz
 {
@@ -56,7 +57,7 @@ namespace ShockQuiz
                     resultado = pregunta.Responder(pRespuesta);
                     resultado.FinSesion = sesionActual.Responder(resultado.EsCorrecta);
                     sesionActual.SesionFinalizada = resultado.FinSesion;
-                    sesionActual.SegundosTranscurridos += ayudanteTimer.TiempoTranscurrido;
+                    sesionActual.SegundosTranscurridos += Convert.ToInt32(Math.Round(ayudanteTimer.TiempoTranscurrido));
                     bUoW.GuardarCambios();
                     return resultado;
                 }
@@ -75,9 +76,10 @@ namespace ShockQuiz
                 {
                     Sesion sesionActual = bUoW.RepositorioSesion.Obtener(idSesionActual);
                     sesionActual.SesionFinalizada = true;
-                    while (sesionActual.PreguntasRestantes > 0)
+                    IEnumerable<Pregunta> preguntasRestantes = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(idSesionActual);
+                    foreach (Pregunta pregunta in preguntasRestantes)
                     {
-                        idPreguntaActual = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(idSesionActual).First().PreguntaId;
+                        idPreguntaActual = pregunta.PreguntaId;
                         Responder("");
                     }
                     bUoW.GuardarCambios();
@@ -100,7 +102,7 @@ namespace ShockQuiz
                 }
             }
         }
-
+        /*
         /// <summary>
         /// Actualiza la sesión actual en la base datos
         /// </summary>
@@ -116,7 +118,7 @@ namespace ShockQuiz
                 }
             }
         }
-
+        */
         public void IniciarTimer()
         {
             using (var bDbContext = new ShockQuizDbContext())

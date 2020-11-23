@@ -12,12 +12,12 @@ namespace ShockQuiz.Forms
     public class AyudanteTimer
     {
         public static int TiempoLimite { get; set; }
-        public int TiempoTranscurrido { get; set; }
+        public double TiempoTranscurrido { get; set; }
         public System.Timers.Timer TimerActivo { get; set; }
 
         public AyudanteTimer(int pTiempoLimite)
         {
-            int INTERVALO_DE_TIEMPO = 1000;
+            int INTERVALO_DE_TIEMPO = 100;
             TiempoLimite = pTiempoLimite;
             TimerActivo = new System.Timers.Timer(INTERVALO_DE_TIEMPO);
             TimerActivo.Elapsed += OnTimedEvent;
@@ -26,7 +26,7 @@ namespace ShockQuiz.Forms
 
         public void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            TiempoTranscurrido++;
+            TiempoTranscurrido += 0.1;
             if ((TiempoLimite - TiempoTranscurrido) <= 0)
             {
                 TimerActivo.Stop();
