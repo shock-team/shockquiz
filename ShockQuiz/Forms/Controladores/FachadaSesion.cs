@@ -102,23 +102,7 @@ namespace ShockQuiz
                 }
             }
         }
-        /*
-        /// <summary>
-        /// Actualiza la sesión actual en la base datos
-        /// </summary>
-        public void ActualizarSesion()
-        {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    Sesion sesionActual = bUoW.RepositorioSesion.Obtener(idSesionActual);
-                    sesionActual.SegundosTranscurridos += ayudanteTimer.TiempoTranscurrido;
-                    bUoW.GuardarCambios();
-                }
-            }
-        }
-        */
+        
         public void IniciarTimer()
         {
             using (var bDbContext = new ShockQuizDbContext())

@@ -96,7 +96,7 @@ namespace ShockQuiz.Forms
 
         private void btnDispose_Click(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show("¿Estas seguro de borar toda la información?", "Confirmar limpieza de DB", MessageBoxButtons.YesNo);
+            DialogResult dr = MessageBox.Show("¿Estas seguro de borrar toda la información?", "Confirmar limpieza de DB", MessageBoxButtons.YesNo);
             if (dr == DialogResult.Yes)
             {
                 try
