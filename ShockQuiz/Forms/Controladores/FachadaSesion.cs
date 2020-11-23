@@ -3,6 +3,7 @@ using ShockQuiz.Dominio;
 using ShockQuiz.IO;
 using ShockQuiz.Forms;
 using System.Linq;
+using System;
 
 namespace ShockQuiz
 {
@@ -26,8 +27,9 @@ namespace ShockQuiz
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
+                    Random random = new Random();
                     PreguntaDTO preguntaYRespuestas = new PreguntaDTO();
-                    Pregunta pregunta = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(idSesionActual).First();
+                    Pregunta pregunta = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(idSesionActual).OrderBy(x => random.Next()).First();
                     preguntaYRespuestas.Pregunta = pregunta.Nombre;
                     preguntaYRespuestas.Respuestas = pregunta.ObtenerRespuestas();
                     idPreguntaActual = pregunta.PreguntaId;
@@ -49,12 +51,12 @@ namespace ShockQuiz
                 {
                     ResultadoRespuesta resultado;
                     Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionId(idSesionActual);
-                    Pregunta pregunta = bUoW.RepositorioPregunta.Obtener(idPreguntaActual);
+                    Pregunta pregunta = bUoW.RepositorioPregunta.ObtenerPreguntaPorId(idPreguntaActual);
                     pregunta.SesionActualId = 0;
                     resultado = pregunta.Responder(pRespuesta);
                     resultado.FinSesion = sesionActual.Responder(resultado.EsCorrecta);
-                    sesionActual.Responder(resultado.EsCorrecta);
                     sesionActual.SesionFinalizada = resultado.FinSesion;
+                    sesionActual.SegundosTranscurridos += ayudanteTimer.TiempoTranscurrido;
                     bUoW.GuardarCambios();
                     return resultado;
                 }
@@ -100,9 +102,9 @@ namespace ShockQuiz
         }
 
         /// <summary>
-        /// Guarda la sesión actual en la base datos
+        /// Actualiza la sesión actual en la base datos
         /// </summary>
-        public void GuardarSesion()
+        public void ActualizarSesion()
         {
             using (var bDbContext = new ShockQuizDbContext())
             {

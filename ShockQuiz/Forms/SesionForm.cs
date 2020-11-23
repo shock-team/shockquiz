@@ -51,14 +51,12 @@ namespace ShockQuiz
             if (pResultado.TiempoLimiteFinalizado)
             {
                 btnSiguiente.Enabled = false;
-                fachada.GuardarSesion();
                 MessageBox.Show("¡Tiempo agotado! Puntaje: " + fachada.ObtenerPuntaje(), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.Close();
             }
             else if (pResultado.FinSesion)
             {
                 btnSiguiente.Enabled = false;
-                fachada.GuardarSesion();
                 MessageBox.Show("Puntaje: " + fachada.ObtenerPuntaje(), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); ;
                 this.Close();
             }

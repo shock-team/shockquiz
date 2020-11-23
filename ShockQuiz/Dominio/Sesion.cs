@@ -44,7 +44,7 @@ namespace ShockQuiz.Dominio
             {
                 RespuestasCorrectas++;
             }
-            if (PreguntasRestantes == 0)
+            if (PreguntasRestantes <= 0)
             {
                 finSesion = true;
                 this.FechaFin = DateTime.Now;

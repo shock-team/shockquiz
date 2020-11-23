@@ -77,6 +77,7 @@ namespace ShockQuiz.Forms
             sesion.UsuarioId = pUsuario;
             sesion.FechaFin = DateTime.Parse("01-01-2399");
             sesion.SesionFinalizada = false;
+            sesion.SegundosTranscurridos = 0;
 
             using (var bDbContext = new ShockQuizDbContext())
             {

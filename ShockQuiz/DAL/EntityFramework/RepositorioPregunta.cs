@@ -119,5 +119,14 @@ namespace ShockQuiz.DAL.EntityFramework
                                       select p);
             return preguntasFiltradas;
         }
+
+        public Pregunta ObtenerPreguntaPorId(int pIdPregunta)
+        {
+            var pregunta = (from p in iDbContext.Preguntas.Include(x => x.Respuestas)
+                            where p.PreguntaId == pIdPregunta
+                            select p
+                            );
+            return pregunta.First();
+        }
     }
 }
