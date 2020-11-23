@@ -3,6 +3,7 @@ using ShockQuiz.Dominio;
 using System.Collections.Generic;
 using System.Linq;
 using ShockQuiz.Excepciones;
+using System;
 
 namespace ShockQuiz.Forms
 {
@@ -36,7 +37,7 @@ namespace ShockQuiz.Forms
 
         public Sesion ObtenerSesionNoFinalizada()
         {
-            Sesion res;
+            Sesion res = null;
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
@@ -48,7 +49,7 @@ namespace ShockQuiz.Forms
                     }
                 }
             }
-            return null;
+            return res;
         }
 
 
@@ -103,6 +104,28 @@ namespace ShockQuiz.Forms
                     {
                         return false;
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Este método se encarga de cancelar una sesión que se encuentre activa
+        /// </summary>
+        public void CancelarSesionActiva()
+        {
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    Sesion sesionActiva = bUoW.RepositorioSesion.ObtenerSesionActiva().First();
+                    sesionActiva.SesionFinalizada = true;
+                    sesionActiva.FechaFin = DateTime.Now;
+                    foreach (Pregunta pregunta in bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(sesionActiva.SesionId))
+                    {
+                        pregunta.Responder("");
+                        sesionActiva.Responder(false);
+                    }
+                    bUoW.GuardarCambios();
                 }
             }
         }

@@ -44,7 +44,10 @@ namespace ShockQuiz.DAL.EntityFramework
         /// <returns></returns>
         public IEnumerable<Sesion> ObtenerSesionActiva()
         {
-            var sesionActiva = from s in iDbContext.Sesiones.Include("Conjunto")
+            var sesionActiva = from s in iDbContext.Sesiones
+                               .Include("Conjunto")
+                               .Include("Categoria")
+                               .Include("Dificultad")
                                where !s.SesionFinalizada
                                select s;
             return sesionActiva;

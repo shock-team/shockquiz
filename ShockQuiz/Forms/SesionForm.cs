@@ -111,18 +111,23 @@ namespace ShockQuiz
             fachada.IniciarTimer();
             PreguntaDTO actual = fachada.ObtenerPreguntaYRespuestas();
             lblPregunta.Text = actual.Pregunta;
+
             btnRespuesta1.Text = actual.Respuestas[0];
             btnRespuesta1.Enabled = true;
             btnRespuesta1.BackColor = System.Drawing.SystemColors.Control;
+
             btnRespuesta2.Text = actual.Respuestas[1];
             btnRespuesta2.Enabled = true;
             btnRespuesta2.BackColor = System.Drawing.SystemColors.Control;
+
             btnRespuesta3.Text = actual.Respuestas[2];
             btnRespuesta3.Enabled = true;
             btnRespuesta3.BackColor = System.Drawing.SystemColors.Control;
+
             btnRespuesta4.Text = actual.Respuestas[3];
             btnRespuesta4.Enabled = true;
             btnRespuesta4.BackColor = System.Drawing.SystemColors.Control;
+
             lblRespuestasActuales.Text = (int.Parse(lblRespuestasActuales.Text) + 1).ToString();
             btnSiguiente.Enabled = false;
         }
