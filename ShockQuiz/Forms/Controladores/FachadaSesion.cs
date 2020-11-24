@@ -57,7 +57,7 @@ namespace ShockQuiz
                     resultado = pregunta.Responder(pRespuesta);
                     resultado.FinSesion = sesionActual.Responder(resultado.EsCorrecta);
                     sesionActual.SesionFinalizada = resultado.FinSesion;
-                    sesionActual.SegundosTranscurridos += Convert.ToInt32(Math.Round(ayudanteTimer.TiempoTranscurrido));
+                    sesionActual.SegundosTranscurridos = Convert.ToInt32(Math.Round(ayudanteTimer.TiempoTranscurrido));
                     bUoW.GuardarCambios();
                     return resultado;
                 }
