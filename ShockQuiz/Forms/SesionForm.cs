@@ -29,8 +29,6 @@ namespace ShockQuiz
             fachada.IniciarTimer(FinTiempoLimite,ActualizarTimer);
         }
 
-
-
         private void ColorBotonCorrecto(string pRespuesta)
         {
             if (btnRespuesta1.Text == pRespuesta)
@@ -156,12 +154,15 @@ namespace ShockQuiz
             this.Close();
         }
 
+        private void SesionForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            fachada.DetenerTimer();
+        }
+
         private void ActualizarTimer(int pTiempoRestante)
         {
             lblTimer.Text = pTiempoRestante.ToString()+ " s";
         }
-
-
 
         PrivateFontCollection fonts = new PrivateFontCollection();
 

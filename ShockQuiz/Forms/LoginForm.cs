@@ -32,6 +32,7 @@ namespace ShockQuiz.Forms
                     DialogResult dialogResult = MessageBox.Show("Existe una sesión sin finalizar, ¿desea continuarla?", "Sesión activa", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
+                        menuForm.Show();
                         SesionForm sesionForm = new SesionForm(sesionActiva.SesionId, sesionActiva.Categoria.Nombre, sesionActiva.Dificultad.Nombre, sesionActiva.PreguntasRestantes);
                         //sesionForm.FormClosed += new FormClosedEventHandler(LoginForm_FormClosed);
                         sesionForm.Show();
@@ -44,8 +45,7 @@ namespace ShockQuiz.Forms
                         this.Hide();
                     }
                 }
-                
-                menuForm.Show();
+
                 this.Hide();
             }
             catch (InvalidOperationException)

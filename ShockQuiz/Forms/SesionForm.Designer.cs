@@ -235,6 +235,7 @@
             this.Name = "SesionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Partida";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SesionForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
