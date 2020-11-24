@@ -32,6 +32,12 @@ namespace ShockQuiz.Forms
             bgWorker.RunWorkerAsync();
         }
 
+        /// <summary>
+        /// Este método se utiliza para notificar que debe actualizarse la cantidad de segundos 
+        /// transcurridos a medida que avanza el tiempo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             for (int i = TiempoLimite; i > 0; i--)
@@ -47,12 +53,22 @@ namespace ShockQuiz.Forms
             }
         }
 
+        /// <summary>
+        /// Este método se utiliza para actualizar la cantidad de segundos transcurridos de la sesión
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             TiempoTranscurrido += 1;
             OnTickTimer?.Invoke(e.ProgressPercentage);
         }
 
+        /// <summary>
+        /// Este método se activa cuando finaliza el trabajo del background worker
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (!e.Cancelled)

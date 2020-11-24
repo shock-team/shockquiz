@@ -35,6 +35,11 @@ namespace ShockQuiz.Forms
             }
         }
 
+        /// <summary>
+        /// Este método se utiliza para obtener una sesión aún activa presente
+        /// en la base de datos.
+        /// </summary>
+        /// <returns></returns>
         public Sesion ObtenerSesionNoFinalizada()
         {
             Sesion res = null;
@@ -118,13 +123,13 @@ namespace ShockQuiz.Forms
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
                     Sesion sesionActiva = bUoW.RepositorioSesion.ObtenerSesionActiva().First();
-                    sesionActiva.SesionFinalizada = true;
                     sesionActiva.FechaFin = DateTime.Now;
                     foreach (Pregunta pregunta in bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(sesionActiva.SesionId))
                     {
                         pregunta.Responder("");
                         sesionActiva.Responder(false);
                     }
+                    sesionActiva.SesionFinalizada = true;
                     bUoW.GuardarCambios();
                 }
             }

@@ -47,8 +47,6 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
 
             this.Property(x => x.RespuestasCorrectas);
             this.Property(x => x.CantidadTotalPreguntas);
-
-            this.Ignore(x => x.Preguntas);
         }
     }
 }

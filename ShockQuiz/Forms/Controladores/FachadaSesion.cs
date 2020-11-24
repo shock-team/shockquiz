@@ -56,7 +56,6 @@ namespace ShockQuiz
                     pregunta.SesionActualId = 0;
                     resultado = pregunta.Responder(pRespuesta);
                     resultado.FinSesion = sesionActual.Responder(resultado.EsCorrecta);
-                    sesionActual.SesionFinalizada = resultado.FinSesion;
                     sesionActual.SegundosTranscurridos = ayudanteTimer.TiempoTranscurrido;
                     bUoW.GuardarCambios();
                     return resultado;
@@ -103,6 +102,12 @@ namespace ShockQuiz
             }
         }
         
+        /// <summary>
+        /// Este método se utiliza para iniciar el timer que verifica el tiempo límite de 
+        /// la sesión.
+        /// </summary>
+        /// <param name="pOnTimeFinishedHandler">La acción a realizar cuando se agota el tiempo límite</param>
+        /// <param name="pOnTickTimer">La acción a realizar por cada tick</param>
         public void IniciarTimer(Action pOnTimeFinishedHandler, Action<int> pOnTickTimer)
         {
             using (var bDbContext = new ShockQuizDbContext())
@@ -117,6 +122,9 @@ namespace ShockQuiz
             }
         }
 
+        /// <summary>
+        /// Este método se utiliza para detener el timer activo
+        /// </summary>
         public void DetenerTimer()
         {
             ayudanteTimer.bgWorker.CancelAsync();

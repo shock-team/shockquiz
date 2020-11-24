@@ -20,13 +20,16 @@ namespace ShockQuiz.Dominio
         public Conjunto Conjunto { get; set; }
         public string ConjuntoNombre { get; set; }
         public ICollection<Respuesta> Respuestas { get; set; }
-        //public Sesion SesionActual { get; set; }
         public int SesionActualId { get; set; }
 
+        /// <summary>
+        /// Este método se utiliza para comprobar si una respuesta dada a
+        /// la pregunta es correcta.
+        /// </summary>
+        /// <param name="pRespuesta">La respuesta seleccionada</param>
+        /// <returns></returns>
         public ResultadoRespuesta Responder(string pRespuesta)
         {
-            //Este método se encarga de comprobar si la respuesta ingresada es correcta, devolviendo
-            //true si es así y false en caso contrario.
             ResultadoRespuesta resultado = new ResultadoRespuesta();
             foreach (var item in Respuestas.ToList())
             {
@@ -47,10 +50,12 @@ namespace ShockQuiz.Dominio
             return resultado;
         }
 
+        /// <summary>
+        /// Este método se utiliza para obtener las posibles respuestas a la pregunta.
+        /// </summary>
+        /// <returns></returns>
         public List<string> ObtenerRespuestas()
         {
-            //Este método se encarga de devolver las respuestas asociadas a la pregunta,
-            //ordenadas aleatoriamente.
             Random random = new Random();
             string temp;
             List<string> lista = new List<string>();

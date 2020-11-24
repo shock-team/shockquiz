@@ -72,6 +72,10 @@ namespace ShockQuiz.Forms
             }
         }
 
+        /// <summary>
+        /// Este método se utiliza para eliminar los datos almacenados actualmente
+        /// en la base de datos.
+        /// </summary>
         public void LimpiarDB()
         {
             using (var bDbContext = new ShockQuizDbContext())

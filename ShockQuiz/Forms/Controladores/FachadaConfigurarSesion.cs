@@ -60,10 +60,10 @@ namespace ShockQuiz.Forms
         /// obteniendo sus instancias de la base de datos.
         /// </summary>
         /// <param name="pUsuario">Id del usuario de la sesión</param>
-        /// <param name="pCategoria">La categoría de las preguntas</param>
-        /// <param name="pDificultad">La dificultad</param>
+        /// <param name="pCategoria">Id de la categoría de las preguntas</param>
+        /// <param name="pDificultad">Id de la dificultad</param>
         /// <param name="pCantidad">Cantidad de preguntas de la sesión</param>
-        /// <param name="pConjunto">Conjunto del que se obtienen las preguntas de la sesión</param>
+        /// <param name="pConjunto">Id del conjunto del que se obtienen las preguntas de la sesión</param>
         /// <returns></returns>
         public Sesion IniciarSesion(int pUsuario, int pCategoria, int pDificultad, int pCantidad, int pConjunto)
         {
@@ -101,22 +101,6 @@ namespace ShockQuiz.Forms
                 }
             }
             return sesion;
-        }
-
-        public void GuardarSesion(Sesion pSesion)
-        {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    pSesion.Categoria = null;
-                    pSesion.Conjunto = null;
-                    pSesion.Dificultad = null;
-                    pSesion.Usuario = null;
-                    bUoW.RepositorioSesion.Agregar(pSesion);
-                    bUoW.GuardarCambios();
-                }
-            }
         }
     }
 }

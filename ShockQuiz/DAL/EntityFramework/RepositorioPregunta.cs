@@ -112,6 +112,12 @@ namespace ShockQuiz.DAL.EntityFramework
             return listaCategorias;
         }
 
+        /// <summary>
+        /// Este método se utiliza para obtener todas las instancias de la clase Pregunta
+        /// las cuales poseen una sesión activa, a partir de su ID.
+        /// </summary>
+        /// <param name="pIdSesion">El ID de la sesión activa</param>
+        /// <returns></returns>
         public IEnumerable<Pregunta> ObtenerPreguntasPorSesion(int pIdSesion)
         {
             var preguntasFiltradas = (from p in iDbContext.Preguntas.Include(x => x.Respuestas)
@@ -120,6 +126,12 @@ namespace ShockQuiz.DAL.EntityFramework
             return preguntasFiltradas;
         }
 
+        /// <summary>
+        /// Este método se utiliza para obtener una pregunta y sus respuestas
+        /// a partir de si ID.
+        /// </summary>
+        /// <param name="pIdPregunta">El ID de la pregunta a traer</param>
+        /// <returns></returns>
         public Pregunta ObtenerPreguntaPorId(int pIdPregunta)
         {
             var pregunta = (from p in iDbContext.Preguntas.Include(x => x.Respuestas)

@@ -178,9 +178,9 @@
     <Compile Include="IO\ResultadoRespuesta.cs" />
     <Compile Include="Dominio\Pregunta.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="Migrations\202011241838176_init.cs" />
-    <Compile Include="Migrations\202011241838176_init.designer.cs">
-      <DependentUpon>202011241838176_init.cs</DependentUpon>
+    <Compile Include="Migrations\202011241913037_init.cs" />
+    <Compile Include="Migrations\202011241913037_init.designer.cs">
+      <DependentUpon>202011241913037_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -206,8 +206,8 @@
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011241838176_init.resx">
-      <DependentUpon>202011241838176_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011241913037_init.resx">
+      <DependentUpon>202011241913037_init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
