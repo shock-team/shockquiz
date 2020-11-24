@@ -12,9 +12,6 @@ namespace ShockQuiz
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
             try
             {
                 Application.EnableVisualStyles();
@@ -24,8 +21,7 @@ namespace ShockQuiz
             catch (Exception ex)
             {
                 Logger.LogError(ex);
-                throw;
-               
+                MessageBox.Show("Ha ocurrido una excepción, dirijase a ErrorLog.txt para más información", "Error");
             }
         }
     }
