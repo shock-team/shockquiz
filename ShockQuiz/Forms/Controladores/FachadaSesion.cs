@@ -103,7 +103,7 @@ namespace ShockQuiz
             }
         }
         
-        public void IniciarTimer()
+        public void IniciarTimer(Action pOnTimeFinishedHandler, Action<int> pOnTickTimer)
         {
             using (var bDbContext = new ShockQuizDbContext())
             {
@@ -111,9 +111,15 @@ namespace ShockQuiz
                 {
                     Sesion sesionActual = bUoW.RepositorioSesion.Obtener(idSesionActual);
                     sesionActual.Conjunto = bUoW.RepositorioConjunto.Obtener(sesionActual.ConjuntoId);
-                    ayudanteTimer = new AyudanteTimer(System.Convert.ToInt32(sesionActual.TiempoLimite() - sesionActual.SegundosTranscurridos));
+                    int tiempoRestante = Convert.ToInt32(sesionActual.TiempoLimite() - sesionActual.SegundosTranscurridos);
+                    ayudanteTimer = new AyudanteTimer(tiempoRestante, pOnTimeFinishedHandler, pOnTickTimer);
                 }
             }
+        }
+
+        public void DetenerTimer()
+        {
+            ayudanteTimer.bgWorker.CancelAsync();
         }
     }
 }

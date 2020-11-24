@@ -13,12 +13,15 @@ namespace ShockQuiz.Forms
     {
         public static int TiempoLimite { get; set; }
         public double TiempoTranscurrido { get; set; }
-        public System.Timers.Timer TimerActivo { get; set; }
-
         public BackgroundWorker bgWorker = new BackgroundWorker();
+        private Action OnTimerFinished;
+        public Action<int> OnTickTimer;
 
-        public AyudanteTimer(int pTiempoLimite)
+        public AyudanteTimer(int pTiempoLimite, Action pOnTimeFinishedHandler, Action<int> pOnTickTimer)
         {
+            this.OnTimerFinished = pOnTimeFinishedHandler;
+            this.OnTickTimer = pOnTickTimer;
+
             this.bgWorker.WorkerReportsProgress = true;
             this.bgWorker.WorkerSupportsCancellation = true;
             this.bgWorker.DoWork += new DoWorkEventHandler(this.bgWorker_DoWork);
@@ -29,7 +32,7 @@ namespace ShockQuiz.Forms
             bgWorker.RunWorkerAsync();
         }
 
-        private void bgWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             for (int i = TiempoLimite; i > 0; i--)
             {
@@ -44,31 +47,18 @@ namespace ShockQuiz.Forms
             }
         }
 
-        private void bgWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        private void bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             TiempoTranscurrido += 1;
+            OnTickTimer?.Invoke(e.ProgressPercentage);
         }
 
-        private void bgWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        private void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (!e.Cancelled)
             {
-                List<Form> formList = new List<Form>();
-                foreach (Form item in Application.OpenForms)
-                {
-                    formList.Add(item);
-                }
-
-                foreach (Form form in formList)
-                {
-                    if (form.GetType() == typeof(SesionForm))
-                    {
-                        bgWorker.CancelAsync();
-
-                        ((SesionForm)form).FinTiempoLimite();
-                        break;
-                    }
-                }
+                bgWorker.CancelAsync();
+                OnTimerFinished?.Invoke();
             }
         }
     }
