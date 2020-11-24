@@ -23,7 +23,7 @@ namespace ShockQuiz.Dominio
         public int ConjuntoId { get; set; }
         public ICollection<Pregunta> Preguntas { get; set; }
         public int RespuestasCorrectas { get; set; } = 0;
-        public int SegundosTranscurridos { get; set; }
+        public double SegundosTranscurridos { get; set; }
         public bool SesionFinalizada { get; set; }
 
         public List<string> ObtenerRespuestas()

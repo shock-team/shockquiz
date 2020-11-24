@@ -45,9 +45,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.lblCategoria = new System.Windows.Forms.Label();
             this.lblDificultad = new System.Windows.Forms.Label();
-            this.btnSiguiente = new System.Windows.Forms.Button();
             this.lblTimer = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblPregunta
@@ -62,7 +62,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(550, 33);
+            this.label2.Location = new System.Drawing.Point(539, 33);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(50, 13);
             this.label2.TabIndex = 5;
@@ -118,7 +118,7 @@
             // lblRespuestasActuales
             // 
             this.lblRespuestasActuales.AutoSize = true;
-            this.lblRespuestasActuales.Location = new System.Drawing.Point(627, 33);
+            this.lblRespuestasActuales.Location = new System.Drawing.Point(618, 33);
             this.lblRespuestasActuales.Name = "lblRespuestasActuales";
             this.lblRespuestasActuales.Size = new System.Drawing.Size(14, 13);
             this.lblRespuestasActuales.TabIndex = 10;
@@ -187,6 +187,15 @@
             this.lblDificultad.TabIndex = 18;
             this.lblDificultad.Text = "‼";
             // 
+            // lblTimer
+            // 
+            this.lblTimer.AutoSize = true;
+            this.lblTimer.Location = new System.Drawing.Point(653, 9);
+            this.lblTimer.Name = "lblTimer";
+            this.lblTimer.Size = new System.Drawing.Size(21, 13);
+            this.lblTimer.TabIndex = 20;
+            this.lblTimer.Text = "0 s";
+            // 
             // btnSiguiente
             // 
             this.btnSiguiente.BackgroundImage = global::ShockQuiz.Properties.Resources.next;
@@ -198,15 +207,6 @@
             this.btnSiguiente.TabIndex = 4;
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.BtnSiguiente_Click);
-            // 
-            // lblTimer
-            // 
-            this.lblTimer.AutoSize = true;
-            this.lblTimer.Location = new System.Drawing.Point(653, 9);
-            this.lblTimer.Name = "lblTimer";
-            this.lblTimer.Size = new System.Drawing.Size(21, 13);
-            this.lblTimer.TabIndex = 20;
-            this.lblTimer.Text = "0 s";
             // 
             // SesionForm
             // 

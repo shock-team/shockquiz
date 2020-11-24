@@ -45,6 +45,11 @@ namespace ShockQuiz.Forms
                         this.Hide();
                     }
                 }
+                else
+                {
+                    menuForm.Show();
+                }
+
 
                 this.Hide();
             }
