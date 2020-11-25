@@ -1,4 +1,4 @@
-# Shock!Quiz by Shock!Team
+# Shock!Quiz
 
 ## Componentes NuGet:
  - System.Web
