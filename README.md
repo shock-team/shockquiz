@@ -18,8 +18,8 @@
 `PM> update-database`
 
 ## ¿Cómo jugar si la base de datos está vacia?
-1. Al iniciar Shock!Quiz, ingrese nombre de usuario y contraseña y presione en "Registro", esto creará el primer usuario con permisos de Administrador.
-2. Una vez que esté logeado, vaya a "Configuración".
-3. En el apartado de "Añadir Conjunto", en el campo Nombre ingrese "OpenTDB", en tiempo esperado por pregunta lo que desee y marque "Pedir Token". Por último, presione Añadir.
-4. Una vez creado el conjunto de preguntas, en el apartado "Añadir Preguntas" seleccione OpenTDB e ingrese la cantidad de preguntas que desea agregar a la base de datos (1000 recomendado).
+1. Al iniciar Shock!Quiz, ingrese nombre de usuario y contraseña y presione en **Registro**, esto creará el primer usuario con permisos de Administrador.
+2. Una vez que esté logeado, vaya a **Configuración**.
+3. En el apartado de _Añadir Conjunto_, en el campo Nombre ingrese **OpenTDB**, en tiempo esperado por pregunta lo que desee y marque "Pedir Token". Por último, presione **Añadir**.
+4. Una vez creado el conjunto de preguntas, en el apartado _Añadir Preguntas_ seleccione OpenTDB e ingrese la cantidad de preguntas que desea agregar a la base de datos (1000 recomendado).
 5. Cuando se hayan terminado de descargar las preguntas (puede tardar un momento) ya está listo para poder jugar.
