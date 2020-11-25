@@ -20,6 +20,8 @@
             base.Dispose(disposing);
         }
 
+
+
         #region Código generado por el Diseñador de Windows Forms
 
         /// <summary>
@@ -43,10 +45,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.lblCategoria = new System.Windows.Forms.Label();
             this.lblDificultad = new System.Windows.Forms.Label();
-            this.btnSiguiente = new System.Windows.Forms.Button();
             this.lblTimer = new System.Windows.Forms.Label();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblPregunta
@@ -61,7 +62,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(594, 9);
+            this.label2.Location = new System.Drawing.Point(539, 33);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(50, 13);
             this.label2.TabIndex = 5;
@@ -117,7 +118,7 @@
             // lblRespuestasActuales
             // 
             this.lblRespuestasActuales.AutoSize = true;
-            this.lblRespuestasActuales.Location = new System.Drawing.Point(651, 9);
+            this.lblRespuestasActuales.Location = new System.Drawing.Point(618, 33);
             this.lblRespuestasActuales.Name = "lblRespuestasActuales";
             this.lblRespuestasActuales.Size = new System.Drawing.Size(14, 13);
             this.lblRespuestasActuales.TabIndex = 10;
@@ -126,16 +127,16 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(602, 33);
+            this.label4.Location = new System.Drawing.Point(514, 9);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 13);
+            this.label4.Size = new System.Drawing.Size(86, 13);
             this.label4.TabIndex = 11;
-            this.label4.Text = "Tiempo";
+            this.label4.Text = "Tiempo restante:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(672, 9);
+            this.label6.Location = new System.Drawing.Point(644, 33);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(12, 13);
             this.label6.TabIndex = 13;
@@ -144,7 +145,7 @@
             // lblRespuestasTotales
             // 
             this.lblRespuestasTotales.AutoSize = true;
-            this.lblRespuestasTotales.Location = new System.Drawing.Point(689, 9);
+            this.lblRespuestasTotales.Location = new System.Drawing.Point(660, 33);
             this.lblRespuestasTotales.Name = "lblRespuestasTotales";
             this.lblRespuestasTotales.Size = new System.Drawing.Size(14, 13);
             this.lblRespuestasTotales.TabIndex = 14;
@@ -155,23 +156,23 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(9, 9);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(54, 13);
+            this.label8.Size = new System.Drawing.Size(57, 13);
             this.label8.TabIndex = 15;
-            this.label8.Text = "Categoría";
+            this.label8.Text = "Categoría:";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 33);
+            this.label9.Location = new System.Drawing.Point(9, 33);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(51, 13);
+            this.label9.Size = new System.Drawing.Size(54, 13);
             this.label9.TabIndex = 16;
-            this.label9.Text = "Dificultad";
+            this.label9.Text = "Dificultad:";
             // 
             // lblCategoria
             // 
             this.lblCategoria.AutoSize = true;
-            this.lblCategoria.Location = new System.Drawing.Point(69, 9);
+            this.lblCategoria.Location = new System.Drawing.Point(101, 9);
             this.lblCategoria.Name = "lblCategoria";
             this.lblCategoria.Size = new System.Drawing.Size(16, 13);
             this.lblCategoria.TabIndex = 17;
@@ -180,11 +181,20 @@
             // lblDificultad
             // 
             this.lblDificultad.AutoSize = true;
-            this.lblDificultad.Location = new System.Drawing.Point(69, 33);
+            this.lblDificultad.Location = new System.Drawing.Point(101, 33);
             this.lblDificultad.Name = "lblDificultad";
             this.lblDificultad.Size = new System.Drawing.Size(13, 13);
             this.lblDificultad.TabIndex = 18;
             this.lblDificultad.Text = "‼";
+            // 
+            // lblTimer
+            // 
+            this.lblTimer.AutoSize = true;
+            this.lblTimer.Location = new System.Drawing.Point(653, 9);
+            this.lblTimer.Name = "lblTimer";
+            this.lblTimer.Size = new System.Drawing.Size(21, 13);
+            this.lblTimer.TabIndex = 20;
+            this.lblTimer.Text = "0 s";
             // 
             // btnSiguiente
             // 
@@ -197,32 +207,6 @@
             this.btnSiguiente.TabIndex = 4;
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.BtnSiguiente_Click);
-            // 
-            // lblTimer
-            // 
-            this.lblTimer.AutoSize = true;
-            this.lblTimer.Location = new System.Drawing.Point(651, 33);
-            this.lblTimer.Name = "lblTimer";
-            this.lblTimer.Size = new System.Drawing.Size(21, 13);
-            this.lblTimer.TabIndex = 20;
-            this.lblTimer.Text = "0 s";
-            // 
-            // progressBar
-            // 
-            this.progressBar.Location = new System.Drawing.Point(605, 49);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(98, 10);
-            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar.TabIndex = 21;
-            this.progressBar.Value = 100;
-            // 
-            // backgroundWorker
-            // 
-            this.backgroundWorker.WorkerReportsProgress = true;
-            this.backgroundWorker.WorkerSupportsCancellation = true;
-            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
-            this.backgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker_ProgressChanged);
-            this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
             // 
             // SesionForm
             // 
@@ -252,7 +236,7 @@
             this.Name = "SesionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Partida";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SesionForm_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SesionForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -276,8 +260,7 @@
         private System.Windows.Forms.Label lblDificultad;
         private System.Windows.Forms.Button btnSiguiente;
         private System.Windows.Forms.Label lblTimer;
-        private System.Windows.Forms.ProgressBar progressBar;
-        private System.ComponentModel.BackgroundWorker backgroundWorker;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 

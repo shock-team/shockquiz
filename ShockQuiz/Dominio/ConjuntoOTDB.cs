@@ -1,10 +1,14 @@
 ﻿using ShockQuiz.DAL.OpenTriviaDB;
+using ShockQuiz.Forms;
 using System;
+using System.Collections.Generic;
 
 namespace ShockQuiz.Dominio
 {
     public class ConjuntoOTDB : Conjunto
     {
+        FachadaConfiguracionAdmin fachada = new FachadaConfiguracionAdmin();
+
         public override double CalcularPuntaje(Sesion pSesion)
         {
             int TIEMPO_LIMITE_1 = 5;
@@ -25,7 +29,7 @@ namespace ShockQuiz.Dominio
                     break;
             }
             double FACTOR_TIEMPO = 1;
-            double tiempoPorPregunta = pSesion.Duracion().TotalSeconds / pSesion.CantidadPreguntas;
+            double tiempoPorPregunta = pSesion.SegundosTranscurridos / pSesion.CantidadTotalPreguntas;
             if (tiempoPorPregunta < TIEMPO_LIMITE_1)
             {
                 FACTOR_TIEMPO = 5;
@@ -38,7 +42,7 @@ namespace ShockQuiz.Dominio
             {
                 FACTOR_TIEMPO = 3;
             }
-            double puntaje = ((double)pSesion.RespuestasCorrectas / (double)pSesion.CantidadPreguntas) * FACTOR_DIFICULTAD * FACTOR_TIEMPO;
+            double puntaje = ((double)pSesion.RespuestasCorrectas / (double)pSesion.CantidadTotalPreguntas) * FACTOR_DIFICULTAD * FACTOR_TIEMPO;
             return Math.Round(puntaje, 2);
         }
 
@@ -50,13 +54,15 @@ namespace ShockQuiz.Dominio
                 int aux = pCantidad;
                 while (aux > 0)
                 {
-                    JsonMapper.AlmacenarPreguntas(pToken, aux);
+                    List<Pregunta> preguntas = JsonMapper.GetPreguntas(pToken, aux);
+                    fachada.AlmacenarPreguntas(preguntas);
                     aux -= 50;
                 }
             }
             else
             {
-                JsonMapper.AlmacenarPreguntas(pToken, pCantidad);
+                List<Pregunta> preguntas = JsonMapper.GetPreguntas(pToken, pCantidad);
+                fachada.AlmacenarPreguntas(preguntas);
             }
         }
     }

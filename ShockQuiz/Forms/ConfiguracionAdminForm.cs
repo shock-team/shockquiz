@@ -56,11 +56,15 @@ namespace ShockQuiz.Forms
         {
             if (nudCantidad.Value > 0)
             {
-                Conjunto conjunto = (Conjunto)cbConjunto.SelectedItem;
                 try
                 {
-                    conjunto.AgregarPreguntas(Decimal.ToInt32(nudCantidad.Value), conjunto.Token);
-                    MessageBox.Show(Decimal.ToInt32(nudCantidad.Value) + " preguntas añadidas correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (cbConjunto.Text == "OpenTDB")
+                    {
+                        ConjuntoOTDB conjunto = new ConjuntoOTDB();
+                        conjunto.AgregarPreguntas(Decimal.ToInt32(nudCantidad.Value), conjunto.Token);
+                        MessageBox.Show(Decimal.ToInt32(nudCantidad.Value) + " preguntas añadidas correctamente al conjunto OpenTDB!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    }
                 }
                 catch (Exception)
                 {
@@ -92,7 +96,7 @@ namespace ShockQuiz.Forms
 
         private void btnDispose_Click(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show("¿Estas seguro de borar toda la información?", "Confirmar limpieza de DB", MessageBoxButtons.YesNo);
+            DialogResult dr = MessageBox.Show("¿Estas seguro de borrar toda la información?", "Confirmar limpieza de DB", MessageBoxButtons.YesNo);
             if (dr == DialogResult.Yes)
             {
                 try
@@ -100,10 +104,9 @@ namespace ShockQuiz.Forms
                     fachada.LimpiarDB();
                     MessageBox.Show("Operación realiazada correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception)
+                catch (Exception ex )
                 {
-                    MessageBox.Show("Error?!");
-                    throw;
+                    MessageBox.Show(ex.Message);
                 }
             }
         }

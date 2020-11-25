@@ -44,7 +44,7 @@ namespace ShockQuiz.DAL.EntityFramework
         /// <param name="pConjunto">Conjunto</param>
         /// <param name="pCantidad">Cantidad de Preguntas</param>
         /// <returns></returns>
-        public IEnumerable<Pregunta> ObtenerPreguntas(Categoria pCategoria, Dificultad pDificultad, Conjunto pConjunto, int pCantidad = 10)
+        public IEnumerable<Pregunta> ObtenerPreguntas(int pCategoria, int pDificultad, int pConjunto, int pCantidad = 10)
         {
 
             var list = from t in iDbContext.Preguntas
@@ -52,13 +52,13 @@ namespace ShockQuiz.DAL.EntityFramework
                        .Include(x => x.Categoria)
                        .Include(x => x.Dificultad)
                        .Include(x => x.Conjunto)
-                       where t.Categoria.Nombre == pCategoria.Nombre
-                       && t.Dificultad.Nombre == pDificultad.Nombre
-                       && t.Conjunto.Nombre == pConjunto.Nombre
+                       where t.Categoria.Id == pCategoria
+                       && t.Dificultad.Id == pDificultad
+                       && t.Conjunto.ConjuntoId == pConjunto
                        select t;
             if (list.Count() >= pCantidad)
             {
-                return list.ToList().OrderBy(x => rnd.Next()).Take(pCantidad);
+                return list;
             }
             else
             {
@@ -70,7 +70,8 @@ namespace ShockQuiz.DAL.EntityFramework
         {
             var manager = ((IObjectContextAdapter)iDbContext).ObjectContext;
 
-            var dbPregunta = iDbContext.Preguntas.ToList().Where(x => x.Nombre == pNombre && x.Conjunto.Nombre == pConjunto).Any();
+            var dbPregunta = iDbContext.Preguntas.Include(x => x.Conjunto).ToList()
+                .Where(x => x.Nombre == pNombre && x.Conjunto.Nombre == pConjunto).Any();
 
             
 
@@ -109,6 +110,35 @@ namespace ShockQuiz.DAL.EntityFramework
                 }
             }
             return listaCategorias;
+        }
+
+        /// <summary>
+        /// Este método se utiliza para obtener todas las instancias de la clase Pregunta
+        /// las cuales poseen una sesión activa, a partir de su ID.
+        /// </summary>
+        /// <param name="pIdSesion">El ID de la sesión activa</param>
+        /// <returns></returns>
+        public IEnumerable<Pregunta> ObtenerPreguntasPorSesion(int pIdSesion)
+        {
+            var preguntasFiltradas = (from p in iDbContext.Preguntas.Include(x => x.Respuestas)
+                                      where p.SesionActualId == pIdSesion
+                                      select p);
+            return preguntasFiltradas;
+        }
+
+        /// <summary>
+        /// Este método se utiliza para obtener una pregunta y sus respuestas
+        /// a partir de si ID.
+        /// </summary>
+        /// <param name="pIdPregunta">El ID de la pregunta a traer</param>
+        /// <returns></returns>
+        public Pregunta ObtenerPreguntaPorId(int pIdPregunta)
+        {
+            var pregunta = (from p in iDbContext.Preguntas.Include(x => x.Respuestas)
+                            where p.PreguntaId == pIdPregunta
+                            select p
+                            );
+            return pregunta.First();
         }
     }
 }

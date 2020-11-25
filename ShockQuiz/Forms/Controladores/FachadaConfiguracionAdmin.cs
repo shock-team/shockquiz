@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ShockQuiz.Forms
 {
-    class FachadaConfiguracionAdmin
+    public class FachadaConfiguracionAdmin
     {
         /// <summary>
         /// Incrementa la autoridad de un usuario a administrador
@@ -72,6 +72,10 @@ namespace ShockQuiz.Forms
             }
         }
 
+        /// <summary>
+        /// Este método se utiliza para eliminar los datos almacenados actualmente
+        /// en la base de datos.
+        /// </summary>
         public void LimpiarDB()
         {
             using (var bDbContext = new ShockQuizDbContext())
@@ -91,6 +95,36 @@ namespace ShockQuiz.Forms
                     bDbContext.Set<Conjunto>().RemoveRange(bDbContext.Set<Conjunto>());
                     bUoW.GuardarCambios();
                     bDbContext.Set<Dificultad>().RemoveRange(bDbContext.Set<Dificultad>());
+                    bUoW.GuardarCambios();
+                }
+            }
+        }
+
+        public void AlmacenarPreguntas(List<Pregunta> pPreguntas)
+        {
+            using (var bDbContext =  new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    foreach (var pregunta in pPreguntas)
+                    {
+                        string preguntaDesc = pregunta.Nombre;
+                        string CONJUNTO = pregunta.ConjuntoNombre;
+                        pregunta.Nombre = bUoW.RepositorioPregunta.GetOrCreate(preguntaDesc, CONJUNTO);
+
+                        string categoria = pregunta.Categoria.Nombre;
+                        pregunta.Categoria = bUoW.RepositorioCategoria.GetOrCreate(categoria);
+
+                        string dificultad = pregunta.Dificultad.Nombre;
+                        pregunta.Dificultad = bUoW.RepositorioDificultad.GetOrCreate(dificultad);
+
+                        pregunta.Conjunto = bUoW.RepositorioConjunto.Get(CONJUNTO);
+
+                        if (pregunta.Nombre != string.Empty)
+                        {
+                            bUoW.RepositorioPregunta.Agregar(pregunta);
+                        }
+                    }
                     bUoW.GuardarCambios();
                 }
             }

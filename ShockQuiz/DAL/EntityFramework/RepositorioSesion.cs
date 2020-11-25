@@ -1,6 +1,7 @@
 ﻿using ShockQuiz.Dominio;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
@@ -35,6 +36,50 @@ namespace ShockQuiz.DAL.EntityFramework
         public IEnumerable<Sesion> ObtenerTodas(string pUsuario)
         {
             return this.iDbContext.Set<Sesion>().Where(x => x.Usuario.Nombre == pUsuario);
+        }
+
+        /// <summary>
+        /// Devuelve la sesion que se encuentre activa en la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Sesion> ObtenerSesionActiva()
+        {
+            var sesionActiva = from s in iDbContext.Sesiones
+                               .Include("Conjunto")
+                               .Include("Categoria")
+                               .Include("Dificultad")
+                               where !s.SesionFinalizada
+                               select s;
+            return sesionActiva;
+        }
+
+        /// <summary>
+        /// Este método se utiliza para obtener la última sesión que se ha
+        /// subido a la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        public Sesion ObtenerUltimaSesion()
+        {
+            var ultimaSesion = from s in iDbContext.Sesiones
+                               .Include("Conjunto")
+                               select s;
+            return ultimaSesion.OrderByDescending(x => x.SesionId).First();
+        }
+
+        /// <summary>
+        /// Este método se utiliza para obtener una sesión de la base de datos
+        /// a partir de su ID, así como su conjunto y dificultad.
+        /// </summary>
+        /// <param name="pIdSesion">El ID de la sesión a traer</param>
+        /// <returns></returns>
+        public Sesion ObtenerSesionId(int pIdSesion)
+        {
+            var sesionActiva = from s in iDbContext.Sesiones
+                               .Include("Conjunto")
+                               .Include("Dificultad")
+                               where s.SesionId == pIdSesion
+                               select s;
+            return sesionActiva.First();
         }
     }
 }

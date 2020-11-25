@@ -14,14 +14,11 @@ namespace ShockQuiz.Forms
         {
             InitializeComponent();
             List<Sesion> ranking = facha.ObtenerTop();
-            dgvRanking.DataSource = ranking.Select(x => new
+            foreach (var item in ranking)
             {
-                x.Usuario.Nombre,
-                x.Puntaje,
-                Fecha = x.FechaInicio,
-                Duración = x.Duracion()
-            })
-                .ToList();
+                dgvRanking.Rows.Add(item.Usuario.Nombre, item.Puntaje, item.FechaInicio, item.SegundosTranscurridos);
+
+            }
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -32,13 +29,11 @@ namespace ShockQuiz.Forms
         private void btnActualizar_Click(object sender, EventArgs e)
         {
             List<Sesion> ranking = facha.ObtenerTop(Decimal.ToInt32(nudTop.Value));
-            dgvRanking.DataSource = ranking.Select(x => new
+            foreach (var item in ranking)
             {
-                x.Usuario.Nombre,
-                x.Puntaje,
-                Fecha = x.FechaInicio,
-                Duración = x.Duracion()
-            }).ToList();
+                dgvRanking.Rows.Add(item.Usuario.Nombre, item.Puntaje, item.FechaInicio, item.SegundosTranscurridos);
+
+            }
         }
     }
 }
