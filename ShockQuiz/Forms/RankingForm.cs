@@ -13,6 +13,7 @@ namespace ShockQuiz.Forms
         public RankingForm()
         {
             InitializeComponent();
+            dgvRanking.Rows.Clear();
             List<Sesion> ranking = facha.ObtenerTop();
             foreach (var item in ranking)
             {
@@ -28,6 +29,7 @@ namespace ShockQuiz.Forms
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
+            dgvRanking.Rows.Clear();
             List<Sesion> ranking = facha.ObtenerTop(Decimal.ToInt32(nudTop.Value));
             foreach (var item in ranking)
             {
