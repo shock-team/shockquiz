@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ShockQuiz.DAL.EntityFramework;
 using ShockQuiz.Dominio;
+using ShockQuiz.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -55,7 +56,7 @@ namespace ShockQuiz.DAL.OpenTriviaDB
         /// <param name="pToken">API Token</param>
         /// <param name="pNumber">Cantidad de Preguntas</param>
         /// <returns></returns>
-        public static List<Pregunta> AlmacenarPreguntas(string pToken = null, int pNumber = 10)
+        public static List<Pregunta> GetPreguntas(string pToken = null, int pNumber = 10)
         {
             List<Pregunta> listaPreguntas = new List<Pregunta>();
             string CONJUNTO = "OpenTDB";
@@ -82,56 +83,46 @@ namespace ShockQuiz.DAL.OpenTriviaDB
                     // Se parsea la respuesta y se serializa a JSON a un objeto dynamic
                     dynamic mResponseJSON = JsonConvert.DeserializeObject(reader.ReadToEnd());
 
-                    using (var bDbContext = new ShockQuizDbContext())
+                    // Se iteran cada uno de los resultados.
+                    foreach (var bResponseItem in mResponseJSON.results)
                     {
-                        using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                        string preguntaDesc = HttpUtility.HtmlDecode(bResponseItem.question.ToString());
+                        string categoria = HttpUtility.HtmlDecode(bResponseItem.category.ToString());
+                        string dificultad = HttpUtility.HtmlDecode(bResponseItem.difficulty.ToString());
+
+                        List<Respuesta> respuestas = new List<Respuesta>();
+                        Respuesta respuestaCorrecta = new Respuesta()
                         {
-                            // Se iteran cada uno de los resultados.
-                            foreach (var bResponseItem in mResponseJSON.results)
+                            EsCorrecta = true,
+                            DefRespuesta = HttpUtility.HtmlDecode(bResponseItem.correct_answer.ToString())
+                        };
+                        respuestas.Add(respuestaCorrecta);
+
+                        for (int i = 0; i < 3; i++)
+                        {
+                            Respuesta res = new Respuesta()
                             {
+                                DefRespuesta = HttpUtility.HtmlDecode(bResponseItem.incorrect_answers[i].ToString()),
+                                EsCorrecta = false
+                            };
+                            respuestas.Add(res);
+                        }
 
-                                string preguntaDesc = HttpUtility.HtmlDecode(bResponseItem.question.ToString());
-                                string categoria = HttpUtility.HtmlDecode(bResponseItem.category.ToString());
-                                string dificultad = HttpUtility.HtmlDecode(bResponseItem.difficulty.ToString());
-
-                                List<Respuesta> respuestas = new List<Respuesta>();
-                                Respuesta respuestaCorrecta = new Respuesta()
-                                {
-                                    EsCorrecta = true,
-                                    DefRespuesta = HttpUtility.HtmlDecode(bResponseItem.correct_answer.ToString())
-                                };
-                                respuestas.Add(respuestaCorrecta);
-
-                                for (int i = 0; i < 3; i++)
-                                {
-                                    Respuesta res = new Respuesta()
-                                    {
-                                        DefRespuesta = HttpUtility.HtmlDecode(bResponseItem.incorrect_answers[i].ToString()),
-                                        EsCorrecta = false
-                                    };
-                                    respuestas.Add(res);
-                                }
-
-                                Pregunta pregunta = new Pregunta()
-                                {
-                                    Nombre = bUoW.RepositorioPregunta.GetOrCreate(preguntaDesc, CONJUNTO),
-                                    Categoria = bUoW.RepositorioCategoria.GetOrCreate(categoria),
-                                    Dificultad = bUoW.RepositorioDificultad.GetOrCreate(dificultad),
-                                    Conjunto = bUoW.RepositorioConjunto.Get(CONJUNTO),
-                                    Respuestas = respuestas
-                                };
-                                if (pregunta.Nombre != string.Empty)
-                                {
-                                    bUoW.RepositorioPregunta.Agregar(pregunta);
-                                }
-                            }
-                            bUoW.GuardarCambios();
+                        Pregunta pregunta = new Pregunta()
+                        {
+                            Nombre = preguntaDesc,
+                            Categoria = new Categoria() { Nombre = categoria },
+                            Dificultad = new Dificultad() { Nombre = dificultad },
+                            ConjuntoNombre = CONJUNTO,
+                            Respuestas = respuestas
+                        };
+                        if (pregunta.Nombre != string.Empty)
+                        {
+                            listaPreguntas.Add(pregunta);
                         }
                     }
                 }
             }
-            
-
             catch (WebException ex)
             {
                 WebResponse mErrorResponse = ex.Response;

@@ -3,6 +3,7 @@ using ShockQuiz.Dominio;
 using System.Collections.Generic;
 using System.Linq;
 using ShockQuiz.Excepciones;
+using System;
 
 namespace ShockQuiz.Forms
 {
@@ -33,6 +34,29 @@ namespace ShockQuiz.Forms
                 }
             }
         }
+
+        /// <summary>
+        /// Este método se utiliza para obtener una sesión aún activa presente
+        /// en la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        public Sesion ObtenerSesionNoFinalizada()
+        {
+            Sesion res = null;
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    IEnumerable<Sesion> sesionesActivas = bUoW.RepositorioSesion.ObtenerSesionActiva();
+                    if (sesionesActivas.Count() > 0)
+                    {
+                        res = sesionesActivas.First();
+                    }
+                }
+            }
+            return res;
+        }
+
 
         /// <summary>
         /// Registra a un usuario en la base de datos de la aplicación
@@ -85,6 +109,28 @@ namespace ShockQuiz.Forms
                     {
                         return false;
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Este método se encarga de cancelar una sesión que se encuentre activa
+        /// </summary>
+        public void CancelarSesionActiva()
+        {
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    Sesion sesionActiva = bUoW.RepositorioSesion.ObtenerSesionActiva().First();
+                    sesionActiva.FechaFin = DateTime.Now;
+                    foreach (Pregunta pregunta in bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(sesionActiva.SesionId))
+                    {
+                        pregunta.Responder("");
+                        sesionActiva.Responder(false);
+                    }
+                    sesionActiva.SesionFinalizada = true;
+                    bUoW.GuardarCambios();
                 }
             }
         }

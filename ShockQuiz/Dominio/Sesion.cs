@@ -8,7 +8,8 @@ namespace ShockQuiz.Dominio
     public class Sesion
     {
         public int SesionId { get; set; }
-        public int CantidadPreguntas { get; set; }
+        public int PreguntasRestantes { get; set; }
+        public int CantidadTotalPreguntas { get; set; }
         public int CategoriaId { get; set; }
         public Categoria Categoria { get; set; }
         public int DificultadId { get; set; }
@@ -20,46 +21,41 @@ namespace ShockQuiz.Dominio
         public int UsuarioId { get; set; }
         public Conjunto Conjunto { get; set; }
         public int ConjuntoId { get; set; }
-        public List<Pregunta> Preguntas { get; set; }
         public int RespuestasCorrectas { get; set; } = 0;
+        public double SegundosTranscurridos { get; set; }
+        public bool SesionFinalizada { get; set; }
 
-        public List<string> ObtenerRespuestas()
+        /// <summary>
+        /// Este método se utiliza para modificar los datos de la sesión
+        /// según se haya respondido correctamente o no.
+        /// </summary>
+        /// <param name="pEsCorrecta">Si la respuesta dada a la pregunta fue correcta</param>
+        /// <returns></returns>
+        public bool Responder(bool pEsCorrecta)
         {
-            return Preguntas.First().ObtenerRespuestas();
-        }
-
-        public string ObtenerPregunta()
-        {
-            return Preguntas.First().Nombre;
-        }
-
-        public ResultadoRespuesta Responder(string pRespuesta)
-        {
-            Pregunta pregunta = Preguntas.First();
-            ResultadoRespuesta resultado = pregunta.Responder(pRespuesta);
-            if (resultado.EsCorrecta)
+            bool finSesion = false;
+            PreguntasRestantes--;
+            if (pEsCorrecta)
             {
                 RespuestasCorrectas++;
             }
-
-            Preguntas.Remove(pregunta);
-            if (Preguntas.Count() == 0)
+            if (PreguntasRestantes <= 0)
             {
-                resultado.FinSesion = true;
+                finSesion = true;
                 this.FechaFin = DateTime.Now;
                 this.Puntaje = Conjunto.CalcularPuntaje(this);
             }
-            return resultado;
+            this.SesionFinalizada = finSesion;
+            return finSesion;
         }
 
-        public TimeSpan Duracion()
-        {
-            return FechaFin - FechaInicio;
-        }
-
+        /// <summary>
+        /// Este método se utiliza para obtener el tiempo límite de la sesión
+        /// </summary>
+        /// <returns></returns>
         public double TiempoLimite()
         {
-            return CantidadPreguntas * Conjunto.TiempoEsperadoPorPregunta;
+            return CantidadTotalPreguntas * Conjunto.TiempoEsperadoPorPregunta;
         }
     }
 }

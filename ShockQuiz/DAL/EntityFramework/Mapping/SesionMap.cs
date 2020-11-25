@@ -14,7 +14,7 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)
                 .HasColumnName("id");
 
-            this.Property(x => x.CantidadPreguntas)
+            this.Property(x => x.PreguntasRestantes)
                 .HasColumnName("cantidadPreguntas")
                 .IsRequired();
 
@@ -31,8 +31,7 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
                 .IsRequired();
 
             this.Property(x => x.FechaFin)
-                .HasColumnName("fechaInicio")
-                .IsRequired();
+                .HasColumnName("fechaInicio");
 
             this.Property(x => x.FechaFin)
                 .HasColumnName("fechaFin")
@@ -46,8 +45,8 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
                 .WithMany(x => x.Sesiones)
                 .HasForeignKey<int>(x => x.ConjuntoId);
 
-            this.Ignore(x => x.Preguntas);
-            this.Ignore(x => x.RespuestasCorrectas);
+            this.Property(x => x.RespuestasCorrectas);
+            this.Property(x => x.CantidadTotalPreguntas);
         }
     }
 }

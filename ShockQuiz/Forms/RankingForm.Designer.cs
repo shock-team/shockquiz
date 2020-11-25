@@ -35,6 +35,10 @@
             this.btnActualizar = new System.Windows.Forms.Button();
             this.nudTop = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.puntaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.duracion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRanking)).BeginInit();
             this.Ranking.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTop)).BeginInit();
@@ -43,6 +47,11 @@
             // dgvRanking
             // 
             this.dgvRanking.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRanking.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nombre,
+            this.puntaje,
+            this.fecha,
+            this.duracion});
             this.dgvRanking.Location = new System.Drawing.Point(6, 19);
             this.dgvRanking.Name = "dgvRanking";
             this.dgvRanking.Size = new System.Drawing.Size(454, 263);
@@ -115,6 +124,33 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Top número:";
             // 
+            // nombre
+            // 
+            this.nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nombre.HeaderText = "Nickname";
+            this.nombre.Name = "nombre";
+            // 
+            // puntaje
+            // 
+            this.puntaje.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.puntaje.HeaderText = "Puntaje";
+            this.puntaje.Name = "puntaje";
+            this.puntaje.Width = 68;
+            // 
+            // fecha
+            // 
+            this.fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.fecha.HeaderText = "Fecha";
+            this.fecha.Name = "fecha";
+            this.fecha.Width = 62;
+            // 
+            // duracion
+            // 
+            this.duracion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.duracion.HeaderText = "Duración (s)";
+            this.duracion.Name = "duracion";
+            this.duracion.Width = 89;
+            // 
             // RankingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -142,5 +178,9 @@
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.NumericUpDown nudTop;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn puntaje;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn duracion;
     }
 }

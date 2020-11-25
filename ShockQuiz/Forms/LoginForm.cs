@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using ShockQuiz.Excepciones;
+using ShockQuiz.Dominio;
 
 namespace ShockQuiz.Forms
 {
@@ -22,11 +23,34 @@ namespace ShockQuiz.Forms
             try
             {
                 int usuario = facha.CheckLogin(txtUsuario.Text, txtContraseña.Text);
-                MessageBox.Show("Bienvenido " + txtUsuario.Text + "!", "Iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 bool esAdmin = facha.EsAdmin(txtUsuario.Text);
                 MenuForm menuForm = new MenuForm(usuario, esAdmin);
                 menuForm.FormClosed += new FormClosedEventHandler(LoginForm_FormClosed);
-                menuForm.Show();
+                var sesionActiva = facha.ObtenerSesionNoFinalizada();
+                if (sesionActiva != null)
+                {
+                    DialogResult dialogResult = MessageBox.Show("Existe una sesión sin finalizar, ¿desea continuarla?", "Sesión activa", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        menuForm.Show();
+                        SesionForm sesionForm = new SesionForm(sesionActiva.SesionId, sesionActiva.Categoria.Nombre, sesionActiva.Dificultad.Nombre, sesionActiva.PreguntasRestantes);
+                        //sesionForm.FormClosed += new FormClosedEventHandler(LoginForm_FormClosed);
+                        sesionForm.Show();
+                        this.Hide();
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        facha.CancelarSesionActiva();
+                        menuForm.Show();
+                        this.Hide();
+                    }
+                }
+                else
+                {
+                    menuForm.Show();
+                }
+
+
                 this.Hide();
             }
             catch (InvalidOperationException)
