@@ -1,4 +1,4 @@
-# ShockQuiz
+# Shock!Quiz
 
 ## Componentes NuGet:
  - System.Web
@@ -16,3 +16,11 @@
 `PM> add-migration init`
 5. Por último, enviar los cambios a la base de datos:
 `PM> update-database`
+
+## ¿Cómo jugar si la base de datos está vacia?
+1. Al iniciar Shock!Quiz, ingrese nombre de usuario y contraseña y presione en **Registro**, esto creará el primer usuario con permisos de Administrador.
+2. Una vez que esté logeado, vaya a **Configuración**.
+3. En el apartado de _Añadir Conjunto_, en el campo Nombre ingrese **OpenTDB**, en tiempo esperado por pregunta lo que desee y marque "Pedir Token". Por último, presione **Añadir**.
+4. Una vez creado el conjunto de preguntas, en el apartado _Añadir Preguntas_ seleccione OpenTDB e ingrese la cantidad de preguntas que desea agregar a la base de datos (1000 recomendado).
+5. Cuando se hayan terminado de descargar las preguntas (puede tardar un momento) ya está listo para poder jugar.
+> Para evitar todos los pasos anteriores puede descargarse una DB con preguntas en este [link](https://www.mediafire.com/file/0atz1be17dskatd/ShockQuiz.sdf/file) y pegarla en la carpeta del ejecutable.
