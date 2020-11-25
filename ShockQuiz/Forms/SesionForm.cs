@@ -14,7 +14,6 @@ namespace ShockQuiz
     {
         FachadaSesion fachada = new FachadaSesion();
 
-
         public SesionForm(int pSesionId, string pCategoria, string pDificultad, int pCantidad)
         {
             InitializeComponent();
@@ -27,31 +26,6 @@ namespace ShockQuiz
             lblRespuestasTotales.Text = pCantidad.ToString();
 
             fachada.IniciarTimer(FinTiempoLimite,ActualizarTimer);
-        }
-
-        private void ColorBotonCorrecto(string pRespuesta)
-        {
-            if (btnRespuesta1.Text == pRespuesta)
-            {
-                btnRespuesta1.BackColor = System.Drawing.Color.Green;
-            }
-            else if (btnRespuesta2.Text == pRespuesta)
-            {
-                btnRespuesta2.BackColor = System.Drawing.Color.Green;
-            }
-            else if (btnRespuesta3.Text == pRespuesta)
-            {
-                btnRespuesta3.BackColor = System.Drawing.Color.Green;
-            }
-            else if (btnRespuesta4.Text == pRespuesta)
-            {
-                btnRespuesta4.BackColor = System.Drawing.Color.Green;
-            }
-            btnRespuesta1.Enabled = false;
-            btnRespuesta2.Enabled = false;
-            btnRespuesta3.Enabled = false;
-            btnRespuesta4.Enabled = false;
-            btnSiguiente.Enabled = true;
         }
 
         private void Finalizar(ResultadoRespuesta pResultado)
@@ -73,45 +47,61 @@ namespace ShockQuiz
 
         private void BtnRespuesta1_Click(object sender, EventArgs e)
         {
-            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta1.Text);
-            if (!resultado.EsCorrecta)
+            ResultadoRespuesta resultado = fachada.RevisarTiempoLimite();
+            if (!resultado.TiempoLimiteFinalizado)
             {
-                btnRespuesta1.BackColor = System.Drawing.Color.Red;
+                resultado = fachada.Responder(btnRespuesta1.Text);
+                if (!resultado.EsCorrecta)
+                {
+                    btnRespuesta1.BackColor = System.Drawing.Color.Red;
+                }
+                ColorBotonCorrecto(resultado.RespuestaCorrecta);
             }
-            ColorBotonCorrecto(resultado.RespuestaCorrecta);
             Finalizar(resultado);
         }
 
         private void BtnRespuesta2_Click(object sender, EventArgs e)
         {
-            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta2.Text);
-            if (!resultado.EsCorrecta)
+            ResultadoRespuesta resultado = fachada.RevisarTiempoLimite();
+            if (!resultado.TiempoLimiteFinalizado)
             {
-                btnRespuesta2.BackColor = System.Drawing.Color.Red;
+                resultado = fachada.Responder(btnRespuesta2.Text);
+                if (!resultado.EsCorrecta)
+                {
+                    btnRespuesta1.BackColor = System.Drawing.Color.Red;
+                }
+                ColorBotonCorrecto(resultado.RespuestaCorrecta);
             }
-            ColorBotonCorrecto(resultado.RespuestaCorrecta);
             Finalizar(resultado);
         }
 
         private void BtnRespuesta3_Click(object sender, EventArgs e)
         {
-            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta3.Text);
-            if (!resultado.EsCorrecta)
+            ResultadoRespuesta resultado = fachada.RevisarTiempoLimite();
+            if (!resultado.TiempoLimiteFinalizado)
             {
-                btnRespuesta3.BackColor = System.Drawing.Color.Red;
+                resultado = fachada.Responder(btnRespuesta3.Text);
+                if (!resultado.EsCorrecta)
+                {
+                    btnRespuesta1.BackColor = System.Drawing.Color.Red;
+                }
+                ColorBotonCorrecto(resultado.RespuestaCorrecta);
             }
-            ColorBotonCorrecto(resultado.RespuestaCorrecta);
             Finalizar(resultado);
         }
 
         private void BtnRespuesta4_Click(object sender, EventArgs e)
         {
-            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta4.Text);
-            if (!resultado.EsCorrecta)
+            ResultadoRespuesta resultado = fachada.RevisarTiempoLimite();
+            if (!resultado.TiempoLimiteFinalizado)
             {
-                btnRespuesta4.BackColor = System.Drawing.Color.Red;
+                resultado = fachada.Responder(btnRespuesta4.Text);
+                if (!resultado.EsCorrecta)
+                {
+                    btnRespuesta1.BackColor = System.Drawing.Color.Red;
+                }
+                ColorBotonCorrecto(resultado.RespuestaCorrecta);
             }
-            ColorBotonCorrecto(resultado.RespuestaCorrecta);
             Finalizar(resultado);
         }
 
@@ -197,6 +187,30 @@ namespace ShockQuiz
             btnRespuesta2.Font = otrosFont;
             btnRespuesta3.Font = otrosFont;
             btnRespuesta4.Font = otrosFont;
+
+        private void ColorBotonCorrecto(string pRespuesta)
+        {
+            if (btnRespuesta1.Text == pRespuesta)
+            {
+                btnRespuesta1.BackColor = System.Drawing.Color.Green;
+            }
+            else if (btnRespuesta2.Text == pRespuesta)
+            {
+                btnRespuesta2.BackColor = System.Drawing.Color.Green;
+            }
+            else if (btnRespuesta3.Text == pRespuesta)
+            {
+                btnRespuesta3.BackColor = System.Drawing.Color.Green;
+            }
+            else if (btnRespuesta4.Text == pRespuesta)
+            {
+                btnRespuesta4.BackColor = System.Drawing.Color.Green;
+            }
+            btnRespuesta1.Enabled = false;
+            btnRespuesta2.Enabled = false;
+            btnRespuesta3.Enabled = false;
+            btnRespuesta4.Enabled = false;
+            btnSiguiente.Enabled = true;
         }
     }
 }
