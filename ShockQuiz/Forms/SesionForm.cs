@@ -13,8 +13,6 @@ namespace ShockQuiz
     public partial class SesionForm : Form
     {
         FachadaSesion fachada = new FachadaSesion();
-
-
         public SesionForm(int pSesionId, string pCategoria, string pDificultad, int pCantidad)
         {
             InitializeComponent();
@@ -71,49 +69,21 @@ namespace ShockQuiz
             }
         }
 
-        private void BtnRespuesta1_Click(object sender, EventArgs e)
+        private void LogicaRespuesta(Button pBtnRespuesta)
         {
-            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta1.Text);
+            ResultadoRespuesta resultado = fachada.Responder(pBtnRespuesta.Text);
             if (!resultado.EsCorrecta)
             {
-                btnRespuesta1.BackColor = System.Drawing.Color.Red;
+                pBtnRespuesta.BackColor = System.Drawing.Color.Red;
             }
             ColorBotonCorrecto(resultado.RespuestaCorrecta);
             Finalizar(resultado);
         }
 
-        private void BtnRespuesta2_Click(object sender, EventArgs e)
-        {
-            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta2.Text);
-            if (!resultado.EsCorrecta)
-            {
-                btnRespuesta2.BackColor = System.Drawing.Color.Red;
-            }
-            ColorBotonCorrecto(resultado.RespuestaCorrecta);
-            Finalizar(resultado);
-        }
-
-        private void BtnRespuesta3_Click(object sender, EventArgs e)
-        {
-            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta3.Text);
-            if (!resultado.EsCorrecta)
-            {
-                btnRespuesta3.BackColor = System.Drawing.Color.Red;
-            }
-            ColorBotonCorrecto(resultado.RespuestaCorrecta);
-            Finalizar(resultado);
-        }
-
-        private void BtnRespuesta4_Click(object sender, EventArgs e)
-        {
-            ResultadoRespuesta resultado = fachada.Responder(btnRespuesta4.Text);
-            if (!resultado.EsCorrecta)
-            {
-                btnRespuesta4.BackColor = System.Drawing.Color.Red;
-            }
-            ColorBotonCorrecto(resultado.RespuestaCorrecta);
-            Finalizar(resultado);
-        }
+        private void BtnRespuesta1_Click(object sender, EventArgs e) => LogicaRespuesta(btnRespuesta1);
+        private void BtnRespuesta2_Click(object sender, EventArgs e) => LogicaRespuesta(btnRespuesta2);
+        private void BtnRespuesta3_Click(object sender, EventArgs e) => LogicaRespuesta(btnRespuesta3);
+        private void BtnRespuesta4_Click(object sender, EventArgs e) => LogicaRespuesta(btnRespuesta4);
 
         private void SiguientePregunta()
         {
@@ -141,10 +111,7 @@ namespace ShockQuiz
             btnSiguiente.Enabled = false;
         }
 
-        private void BtnSiguiente_Click(object sender, EventArgs e)
-        {
-            SiguientePregunta();
-        }
+        private void BtnSiguiente_Click(object sender, EventArgs e) => SiguientePregunta();
 
         private void FinTiempoLimite()
         {
@@ -154,15 +121,9 @@ namespace ShockQuiz
             this.Close();
         }
 
-        private void SesionForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            fachada.DetenerTimer();
-        }
+        private void SesionForm_FormClosing(object sender, FormClosingEventArgs e) => fachada.DetenerTimer();
 
-        private void ActualizarTimer(int pTiempoRestante)
-        {
-            lblTimer.Text = pTiempoRestante.ToString()+ " s";
-        }
+        private void ActualizarTimer(int pTiempoRestante) => lblTimer.Text = pTiempoRestante.ToString()+ " s";
 
         PrivateFontCollection fonts = new PrivateFontCollection();
 
