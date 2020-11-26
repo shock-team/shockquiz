@@ -87,7 +87,6 @@ namespace ShockQuiz
 
         private void SiguientePregunta()
         {
-
             PreguntaDTO actual = fachada.ObtenerPreguntaYRespuestas();
             lblPregunta.Text = actual.Pregunta;
 
@@ -111,8 +110,6 @@ namespace ShockQuiz
             btnSiguiente.Enabled = false;
         }
 
-        private void BtnSiguiente_Click(object sender, EventArgs e) => SiguientePregunta();
-
         private void FinTiempoLimite()
         {
             btnSiguiente.Enabled = false;
@@ -121,6 +118,8 @@ namespace ShockQuiz
             this.Close();
         }
 
+        private void BtnSiguiente_Click(object sender, EventArgs e) => SiguientePregunta();
+
         private void SesionForm_FormClosing(object sender, FormClosingEventArgs e) => fachada.DetenerTimer();
 
         private void ActualizarTimer(int pTiempoRestante) => lblTimer.Text = pTiempoRestante.ToString()+ " s";
@@ -128,8 +127,8 @@ namespace ShockQuiz
         PrivateFontCollection fonts = new PrivateFontCollection();
 
         [DllImport("gdi32.dll")]
-        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont,
-                        IntPtr pdv, [In] ref uint pcFonts);
+        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFonts);
+
         private void LoadFont()
         {
             byte[] fontData = Properties.Resources.Adobe_Garamond_Pro_Regular;

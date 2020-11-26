@@ -12,10 +12,6 @@ namespace ShockQuiz.Forms
         {
             InitializeComponent();
             ActualizarConjuntos();
-            helpToken.SetShowHelp(cbToken, true);
-            helpToken.SetHelpString(cbToken, "Activando el token, la API recordará las preguntas ya enviadas.");
-            helpToken.HelpNamespace = "helpFile.chm";
-            helpToken.SetHelpNavigator(cbToken, HelpNavigator.TableOfContents);
         }
 
         public void ActualizarConjuntos()
@@ -45,11 +41,6 @@ namespace ShockQuiz.Forms
             {
                 MessageBox.Show("Ingrese un usuario", "Error");
             }
-        }
-
-        private void BtnSalir_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void BtnAgregar_Click(object sender, EventArgs e)
@@ -90,7 +81,7 @@ namespace ShockQuiz.Forms
             }
             catch (Exception)
             {
-                throw;
+                MessageBox.Show("Ha habido un error con la base de datos", "Error");
             }
         }
 
@@ -110,5 +101,7 @@ namespace ShockQuiz.Forms
                 }
             }
         }
+
+        private void BtnSalir_Click(object sender, EventArgs e) => this.Close();
     }
 }

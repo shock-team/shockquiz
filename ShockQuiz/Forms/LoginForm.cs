@@ -13,11 +13,6 @@ namespace ShockQuiz.Forms
             InitializeComponent();
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void btnLogin_Click(object sender, EventArgs e)
         {
             try
@@ -34,7 +29,6 @@ namespace ShockQuiz.Forms
                     {
                         menuForm.Show();
                         SesionForm sesionForm = new SesionForm(sesionActiva.SesionId, sesionActiva.Categoria.Nombre, sesionActiva.Dificultad.Nombre, sesionActiva.PreguntasRestantes);
-                        //sesionForm.FormClosed += new FormClosedEventHandler(LoginForm_FormClosed);
                         sesionForm.Show();
                         this.Hide();
                     }
@@ -49,7 +43,6 @@ namespace ShockQuiz.Forms
                 {
                     menuForm.Show();
                 }
-
 
                 this.Hide();
             }
@@ -77,9 +70,8 @@ namespace ShockQuiz.Forms
             }
         }
 
-        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.Close();
-        }
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e) => this.Close();
+
+        private void btnSalir_Click(object sender, EventArgs e) => this.Close();
     }
 }

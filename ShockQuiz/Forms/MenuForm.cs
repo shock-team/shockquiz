@@ -31,11 +31,13 @@ namespace ShockQuiz.Forms
             }
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
+        private void BtnConfiguracion_Click(object sender, EventArgs e)
         {
-            this.Close();
+            ConfiguracionAdminForm configForm = new ConfiguracionAdminForm();
+            configForm.FormClosed += new FormClosedEventHandler(ConfigForm_FormClosed);
+            configForm.Show();
+            this.Hide();
         }
-
         private void btnRanking_Click(object sender, EventArgs e)
         {
             RankingForm rankForm = new RankingForm();
@@ -44,27 +46,12 @@ namespace ShockQuiz.Forms
             this.Hide();
         }
 
-        private void ConfigurarSesionForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.Show();
-        }
+        private void ConfigurarSesionForm_FormClosed(object sender, FormClosedEventArgs e) => this.Show();
 
-        private void RankForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.Show();
-        }
+        private void RankForm_FormClosed(object sender, FormClosedEventArgs e) => this.Show();
 
-        private void BtnConfiguracion_Click(object sender, EventArgs e)
-        {
-            ConfiguracionAdminForm configForm = new ConfiguracionAdminForm();
-            configForm.FormClosed += new FormClosedEventHandler(ConfigForm_FormClosed);
-            configForm.Show();
-            this.Hide();
-        }
+        private void ConfigForm_FormClosed(object sender, FormClosedEventArgs e) => this.Show();
 
-        private void ConfigForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.Show();
-        }
+        private void btnSalir_Click(object sender, EventArgs e) => this.Close();
     }
 }

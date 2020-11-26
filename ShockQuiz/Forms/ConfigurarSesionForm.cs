@@ -59,11 +59,6 @@ namespace ShockQuiz.Forms
             }
         }
 
-        private void BtnCancelar_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void CbConjunto_SelectedIndexChanged(object sender, EventArgs e)
         {
             cbCategoria.Items.Clear();
@@ -74,10 +69,8 @@ namespace ShockQuiz.Forms
                 cbCategoria.Items.Add(categoria);
             }
         }
+        private void BtnCancelar_Click(object sender, EventArgs e) => this.Close();
 
-        private void SesionForm_FormClosed(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void SesionForm_FormClosed(object sender, EventArgs e) => this.Close();
     }
 }

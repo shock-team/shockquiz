@@ -47,7 +47,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtAddConjunto = new System.Windows.Forms.TextBox();
-            this.helpToken = new System.Windows.Forms.HelpProvider();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnDispose = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -331,7 +330,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnAddConjunto;
         private System.Windows.Forms.CheckBox cbToken;
-        private System.Windows.Forms.HelpProvider helpToken;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btnDispose;
     }

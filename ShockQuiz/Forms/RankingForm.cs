@@ -18,7 +18,6 @@ namespace ShockQuiz.Forms
             foreach (var item in ranking)
             {
                 dgvRanking.Rows.Add(item.Usuario.Nombre, item.Puntaje, item.FechaInicio, item.SegundosTranscurridos);
-
             }
         }
 
@@ -34,7 +33,6 @@ namespace ShockQuiz.Forms
             foreach (var item in ranking)
             {
                 dgvRanking.Rows.Add(item.Usuario.Nombre, item.Puntaje, item.FechaInicio, item.SegundosTranscurridos);
-
             }
         }
     }
