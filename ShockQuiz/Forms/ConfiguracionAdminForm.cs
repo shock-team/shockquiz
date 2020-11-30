@@ -1,5 +1,7 @@
 ﻿using ShockQuiz.Dominio;
+using ShockQuiz.Helpers;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ShockQuiz.Forms
@@ -43,23 +45,30 @@ namespace ShockQuiz.Forms
             }
         }
 
-        private void BtnAgregar_Click(object sender, EventArgs e)
+        private async void BtnAgregar_Click(object sender, EventArgs e)
         {
+
             if (nudCantidad.Value > 0)
             {
                 try
                 {
+                    Progress<ProgressReportModel> progress = new Progress<ProgressReportModel>();
+                    progress.ProgressChanged += ReportProgress;
+
                     if (cbConjunto.Text == "OpenTDB")
                     {
                         ConjuntoOTDB conjunto = new ConjuntoOTDB();
-                        conjunto.AgregarPreguntas(Decimal.ToInt32(nudCantidad.Value), conjunto.Token);
+                        await conjunto.AgregarPreguntasAsync(Decimal.ToInt32(nudCantidad.Value), progress, conjunto.Token);
                         MessageBox.Show(Decimal.ToInt32(nudCantidad.Value) + " preguntas añadidas correctamente al conjunto OpenTDB!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                     }
                 }
                 catch (Exception)
                 {
                     MessageBox.Show("Ha habido un error con la base de datos", "Error");
+                }
+                finally
+                {
+                    progressBar.Value = 0;
                 }
             }
             else
@@ -67,6 +76,11 @@ namespace ShockQuiz.Forms
                 MessageBox.Show("La cantidad de preguntas a agregar debe ser mayor que 0", "Error");
             }
 
+        }
+
+        private void ReportProgress(object sender, ProgressReportModel e)
+        {
+            progressBar.Value = e.PercentageComplete;
         }
 
         private void btnAddConjunto_Click(object sender, EventArgs e)

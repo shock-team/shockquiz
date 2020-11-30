@@ -1,6 +1,8 @@
 ﻿using ShockQuiz.DAL.EntityFramework;
 using ShockQuiz.DAL.OpenTriviaDB;
 using ShockQuiz.Dominio;
+using ShockQuiz.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -100,14 +102,19 @@ namespace ShockQuiz.Forms
             }
         }
 
-        public void AlmacenarPreguntas(List<Pregunta> pPreguntas)
+        public void AlmacenarPreguntas(List<Pregunta> pPreguntas, IProgress<ProgressReportModel> progress, int pCantidad, int pNumCalls)
         {
+            ProgressReportModel report = new ProgressReportModel();
+            int aux = 50 * pNumCalls;
+
             using (var bDbContext =  new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
                     foreach (var pregunta in pPreguntas)
                     {
+                        aux++;
+
                         string preguntaDesc = pregunta.Nombre;
                         string CONJUNTO = pregunta.ConjuntoNombre;
                         pregunta.Nombre = bUoW.RepositorioPregunta.GetOrCreate(preguntaDesc, CONJUNTO);
@@ -124,6 +131,9 @@ namespace ShockQuiz.Forms
                         {
                             bUoW.RepositorioPregunta.Agregar(pregunta);
                         }
+
+                        report.PercentageComplete = (aux * 100) / (pCantidad + 50 * pNumCalls);
+                        progress.Report(report);
                     }
                     bUoW.GuardarCambios();
                 }

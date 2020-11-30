@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ShockQuiz.Helpers;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ShockQuiz.Dominio
 {
@@ -19,6 +21,11 @@ namespace ShockQuiz.Dominio
 
         public virtual void AgregarPreguntas(int pCantidad, string pToken = null)
         {
-        }
+        }        
+        
+        public virtual Task AgregarPreguntasAsync(int pCantidad, IProgress<ProgressReportModel> progress, string pToken = null)
+        {
+            throw new NotImplementedException();
+        }        
     }
 }

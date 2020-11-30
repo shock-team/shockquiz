@@ -111,7 +111,7 @@
     <Compile Include="Dominio\ConjuntoOTDB.cs" />
     <Compile Include="Excepciones\ContraseñaIncorrectaException.cs" />
     <Compile Include="Excepciones\PreguntasInsuficientesException.cs" />
-    <Compile Include="Forms\AyudanteTimer.cs" />
+    <Compile Include="Helpers\AyudanteTimer.cs" />
     <Compile Include="Forms\ConfiguracionAdminForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +174,7 @@
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ProgressReportModel.cs" />
     <Compile Include="IO\PreguntaDTO.cs" />
     <Compile Include="IO\ResultadoRespuesta.cs" />
     <Compile Include="Dominio\Pregunta.cs" />

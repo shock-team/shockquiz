@@ -1,7 +1,9 @@
 ﻿using ShockQuiz.DAL.OpenTriviaDB;
 using ShockQuiz.Forms;
+using ShockQuiz.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ShockQuiz.Dominio
 {
@@ -46,24 +48,32 @@ namespace ShockQuiz.Dominio
             return Math.Round(puntaje, 2);
         }
 
-
-        public override void AgregarPreguntas(int pCantidad, string pToken = null)
+        public async override Task AgregarPreguntasAsync(int pCantidad, IProgress<ProgressReportModel> progress, string pToken = null)
         {
+            int numCalls = 0;
             if (pCantidad > 50)
             {
                 int aux = pCantidad;
                 while (aux > 0)
                 {
-                    List<Pregunta> preguntas = JsonMapper.GetPreguntas(pToken, aux);
-                    fachada.AlmacenarPreguntas(preguntas);
+                    await AgregarPreguntasLogic(aux, progress, numCalls, pToken);
                     aux -= 50;
+                    numCalls++;
                 }
             }
             else
             {
-                List<Pregunta> preguntas = JsonMapper.GetPreguntas(pToken, pCantidad);
-                fachada.AlmacenarPreguntas(preguntas);
+                await AgregarPreguntasLogic(pCantidad, progress, numCalls, pToken);
             }
+        }
+
+        private async Task AgregarPreguntasLogic(int pCantidad, IProgress<ProgressReportModel> progress, int pNumCalls, string pToken = null)
+        {
+            List<Pregunta> preguntas = new List<Pregunta>();
+
+            preguntas = await Task.Run(() => JsonMapper.GetPreguntas(pToken, pCantidad));
+
+            await Task.Run(() => fachada.AlmacenarPreguntas(preguntas, progress, pCantidad, pNumCalls));
         }
     }
 }

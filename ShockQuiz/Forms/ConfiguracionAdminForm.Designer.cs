@@ -49,6 +49,7 @@
             this.txtAddConjunto = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnDispose = new System.Windows.Forms.Button();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
@@ -77,7 +78,7 @@
             // btnSalir
             // 
             this.btnSalir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnSalir.Location = new System.Drawing.Point(347, 307);
+            this.btnSalir.Location = new System.Drawing.Point(352, 329);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(265, 23);
             this.btnSalir.TabIndex = 5;
@@ -116,6 +117,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.progressBar);
             this.groupBox2.Controls.Add(this.nudCantidad);
             this.groupBox2.Controls.Add(this.btnAgregar);
             this.groupBox2.Controls.Add(this.label4);
@@ -123,7 +125,7 @@
             this.groupBox2.Controls.Add(this.cbConjunto);
             this.groupBox2.Location = new System.Drawing.Point(10, 179);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(293, 159);
+            this.groupBox2.Size = new System.Drawing.Size(293, 179);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Agregar Preguntas";
@@ -152,7 +154,7 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(12, 118);
+            this.btnAgregar.Location = new System.Drawing.Point(12, 140);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(271, 23);
             this.btnAgregar.TabIndex = 9;
@@ -266,7 +268,7 @@
             this.groupBox4.Controls.Add(this.groupBox3);
             this.groupBox4.Location = new System.Drawing.Point(6, 10);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(317, 344);
+            this.groupBox4.Size = new System.Drawing.Size(317, 364);
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "OpenTDB";
@@ -281,12 +283,19 @@
             this.btnDispose.UseVisualStyleBackColor = true;
             this.btnDispose.Click += new System.EventHandler(this.btnDispose_Click);
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(12, 111);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(271, 23);
+            this.progressBar.TabIndex = 11;
+            // 
             // ConfiguracionAdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnSalir;
-            this.ClientSize = new System.Drawing.Size(633, 366);
+            this.ClientSize = new System.Drawing.Size(629, 383);
             this.Controls.Add(this.btnDispose);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnSalir);
@@ -332,5 +341,6 @@
         private System.Windows.Forms.CheckBox cbToken;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btnDispose;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
