@@ -23,7 +23,10 @@ namespace ShockQuiz.Dominio
         {
         }        
         
-        public virtual Task AgregarPreguntasAsync(int pCantidad, IProgress<ProgressReportModel> progress, string pToken = null)
+        public virtual Task AgregarPreguntasAsync(int pCantidad, 
+            IProgress<ProgressReportModel> progress,
+            Action<List<Pregunta>, IProgress<ProgressReportModel>, int, int> almacenarPreguntas,
+            string pToken = null)
         {
             throw new NotImplementedException();
         }        

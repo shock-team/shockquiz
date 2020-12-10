@@ -47,7 +47,6 @@ namespace ShockQuiz.Forms
 
         private async void BtnAgregar_Click(object sender, EventArgs e)
         {
-
             if (nudCantidad.Value > 0)
             {
                 try
@@ -58,9 +57,10 @@ namespace ShockQuiz.Forms
                     if (cbConjunto.Text == "OpenTDB")
                     {
                         ConjuntoOTDB conjunto = new ConjuntoOTDB();
-                        await conjunto.AgregarPreguntasAsync(Decimal.ToInt32(nudCantidad.Value), progress, conjunto.Token);
-                        MessageBox.Show(Decimal.ToInt32(nudCantidad.Value) + " preguntas añadidas correctamente al conjunto OpenTDB!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        await conjunto.AgregarPreguntasAsync(Decimal.ToInt32(nudCantidad.Value), progress, fachada.AlmacenarPreguntas, conjunto.Token);
                     }
+
+                    MessageBox.Show($"{Decimal.ToInt32(nudCantidad.Value)} preguntas añadidas correctamente al conjunto {cbConjunto.Text}.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception)
                 {

@@ -9,8 +9,6 @@ namespace ShockQuiz.Dominio
 {
     public class ConjuntoOTDB : Conjunto
     {
-        FachadaConfiguracionAdmin fachada = new FachadaConfiguracionAdmin();
-
         public override double CalcularPuntaje(Sesion pSesion)
         {
             int TIEMPO_LIMITE_1 = 5;
@@ -48,7 +46,10 @@ namespace ShockQuiz.Dominio
             return Math.Round(puntaje, 2);
         }
 
-        public async override Task AgregarPreguntasAsync(int pCantidad, IProgress<ProgressReportModel> progress, string pToken = null)
+        public async override Task AgregarPreguntasAsync(int pCantidad, 
+            IProgress<ProgressReportModel> progress, 
+            Action<List<Pregunta>, IProgress<ProgressReportModel>, int, int> almacenarPreguntas, 
+            string pToken = null)
         {
             int numCalls = 0;
             if (pCantidad > 50)
@@ -56,24 +57,28 @@ namespace ShockQuiz.Dominio
                 int aux = pCantidad;
                 while (aux > 0)
                 {
-                    await AgregarPreguntasLogic(aux, progress, numCalls, pToken);
+                    await AgregarPreguntasLogic(aux, progress, almacenarPreguntas, numCalls, pToken);
                     aux -= 50;
                     numCalls++;
                 }
             }
             else
             {
-                await AgregarPreguntasLogic(pCantidad, progress, numCalls, pToken);
+                await AgregarPreguntasLogic(pCantidad, progress, almacenarPreguntas, numCalls, pToken);
             }
         }
 
-        private async Task AgregarPreguntasLogic(int pCantidad, IProgress<ProgressReportModel> progress, int pNumCalls, string pToken = null)
+        private async Task AgregarPreguntasLogic(int pCantidad, 
+            IProgress<ProgressReportModel> progress,
+            Action<List<Pregunta>, IProgress<ProgressReportModel>, int, int> almacenarPreguntas, 
+            int pNumCalls, 
+            string pToken = null)
         {
             List<Pregunta> preguntas = new List<Pregunta>();
 
             preguntas = await Task.Run(() => JsonMapper.GetPreguntas(pToken, pCantidad));
 
-            await Task.Run(() => fachada.AlmacenarPreguntas(preguntas, progress, pCantidad, pNumCalls));
+            await Task.Run(() => almacenarPreguntas(preguntas, progress, pCantidad, pNumCalls));
         }
     }
 }
