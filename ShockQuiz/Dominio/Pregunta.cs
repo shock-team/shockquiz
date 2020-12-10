@@ -21,50 +21,5 @@ namespace ShockQuiz.Dominio
         public string ConjuntoNombre { get; set; }
         public ICollection<Respuesta> Respuestas { get; set; }
         public int SesionActualId { get; set; }
-
-        /// <summary>
-        /// Este método se utiliza para comprobar si una respuesta dada a
-        /// la pregunta es correcta.
-        /// </summary>
-        /// <param name="pRespuesta">La respuesta seleccionada</param>
-        /// <returns></returns>
-        public ResultadoRespuesta Responder(string pRespuesta)
-        {
-            ResultadoRespuesta resultado = new ResultadoRespuesta();
-            foreach (var item in Respuestas.ToList())
-            {
-                if (item.EsCorrecta == true)
-                {
-                    resultado.RespuestaCorrecta = item.DefRespuesta;
-                    if (item.DefRespuesta == pRespuesta)
-                    {
-                        resultado.EsCorrecta = true;
-                    }
-                    else
-                    {
-                        resultado.EsCorrecta = false;
-                    }
-                }
-            }
-            resultado.FinSesion = false;
-            return resultado;
-        }
-
-        /// <summary>
-        /// Este método se utiliza para obtener las posibles respuestas a la pregunta.
-        /// </summary>
-        /// <returns></returns>
-        public List<string> ObtenerRespuestas()
-        {
-            Random random = new Random();
-            string temp;
-            List<string> lista = new List<string>();
-            foreach (var respuesta in Respuestas.ToList())
-            {
-                lista.Add(respuesta.DefRespuesta);
-            }
-            lista.OrderBy(x => random.Next());
-            return lista;
-        }
     }
 }

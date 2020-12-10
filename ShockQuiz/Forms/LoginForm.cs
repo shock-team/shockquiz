@@ -21,7 +21,7 @@ namespace ShockQuiz.Forms
                 bool esAdmin = facha.EsAdmin(txtUsuario.Text);
                 MenuForm menuForm = new MenuForm(usuario, esAdmin);
                 menuForm.FormClosed += new FormClosedEventHandler(LoginForm_FormClosed);
-                var sesionActiva = facha.ObtenerSesionNoFinalizada();
+                Sesion sesionActiva = facha.ObtenerSesionNoFinalizada();
                 if (sesionActiva != null)
                 {
                     DialogResult dialogResult = MessageBox.Show("Existe una sesión sin finalizar, ¿desea continuarla?", "Sesión activa", MessageBoxButtons.YesNo);

@@ -6,6 +6,6 @@ namespace ShockQuiz.IO
     {
         public int IdPregunta { get; set; }
         public string Pregunta { get; set; }
-        public List<RespuestaDTO> Respuestas { get; set; } = new List<RespuestaDTO>();
+        public List<RespuestaDTO> Respuestas { get; set; }
     }
 }

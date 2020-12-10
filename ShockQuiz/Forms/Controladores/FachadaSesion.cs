@@ -35,15 +35,16 @@ namespace ShockQuiz
                     preguntaYRespuestas.Pregunta = pregunta.Nombre;
 
                     RespuestaDTO respuestaActualDTO;
+                    List<RespuestaDTO> listaDeRespuestas = new List<RespuestaDTO>();
                     foreach (Respuesta respuesta in pregunta.Respuestas)
                     {
                         respuestaActualDTO = new RespuestaDTO();
                         respuestaActualDTO.IdRespuesta = respuesta.RespuestaId;
                         respuestaActualDTO.Respuesta = respuesta.DefRespuesta;
-                        preguntaYRespuestas.Respuestas.Add(respuestaActualDTO);
+                        listaDeRespuestas.Add(respuestaActualDTO);
                     }
 
-                    preguntaYRespuestas.Respuestas.OrderBy(x => random.Next());
+                    preguntaYRespuestas.Respuestas = listaDeRespuestas.OrderBy(x => random.Next()).ToList();
 
                     return preguntaYRespuestas;
                 }

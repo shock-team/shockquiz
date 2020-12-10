@@ -14,7 +14,7 @@ namespace ShockQuiz
     {
         FachadaSesion fachada = new FachadaSesion();
         int idSesionActual;
-        PreguntaDTO preguntaActual = new PreguntaDTO();
+        PreguntaDTO preguntaActual;
 
         public SesionForm(int pSesionId, string pCategoria, string pDificultad, int pCantidad)
         {
@@ -95,6 +95,7 @@ namespace ShockQuiz
         private void SiguientePregunta()
         {
             preguntaActual = fachada.ObtenerPreguntaYRespuestas(idSesionActual);
+
             lblPregunta.Text = preguntaActual.Pregunta;
 
             btnRespuesta1.Text = preguntaActual.Respuestas[0].Respuesta;

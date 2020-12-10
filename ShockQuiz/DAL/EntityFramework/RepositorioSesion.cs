@@ -54,19 +54,6 @@ namespace ShockQuiz.DAL.EntityFramework
         }
 
         /// <summary>
-        /// Este método se utiliza para obtener la última sesión que se ha
-        /// subido a la base de datos.
-        /// </summary>
-        /// <returns></returns>
-        public Sesion ObtenerUltimaSesion()
-        {
-            var ultimaSesion = from s in iDbContext.Sesiones
-                               .Include("Conjunto")
-                               select s;
-            return ultimaSesion.OrderByDescending(x => x.SesionId).First();
-        }
-
-        /// <summary>
         /// Este método se utiliza para obtener una sesión de la base de datos
         /// a partir de su ID, así como su conjunto y dificultad.
         /// </summary>
