@@ -63,22 +63,7 @@ namespace ShockQuiz.Dominio
             {
                 lista.Add(respuesta.DefRespuesta);
             }
-            int a;
-            int b;
-            for (int i = 0; i < lista.Count; i++)
-            {
-                for (int j = 0; j < lista.Count - i; j++)
-                {
-                    a = random.Next();
-                    b = random.Next();
-                    if (a > b)
-                    {
-                        temp = lista[j];
-                        lista[j] = lista[i];
-                        lista[i] = temp;
-                    }
-                }
-            }
+            lista.OrderBy(x => random.Next());
             return lista;
         }
     }

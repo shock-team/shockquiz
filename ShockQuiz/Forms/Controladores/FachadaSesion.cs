@@ -14,15 +14,14 @@ namespace ShockQuiz
     /// </summary>
     public class FachadaSesion
     {
-        public int idSesionActual { get; set; }
-        public int idPreguntaActual { get; set; }
         public AyudanteTimer ayudanteTimer { get; set; }
 
         /// <summary>
         /// Devuelve un PreguntaDTO correspondiente a la siguiente de la sesión
         /// </summary>
+        /// <param name="pIdSesionActual">El ID de la sesión actual</param>
         /// <returns></returns>
-        public PreguntaDTO ObtenerPreguntaYRespuestas()
+        public PreguntaDTO ObtenerPreguntaYRespuestas(int pIdSesionActual)
         { 
             using (var bDbContext = new ShockQuizDbContext())
             {
@@ -30,10 +29,22 @@ namespace ShockQuiz
                 {
                     Random random = new Random();
                     PreguntaDTO preguntaYRespuestas = new PreguntaDTO();
-                    Pregunta pregunta = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(idSesionActual).OrderBy(x => random.Next()).First();
+                    Pregunta pregunta = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(pIdSesionActual).OrderBy(x => random.Next()).First();
+
+                    preguntaYRespuestas.IdPregunta = pregunta.PreguntaId;
                     preguntaYRespuestas.Pregunta = pregunta.Nombre;
-                    preguntaYRespuestas.Respuestas = pregunta.ObtenerRespuestas();
-                    idPreguntaActual = pregunta.PreguntaId;
+
+                    RespuestaDTO respuestaActualDTO;
+                    foreach (Respuesta respuesta in pregunta.Respuestas)
+                    {
+                        respuestaActualDTO = new RespuestaDTO();
+                        respuestaActualDTO.IdRespuesta = respuesta.RespuestaId;
+                        respuestaActualDTO.Respuesta = respuesta.DefRespuesta;
+                        preguntaYRespuestas.Respuestas.Add(respuestaActualDTO);
+                    }
+
+                    preguntaYRespuestas.Respuestas.OrderBy(x => random.Next());
+
                     return preguntaYRespuestas;
                 }
             }            
@@ -42,20 +53,28 @@ namespace ShockQuiz
         /// <summary>
         ///Devuelve el resultado de responder a una pregunta
         /// </summary>
-        /// <param name="pRespuesta">La respuesta seleccionada por el usuario</param>
+        /// <param name="pIdSesionActual">El ID de la sesión actual</param>
+        /// <param name="pIdPregunta">El ID de la pregunta a responder</param>
+        /// <param name="pIdRespuesta">El ID de la respuesta seleccionada por el usuario</param>
         /// <returns></returns>
-        public ResultadoRespuesta Responder(string pRespuesta)
+        public ResultadoRespuesta Responder(int pIdSesionActual, int pIdPregunta, int pIdRespuesta)
         {
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    ResultadoRespuesta resultado;
-                    Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionId(idSesionActual);
-                    Pregunta pregunta = bUoW.RepositorioPregunta.ObtenerPreguntaPorId(idPreguntaActual);
+                    Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionId(pIdSesionActual);
+
+                    Pregunta pregunta = bUoW.RepositorioPregunta.ObtenerPreguntaPorId(pIdPregunta);
                     pregunta.SesionActualId = 0;
-                    resultado = pregunta.Responder(pRespuesta);
+
+                    Respuesta respuestaCorrecta = bUoW.RepositorioPregunta.ObtenerRespuestaCorrecta(pIdPregunta);
+
+                    ResultadoRespuesta resultado = new ResultadoRespuesta();
+                    resultado.EsCorrecta = (respuestaCorrecta.RespuestaId == pIdRespuesta);
+                    resultado.RespuestaCorrecta = respuestaCorrecta.DefRespuesta;
                     resultado.FinSesion = sesionActual.Responder(resultado.EsCorrecta);
+
                     sesionActual.SegundosTranscurridos = ayudanteTimer.TiempoTranscurrido;
                     bUoW.GuardarCambios();
                     return resultado;
@@ -66,21 +85,24 @@ namespace ShockQuiz
         /// <summary>
         /// Devuelve un resultado al verificar que la sesión actual no se exceda del tiempo límite
         /// </summary>
-        /// <returns></returns>
-        public void FinTiempoLimite()
+        /// <param name="pIdSesionActual">El ID de la sesión actual</param>
+        public void FinTiempoLimite(int pIdSesionActual)
         {
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    Sesion sesionActual = bUoW.RepositorioSesion.Obtener(idSesionActual);
+                    Sesion sesionActual = bUoW.RepositorioSesion.Obtener(pIdSesionActual);
                     sesionActual.SesionFinalizada = true;
-                    IEnumerable<Pregunta> preguntasRestantes = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(idSesionActual);
+                    int idPreguntaActual;
+
+                    IEnumerable<Pregunta> preguntasRestantes = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(pIdSesionActual);
                     foreach (Pregunta pregunta in preguntasRestantes)
                     {
                         idPreguntaActual = pregunta.PreguntaId;
-                        Responder("");
+                        Responder(sesionActual.SesionId, pregunta.PreguntaId, 0);
                     }
+
                     bUoW.GuardarCambios();
                 }
             }
@@ -89,32 +111,34 @@ namespace ShockQuiz
         /// <summary>
         /// Devuelve el puntaje de la sesión actual
         /// </summary>
+        /// <param name="pIdSesionActual">El ID de la sesión actual</param>
         /// <returns></returns>
-        public double ObtenerPuntaje()
+        public double ObtenerPuntaje(int pIdSesionActual)
         {
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    Sesion sesionActual = bUoW.RepositorioSesion.Obtener(idSesionActual);
+                    Sesion sesionActual = bUoW.RepositorioSesion.Obtener(pIdSesionActual);
                     return sesionActual.Puntaje;
                 }
             }
         }
-        
+
         /// <summary>
         /// Este método se utiliza para iniciar el timer que verifica el tiempo límite de 
         /// la sesión.
         /// </summary>
         /// <param name="pOnTimeFinishedHandler">La acción a realizar cuando se agota el tiempo límite</param>
         /// <param name="pOnTickTimer">La acción a realizar por cada tick</param>
-        public void IniciarTimer(Action pOnTimeFinishedHandler, Action<int> pOnTickTimer)
+        /// <param name="pIdSesionActual">El ID de la sesión actual</param>
+        public void IniciarTimer(Action pOnTimeFinishedHandler, Action<int> pOnTickTimer, int pIdSesionActual)
         {
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    Sesion sesionActual = bUoW.RepositorioSesion.Obtener(idSesionActual);
+                    Sesion sesionActual = bUoW.RepositorioSesion.Obtener(pIdSesionActual);
                     sesionActual.Conjunto = bUoW.RepositorioConjunto.Obtener(sesionActual.ConjuntoId);
                     int tiempoRestante = Convert.ToInt32(sesionActual.TiempoLimite() - sesionActual.SegundosTranscurridos);
                     ayudanteTimer = new AyudanteTimer(tiempoRestante, pOnTimeFinishedHandler, pOnTickTimer);

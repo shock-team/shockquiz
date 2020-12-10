@@ -89,13 +89,13 @@ namespace ShockQuiz.Forms
                     sesion.Dificultad = bUoW.RepositorioDificultad.Obtener(pDificultad);
 
                     bUoW.RepositorioSesion.Agregar(sesion);
+
                     bUoW.GuardarCambios();
 
-                    int idSesion = bUoW.RepositorioSesion.ObtenerUltimaSesion().SesionId;
                     IEnumerable<Pregunta> listaDePreguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(pCategoria, pDificultad, pConjunto, pCantidad);
                     foreach (Pregunta pregunta in listaDePreguntas)
                     {
-                        pregunta.SesionActualId = idSesion;
+                        pregunta.SesionActualId = sesion.SesionId;
                     }
                     bUoW.GuardarCambios();
                 }

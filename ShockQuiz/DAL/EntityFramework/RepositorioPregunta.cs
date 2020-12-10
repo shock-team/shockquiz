@@ -136,9 +136,22 @@ namespace ShockQuiz.DAL.EntityFramework
         {
             var pregunta = (from p in iDbContext.Preguntas.Include(x => x.Respuestas)
                             where p.PreguntaId == pIdPregunta
-                            select p
-                            );
+                            select p);
             return pregunta.First();
+        }
+
+        /// <summary>
+        /// Este método se utiliza para obtener la respuesta correcta a una pregunta en particular
+        /// </summary>
+        /// <param name="pIdPregunta">El ID de la pregunta a responder.</param>
+        /// <returns></returns>
+        public Respuesta ObtenerRespuestaCorrecta(int pIdPregunta)
+        {
+            var respuestaCorrecta = (from r in iDbContext.Respuestas
+                                     where r.PreguntaId == pIdPregunta &&
+                                     r.EsCorrecta
+                                     select r);
+            return respuestaCorrecta.First();
         }
     }
 }

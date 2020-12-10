@@ -176,6 +176,7 @@
     </Compile>
     <Compile Include="Helpers\ProgressReportModel.cs" />
     <Compile Include="IO\PreguntaDTO.cs" />
+    <Compile Include="IO\RespuestaDTO.cs" />
     <Compile Include="IO\ResultadoRespuesta.cs" />
     <Compile Include="Dominio\Pregunta.cs" />
     <Compile Include="Logger.cs" />

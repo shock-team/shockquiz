@@ -13,18 +13,25 @@ namespace ShockQuiz
     public partial class SesionForm : Form
     {
         FachadaSesion fachada = new FachadaSesion();
+        int idSesionActual;
+        PreguntaDTO preguntaActual = new PreguntaDTO();
+
         public SesionForm(int pSesionId, string pCategoria, string pDificultad, int pCantidad)
         {
             InitializeComponent();
+
             lblCategoria.Text = pCategoria;
             lblDificultad.Text = pDificultad;
-            fachada.idSesionActual = pSesionId;
+            idSesionActual = pSesionId;
             lblRespuestasActuales.Text = "0";
+
             LoadFont();
+
             SiguientePregunta();
+
             lblRespuestasTotales.Text = pCantidad.ToString();
 
-            fachada.IniciarTimer(FinTiempoLimite,ActualizarTimer);
+            fachada.IniciarTimer(FinTiempoLimite,ActualizarTimer, idSesionActual);
         }
 
         private void ColorBotonCorrecto(string pRespuesta)
@@ -57,21 +64,21 @@ namespace ShockQuiz
             if (pResultado.TiempoLimiteFinalizado)
             {
                 btnSiguiente.Enabled = false;
-                MessageBox.Show("¡Tiempo agotado! Puntaje: " + fachada.ObtenerPuntaje(), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("¡Tiempo agotado! Puntaje: " + fachada.ObtenerPuntaje(idSesionActual), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.Close();
             }
             else if (pResultado.FinSesion)
             {
                 fachada.DetenerTimer();
                 btnSiguiente.Enabled = false;
-                MessageBox.Show("Puntaje: " + fachada.ObtenerPuntaje(), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); ;
+                MessageBox.Show("Puntaje: " + fachada.ObtenerPuntaje(idSesionActual), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); ;
                 this.Close();
             }
         }
 
-        private void LogicaRespuesta(Button pBtnRespuesta)
+        private void LogicaRespuesta(Button pBtnRespuesta, int pIndiceRespuesta)
         {
-            ResultadoRespuesta resultado = fachada.Responder(pBtnRespuesta.Text);
+            ResultadoRespuesta resultado = fachada.Responder(idSesionActual, preguntaActual.IdPregunta, preguntaActual.Respuestas[pIndiceRespuesta].IdRespuesta);
             if (!resultado.EsCorrecta)
             {
                 pBtnRespuesta.BackColor = System.Drawing.Color.Red;
@@ -80,29 +87,29 @@ namespace ShockQuiz
             Finalizar(resultado);
         }
 
-        private void BtnRespuesta1_Click(object sender, EventArgs e) => LogicaRespuesta(btnRespuesta1);
-        private void BtnRespuesta2_Click(object sender, EventArgs e) => LogicaRespuesta(btnRespuesta2);
-        private void BtnRespuesta3_Click(object sender, EventArgs e) => LogicaRespuesta(btnRespuesta3);
-        private void BtnRespuesta4_Click(object sender, EventArgs e) => LogicaRespuesta(btnRespuesta4);
+        private void BtnRespuesta1_Click(object sender, EventArgs e) => LogicaRespuesta(btnRespuesta1, 0);
+        private void BtnRespuesta2_Click(object sender, EventArgs e) => LogicaRespuesta(btnRespuesta2, 1);
+        private void BtnRespuesta3_Click(object sender, EventArgs e) => LogicaRespuesta(btnRespuesta3, 2);
+        private void BtnRespuesta4_Click(object sender, EventArgs e) => LogicaRespuesta(btnRespuesta4, 3);
 
         private void SiguientePregunta()
         {
-            PreguntaDTO actual = fachada.ObtenerPreguntaYRespuestas();
-            lblPregunta.Text = actual.Pregunta;
+            preguntaActual = fachada.ObtenerPreguntaYRespuestas(idSesionActual);
+            lblPregunta.Text = preguntaActual.Pregunta;
 
-            btnRespuesta1.Text = actual.Respuestas[0];
+            btnRespuesta1.Text = preguntaActual.Respuestas[0].Respuesta;
             btnRespuesta1.Enabled = true;
             btnRespuesta1.BackColor = System.Drawing.SystemColors.Control;
 
-            btnRespuesta2.Text = actual.Respuestas[1];
+            btnRespuesta2.Text = preguntaActual.Respuestas[1].Respuesta;
             btnRespuesta2.Enabled = true;
             btnRespuesta2.BackColor = System.Drawing.SystemColors.Control;
 
-            btnRespuesta3.Text = actual.Respuestas[2];
+            btnRespuesta3.Text = preguntaActual.Respuestas[2].Respuesta;
             btnRespuesta3.Enabled = true;
             btnRespuesta3.BackColor = System.Drawing.SystemColors.Control;
 
-            btnRespuesta4.Text = actual.Respuestas[3];
+            btnRespuesta4.Text = preguntaActual.Respuestas[3].Respuesta;
             btnRespuesta4.Enabled = true;
             btnRespuesta4.BackColor = System.Drawing.SystemColors.Control;
 
@@ -113,8 +120,8 @@ namespace ShockQuiz
         private void FinTiempoLimite()
         {
             btnSiguiente.Enabled = false;
-            fachada.FinTiempoLimite();
-            MessageBox.Show("¡Tiempo agotado! Puntaje: " + fachada.ObtenerPuntaje(), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            fachada.FinTiempoLimite(idSesionActual);
+            MessageBox.Show("¡Tiempo agotado! Puntaje: " + fachada.ObtenerPuntaje(idSesionActual), "Fin de la partida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             this.Close();
         }
 
