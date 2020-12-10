@@ -53,10 +53,10 @@ namespace ShockQuiz.Forms
             {
                 MessageBox.Show("No hay preguntas suficientes para la selección", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            /*catch (Exception)
+            catch (Exception)
             {
                 MessageBox.Show("Seleccione una dificultad y categoría.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
+            }
         }
 
         private void CbConjunto_SelectedIndexChanged(object sender, EventArgs e)
