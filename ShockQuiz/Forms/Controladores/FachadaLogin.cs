@@ -4,59 +4,49 @@ using System.Collections.Generic;
 using System.Linq;
 using ShockQuiz.Excepciones;
 using System;
+using ShockQuiz.IO;
 
 namespace ShockQuiz.Forms
 {
     class FachadaLogin
     {
         /// <summary>
-        /// Verifica si el nombre de usuario ingresado y su contraseña coinciden en la base de datos
+        /// Este método se utiliza para realizar un login a partir de un nombre de usuario y su contraseña,
+        /// y devolver la información necesaria.
         /// </summary>
-        /// <param name="pUser">Nombre del usuario</param>
-        /// <param name="pPass">Contraseña del usuario</param>
+        /// <param name="pNombreDeUsuario">El nombre del usuario.</param>
+        /// <param name="pClave">La contraseña del usuario.</param>
         /// <returns></returns>
-        public int CheckLogin(string pUser, string pPass)
+        public LoginDTO Login(string pNombreDeUsuario, string pClave)
         {
+            LoginDTO loginDTO = new LoginDTO();
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    Usuario user = bUoW.RepositorioUsuario.ObtenerPorNombre(pUser);
-
-                    if (user.ContraseñaCorrecta(pPass))
-                    {
-                        return user.UsuarioId;
-                    }
-                    else
+                    Usuario usuario = bUoW.RepositorioUsuario.ObtenerPorNombre(pNombreDeUsuario);
+                    if (!usuario.ContraseñaCorrecta(pClave))
                     {
                         throw new ContraseñaIncorrectaException();
                     }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Este método se utiliza para obtener una sesión aún activa presente
-        /// en la base de datos.
-        /// </summary>
-        /// <returns></returns>
-        public Sesion ObtenerSesionNoFinalizada()
-        {
-            Sesion res = null;
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    IEnumerable<Sesion> sesionesActivas = bUoW.RepositorioSesion.ObtenerSesionActiva();
-                    if (sesionesActivas.Count() > 0)
+                    else
                     {
-                        res = sesionesActivas.First();
+                        loginDTO.IdUsuario = usuario.UsuarioId;
+                        loginDTO.EsAdmin = usuario.Admin;
+                        Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionActiva();
+                        if (sesionActual == null)
+                        {
+                            loginDTO.IdSesion = -1;
+                        }
+                        else
+                        {
+                            loginDTO.IdSesion = sesionActual.SesionId;
+                        }
                     }
                 }
             }
-            return res;
+            return loginDTO;
         }
-
 
         /// <summary>
         /// Registra a un usuario en la base de datos de la aplicación
@@ -89,31 +79,6 @@ namespace ShockQuiz.Forms
         }
 
         /// <summary>
-        /// Verifica si un usuario es administrador
-        /// </summary>
-        /// <param name="pUsuario">El usuario a verificar</param>
-        /// <returns></returns>
-        public bool EsAdmin(string pUsuario)
-        {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    Usuario user = bUoW.RepositorioUsuario.ObtenerPorNombre(pUsuario);
-
-                    if (user.Admin)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// Este método se encarga de cancelar una sesión que se encuentre activa
         /// </summary>
         public void CancelarSesionActiva()
@@ -122,7 +87,7 @@ namespace ShockQuiz.Forms
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    Sesion sesionActiva = bUoW.RepositorioSesion.ObtenerSesionActiva().First();
+                    Sesion sesionActiva = bUoW.RepositorioSesion.ObtenerSesionActiva();
                     sesionActiva.FechaFin = DateTime.Now;
                     foreach (Pregunta pregunta in bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(sesionActiva.SesionId))
                     {

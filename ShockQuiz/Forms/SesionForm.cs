@@ -16,20 +16,21 @@ namespace ShockQuiz
         int idSesionActual;
         PreguntaDTO preguntaActual;
 
-        public SesionForm(int pSesionId, string pCategoria, string pDificultad, int pCantidad)
+        public SesionForm(int pSesionId)
         {
             InitializeComponent();
 
-            lblCategoria.Text = pCategoria;
-            lblDificultad.Text = pDificultad;
+            Sesion sesionActual = fachada.ObtenerSesion(pSesionId);
+
+            lblCategoria.Text = sesionActual.Categoria.Nombre;
+            lblDificultad.Text = sesionActual.Dificultad.Nombre;
             idSesionActual = pSesionId;
-            lblRespuestasActuales.Text = "0";
+            lblRespuestasActuales.Text = (sesionActual.CantidadTotalPreguntas - sesionActual.PreguntasRestantes).ToString();
+            lblRespuestasTotales.Text = sesionActual.CantidadTotalPreguntas.ToString();
 
             LoadFont();
 
             SiguientePregunta();
-
-            lblRespuestasTotales.Text = pCantidad.ToString();
 
             fachada.IniciarTimer(FinTiempoLimite,ActualizarTimer, idSesionActual);
         }

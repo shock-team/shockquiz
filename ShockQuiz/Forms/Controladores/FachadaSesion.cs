@@ -116,14 +116,8 @@ namespace ShockQuiz
         /// <returns></returns>
         public double ObtenerPuntaje(int pIdSesionActual)
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    Sesion sesionActual = bUoW.RepositorioSesion.Obtener(pIdSesionActual);
-                    return sesionActual.Puntaje;
-                }
-            }
+            Sesion sesionActual = ObtenerSesion(pIdSesionActual);
+            return sesionActual.Puntaje;
         }
 
         /// <summary>
@@ -135,16 +129,9 @@ namespace ShockQuiz
         /// <param name="pIdSesionActual">El ID de la sesión actual</param>
         public void IniciarTimer(Action pOnTimeFinishedHandler, Action<int> pOnTickTimer, int pIdSesionActual)
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    Sesion sesionActual = bUoW.RepositorioSesion.Obtener(pIdSesionActual);
-                    sesionActual.Conjunto = bUoW.RepositorioConjunto.Obtener(sesionActual.ConjuntoId);
-                    int tiempoRestante = Convert.ToInt32(sesionActual.TiempoLimite() - sesionActual.SegundosTranscurridos);
-                    ayudanteTimer = new AyudanteTimer(tiempoRestante, pOnTimeFinishedHandler, pOnTickTimer);
-                }
-            }
+            Sesion sesionActual = ObtenerSesion(pIdSesionActual);
+            int tiempoRestante = Convert.ToInt32(sesionActual.TiempoLimite() - sesionActual.SegundosTranscurridos);
+            ayudanteTimer = new AyudanteTimer(tiempoRestante, pOnTimeFinishedHandler, pOnTickTimer);
         }
 
         /// <summary>
@@ -153,6 +140,23 @@ namespace ShockQuiz
         public void DetenerTimer()
         {
             ayudanteTimer.bgWorker.CancelAsync();
+        }
+
+        /// <summary>
+        /// Éste método se utiliza para obtener una sesión en particular presente en la base de datos.
+        /// </summary>
+        /// <param name="pIdSesionActual">El ID de la sesión.</param>
+        /// <returns></returns>
+        public Sesion ObtenerSesion(int pIdSesionActual)
+        {
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionId(pIdSesionActual);
+                    return sesionActual;
+                }
+            }
         }
     }
 }

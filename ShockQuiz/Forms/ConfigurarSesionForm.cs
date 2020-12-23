@@ -44,7 +44,7 @@ namespace ShockQuiz.Forms
                 var categoria = (Categoria)cbCategoria.SelectedItem ?? new Categoria { };
                 var dificultad = (Dificultad)cbDificultad.SelectedItem ?? new Dificultad { };
                 var idSesion = fachada.IniciarSesion(idUsuario, categoria.Id, dificultad.Id, Decimal.ToInt32(nudCantidad.Value), ((Conjunto)cbConjunto.SelectedItem).ConjuntoId);
-                SesionForm sesionForm = new SesionForm(idSesion, categoria.Nombre, dificultad.Nombre, Decimal.ToInt32(nudCantidad.Value));
+                SesionForm sesionForm = new SesionForm(idSesion);
                 sesionForm.FormClosed += new FormClosedEventHandler(SesionForm_FormClosed);
                 sesionForm.Show();
                 this.Hide();
