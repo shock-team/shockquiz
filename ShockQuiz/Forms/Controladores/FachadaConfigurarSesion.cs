@@ -65,7 +65,7 @@ namespace ShockQuiz.Forms
         /// <param name="pCantidad">Cantidad de preguntas de la sesión</param>
         /// <param name="pConjunto">Id del conjunto del que se obtienen las preguntas de la sesión</param>
         /// <returns></returns>
-        public Sesion IniciarSesion(int pUsuario, int pCategoria, int pDificultad, int pCantidad, int pConjunto)
+        public int IniciarSesion(int pUsuario, int pCategoria, int pDificultad, int pCantidad, int pConjunto)
         {
             Sesion sesion = new Sesion();
             sesion.FechaInicio = DateTime.Now;
@@ -100,7 +100,7 @@ namespace ShockQuiz.Forms
                     bUoW.GuardarCambios();
                 }
             }
-            return sesion;
+            return sesion.SesionId;
         }
     }
 }
