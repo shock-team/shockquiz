@@ -12,17 +12,17 @@ namespace ShockQuiz
         [STAThread]
         static void Main()
         {
-            try
-            {
+            /*try
+            {*/
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);;
                 Application.Run(new LoginForm());
-            }
+            /*}
             catch (Exception ex)
             {
                 Logger.LogError(ex);
                 MessageBox.Show("Ha ocurrido una excepción, dirijase a ErrorLog.txt para más información", "Error");
-            }
+            }*/
         }
     }
 }

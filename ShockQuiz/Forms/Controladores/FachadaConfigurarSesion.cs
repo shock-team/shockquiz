@@ -67,12 +67,9 @@ namespace ShockQuiz.Forms
         /// <returns></returns>
         public int IniciarSesion(int pUsuario, int pCategoria, int pDificultad, int pCantidad, int pConjunto)
         {
+            Random random = new Random();
             Sesion sesion = new Sesion();
             sesion.FechaInicio = DateTime.Now;
-            sesion.CategoriaId = pCategoria;
-            sesion.DificultadId = pDificultad;
-            sesion.ConjuntoId = pConjunto;
-            sesion.PreguntasRestantes = pCantidad;
             sesion.CantidadTotalPreguntas = pCantidad;
             sesion.UsuarioId = pUsuario;
             sesion.FechaFin = DateTime.Parse("01-01-2399");
@@ -84,19 +81,16 @@ namespace ShockQuiz.Forms
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
                     sesion.Usuario = bUoW.RepositorioUsuario.Obtener(pUsuario);
-                    sesion.Conjunto = bUoW.RepositorioConjunto.Obtener(pConjunto);
-                    sesion.Categoria = bUoW.RepositorioCategoria.Obtener(pCategoria);
-                    sesion.Dificultad = bUoW.RepositorioDificultad.Obtener(pDificultad);
+
+                    List<Pregunta> listaDePreguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(pCategoria, pDificultad, pConjunto, pCantidad).OrderBy(x => random.Next()).ToList();
+                    foreach (Pregunta pregunta in listaDePreguntas)
+                    {
+                        pregunta.Sesiones.Add(sesion);
+                    }
+                    sesion.Preguntas = listaDePreguntas;
 
                     bUoW.RepositorioSesion.Agregar(sesion);
 
-                    bUoW.GuardarCambios();
-
-                    IEnumerable<Pregunta> listaDePreguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(pCategoria, pDificultad, pConjunto, pCantidad);
-                    foreach (Pregunta pregunta in listaDePreguntas)
-                    {
-                        pregunta.SesionActualId = sesion.SesionId;
-                    }
                     bUoW.GuardarCambios();
                 }
             }

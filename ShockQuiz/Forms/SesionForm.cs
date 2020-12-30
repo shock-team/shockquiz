@@ -21,11 +21,12 @@ namespace ShockQuiz
             InitializeComponent();
 
             Sesion sesionActual = fachada.ObtenerSesion(pSesionId);
+            NombresDatos nombresDatos = sesionActual.ObtenerNombres();
 
-            lblCategoria.Text = sesionActual.Categoria.Nombre;
-            lblDificultad.Text = sesionActual.Dificultad.Nombre;
+            lblCategoria.Text = nombresDatos.Categoria;
+            lblDificultad.Text = nombresDatos.Dificultad;
             idSesionActual = pSesionId;
-            lblRespuestasActuales.Text = (sesionActual.CantidadTotalPreguntas - sesionActual.PreguntasRestantes).ToString();
+            lblRespuestasActuales.Text = (sesionActual.CantidadTotalPreguntas - sesionActual.Preguntas.Count).ToString();
             lblRespuestasTotales.Text = sesionActual.CantidadTotalPreguntas.ToString();
 
             LoadFont();

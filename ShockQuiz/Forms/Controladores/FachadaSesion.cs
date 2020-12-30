@@ -29,7 +29,8 @@ namespace ShockQuiz
                 {
                     Random random = new Random();
                     PreguntaDTO preguntaYRespuestas = new PreguntaDTO();
-                    Pregunta pregunta = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(pIdSesionActual).OrderBy(x => random.Next()).First();
+                    Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionId(pIdSesionActual);
+                    Pregunta pregunta = bUoW.RepositorioPregunta.ObtenerPreguntaPorId(sesionActual.ObtenerIdSiguientePregunta());
 
                     preguntaYRespuestas.IdPregunta = pregunta.PreguntaId;
                     preguntaYRespuestas.Pregunta = pregunta.Nombre;
@@ -66,9 +67,6 @@ namespace ShockQuiz
                 {
                     Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionId(pIdSesionActual);
 
-                    Pregunta pregunta = bUoW.RepositorioPregunta.ObtenerPreguntaPorId(pIdPregunta);
-                    pregunta.SesionActualId = 0;
-
                     Respuesta respuestaCorrecta = bUoW.RepositorioPregunta.ObtenerRespuestaCorrecta(pIdPregunta);
 
                     ResultadoRespuesta resultado = new ResultadoRespuesta();
@@ -96,11 +94,9 @@ namespace ShockQuiz
                     Sesion sesionActual = bUoW.RepositorioSesion.Obtener(pIdSesionActual);
                     sesionActual.SesionFinalizada = true;
                     int idPreguntaActual;
-
-                    IEnumerable<Pregunta> preguntasRestantes = bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(pIdSesionActual);
-                    foreach (Pregunta pregunta in preguntasRestantes)
+                    foreach (Pregunta pregunta in sesionActual.Preguntas)
                     {
-                        idPreguntaActual = pregunta.PreguntaId;
+                        idPreguntaActual = sesionActual.ObtenerIdSiguientePregunta();
                         Responder(sesionActual.SesionId, pregunta.PreguntaId, 0);
                     }
 

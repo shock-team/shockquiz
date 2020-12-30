@@ -89,10 +89,9 @@ namespace ShockQuiz.Forms
                 {
                     Sesion sesionActiva = bUoW.RepositorioSesion.ObtenerSesionActiva();
                     sesionActiva.FechaFin = DateTime.Now;
-                    foreach (Pregunta pregunta in bUoW.RepositorioPregunta.ObtenerPreguntasPorSesion(sesionActiva.SesionId))
+                    foreach (Pregunta pregunta in sesionActiva.Preguntas.ToList())
                     {
                         sesionActiva.Responder(false);
-                        pregunta.SesionActualId = 0;
                     }
                     sesionActiva.SesionFinalizada = true;
                     bUoW.GuardarCambios();

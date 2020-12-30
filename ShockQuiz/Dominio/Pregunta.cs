@@ -20,6 +20,14 @@ namespace ShockQuiz.Dominio
         public Conjunto Conjunto { get; set; }
         public string ConjuntoNombre { get; set; }
         public ICollection<Respuesta> Respuestas { get; set; }
-        public int SesionActualId { get; set; }
+        public ICollection<Sesion> Sesiones { get; set; } = new List<Sesion>();
+
+        public void QuitarDeSesion(int pIdSesion)
+        {
+            List<Sesion> listaDeSesiones = Sesiones.ToList();
+            int indiceSesion = listaDeSesiones.FindIndex(x => x.SesionId == pIdSesion);
+            listaDeSesiones.RemoveAt(indiceSesion);
+            Sesiones = listaDeSesiones;
+        }
     }
 }

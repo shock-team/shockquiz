@@ -25,7 +25,6 @@
                         CategoriaId = c.Int(nullable: false),
                         DificultadId = c.Int(nullable: false),
                         ConjuntoId = c.Int(nullable: false),
-                        idSesionActual = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.id)
                 .ForeignKey("dbo.Categorias", t => t.CategoriaId, cascadeDelete: true)
@@ -51,37 +50,27 @@
                 c => new
                     {
                         id = c.Int(nullable: false, identity: true),
-                        cantidadPreguntas = c.Int(nullable: false),
                         CantidadTotalPreguntas = c.Int(nullable: false),
-                        CategoriaId = c.Int(nullable: false),
-                        DificultadId = c.Int(nullable: false),
                         puntaje = c.Double(nullable: false),
                         FechaInicio = c.DateTime(nullable: false),
                         fechaFin = c.DateTime(nullable: false),
                         UsuarioId = c.Int(nullable: false),
-                        ConjuntoId = c.Int(nullable: false),
                         RespuestasCorrectas = c.Int(nullable: false),
                         SegundosTranscurridos = c.Double(nullable: false),
                         SesionFinalizada = c.Boolean(nullable: false),
+                        Conjunto_ConjuntoId = c.Int(),
+                        Dificultad_Id = c.Int(),
+                        Categoria_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.id)
-                .ForeignKey("dbo.Categorias", t => t.CategoriaId, cascadeDelete: true)
-                .ForeignKey("dbo.Conjuntos", t => t.ConjuntoId, cascadeDelete: true)
-                .ForeignKey("dbo.Dificultades", t => t.DificultadId, cascadeDelete: true)
                 .ForeignKey("dbo.Usuarios", t => t.UsuarioId, cascadeDelete: true)
-                .Index(t => t.CategoriaId)
-                .Index(t => t.DificultadId)
+                .ForeignKey("dbo.Conjuntos", t => t.Conjunto_ConjuntoId)
+                .ForeignKey("dbo.Dificultades", t => t.Dificultad_Id)
+                .ForeignKey("dbo.Categorias", t => t.Categoria_Id)
                 .Index(t => t.UsuarioId)
-                .Index(t => t.ConjuntoId);
-            
-            CreateTable(
-                "dbo.Dificultades",
-                c => new
-                    {
-                        id = c.Int(nullable: false, identity: true),
-                        nombre = c.String(nullable: false, maxLength: 100),
-                    })
-                .PrimaryKey(t => t.id);
+                .Index(t => t.Conjunto_ConjuntoId)
+                .Index(t => t.Dificultad_Id)
+                .Index(t => t.Categoria_Id);
             
             CreateTable(
                 "dbo.Usuarios",
@@ -96,6 +85,15 @@
                 .Index(t => t.user, unique: true);
             
             CreateTable(
+                "dbo.Dificultades",
+                c => new
+                    {
+                        id = c.Int(nullable: false, identity: true),
+                        nombre = c.String(nullable: false, maxLength: 100),
+                    })
+                .PrimaryKey(t => t.id);
+            
+            CreateTable(
                 "dbo.Respuestas",
                 c => new
                     {
@@ -108,30 +106,48 @@
                 .ForeignKey("dbo.Preguntas", t => t.PreguntaId, cascadeDelete: true)
                 .Index(t => t.PreguntaId);
             
+            CreateTable(
+                "dbo.SesionPregunta",
+                c => new
+                    {
+                        PreguntaRefId = c.Int(nullable: false),
+                        SesionRefId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.PreguntaRefId, t.SesionRefId })
+                .ForeignKey("dbo.Preguntas", t => t.PreguntaRefId, cascadeDelete: true)
+                .ForeignKey("dbo.Sesiones", t => t.SesionRefId, cascadeDelete: true)
+                .Index(t => t.PreguntaRefId)
+                .Index(t => t.SesionRefId);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Sesiones", "Categoria_Id", "dbo.Categorias");
+            DropForeignKey("dbo.SesionPregunta", "SesionRefId", "dbo.Sesiones");
+            DropForeignKey("dbo.SesionPregunta", "PreguntaRefId", "dbo.Preguntas");
             DropForeignKey("dbo.Respuestas", "PreguntaId", "dbo.Preguntas");
             DropForeignKey("dbo.Preguntas", "DificultadId", "dbo.Dificultades");
+            DropForeignKey("dbo.Sesiones", "Dificultad_Id", "dbo.Dificultades");
             DropForeignKey("dbo.Preguntas", "ConjuntoId", "dbo.Conjuntos");
+            DropForeignKey("dbo.Sesiones", "Conjunto_ConjuntoId", "dbo.Conjuntos");
             DropForeignKey("dbo.Sesiones", "UsuarioId", "dbo.Usuarios");
-            DropForeignKey("dbo.Sesiones", "DificultadId", "dbo.Dificultades");
-            DropForeignKey("dbo.Sesiones", "ConjuntoId", "dbo.Conjuntos");
-            DropForeignKey("dbo.Sesiones", "CategoriaId", "dbo.Categorias");
             DropForeignKey("dbo.Preguntas", "CategoriaId", "dbo.Categorias");
+            DropIndex("dbo.SesionPregunta", new[] { "SesionRefId" });
+            DropIndex("dbo.SesionPregunta", new[] { "PreguntaRefId" });
             DropIndex("dbo.Respuestas", new[] { "PreguntaId" });
             DropIndex("dbo.Usuarios", new[] { "user" });
-            DropIndex("dbo.Sesiones", new[] { "ConjuntoId" });
+            DropIndex("dbo.Sesiones", new[] { "Categoria_Id" });
+            DropIndex("dbo.Sesiones", new[] { "Dificultad_Id" });
+            DropIndex("dbo.Sesiones", new[] { "Conjunto_ConjuntoId" });
             DropIndex("dbo.Sesiones", new[] { "UsuarioId" });
-            DropIndex("dbo.Sesiones", new[] { "DificultadId" });
-            DropIndex("dbo.Sesiones", new[] { "CategoriaId" });
             DropIndex("dbo.Preguntas", new[] { "ConjuntoId" });
             DropIndex("dbo.Preguntas", new[] { "DificultadId" });
             DropIndex("dbo.Preguntas", new[] { "CategoriaId" });
+            DropTable("dbo.SesionPregunta");
             DropTable("dbo.Respuestas");
-            DropTable("dbo.Usuarios");
             DropTable("dbo.Dificultades");
+            DropTable("dbo.Usuarios");
             DropTable("dbo.Sesiones");
             DropTable("dbo.Conjuntos");
             DropTable("dbo.Preguntas");

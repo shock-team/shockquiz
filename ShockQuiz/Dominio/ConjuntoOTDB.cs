@@ -4,6 +4,7 @@ using ShockQuiz.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ShockQuiz.IO;
 
 namespace ShockQuiz.Dominio
 {
@@ -14,7 +15,8 @@ namespace ShockQuiz.Dominio
             int TIEMPO_LIMITE_1 = 5;
             int TIEMPO_LIMITE_2 = 20;
             double FACTOR_DIFICULTAD = 1;
-            switch (pSesion.Dificultad.Nombre)
+            NombresDatos nombresDatos = pSesion.ObtenerNombres();
+            switch (nombresDatos.Dificultad)
             {
                 case "hard":
                     FACTOR_DIFICULTAD = 5;

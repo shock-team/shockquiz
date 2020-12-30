@@ -45,9 +45,11 @@ namespace ShockQuiz.DAL.EntityFramework
         public Sesion ObtenerSesionActiva()
         {
             var sesionActiva = from s in iDbContext.Sesiones
-                               .Include("Conjunto")
-                               .Include("Categoria")
-                               .Include("Dificultad")
+                               .Include("Preguntas")
+                               .Include("Preguntas.Conjunto")
+                               .Include("Preguntas.Dificultad")
+                               .Include("Preguntas.Categoria")
+                               .Include("Preguntas.Sesiones")
                                where !s.SesionFinalizada
                                select s;
             if (sesionActiva.Count() > 0)
@@ -69,9 +71,11 @@ namespace ShockQuiz.DAL.EntityFramework
         public Sesion ObtenerSesionId(int pIdSesion)
         {
             var sesionActiva = from s in iDbContext.Sesiones
-                               .Include("Conjunto")
-                               .Include("Dificultad")
-                               .Include("Categoria")
+                               .Include("Preguntas")
+                               .Include("Preguntas.Conjunto")
+                               .Include("Preguntas.Dificultad")
+                               .Include("Preguntas.Categoria")
+                               .Include("Preguntas.Sesiones")
                                where s.SesionId == pIdSesion
                                select s;
             return sesionActiva.First();

@@ -1,4 +1,5 @@
 ﻿using ShockQuiz.Dominio;
+using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 
 namespace ShockQuiz.DAL.EntityFramework.Mapping
@@ -13,18 +14,6 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
             this.Property(x => x.SesionId)
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)
                 .HasColumnName("id");
-
-            this.Property(x => x.PreguntasRestantes)
-                .HasColumnName("cantidadPreguntas")
-                .IsRequired();
-
-            this.HasRequired<Categoria>(x => x.Categoria)
-                .WithMany(x => x.Sesiones)
-                .HasForeignKey<int>(x => x.CategoriaId);
-
-            this.HasRequired<Dificultad>(x => x.Dificultad)
-                .WithMany(x => x.Sesiones)
-                .HasForeignKey<int>(x => x.DificultadId);
 
             this.Property(x => x.Puntaje)
                 .HasColumnName("puntaje")
@@ -41,9 +30,14 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
                 .WithMany(x => x.Sesiones)
                 .HasForeignKey<int>(x => x.UsuarioId);
 
-            this.HasRequired<Conjunto>(x => x.Conjunto)
+            this.HasMany<Pregunta>(x => x.Preguntas)
                 .WithMany(x => x.Sesiones)
-                .HasForeignKey<int>(x => x.ConjuntoId);
+                .Map(cs =>
+                            {
+                                cs.MapLeftKey("SesionRefId");
+                                cs.MapRightKey("PreguntaRefId");
+                                cs.ToTable("SesionPregunta");
+                            });
 
             this.Property(x => x.RespuestasCorrectas);
             this.Property(x => x.CantidadTotalPreguntas);

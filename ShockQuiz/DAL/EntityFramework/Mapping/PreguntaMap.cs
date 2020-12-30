@@ -30,13 +30,14 @@ namespace ShockQuiz.DAL.EntityFramework.Mapping
                 .WithMany(x => x.Preguntas)
                 .HasForeignKey<int>(x => x.ConjuntoId);
 
-            /*this.HasRequired<Sesion>(x => x.SesionActual)
+            this.HasMany<Sesion>(x => x.Sesiones)
                 .WithMany(x => x.Preguntas)
-                .HasForeignKey<int>(x => x.SesionActualId);*/
-
-            this.Property(x => x.SesionActualId)
-                .IsRequired()
-                .HasColumnName("idSesionActual");
+                .Map(cs =>
+                {
+                    cs.MapLeftKey("SesionRefId");
+                    cs.MapRightKey("PreguntaRefId");
+                    cs.ToTable("SesionPregunta");
+                });
 
             this.Ignore(x => x.ConjuntoNombre);
         }

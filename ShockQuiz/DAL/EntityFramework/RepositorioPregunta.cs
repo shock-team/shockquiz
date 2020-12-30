@@ -52,13 +52,14 @@ namespace ShockQuiz.DAL.EntityFramework
                        .Include(x => x.Categoria)
                        .Include(x => x.Dificultad)
                        .Include(x => x.Conjunto)
+                       .Include(x => x.Sesiones)
                        where t.Categoria.Id == pCategoria
                        && t.Dificultad.Id == pDificultad
                        && t.Conjunto.ConjuntoId == pConjunto
                        select t;
             if (list.Count() >= pCantidad)
             {
-                return list;
+                return list.Take(pCantidad);
             }
             else
             {
@@ -113,20 +114,6 @@ namespace ShockQuiz.DAL.EntityFramework
         }
 
         /// <summary>
-        /// Este método se utiliza para obtener todas las instancias de la clase Pregunta
-        /// las cuales poseen una sesión activa, a partir de su ID.
-        /// </summary>
-        /// <param name="pIdSesion">El ID de la sesión activa</param>
-        /// <returns></returns>
-        public IEnumerable<Pregunta> ObtenerPreguntasPorSesion(int pIdSesion)
-        {
-            var preguntasFiltradas = (from p in iDbContext.Preguntas.Include(x => x.Respuestas)
-                                      where p.SesionActualId == pIdSesion
-                                      select p);
-            return preguntasFiltradas;
-        }
-
-        /// <summary>
         /// Este método se utiliza para obtener una pregunta y sus respuestas
         /// a partir de si ID.
         /// </summary>
@@ -135,6 +122,11 @@ namespace ShockQuiz.DAL.EntityFramework
         public Pregunta ObtenerPreguntaPorId(int pIdPregunta)
         {
             var pregunta = (from p in iDbContext.Preguntas.Include(x => x.Respuestas)
+                               .Include("Conjunto")
+                               .Include("Dificultad")
+                               .Include("Categoria")
+                               .Include("Sesiones")
+                               .Include("Respuestas")
                             where p.PreguntaId == pIdPregunta
                             select p);
             return pregunta.First();

@@ -8,22 +8,16 @@ namespace ShockQuiz.Dominio
     public class Sesion
     {
         public int SesionId { get; set; }
-        public int PreguntasRestantes { get; set; }
         public int CantidadTotalPreguntas { get; set; }
-        public int CategoriaId { get; set; }
-        public Categoria Categoria { get; set; }
-        public int DificultadId { get; set; }
-        public Dificultad Dificultad { get; set; }
         public double Puntaje { get; set; } = 0;
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
         public Usuario Usuario { get; set; }
         public int UsuarioId { get; set; }
-        public Conjunto Conjunto { get; set; }
-        public int ConjuntoId { get; set; }
         public int RespuestasCorrectas { get; set; } = 0;
         public double SegundosTranscurridos { get; set; }
         public bool SesionFinalizada { get; set; }
+        public ICollection<Pregunta> Preguntas { get; set; } = new List<Pregunta>();
 
         /// <summary>
         /// Este método se utiliza para modificar los datos de la sesión
@@ -34,17 +28,22 @@ namespace ShockQuiz.Dominio
         public bool Responder(bool pEsCorrecta)
         {
             bool finSesion = false;
-            PreguntasRestantes--;
+            Pregunta pregunta = Preguntas.First();
+
             if (pEsCorrecta)
             {
                 RespuestasCorrectas++;
             }
-            if (PreguntasRestantes <= 0)
+            if (Preguntas.Count == 1)
             {
                 finSesion = true;
                 this.FechaFin = DateTime.Now;
-                this.Puntaje = Conjunto.CalcularPuntaje(this);
+                this.Puntaje = pregunta.Conjunto.CalcularPuntaje(this);
             }
+
+            pregunta.QuitarDeSesion(SesionId);
+            Preguntas.Remove(pregunta);
+
             this.SesionFinalizada = finSesion;
             return finSesion;
         }
@@ -55,7 +54,38 @@ namespace ShockQuiz.Dominio
         /// <returns></returns>
         public double TiempoLimite()
         {
-            return CantidadTotalPreguntas * Conjunto.TiempoEsperadoPorPregunta;
+            double tiempoLimite = 0;
+            if (Preguntas.Count > 0)
+            {
+                tiempoLimite = CantidadTotalPreguntas * Preguntas.First().Conjunto.TiempoEsperadoPorPregunta;
+            }
+            return tiempoLimite;
+        }
+
+        /// <summary>
+        /// Este método se utiliza para obtener la siguiente pregunta correspondiente a la sesión.
+        /// </summary>
+        /// <returns></returns>
+        public int ObtenerIdSiguientePregunta()
+        {
+            return Preguntas.First().PreguntaId;
+        }
+
+        /// <summary>
+        /// Este método se utiliza para obtener los nombres de la Categoría y la Dificultad 
+        /// correspondientes a la sesión.
+        /// </summary>
+        /// <returns></returns>
+        public NombresDatos ObtenerNombres()
+        {
+            NombresDatos nombresDatos = new NombresDatos();
+            if (Preguntas.Count > 0)
+            {
+                Pregunta pregunta = Preguntas.First();
+                nombresDatos.Categoria = pregunta.Categoria.Nombre;
+                nombresDatos.Dificultad = pregunta.Dificultad.Nombre;
+            }
+            return nombresDatos;
         }
     }
 }
