@@ -103,7 +103,7 @@ namespace ShockQuiz.Forms
             }
         }
 
-        public void AlmacenarPreguntas(List<Pregunta> pPreguntas, IProgress<ProgressReportModel> progress, int pCantidad, int pNumCalls)
+        public void AlmacenarPreguntas(List<Pregunta> pPreguntas, IProgress<ProgressReportModel> progress, int pCantidad, int pNumCalls, string pConjunto)
         {
             ProgressReportModel report = new ProgressReportModel();
             int aux = 50 * pNumCalls;
@@ -117,8 +117,8 @@ namespace ShockQuiz.Forms
                         aux++;
 
                         string preguntaDesc = pregunta.Nombre;
-                        string CONJUNTO = pregunta.ConjuntoNombre;
-                        pregunta.Nombre = bUoW.RepositorioPregunta.GetOrCreate(preguntaDesc, CONJUNTO);
+                        pregunta.ConjuntoNombre = pConjunto;
+                        pregunta.Nombre = bUoW.RepositorioPregunta.GetOrCreate(preguntaDesc, pConjunto);
 
                         string categoria = pregunta.Categoria.Nombre;
                         pregunta.Categoria = bUoW.RepositorioCategoria.GetOrCreate(categoria);
@@ -126,7 +126,7 @@ namespace ShockQuiz.Forms
                         string dificultad = pregunta.Dificultad.Nombre;
                         pregunta.Dificultad = bUoW.RepositorioDificultad.GetOrCreate(dificultad);
 
-                        pregunta.Conjunto = bUoW.RepositorioConjunto.Get(CONJUNTO);
+                        pregunta.Conjunto = bUoW.RepositorioConjunto.Get(pConjunto);
 
                         if (pregunta.Nombre != string.Empty)
                         {

@@ -50,7 +50,7 @@ namespace ShockQuiz.Dominio.Conjuntos
 
         public async override Task AgregarPreguntasAsync(int pCantidad, 
             IProgress<ProgressReportModel> progress, 
-            Action<List<Pregunta>, IProgress<ProgressReportModel>, int, int> almacenarPreguntas, 
+            Action<List<Pregunta>, IProgress<ProgressReportModel>, int, int, string> almacenarPreguntas, 
             string pToken = null)
         {
             int numCalls = 0;
@@ -72,7 +72,7 @@ namespace ShockQuiz.Dominio.Conjuntos
 
         private async Task AgregarPreguntasLogic(int pCantidad, 
             IProgress<ProgressReportModel> progress,
-            Action<List<Pregunta>, IProgress<ProgressReportModel>, int, int> almacenarPreguntas, 
+            Action<List<Pregunta>, IProgress<ProgressReportModel>, int, int, string> almacenarPreguntas, 
             int pNumCalls, 
             string pToken = null)
         {
@@ -80,7 +80,7 @@ namespace ShockQuiz.Dominio.Conjuntos
 
             preguntas = await Task.Run(() => JsonMapper.GetPreguntas(pToken, pCantidad));
 
-            await Task.Run(() => almacenarPreguntas(preguntas, progress, pCantidad, pNumCalls));
+            await Task.Run(() => almacenarPreguntas(preguntas, progress, pCantidad, pNumCalls, this.Nombre));
         }
     }
 }
