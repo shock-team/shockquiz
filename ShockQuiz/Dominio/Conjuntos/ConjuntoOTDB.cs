@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ShockQuiz.IO;
 
-namespace ShockQuiz.Dominio
+namespace ShockQuiz.Dominio.Conjuntos
 {
     public class ConjuntoOTDB : Conjunto
     {

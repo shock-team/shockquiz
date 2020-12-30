@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using ShockQuiz.Dominio.Conjuntos;
 
 namespace ShockQuiz.Forms
 {
@@ -49,9 +51,8 @@ namespace ShockQuiz.Forms
         /// <param name="pNombre">Nombre del nuevo ConjuntoOTDB</param>
         /// <param name="pTEPP">Cantidad de sengudos esperada por pregunta</param>
         /// <param name="token">Si el checkbox del Token fue seleccionado o no</param>
-        public void AñadirConjunto(string pNombre, int pTEPP, bool token)
+        public void AñadirConjunto(string pNombre, int pTEPP, bool token, int pIndiceTipo)
         {
-
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
@@ -61,14 +62,14 @@ namespace ShockQuiz.Forms
                     {
                         tokenString = JsonMapper.ObtenerToken();
                     }
+                    Type tipoConjunto = ObtenerTiposDeConjunto()[pIndiceTipo];
+                    Conjunto conjunto = (Conjunto)Activator.CreateInstance(tipoConjunto);
 
-                    Conjunto otdb = new ConjuntoOTDB()
-                    {
-                        Nombre = pNombre,
-                        TiempoEsperadoPorPregunta = pTEPP,
-                        Token = tokenString
-                    };
-                    bUoW.RepositorioConjunto.Agregar(otdb);
+                    conjunto.Nombre = pNombre;
+                    conjunto.TiempoEsperadoPorPregunta = pTEPP;
+                    conjunto.Token = tokenString;
+
+                    bUoW.RepositorioConjunto.Agregar(conjunto);
                     bUoW.GuardarCambios();
                 }
             }
@@ -136,6 +137,38 @@ namespace ShockQuiz.Forms
                         progress.Report(report);
                     }
                     bUoW.GuardarCambios();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Este método se utiliza para obtener una lista con todos los tipos presentes en la carpeta
+        /// ShockQuiz.Dominio.Conjuntos.
+        /// </summary>
+        /// <returns></returns>
+        public List<Type> ObtenerTiposDeConjunto()
+        {
+            string nameSpace = "ShockQuiz.Dominio.Conjuntos";
+            var tipos = from t in Assembly.GetExecutingAssembly().GetTypes()
+                        where t.IsClass && t.Namespace == nameSpace
+                              && t.IsSubclassOf(typeof(Conjunto))
+                        select t;
+            return tipos.ToList();
+        }
+
+        /// <summary>
+        /// Este método se utiliza para obtener un conjunto específico de presente en la base de datos
+        /// a partir de su ID.
+        /// </summary>
+        /// <param name="pIdConjunto">El ID del conjunto a obtener.</param>
+        /// <returns></returns>
+        public Conjunto ObtenerConjunto(int pIdConjunto)
+        {
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    return bUoW.RepositorioConjunto.Obtener(pIdConjunto);
                 }
             }
         }

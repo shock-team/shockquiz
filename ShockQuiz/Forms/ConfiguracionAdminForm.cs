@@ -3,6 +3,10 @@ using ShockQuiz.Helpers;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Linq;
+using ShockQuiz.Dominio.Conjuntos;
 
 namespace ShockQuiz.Forms
 {
@@ -14,16 +18,25 @@ namespace ShockQuiz.Forms
         {
             InitializeComponent();
             ActualizarConjuntos();
+
+            foreach (Type tipo in fachada.ObtenerTiposDeConjunto().ToList())
+            {
+                comboTipoConjunto.Items.Add(tipo);
+            }
+            comboTipoConjunto.DisplayMember = "Name";
+            comboTipoConjunto.SelectedIndex = 0;
         }
 
         public void ActualizarConjuntos()
         {
+            cbConjunto.Items.Clear();
             foreach (var item in fachada.ObtenerConjuntos())
             {
                 cbConjunto.Items.Add(item);
             }
             cbConjunto.DisplayMember = "Nombre";
         }
+
         private void BtnAdmin_Click(object sender, EventArgs e)
         {
             if (txtUsuario.Text != "")
@@ -54,12 +67,9 @@ namespace ShockQuiz.Forms
                     Progress<ProgressReportModel> progress = new Progress<ProgressReportModel>();
                     progress.ProgressChanged += ReportProgress;
 
-                    if (cbConjunto.Text == "OpenTDB")
-                    {
-                        ConjuntoOTDB conjunto = new ConjuntoOTDB();
-                        await conjunto.AgregarPreguntasAsync(Decimal.ToInt32(nudCantidad.Value), progress, fachada.AlmacenarPreguntas, conjunto.Token);
-                    }
-
+                    Conjunto conjunto = fachada.ObtenerConjunto(((Conjunto)cbConjunto.SelectedItem).ConjuntoId);
+                    await conjunto.AgregarPreguntasAsync(Decimal.ToInt32(nudCantidad.Value), progress, fachada.AlmacenarPreguntas, conjunto.Token);
+                    
                     MessageBox.Show($"{Decimal.ToInt32(nudCantidad.Value)} preguntas añadidas correctamente al conjunto {cbConjunto.Text}.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception)
@@ -87,7 +97,7 @@ namespace ShockQuiz.Forms
         {
             try
             {
-                fachada.AñadirConjunto(txtAddConjunto.Text, Decimal.ToInt32(nudAddConjunto.Value), cbToken.Checked);
+                fachada.AñadirConjunto(txtAddConjunto.Text, Decimal.ToInt32(nudAddConjunto.Value), cbToken.Checked, comboTipoConjunto.SelectedIndex);
                 ActualizarConjuntos();
                 MessageBox.Show("Conjunto OpenTDB añadido correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtAddConjunto.Clear();

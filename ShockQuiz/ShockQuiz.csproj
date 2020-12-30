@@ -108,7 +108,7 @@
     <Compile Include="DAL\EntityFramework\RepositorioConjunto.cs" />
     <Compile Include="DAL\EntityFramework\RepositorioDificultad.cs" />
     <Compile Include="DAL\OpenTriviaDB\JsonMapper.cs" />
-    <Compile Include="Dominio\ConjuntoOTDB.cs" />
+    <Compile Include="Dominio\Conjuntos\ConjuntoOTDB.cs" />
     <Compile Include="Excepciones\ContraseñaIncorrectaException.cs" />
     <Compile Include="Excepciones\PreguntasInsuficientesException.cs" />
     <Compile Include="Helpers\AyudanteTimer.cs" />
@@ -182,9 +182,9 @@
     <Compile Include="IO\ResultadoRespuesta.cs" />
     <Compile Include="Dominio\Pregunta.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="Migrations\202012301641161_init.cs" />
-    <Compile Include="Migrations\202012301641161_init.designer.cs">
-      <DependentUpon>202012301641161_init.cs</DependentUpon>
+    <Compile Include="Migrations\202012302055355_init.cs" />
+    <Compile Include="Migrations\202012302055355_init.designer.cs">
+      <DependentUpon>202012302055355_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -210,8 +210,8 @@
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012301641161_init.resx">
-      <DependentUpon>202012301641161_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012302055355_init.resx">
+      <DependentUpon>202012302055355_init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
