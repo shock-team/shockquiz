@@ -39,10 +39,11 @@ namespace ShockQuiz.DAL.EntityFramework
         }
 
         /// <summary>
-        /// Devuelve la sesion que se encuentre activa en la base de datos.
+        /// Devuelve la sesion que se encuentre activa de un usuario específico en la base de datos.
         /// </summary>
+        /// <param name="pIdUsuario">El ID del usuario cuya sesión activa se busca.</param>
         /// <returns></returns>
-        public Sesion ObtenerSesionActiva()
+        public Sesion ObtenerSesionActiva(int pIdUsuario)
         {
             var sesionActiva = from s in iDbContext.Sesiones
                                .Include("Preguntas")
@@ -50,7 +51,7 @@ namespace ShockQuiz.DAL.EntityFramework
                                .Include("Preguntas.Dificultad")
                                .Include("Preguntas.Categoria")
                                .Include("Preguntas.Sesiones")
-                               where !s.SesionFinalizada
+                               where !s.SesionFinalizada && s.UsuarioId == pIdUsuario
                                select s;
             if (sesionActiva.Count() > 0)
             {

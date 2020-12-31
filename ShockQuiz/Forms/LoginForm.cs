@@ -33,7 +33,7 @@ namespace ShockQuiz.Forms
                     }
                     else if (dialogResult == DialogResult.No)
                     {
-                        facha.CancelarSesionActiva();
+                        facha.CancelarSesion(loginDTO.IdUsuario);
                         menuForm.Show();
                         this.Hide();
                     }

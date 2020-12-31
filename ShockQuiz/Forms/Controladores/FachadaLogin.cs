@@ -33,7 +33,7 @@ namespace ShockQuiz.Forms
                     {
                         loginDTO.IdUsuario = usuario.UsuarioId;
                         loginDTO.EsAdmin = usuario.Admin;
-                        Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionActiva();
+                        Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionActiva(usuario.UsuarioId);
                         if (sesionActual == null)
                         {
                             loginDTO.IdSesion = -1;
@@ -81,13 +81,13 @@ namespace ShockQuiz.Forms
         /// <summary>
         /// Este método se encarga de cancelar una sesión que se encuentre activa
         /// </summary>
-        public void CancelarSesionActiva()
+        public void CancelarSesion(int pIdUsuario)
         {
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    Sesion sesionActiva = bUoW.RepositorioSesion.ObtenerSesionActiva();
+                    Sesion sesionActiva = bUoW.RepositorioSesion.ObtenerSesionActiva(pIdUsuario);
                     sesionActiva.FechaFin = DateTime.Now;
                     foreach (Pregunta pregunta in sesionActiva.Preguntas.ToList())
                     {
