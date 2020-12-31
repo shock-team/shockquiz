@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ShockQuiz.IO;
+using System.Linq;
 
 namespace ShockQuiz.Dominio.Conjuntos
 {
@@ -48,39 +49,36 @@ namespace ShockQuiz.Dominio.Conjuntos
             return Math.Round(puntaje, 2);
         }
 
-        public async override Task AgregarPreguntasAsync(int pCantidad, 
-            IProgress<ProgressReportModel> progress, 
-            Action<List<Pregunta>, IProgress<ProgressReportModel>, int, int, string> almacenarPreguntas, 
-            string pToken = null)
+        public override List<Pregunta> ObtenerPreguntas(int pCantidad, string pToken = null)
         {
             int numCalls = 0;
-            if (pCantidad > 50)
+            List<Pregunta> preguntasTotales = new List<Pregunta>();
+            try
             {
-                int aux = pCantidad;
-                while (aux > 0)
+                if (pCantidad > 50)
                 {
-                    await AgregarPreguntasLogic(aux, progress, almacenarPreguntas, numCalls, pToken);
-                    aux -= 50;
-                    numCalls++;
+                    int aux = pCantidad;
+                    while (aux > 0)
+                    {
+                        preguntasTotales = ObtenerPreguntasLogic(preguntasTotales, pToken, pCantidad);
+                        aux -= 50;
+                        numCalls++;
+                    }
+                }
+                else
+                {
+                    preguntasTotales = ObtenerPreguntasLogic(preguntasTotales, pToken, pCantidad);
                 }
             }
-            else
-            {
-                await AgregarPreguntasLogic(pCantidad, progress, almacenarPreguntas, numCalls, pToken);
-            }
+            catch (Exception){}
+            return preguntasTotales;
         }
 
-        private async Task AgregarPreguntasLogic(int pCantidad, 
-            IProgress<ProgressReportModel> progress,
-            Action<List<Pregunta>, IProgress<ProgressReportModel>, int, int, string> almacenarPreguntas, 
-            int pNumCalls, 
-            string pToken = null)
+        private List<Pregunta> ObtenerPreguntasLogic(List<Pregunta> pPreguntasActuales, string pToken, int pCantidad)
         {
-            List<Pregunta> preguntas = new List<Pregunta>();
-
-            preguntas = await Task.Run(() => JsonMapper.GetPreguntas(pToken, pCantidad));
-
-            await Task.Run(() => almacenarPreguntas(preguntas, progress, pCantidad, pNumCalls, this.Nombre));
+            List<Pregunta> preguntasDeLlamada;
+            preguntasDeLlamada = JsonMapper.GetPreguntas(pToken, pCantidad);
+            return pPreguntasActuales.Union(preguntasDeLlamada).ToList();
         }
     }
 }

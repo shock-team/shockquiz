@@ -101,7 +101,7 @@ namespace ShockQuiz.DAL.EntityFramework
         public IEnumerable<Categoria> ObtenerCategorias(int pConjunto)
         {
             List<Categoria> listaCategorias = new List<Categoria>();
-            List<Pregunta> listaPreguntas = new List<Pregunta>();
+            List<Pregunta> listaPreguntas = new List<Pregunta>();   
             listaPreguntas = (from t in iDbContext.Preguntas.Include(x => x.Categoria).Include(x => x.Conjunto) where t.Conjunto.ConjuntoId == pConjunto select t).ToList();
             foreach (Pregunta pregunta in listaPreguntas)
             {

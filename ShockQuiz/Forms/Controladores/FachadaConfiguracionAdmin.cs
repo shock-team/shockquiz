@@ -102,22 +102,25 @@ namespace ShockQuiz.Forms
             }
         }
 
-        public void AlmacenarPreguntas(List<Pregunta> pPreguntas, IProgress<ProgressReportModel> progress, int pCantidad, int pNumCalls, string pConjunto)
+        public void AlmacenarPreguntas(int pIdConjunto, IProgress<ProgressReportModel> progress, int pCantidad)
         {
             ProgressReportModel report = new ProgressReportModel();
-            int aux = 50 * pNumCalls;
-
             using (var bDbContext =  new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
-                    foreach (var pregunta in pPreguntas)
+                    Conjunto conjunto = bUoW.RepositorioConjunto.Obtener(pIdConjunto);
+                    List<Pregunta> preguntas = conjunto.ObtenerPreguntas(pCantidad, conjunto.Token);
+                    int aux = preguntas.Count;
+                    foreach (Pregunta pregunta in preguntas)
                     {
                         aux++;
 
-                        string preguntaDesc = pregunta.Nombre;
-                        pregunta.ConjuntoNombre = pConjunto;
-                        pregunta.Nombre = bUoW.RepositorioPregunta.GetOrCreate(preguntaDesc, pConjunto);
+                        pregunta.Conjunto = conjunto;
+                        pregunta.ConjuntoNombre = conjunto.Nombre;
+
+                        string descripcion = pregunta.Nombre;
+                        pregunta.Nombre = bUoW.RepositorioPregunta.GetOrCreate(descripcion, conjunto.Nombre);
 
                         string categoria = pregunta.Categoria.Nombre;
                         pregunta.Categoria = bUoW.RepositorioCategoria.GetOrCreate(categoria);
@@ -125,14 +128,12 @@ namespace ShockQuiz.Forms
                         string dificultad = pregunta.Dificultad.Nombre;
                         pregunta.Dificultad = bUoW.RepositorioDificultad.GetOrCreate(dificultad);
 
-                        pregunta.Conjunto = bUoW.RepositorioConjunto.Get(pConjunto);
-
                         if (pregunta.Nombre != string.Empty)
                         {
                             bUoW.RepositorioPregunta.Agregar(pregunta);
                         }
 
-                        report.PercentageComplete = (aux * 100) / (pCantidad + 50 * pNumCalls);
+                        report.PercentageComplete = (aux * 100) / (pCantidad + preguntas.Count);
                         progress.Report(report);
                     }
                     bUoW.GuardarCambios();
@@ -153,23 +154,6 @@ namespace ShockQuiz.Forms
                               && t.IsSubclassOf(typeof(Conjunto))
                         select t;
             return tipos.ToList();
-        }
-
-        /// <summary>
-        /// Este método se utiliza para obtener un conjunto específico de presente en la base de datos
-        /// a partir de su ID.
-        /// </summary>
-        /// <param name="pIdConjunto">El ID del conjunto a obtener.</param>
-        /// <returns></returns>
-        public Conjunto ObtenerConjunto(int pIdConjunto)
-        {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    return bUoW.RepositorioConjunto.Obtener(pIdConjunto);
-                }
-            }
         }
     }
 }

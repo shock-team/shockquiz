@@ -58,7 +58,7 @@ namespace ShockQuiz.Forms
             }
         }
 
-        private async void BtnAgregar_Click(object sender, EventArgs e)
+        private void BtnAgregar_Click(object sender, EventArgs e)
         {
             if (nudCantidad.Value > 0)
             {
@@ -67,15 +67,14 @@ namespace ShockQuiz.Forms
                     Progress<ProgressReportModel> progress = new Progress<ProgressReportModel>();
                     progress.ProgressChanged += ReportProgress;
 
-                    Conjunto conjunto = fachada.ObtenerConjunto(((Conjunto)cbConjunto.SelectedItem).ConjuntoId);
-                    await conjunto.AgregarPreguntasAsync(Decimal.ToInt32(nudCantidad.Value), progress, fachada.AlmacenarPreguntas, conjunto.Token);
+                    fachada.AlmacenarPreguntas(((Conjunto)cbConjunto.SelectedItem).ConjuntoId, progress, Convert.ToInt32(nudCantidad.Value));
                     
                     MessageBox.Show($"{Decimal.ToInt32(nudCantidad.Value)} preguntas añadidas correctamente al conjunto {cbConjunto.Text}.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception)
+                /*catch (Exception)
                 {
                     MessageBox.Show("Ha habido un error con la base de datos", "Error");
-                }
+                }*/
                 finally
                 {
                     progressBar.Value = 0;
@@ -110,6 +109,10 @@ namespace ShockQuiz.Forms
                 {
                     MessageBox.Show("Seleccione un tipo de conjunto", "Error");
                 }
+            }
+            catch(ArgumentNullException)
+            {
+                MessageBox.Show("Introduzca los datos apropiados", "Error");
             }
             catch(System.Data.Entity.Infrastructure.DbUpdateException)
             {

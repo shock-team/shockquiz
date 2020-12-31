@@ -18,16 +18,9 @@ namespace ShockQuiz.Dominio
             throw new NotImplementedException();
         }
 
-        public virtual void AgregarPreguntas(int pCantidad, string pToken = null)
-        {
-        }        
-        
-        public virtual Task AgregarPreguntasAsync(int pCantidad, 
-            IProgress<ProgressReportModel> progress,
-            Action<List<Pregunta>, IProgress<ProgressReportModel>, int, int, string> almacenarPreguntas,
-            string pToken = null)
+        public virtual List<Pregunta> ObtenerPreguntas(int pCantidad, string pToken = null)
         {
             throw new NotImplementedException();
-        }        
+        }       
     }
 }
