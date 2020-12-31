@@ -97,11 +97,23 @@ namespace ShockQuiz.Forms
         {
             try
             {
-                fachada.AñadirConjunto(txtAddConjunto.Text, Decimal.ToInt32(nudAddConjunto.Value), cbToken.Checked, comboTipoConjunto.SelectedIndex);
-                ActualizarConjuntos();
-                MessageBox.Show("Conjunto OpenTDB añadido correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                txtAddConjunto.Clear();
-                nudAddConjunto.Value = 1;
+                int indice = comboTipoConjunto.SelectedIndex;
+                if (indice > -1)
+                {
+                    fachada.AñadirConjunto(txtAddConjunto.Text, Decimal.ToInt32(nudAddConjunto.Value), cbToken.Checked, indice);
+                    ActualizarConjuntos();
+                    MessageBox.Show("Conjunto añadido correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtAddConjunto.Clear();
+                    nudAddConjunto.Value = 1;
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione un tipo de conjunto", "Error");
+                }
+            }
+            catch(System.Data.Entity.Infrastructure.DbUpdateException)
+            {
+                MessageBox.Show("Ya existe un conjunto con ese nombre", "Error");
             }
             catch (Exception)
             {
@@ -117,7 +129,7 @@ namespace ShockQuiz.Forms
                 try
                 {
                     fachada.LimpiarDB();
-                    MessageBox.Show("Operación realiazada correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Operación realizada correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex )
                 {

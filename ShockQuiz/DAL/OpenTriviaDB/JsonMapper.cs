@@ -59,7 +59,6 @@ namespace ShockQuiz.DAL.OpenTriviaDB
         public static List<Pregunta> GetPreguntas(string pToken = null, int pNumber = 10)
         {
             List<Pregunta> listaPreguntas = new List<Pregunta>();
-            string CONJUNTO = "OpenTDB";
 
             var mUrl = "https://opentdb.com/api.php?amount=" + pNumber + "&type=multiple";
             if (pToken != null)
@@ -113,7 +112,6 @@ namespace ShockQuiz.DAL.OpenTriviaDB
                             Nombre = preguntaDesc,
                             Categoria = new Categoria() { Nombre = categoria },
                             Dificultad = new Dificultad() { Nombre = dificultad },
-                            ConjuntoNombre = CONJUNTO,
                             Respuestas = respuestas
                         };
                         if (pregunta.Nombre != string.Empty)

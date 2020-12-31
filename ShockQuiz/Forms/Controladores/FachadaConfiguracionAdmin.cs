@@ -64,7 +64,6 @@ namespace ShockQuiz.Forms
                     }
                     Type tipoConjunto = ObtenerTiposDeConjunto()[pIndiceTipo];
                     Conjunto conjunto = (Conjunto)Activator.CreateInstance(tipoConjunto);
-
                     conjunto.Nombre = pNombre;
                     conjunto.TiempoEsperadoPorPregunta = pTEPP;
                     conjunto.Token = tokenString;

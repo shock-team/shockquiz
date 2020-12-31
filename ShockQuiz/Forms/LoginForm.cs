@@ -45,10 +45,10 @@ namespace ShockQuiz.Forms
 
                 this.Hide();
             }
-            /*catch (InvalidOperationException)
+            catch (InvalidOperationException)
             {
                 MessageBox.Show("Usuario inexistente.", "Iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
+            }
             catch (ContraseñaIncorrectaException)
             {
                 MessageBox.Show("Contraseña incorrecta.", "Iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
