@@ -1,5 +1,4 @@
 ﻿using ShockQuiz.Dominio;
-using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 
 namespace ShockQuiz.DAL.EntityFramework.Mapping

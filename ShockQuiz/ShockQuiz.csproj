@@ -174,7 +174,6 @@
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ProgressReportModel.cs" />
     <Compile Include="IO\LoginDTO.cs" />
     <Compile Include="IO\NombresDatos.cs" />
     <Compile Include="IO\PreguntaDTO.cs" />

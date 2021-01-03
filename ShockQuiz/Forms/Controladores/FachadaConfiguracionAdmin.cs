@@ -1,13 +1,10 @@
 ﻿using ShockQuiz.DAL.EntityFramework;
 using ShockQuiz.DAL.OpenTriviaDB;
 using ShockQuiz.Dominio;
-using ShockQuiz.Helpers;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using ShockQuiz.Dominio.Conjuntos;
 
 namespace ShockQuiz.Forms
 {
@@ -51,7 +48,7 @@ namespace ShockQuiz.Forms
         /// <param name="pNombre">Nombre del nuevo ConjuntoOTDB</param>
         /// <param name="pTEPP">Cantidad de sengudos esperada por pregunta</param>
         /// <param name="token">Si el checkbox del Token fue seleccionado o no</param>
-        public void AñadirConjunto(string pNombre, int pTEPP, bool token, int pIndiceTipo)
+        public void AñadirConjunto(string pNombre, int pTEPP, bool token, Type pTipoConjunto)
         {
             using (var bDbContext = new ShockQuizDbContext())
             {
@@ -62,8 +59,7 @@ namespace ShockQuiz.Forms
                     {
                         tokenString = JsonMapper.ObtenerToken();
                     }
-                    Type tipoConjunto = ObtenerTiposDeConjunto()[pIndiceTipo];
-                    Conjunto conjunto = (Conjunto)Activator.CreateInstance(tipoConjunto);
+                    Conjunto conjunto = (Conjunto)Activator.CreateInstance(pTipoConjunto);
                     conjunto.Nombre = pNombre;
                     conjunto.TiempoEsperadoPorPregunta = pTEPP;
                     conjunto.Token = tokenString;
@@ -102,20 +98,21 @@ namespace ShockQuiz.Forms
             }
         }
 
-        public void AlmacenarPreguntas(int pIdConjunto, IProgress<ProgressReportModel> progress, int pCantidad)
+        /// <summary>
+        /// Este método se utiliza para almacenar una lista de preguntas obtenida a partir de un conjunto.
+        /// </summary>
+        /// <param name="pIdConjunto">El ID del conjunto cuyas preguntas se obtienen.</param>
+        /// <param name="pCantidad">La cantidad de preguntas.</param>
+        public void AlmacenarPreguntas(int pIdConjunto, int pCantidad)
         {
-            ProgressReportModel report = new ProgressReportModel();
-            using (var bDbContext =  new ShockQuizDbContext())
+            using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
                     Conjunto conjunto = bUoW.RepositorioConjunto.Obtener(pIdConjunto);
-                    List<Pregunta> preguntas = conjunto.ObtenerPreguntas(pCantidad, conjunto.Token);
-                    int aux = preguntas.Count;
+                    List<Pregunta> preguntas = conjunto.ObtenerPreguntas(pCantidad);
                     foreach (Pregunta pregunta in preguntas)
                     {
-                        aux++;
-
                         pregunta.Conjunto = conjunto;
                         pregunta.ConjuntoNombre = conjunto.Nombre;
 
@@ -132,9 +129,6 @@ namespace ShockQuiz.Forms
                         {
                             bUoW.RepositorioPregunta.Agregar(pregunta);
                         }
-
-                        report.PercentageComplete = (aux * 100) / (pCantidad + preguntas.Count);
-                        progress.Report(report);
                     }
                     bUoW.GuardarCambios();
                 }

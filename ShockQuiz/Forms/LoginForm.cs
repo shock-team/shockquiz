@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using ShockQuiz.Excepciones;
-using ShockQuiz.Dominio;
+﻿using ShockQuiz.Excepciones;
 using ShockQuiz.IO;
+using System;
+using System.Windows.Forms;
 
 namespace ShockQuiz.Forms
 {

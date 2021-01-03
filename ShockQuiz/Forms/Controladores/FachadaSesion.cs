@@ -1,10 +1,10 @@
 ﻿using ShockQuiz.DAL.EntityFramework;
 using ShockQuiz.Dominio;
-using ShockQuiz.IO;
 using ShockQuiz.Forms;
-using System.Linq;
+using ShockQuiz.IO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ShockQuiz
 {
@@ -24,7 +24,7 @@ namespace ShockQuiz
         /// <param name="pIdSesionActual">El ID de la sesión actual</param>
         /// <returns></returns>
         public PreguntaDTO ObtenerPreguntaYRespuestas(Action pOnTimeFinishedHandler, Action<int> pOnTickTimer, int pIdSesionActual)
-        { 
+        {
             using (var bDbContext = new ShockQuizDbContext())
             {
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
@@ -54,7 +54,7 @@ namespace ShockQuiz
 
                     return preguntaYRespuestas;
                 }
-            }            
+            }
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace ShockQuiz
                     bUoW.GuardarCambios();
                     return resultado;
                 }
-            }        
+            }
         }
 
         /// <summary>

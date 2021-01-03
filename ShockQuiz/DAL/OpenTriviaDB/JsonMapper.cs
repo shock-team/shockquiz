@@ -1,14 +1,11 @@
 ﻿using Newtonsoft.Json;
-using ShockQuiz.DAL.EntityFramework;
 using ShockQuiz.Dominio;
-using ShockQuiz.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Web;
-using System.Windows.Forms;
 
 namespace ShockQuiz.DAL.OpenTriviaDB
 {

@@ -1,9 +1,9 @@
-﻿using ShockQuiz.Excepciones;
+﻿using ShockQuiz.Dominio;
+using ShockQuiz.Excepciones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using ShockQuiz.Dominio;
 
 namespace ShockQuiz.Forms
 {

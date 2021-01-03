@@ -1,12 +1,10 @@
 ﻿using ShockQuiz.Dominio;
 using ShockQuiz.IO;
 using System;
-using System.IO;
-using System.Reflection;
+using System.Drawing;
+using System.Drawing.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Drawing.Text;
-using System.Drawing;
 
 namespace ShockQuiz
 {
@@ -130,7 +128,7 @@ namespace ShockQuiz
 
         private void SesionForm_FormClosing(object sender, FormClosingEventArgs e) => fachada.DetenerTimer();
 
-        private void ActualizarTimer(int pTiempoRestante) => lblTimer.Text = pTiempoRestante.ToString()+ " s";
+        private void ActualizarTimer(int pTiempoRestante) => lblTimer.Text = pTiempoRestante.ToString() + " s";
 
         PrivateFontCollection fonts = new PrivateFontCollection();
 

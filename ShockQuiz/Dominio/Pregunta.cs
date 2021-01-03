@@ -1,7 +1,4 @@
-﻿
-using ShockQuiz.IO;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace ShockQuiz.Dominio

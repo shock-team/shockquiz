@@ -1,10 +1,7 @@
 ﻿using ShockQuiz.DAL.OpenTriviaDB;
-using ShockQuiz.Forms;
-using ShockQuiz.Helpers;
+using ShockQuiz.IO;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using ShockQuiz.IO;
 using System.Linq;
 
 namespace ShockQuiz.Dominio.Conjuntos
@@ -49,9 +46,8 @@ namespace ShockQuiz.Dominio.Conjuntos
             return Math.Round(puntaje, 2);
         }
 
-        public override List<Pregunta> ObtenerPreguntas(int pCantidad, string pToken = null)
+        public override List<Pregunta> ObtenerPreguntas(int pCantidad)
         {
-            int numCalls = 0;
             List<Pregunta> preguntasTotales = new List<Pregunta>();
             try
             {
@@ -60,24 +56,23 @@ namespace ShockQuiz.Dominio.Conjuntos
                     int aux = pCantidad;
                     while (aux > 0)
                     {
-                        preguntasTotales = ObtenerPreguntasLogic(preguntasTotales, pToken, pCantidad);
+                        preguntasTotales = ObtenerPreguntasLogic(preguntasTotales, pCantidad);
                         aux -= 50;
-                        numCalls++;
                     }
                 }
                 else
                 {
-                    preguntasTotales = ObtenerPreguntasLogic(preguntasTotales, pToken, pCantidad);
+                    preguntasTotales = ObtenerPreguntasLogic(preguntasTotales, pCantidad);
                 }
             }
-            catch (Exception){}
+            catch (Exception) { }
             return preguntasTotales;
         }
 
-        private List<Pregunta> ObtenerPreguntasLogic(List<Pregunta> pPreguntasActuales, string pToken, int pCantidad)
+        private List<Pregunta> ObtenerPreguntasLogic(List<Pregunta> pPreguntasActuales, int pCantidad)
         {
             List<Pregunta> preguntasDeLlamada;
-            preguntasDeLlamada = JsonMapper.GetPreguntas(pToken, pCantidad);
+            preguntasDeLlamada = JsonMapper.GetPreguntas(Token, pCantidad);
             return pPreguntasActuales.Union(preguntasDeLlamada).ToList();
         }
     }

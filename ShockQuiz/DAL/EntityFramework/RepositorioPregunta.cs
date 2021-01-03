@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace ShockQuiz.DAL.EntityFramework
 {
@@ -74,7 +73,7 @@ namespace ShockQuiz.DAL.EntityFramework
             var dbPregunta = iDbContext.Preguntas.Include(x => x.Conjunto).ToList()
                 .Where(x => x.Nombre == pNombre && x.Conjunto.Nombre == pConjunto).Any();
 
-            
+
 
             if (dbPregunta)
             {
@@ -101,7 +100,7 @@ namespace ShockQuiz.DAL.EntityFramework
         public IEnumerable<Categoria> ObtenerCategorias(int pConjunto)
         {
             List<Categoria> listaCategorias = new List<Categoria>();
-            List<Pregunta> listaPreguntas = new List<Pregunta>();   
+            List<Pregunta> listaPreguntas = new List<Pregunta>();
             listaPreguntas = (from t in iDbContext.Preguntas.Include(x => x.Categoria).Include(x => x.Conjunto) where t.Conjunto.ConjuntoId == pConjunto select t).ToList();
             foreach (Pregunta pregunta in listaPreguntas)
             {

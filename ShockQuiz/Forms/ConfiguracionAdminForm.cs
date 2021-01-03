@@ -1,12 +1,7 @@
 ﻿using ShockQuiz.Dominio;
-using ShockQuiz.Helpers;
 using System;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Reflection;
 using System.Linq;
-using ShockQuiz.Dominio.Conjuntos;
+using System.Windows.Forms;
 
 namespace ShockQuiz.Forms
 {
@@ -64,20 +59,13 @@ namespace ShockQuiz.Forms
             {
                 try
                 {
-                    Progress<ProgressReportModel> progress = new Progress<ProgressReportModel>();
-                    progress.ProgressChanged += ReportProgress;
+                    fachada.AlmacenarPreguntas(((Conjunto)cbConjunto.SelectedItem).ConjuntoId, Convert.ToInt32(nudCantidad.Value));
 
-                    fachada.AlmacenarPreguntas(((Conjunto)cbConjunto.SelectedItem).ConjuntoId, progress, Convert.ToInt32(nudCantidad.Value));
-                    
                     MessageBox.Show($"{Decimal.ToInt32(nudCantidad.Value)} preguntas añadidas correctamente al conjunto {cbConjunto.Text}.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                /*catch (Exception)
+                catch (Exception)
                 {
                     MessageBox.Show("Ha habido un error con la base de datos", "Error");
-                }*/
-                finally
-                {
-                    progressBar.Value = 0;
                 }
             }
             else
@@ -87,19 +75,14 @@ namespace ShockQuiz.Forms
 
         }
 
-        private void ReportProgress(object sender, ProgressReportModel e)
-        {
-            progressBar.Value = e.PercentageComplete;
-        }
-
         private void btnAddConjunto_Click(object sender, EventArgs e)
         {
             try
             {
                 int indice = comboTipoConjunto.SelectedIndex;
-                if (indice > -1)
+                if (comboTipoConjunto.SelectedIndex > -1)
                 {
-                    fachada.AñadirConjunto(txtAddConjunto.Text, Decimal.ToInt32(nudAddConjunto.Value), cbToken.Checked, indice);
+                    fachada.AñadirConjunto(txtAddConjunto.Text, Decimal.ToInt32(nudAddConjunto.Value), cbToken.Checked, (Type)comboTipoConjunto.SelectedItem);
                     ActualizarConjuntos();
                     MessageBox.Show("Conjunto añadido correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     txtAddConjunto.Clear();
@@ -110,11 +93,11 @@ namespace ShockQuiz.Forms
                     MessageBox.Show("Seleccione un tipo de conjunto", "Error");
                 }
             }
-            catch(ArgumentNullException)
+            catch (ArgumentNullException)
             {
                 MessageBox.Show("Introduzca los datos apropiados", "Error");
             }
-            catch(System.Data.Entity.Infrastructure.DbUpdateException)
+            catch (System.Data.Entity.Infrastructure.DbUpdateException)
             {
                 MessageBox.Show("Ya existe un conjunto con ese nombre", "Error");
             }
@@ -134,7 +117,7 @@ namespace ShockQuiz.Forms
                     fachada.LimpiarDB();
                     MessageBox.Show("Operación realizada correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex )
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }

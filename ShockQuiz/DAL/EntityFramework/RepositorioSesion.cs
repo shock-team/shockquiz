@@ -1,7 +1,6 @@
 ﻿using ShockQuiz.Dominio;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace ShockQuiz.DAL.EntityFramework
 {

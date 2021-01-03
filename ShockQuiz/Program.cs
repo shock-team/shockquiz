@@ -14,9 +14,9 @@ namespace ShockQuiz
         {
             /*try
             {*/
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);;
-                Application.Run(new LoginForm());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false); ;
+            Application.Run(new LoginForm());
             /*}
             catch (Exception ex)
             {

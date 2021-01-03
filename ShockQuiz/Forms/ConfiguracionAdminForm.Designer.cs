@@ -36,28 +36,25 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.nudCantidad = new System.Windows.Forms.NumericUpDown();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.comboTipoConjunto = new System.Windows.Forms.ComboBox();
+            this.lblTipoConjunto = new System.Windows.Forms.Label();
             this.cbToken = new System.Windows.Forms.CheckBox();
             this.btnAddConjunto = new System.Windows.Forms.Button();
             this.nudAddConjunto = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtAddConjunto = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnDispose = new System.Windows.Forms.Button();
-            this.lblTipoConjunto = new System.Windows.Forms.Label();
-            this.comboTipoConjunto = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAddConjunto)).BeginInit();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAdmin
@@ -80,7 +77,7 @@
             // btnSalir
             // 
             this.btnSalir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnSalir.Location = new System.Drawing.Point(352, 329);
+            this.btnSalir.Location = new System.Drawing.Point(347, 297);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(265, 23);
             this.btnSalir.TabIndex = 5;
@@ -119,25 +116,17 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.progressBar);
             this.groupBox2.Controls.Add(this.nudCantidad);
             this.groupBox2.Controls.Add(this.btnAgregar);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.cbConjunto);
-            this.groupBox2.Location = new System.Drawing.Point(10, 179);
+            this.groupBox2.Location = new System.Drawing.Point(24, 186);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(293, 179);
+            this.groupBox2.Size = new System.Drawing.Size(293, 134);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Agregar Preguntas";
-            // 
-            // progressBar
-            // 
-            this.progressBar.Location = new System.Drawing.Point(12, 111);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(271, 23);
-            this.progressBar.TabIndex = 11;
             // 
             // nudCantidad
             // 
@@ -163,7 +152,7 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(12, 140);
+            this.btnAgregar.Location = new System.Drawing.Point(12, 95);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(271, 23);
             this.btnAgregar.TabIndex = 9;
@@ -199,12 +188,29 @@
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.txtAddConjunto);
-            this.groupBox3.Location = new System.Drawing.Point(10, 19);
+            this.groupBox3.Location = new System.Drawing.Point(24, 16);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(292, 154);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Añadir Conjunto";
+            // 
+            // comboTipoConjunto
+            // 
+            this.comboTipoConjunto.FormattingEnabled = true;
+            this.comboTipoConjunto.Location = new System.Drawing.Point(108, 61);
+            this.comboTipoConjunto.Name = "comboTipoConjunto";
+            this.comboTipoConjunto.Size = new System.Drawing.Size(175, 21);
+            this.comboTipoConjunto.TabIndex = 7;
+            // 
+            // lblTipoConjunto
+            // 
+            this.lblTipoConjunto.AutoSize = true;
+            this.lblTipoConjunto.Location = new System.Drawing.Point(9, 64);
+            this.lblTipoConjunto.Name = "lblTipoConjunto";
+            this.lblTipoConjunto.Size = new System.Drawing.Size(87, 13);
+            this.lblTipoConjunto.TabIndex = 6;
+            this.lblTipoConjunto.Text = "Tipo de conjunto";
             // 
             // cbToken
             // 
@@ -273,17 +279,6 @@
             this.txtAddConjunto.Size = new System.Drawing.Size(175, 20);
             this.txtAddConjunto.TabIndex = 0;
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.groupBox2);
-            this.groupBox4.Controls.Add(this.groupBox3);
-            this.groupBox4.Location = new System.Drawing.Point(6, 10);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(317, 364);
-            this.groupBox4.TabIndex = 10;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "OpenTDB";
-            // 
             // btnDispose
             // 
             this.btnDispose.Location = new System.Drawing.Point(347, 147);
@@ -294,33 +289,17 @@
             this.btnDispose.UseVisualStyleBackColor = true;
             this.btnDispose.Click += new System.EventHandler(this.btnDispose_Click);
             // 
-            // lblTipoConjunto
-            // 
-            this.lblTipoConjunto.AutoSize = true;
-            this.lblTipoConjunto.Location = new System.Drawing.Point(9, 64);
-            this.lblTipoConjunto.Name = "lblTipoConjunto";
-            this.lblTipoConjunto.Size = new System.Drawing.Size(87, 13);
-            this.lblTipoConjunto.TabIndex = 6;
-            this.lblTipoConjunto.Text = "Tipo de conjunto";
-            // 
-            // comboTipoConjunto
-            // 
-            this.comboTipoConjunto.FormattingEnabled = true;
-            this.comboTipoConjunto.Location = new System.Drawing.Point(108, 61);
-            this.comboTipoConjunto.Name = "comboTipoConjunto";
-            this.comboTipoConjunto.Size = new System.Drawing.Size(175, 21);
-            this.comboTipoConjunto.TabIndex = 7;
-            // 
             // ConfiguracionAdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnSalir;
-            this.ClientSize = new System.Drawing.Size(629, 383);
+            this.ClientSize = new System.Drawing.Size(629, 327);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnDispose);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnSalir);
-            this.Controls.Add(this.groupBox4);
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -336,7 +315,6 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAddConjunto)).EndInit();
-            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -360,9 +338,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnAddConjunto;
         private System.Windows.Forms.CheckBox cbToken;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btnDispose;
-        private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.ComboBox comboTipoConjunto;
         private System.Windows.Forms.Label lblTipoConjunto;
     }
