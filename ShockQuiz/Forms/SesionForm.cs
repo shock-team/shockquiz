@@ -32,8 +32,6 @@ namespace ShockQuiz
             LoadFont();
 
             SiguientePregunta();
-
-            fachada.IniciarTimer(FinTiempoLimite,ActualizarTimer, idSesionActual);
         }
 
         private void ColorBotonCorrecto(string pRespuesta)
@@ -96,7 +94,7 @@ namespace ShockQuiz
 
         private void SiguientePregunta()
         {
-            preguntaActual = fachada.ObtenerPreguntaYRespuestas(idSesionActual);
+            preguntaActual = fachada.ObtenerPreguntaYRespuestas(FinTiempoLimite, ActualizarTimer, idSesionActual);
 
             lblPregunta.Text = preguntaActual.Pregunta;
 

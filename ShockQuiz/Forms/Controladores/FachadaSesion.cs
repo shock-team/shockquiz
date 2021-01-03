@@ -17,11 +17,13 @@ namespace ShockQuiz
         public AyudanteTimer ayudanteTimer { get; set; }
 
         /// <summary>
-        /// Devuelve un PreguntaDTO correspondiente a la siguiente de la sesión
+        /// Inicia el temporizador y devuelve un PreguntaDTO correspondiente a la siguiente de la sesión
         /// </summary>
+        /// <param name="pOnTimeFinishedHandler">La acción a realizar cuando se agota el tiempo límite</param>
+        /// <param name="pOnTickTimer">La acción a realizar por cada tick</param>
         /// <param name="pIdSesionActual">El ID de la sesión actual</param>
         /// <returns></returns>
-        public PreguntaDTO ObtenerPreguntaYRespuestas(int pIdSesionActual)
+        public PreguntaDTO ObtenerPreguntaYRespuestas(Action pOnTimeFinishedHandler, Action<int> pOnTickTimer, int pIdSesionActual)
         { 
             using (var bDbContext = new ShockQuizDbContext())
             {
@@ -46,6 +48,9 @@ namespace ShockQuiz
                     }
 
                     preguntaYRespuestas.Respuestas = listaDeRespuestas.OrderBy(x => random.Next()).ToList();
+
+                    int tiempoRestante = Convert.ToInt32(sesionActual.TiempoLimite() - sesionActual.SegundosTranscurridos);
+                    ayudanteTimer = new AyudanteTimer(tiempoRestante, pOnTimeFinishedHandler, pOnTickTimer);
 
                     return preguntaYRespuestas;
                 }
@@ -74,7 +79,8 @@ namespace ShockQuiz
                     resultado.RespuestaCorrecta = respuestaCorrecta.DefRespuesta;
                     resultado.FinSesion = sesionActual.Responder(resultado.EsCorrecta);
 
-                    sesionActual.SegundosTranscurridos = ayudanteTimer.TiempoTranscurrido;
+                    DetenerTimer();
+                    sesionActual.SegundosTranscurridos += ayudanteTimer.TiempoTranscurrido;
                     bUoW.GuardarCambios();
                     return resultado;
                 }
@@ -114,20 +120,6 @@ namespace ShockQuiz
         {
             Sesion sesionActual = ObtenerSesion(pIdSesionActual);
             return sesionActual.Puntaje;
-        }
-
-        /// <summary>
-        /// Este método se utiliza para iniciar el timer que verifica el tiempo límite de 
-        /// la sesión.
-        /// </summary>
-        /// <param name="pOnTimeFinishedHandler">La acción a realizar cuando se agota el tiempo límite</param>
-        /// <param name="pOnTickTimer">La acción a realizar por cada tick</param>
-        /// <param name="pIdSesionActual">El ID de la sesión actual</param>
-        public void IniciarTimer(Action pOnTimeFinishedHandler, Action<int> pOnTickTimer, int pIdSesionActual)
-        {
-            Sesion sesionActual = ObtenerSesion(pIdSesionActual);
-            int tiempoRestante = Convert.ToInt32(sesionActual.TiempoLimite() - sesionActual.SegundosTranscurridos);
-            ayudanteTimer = new AyudanteTimer(tiempoRestante, pOnTimeFinishedHandler, pOnTickTimer);
         }
 
         /// <summary>
