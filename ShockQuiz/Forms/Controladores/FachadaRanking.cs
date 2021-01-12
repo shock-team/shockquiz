@@ -2,6 +2,7 @@
 using ShockQuiz.Dominio;
 using System.Collections.Generic;
 using System.Linq;
+using ShockQuiz.Servicios;
 
 namespace ShockQuiz.Forms
 {
@@ -14,13 +15,7 @@ namespace ShockQuiz.Forms
         /// <returns></returns>
         public List<Sesion> ObtenerTop(int pTop = 15)
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    return bUoW.RepositorioSesion.ObtenerRanking(pTop).ToList();
-                }
-            }
+            return ServiciosSesion.ObtenerTop(pTop);
         }
     }
 }

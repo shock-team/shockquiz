@@ -191,6 +191,12 @@
     <Compile Include="Dominio\Respuesta.cs" />
     <Compile Include="Dominio\Sesion.cs" />
     <Compile Include="Dominio\Usuario.cs" />
+    <Compile Include="Servicios\ServiciosCategoria.cs" />
+    <Compile Include="Servicios\ServiciosConjunto.cs" />
+    <Compile Include="Servicios\ServiciosDificultad.cs" />
+    <Compile Include="Servicios\ServiciosPregunta.cs" />
+    <Compile Include="Servicios\ServiciosSesion.cs" />
+    <Compile Include="Servicios\ServiciosUsuario.cs" />
     <EmbeddedResource Include="Forms\ConfiguracionAdminForm.resx">
       <DependentUpon>ConfiguracionAdminForm.cs</DependentUpon>
     </EmbeddedResource>

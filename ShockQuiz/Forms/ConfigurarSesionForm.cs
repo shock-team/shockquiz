@@ -31,10 +31,6 @@ namespace ShockQuiz.Forms
                 cbConjunto.SelectedIndex = 0;
                 cbConjunto.Enabled = false;
             }
-            foreach (Dificultad dificultad in fachada.ObtenerDificultades())
-            {
-                cbDificultad.Items.Add(dificultad);
-            }
         }
 
         private void BtnIniciar_Click(object sender, EventArgs e)
@@ -62,11 +58,17 @@ namespace ShockQuiz.Forms
         private void CbConjunto_SelectedIndexChanged(object sender, EventArgs e)
         {
             cbCategoria.Items.Clear();
-            Conjunto conjunto = (Conjunto)cbConjunto.SelectedItem;
-            List<Categoria> categorias = fachada.ObtenerCategorias(conjunto.ConjuntoId).ToList();
-            foreach (Categoria categoria in categorias)
+            cbDificultad.Items.Clear();
+            int idConjunto = ((Conjunto)cbConjunto.SelectedItem).ConjuntoId;
+            
+            foreach (Categoria categoria in fachada.ObtenerCategorias(idConjunto).ToList())
             {
                 cbCategoria.Items.Add(categoria);
+            }
+
+            foreach (Dificultad dificultad in fachada.ObtenerDificultades(idConjunto))
+            {
+                cbDificultad.Items.Add(dificultad);
             }
         }
         private void BtnCancelar_Click(object sender, EventArgs e) => this.Close();

@@ -5,6 +5,7 @@ using ShockQuiz.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ShockQuiz.Servicios;
 
 namespace ShockQuiz
 {
@@ -25,36 +26,30 @@ namespace ShockQuiz
         /// <returns></returns>
         public PreguntaDTO ObtenerPreguntaYRespuestas(Action pOnTimeFinishedHandler, Action<int> pOnTickTimer, int pIdSesionActual)
         {
-            using (var bDbContext = new ShockQuizDbContext())
+            Random random = new Random();
+            PreguntaDTO preguntaYRespuestas = new PreguntaDTO();
+            Sesion sesionActual = ServiciosSesion.ObtenerSesion(pIdSesionActual);
+            Pregunta pregunta = ServiciosPregunta.ObtenerPregunta(sesionActual.ObtenerIdSiguientePregunta());
+
+            preguntaYRespuestas.IdPregunta = pregunta.PreguntaId;
+            preguntaYRespuestas.Pregunta = pregunta.Nombre;
+
+            RespuestaDTO respuestaActualDTO;
+            List<RespuestaDTO> listaDeRespuestas = new List<RespuestaDTO>();
+            foreach (Respuesta respuesta in pregunta.Respuestas)
             {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    Random random = new Random();
-                    PreguntaDTO preguntaYRespuestas = new PreguntaDTO();
-                    Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionId(pIdSesionActual);
-                    Pregunta pregunta = bUoW.RepositorioPregunta.ObtenerPreguntaPorId(sesionActual.ObtenerIdSiguientePregunta());
-
-                    preguntaYRespuestas.IdPregunta = pregunta.PreguntaId;
-                    preguntaYRespuestas.Pregunta = pregunta.Nombre;
-
-                    RespuestaDTO respuestaActualDTO;
-                    List<RespuestaDTO> listaDeRespuestas = new List<RespuestaDTO>();
-                    foreach (Respuesta respuesta in pregunta.Respuestas)
-                    {
-                        respuestaActualDTO = new RespuestaDTO();
-                        respuestaActualDTO.IdRespuesta = respuesta.RespuestaId;
-                        respuestaActualDTO.Respuesta = respuesta.DefRespuesta;
-                        listaDeRespuestas.Add(respuestaActualDTO);
-                    }
-
-                    preguntaYRespuestas.Respuestas = listaDeRespuestas.OrderBy(x => random.Next()).ToList();
-
-                    int tiempoRestante = Convert.ToInt32(sesionActual.TiempoLimite() - sesionActual.SegundosTranscurridos);
-                    ayudanteTimer = new AyudanteTimer(tiempoRestante, pOnTimeFinishedHandler, pOnTickTimer);
-
-                    return preguntaYRespuestas;
-                }
+                respuestaActualDTO = new RespuestaDTO();
+                respuestaActualDTO.IdRespuesta = respuesta.RespuestaId;
+                respuestaActualDTO.Respuesta = respuesta.DefRespuesta;
+                listaDeRespuestas.Add(respuestaActualDTO);
             }
+
+            preguntaYRespuestas.Respuestas = listaDeRespuestas.OrderBy(x => random.Next()).ToList();
+
+            int tiempoRestante = Convert.ToInt32(sesionActual.TiempoLimite() - sesionActual.SegundosTranscurridos);
+            ayudanteTimer = new AyudanteTimer(tiempoRestante, pOnTimeFinishedHandler, pOnTickTimer);
+
+            return preguntaYRespuestas;
         }
 
         /// <summary>
@@ -66,25 +61,10 @@ namespace ShockQuiz
         /// <returns></returns>
         public ResultadoRespuesta Responder(int pIdSesionActual, int pIdPregunta, int pIdRespuesta)
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionId(pIdSesionActual);
-
-                    Respuesta respuestaCorrecta = bUoW.RepositorioPregunta.ObtenerRespuestaCorrecta(pIdPregunta);
-
-                    ResultadoRespuesta resultado = new ResultadoRespuesta();
-                    resultado.EsCorrecta = (respuestaCorrecta.RespuestaId == pIdRespuesta);
-                    resultado.RespuestaCorrecta = respuestaCorrecta.DefRespuesta;
-                    resultado.FinSesion = sesionActual.Responder(resultado.EsCorrecta);
-
-                    DetenerTimer();
-                    sesionActual.SegundosTranscurridos += ayudanteTimer.TiempoTranscurrido;
-                    bUoW.GuardarCambios();
-                    return resultado;
-                }
-            }
+            ResultadoRespuesta resultado = ServiciosPregunta.Responder(pIdPregunta, pIdRespuesta);
+            resultado.FinSesion = ServiciosSesion.Responder(pIdSesionActual, ayudanteTimer.TiempoTranscurrido, resultado.EsCorrecta);
+            DetenerTimer();
+            return resultado;
         }
 
         /// <summary>
@@ -93,22 +73,7 @@ namespace ShockQuiz
         /// <param name="pIdSesionActual">El ID de la sesión actual</param>
         public void FinTiempoLimite(int pIdSesionActual)
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    Sesion sesionActual = bUoW.RepositorioSesion.Obtener(pIdSesionActual);
-                    sesionActual.SesionFinalizada = true;
-                    int idPreguntaActual;
-                    foreach (Pregunta pregunta in sesionActual.Preguntas)
-                    {
-                        idPreguntaActual = sesionActual.ObtenerIdSiguientePregunta();
-                        Responder(sesionActual.SesionId, pregunta.PreguntaId, 0);
-                    }
-
-                    bUoW.GuardarCambios();
-                }
-            }
+            ServiciosSesion.CancelarSesion(pIdSesionActual);
         }
 
         /// <summary>
@@ -137,14 +102,7 @@ namespace ShockQuiz
         /// <returns></returns>
         public Sesion ObtenerSesion(int pIdSesionActual)
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionId(pIdSesionActual);
-                    return sesionActual;
-                }
-            }
+            return ServiciosSesion.ObtenerSesion(pIdSesionActual);
         }
     }
 }

@@ -5,6 +5,7 @@ using ShockQuiz.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ShockQuiz.Servicios;
 
 namespace ShockQuiz.Forms
 {
@@ -20,31 +21,10 @@ namespace ShockQuiz.Forms
         public LoginDTO Login(string pNombreDeUsuario, string pClave)
         {
             LoginDTO loginDTO = new LoginDTO();
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    Usuario usuario = bUoW.RepositorioUsuario.ObtenerPorNombre(pNombreDeUsuario);
-                    if (!usuario.ContraseñaCorrecta(pClave))
-                    {
-                        throw new ContraseñaIncorrectaException();
-                    }
-                    else
-                    {
-                        loginDTO.IdUsuario = usuario.UsuarioId;
-                        loginDTO.EsAdmin = usuario.Admin;
-                        Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionActiva(usuario.UsuarioId);
-                        if (sesionActual == null)
-                        {
-                            loginDTO.IdSesion = -1;
-                        }
-                        else
-                        {
-                            loginDTO.IdSesion = sesionActual.SesionId;
-                        }
-                    }
-                }
-            }
+            Usuario usuario = ServiciosUsuario.LoginUsuario(pNombreDeUsuario, pClave);
+            loginDTO.IdUsuario = usuario.UsuarioId;
+            loginDTO.EsAdmin = usuario.Admin;
+            loginDTO.IdSesion = ServiciosSesion.ObtenerSesionActiva(usuario.UsuarioId);            
             return loginDTO;
         }
 
@@ -55,48 +35,16 @@ namespace ShockQuiz.Forms
         /// <param name="pPass">Contraseña del usuario</param>
         public void AddUser(string pUser, string pPass)
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    bool admin = false;
-                    if (bUoW.RepositorioUsuario.ObtenerTodos().Count() == 0)
-                    {
-                        admin = true;
-                    }
-
-                    Usuario user = new Usuario()
-                    {
-                        Nombre = pUser,
-                        Contraseña = pPass,
-                        Admin = admin,
-                        Sesiones = new List<Sesion>()
-                    };
-                    bUoW.RepositorioUsuario.Agregar(user);
-                    bUoW.GuardarCambios();
-                }
-            }
+            ServiciosUsuario.AgregarUsuario(pUser, pPass);
         }
 
         /// <summary>
-        /// Este método se encarga de cancelar una sesión que se encuentre activa
+        /// Este método se encarga de cancelar una sesión que se encuentre activa.
         /// </summary>
-        public void CancelarSesion(int pIdUsuario)
+        /// <param name="pIdSesion">El ID de la sesión a cancelar.</param>
+        public void CancelarSesion(int pIdSesion)
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    Sesion sesionActiva = bUoW.RepositorioSesion.ObtenerSesionActiva(pIdUsuario);
-                    sesionActiva.FechaFin = DateTime.Now;
-                    foreach (Pregunta pregunta in sesionActiva.Preguntas.ToList())
-                    {
-                        sesionActiva.Responder(false);
-                    }
-                    sesionActiva.SesionFinalizada = true;
-                    bUoW.GuardarCambios();
-                }
-            }
+            ServiciosSesion.CancelarSesion(pIdSesion);
         }
     }
 }

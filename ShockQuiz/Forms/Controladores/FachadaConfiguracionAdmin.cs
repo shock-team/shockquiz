@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using ShockQuiz.Servicios;
 
 namespace ShockQuiz.Forms
 {
@@ -17,14 +18,7 @@ namespace ShockQuiz.Forms
         /// <returns></returns>
         public void UsuarioAAdmin(string pUsuario)
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    bUoW.RepositorioUsuario.Ascender(pUsuario);
-                    bUoW.GuardarCambios();
-                }
-            }
+            ServiciosUsuario.UsuarioAAdmin(pUsuario);
         }
 
         /// <summary>
@@ -33,13 +27,7 @@ namespace ShockQuiz.Forms
         /// <returns></returns>
         public IEnumerable<Conjunto> ObtenerConjuntos()
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    return bUoW.RepositorioConjunto.ObtenerTodas();
-                }
-            }
+            return ServiciosConjunto.ObtenerConjuntos();
         }
 
         /// <summary>
@@ -48,26 +36,10 @@ namespace ShockQuiz.Forms
         /// <param name="pNombre">Nombre del nuevo ConjuntoOTDB</param>
         /// <param name="pTEPP">Cantidad de sengudos esperada por pregunta</param>
         /// <param name="token">Si el checkbox del Token fue seleccionado o no</param>
+        /// <param name="pTipoConjunto">El tipo del conjunto a crear.</param>
         public void AñadirConjunto(string pNombre, int pTEPP, bool token, Type pTipoConjunto)
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    string tokenString = null;
-                    if (token)
-                    {
-                        tokenString = JsonMapper.ObtenerToken();
-                    }
-                    Conjunto conjunto = (Conjunto)Activator.CreateInstance(pTipoConjunto);
-                    conjunto.Nombre = pNombre;
-                    conjunto.TiempoEsperadoPorPregunta = pTEPP;
-                    conjunto.Token = tokenString;
-
-                    bUoW.RepositorioConjunto.Agregar(conjunto);
-                    bUoW.GuardarCambios();
-                }
-            }
+            ServiciosConjunto.AñadirConjunto(pNombre, pTEPP, token, pTipoConjunto);
         }
 
         /// <summary>
@@ -105,34 +77,9 @@ namespace ShockQuiz.Forms
         /// <param name="pCantidad">La cantidad de preguntas.</param>
         public void AlmacenarPreguntas(int pIdConjunto, int pCantidad)
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    Conjunto conjunto = bUoW.RepositorioConjunto.Obtener(pIdConjunto);
-                    List<Pregunta> preguntas = conjunto.ObtenerPreguntas(pCantidad);
-                    foreach (Pregunta pregunta in preguntas)
-                    {
-                        pregunta.Conjunto = conjunto;
-                        pregunta.ConjuntoNombre = conjunto.Nombre;
-
-                        string descripcion = pregunta.Nombre;
-                        pregunta.Nombre = bUoW.RepositorioPregunta.GetOrCreate(descripcion, conjunto.Nombre);
-
-                        string categoria = pregunta.Categoria.Nombre;
-                        pregunta.Categoria = bUoW.RepositorioCategoria.GetOrCreate(categoria);
-
-                        string dificultad = pregunta.Dificultad.Nombre;
-                        pregunta.Dificultad = bUoW.RepositorioDificultad.GetOrCreate(dificultad);
-
-                        if (pregunta.Nombre != string.Empty)
-                        {
-                            bUoW.RepositorioPregunta.Agregar(pregunta);
-                        }
-                    }
-                    bUoW.GuardarCambios();
-                }
-            }
+            Conjunto conjunto = ServiciosConjunto.ObtenerConjunto(pIdConjunto);
+            List<Pregunta> preguntas = conjunto.ObtenerPreguntas(pCantidad);
+            ServiciosPregunta.AlmacenarPreguntas(preguntas, pIdConjunto);
         }
 
         /// <summary>

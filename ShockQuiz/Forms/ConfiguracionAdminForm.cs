@@ -57,16 +57,16 @@ namespace ShockQuiz.Forms
         {
             if (nudCantidad.Value > 0)
             {
-                try
-                {
+                //try
+                //{
                     fachada.AlmacenarPreguntas(((Conjunto)cbConjunto.SelectedItem).ConjuntoId, Convert.ToInt32(nudCantidad.Value));
 
                     MessageBox.Show($"{Decimal.ToInt32(nudCantidad.Value)} preguntas añadidas correctamente al conjunto {cbConjunto.Text}.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception)
+                //}
+                /*catch (Exception)
                 {
                     MessageBox.Show("Ha habido un error con la base de datos", "Error");
-                }
+                }*/
             }
             else
             {

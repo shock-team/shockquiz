@@ -66,6 +66,11 @@ namespace ShockQuiz.Dominio.Conjuntos
                 }
             }
             catch (Exception) { }
+            foreach (Pregunta pregunta in preguntasTotales)
+            {
+                pregunta.ConjuntoNombre = Nombre;
+                pregunta.ConjuntoId = ConjuntoId;
+            }
             return preguntasTotales;
         }
 

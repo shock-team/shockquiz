@@ -13,5 +13,6 @@ namespace ShockQuiz.DAL
         IEnumerable<Categoria> ObtenerCategorias(int pConjunto);
         Pregunta ObtenerPreguntaPorId(int pIdPregunta);
         Respuesta ObtenerRespuestaCorrecta(int pIdPregunta);
+        IEnumerable<Dificultad> ObtenerDificultades(int pConjunto);
     }
 }

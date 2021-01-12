@@ -3,6 +3,7 @@ using ShockQuiz.Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ShockQuiz.Servicios;
 
 namespace ShockQuiz.Forms
 {
@@ -15,13 +16,7 @@ namespace ShockQuiz.Forms
         /// <returns></returns>
         public IEnumerable<Conjunto> ObtenerConjuntos()
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    return bUoW.RepositorioConjunto.ObtenerTodas();
-                }
-            }
+            return ServiciosConjunto.ObtenerConjuntos();
         }
 
         /// <summary>
@@ -31,28 +26,19 @@ namespace ShockQuiz.Forms
         /// <returns></returns>
         public IEnumerable<Categoria> ObtenerCategorias(int pConjunto)
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    return bUoW.RepositorioPregunta.ObtenerCategorias(pConjunto);
-                }
-            }
+            return ServiciosCategoria.ObtenerCategorias(pConjunto);
         }
 
+
         /// <summary>
-        /// Devuelve el las dificultades de las preguntas presentes en la base de datos
+        /// Devuelve el las dificultades de las preguntas presentes en la base de datos, según un
+        /// conjunto.
         /// </summary>
+        /// <param name="pIdConjunto">ID del conjunto.</param>
         /// <returns></returns>
-        public IEnumerable<Dificultad> ObtenerDificultades()
+        public IEnumerable<Dificultad> ObtenerDificultades(int pIdConjunto)
         {
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    return bUoW.RepositorioDificultad.ObtenerTodas();
-                }
-            }
+            return ServiciosDificultad.ObtenerDificultades(pIdConjunto);
         }
 
         /// <summary>
@@ -67,34 +53,7 @@ namespace ShockQuiz.Forms
         /// <returns></returns>
         public int IniciarSesion(int pUsuario, int pCategoria, int pDificultad, int pCantidad, int pConjunto)
         {
-            Random random = new Random();
-            Sesion sesion = new Sesion();
-            sesion.FechaInicio = DateTime.Now;
-            sesion.CantidadTotalPreguntas = pCantidad;
-            sesion.UsuarioId = pUsuario;
-            sesion.FechaFin = DateTime.Parse("01-01-2399");
-            sesion.SesionFinalizada = false;
-            sesion.SegundosTranscurridos = 0;
-
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    sesion.Usuario = bUoW.RepositorioUsuario.Obtener(pUsuario);
-
-                    List<Pregunta> listaDePreguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(pCategoria, pDificultad, pConjunto, pCantidad).OrderBy(x => random.Next()).ToList();
-                    foreach (Pregunta pregunta in listaDePreguntas)
-                    {
-                        pregunta.Sesiones.Add(sesion);
-                    }
-                    sesion.Preguntas = listaDePreguntas;
-
-                    bUoW.RepositorioSesion.Agregar(sesion);
-
-                    bUoW.GuardarCambios();
-                }
-            }
-            return sesion.SesionId;
+            return ServiciosSesion.IniciarSesion(pUsuario, pConjunto, pDificultad, pCategoria, pCantidad);
         }
     }
 }

@@ -113,6 +113,26 @@ namespace ShockQuiz.DAL.EntityFramework
         }
 
         /// <summary>
+        /// Devuelve una lista de las Dificultades de un <paramref name="pConjunto"/>.
+        /// </summary>
+        /// <param name="pConjunto"></param>
+        /// <returns></returns>
+        public IEnumerable<Dificultad> ObtenerDificultades(int pConjunto)
+        {
+            List<Dificultad> listaDificultades = new List<Dificultad>();
+            List<Pregunta> listaPreguntas = new List<Pregunta>();
+            listaPreguntas = (from t in iDbContext.Preguntas.Include(x => x.Dificultad).Include(x => x.Conjunto) where t.Conjunto.ConjuntoId == pConjunto select t).ToList();
+            foreach (Pregunta pregunta in listaPreguntas)
+            {
+                if (!listaDificultades.Contains(pregunta.Dificultad))
+                {
+                    listaDificultades.Add(pregunta.Dificultad);
+                }
+            }
+            return listaDificultades;
+        }
+
+        /// <summary>
         /// Este método se utiliza para obtener una pregunta y sus respuestas
         /// a partir de si ID.
         /// </summary>
