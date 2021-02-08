@@ -31,6 +31,9 @@ namespace ShockQuiz
             Sesion sesionActual = ServiciosSesion.ObtenerSesion(pIdSesionActual);
             Pregunta pregunta = ServiciosPregunta.ObtenerPregunta(sesionActual.ObtenerIdSiguientePregunta());
 
+            int tiempoRestante = Convert.ToInt32(sesionActual.TiempoLimite() - sesionActual.SegundosTranscurridos);
+            ayudanteTimer = new AyudanteTimer(tiempoRestante, pOnTimeFinishedHandler, pOnTickTimer);
+
             preguntaYRespuestas.IdPregunta = pregunta.PreguntaId;
             preguntaYRespuestas.Pregunta = pregunta.Nombre;
 
@@ -46,9 +49,6 @@ namespace ShockQuiz
 
             preguntaYRespuestas.Respuestas = listaDeRespuestas.OrderBy(x => random.Next()).ToList();
 
-            int tiempoRestante = Convert.ToInt32(sesionActual.TiempoLimite() - sesionActual.SegundosTranscurridos);
-            ayudanteTimer = new AyudanteTimer(tiempoRestante, pOnTimeFinishedHandler, pOnTickTimer);
-
             return preguntaYRespuestas;
         }
 
@@ -61,9 +61,9 @@ namespace ShockQuiz
         /// <returns></returns>
         public ResultadoRespuesta Responder(int pIdSesionActual, int pIdPregunta, int pIdRespuesta)
         {
+            DetenerTimer();
             ResultadoRespuesta resultado = ServiciosPregunta.Responder(pIdPregunta, pIdRespuesta);
             resultado.FinSesion = ServiciosSesion.Responder(pIdSesionActual, ayudanteTimer.TiempoTranscurrido, resultado.EsCorrecta);
-            DetenerTimer();
             return resultado;
         }
 

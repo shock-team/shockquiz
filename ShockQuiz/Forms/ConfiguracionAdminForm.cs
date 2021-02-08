@@ -124,6 +124,23 @@ namespace ShockQuiz.Forms
             }
         }
 
+        private void btnLimpiarRanking_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("¿Estas seguro de vaciar las entradas del Ranking?", "Confirmar", MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                try
+                {
+                    fachada.LimpiarRanking();
+                    MessageBox.Show("Operación realizada correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
         private void BtnSalir_Click(object sender, EventArgs e) => this.Close();
     }
 }

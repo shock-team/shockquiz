@@ -70,6 +70,18 @@ namespace ShockQuiz.Forms
             }
         }
 
+        public void LimpiarRanking()
+        {
+            using (var bDbContext = new ShockQuizDbContext())
+            {
+                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
+                {
+                    bDbContext.Set<Sesion>().RemoveRange(bDbContext.Set<Sesion>());
+                    bUoW.GuardarCambios();
+                }
+            }
+        }
+
         /// <summary>
         /// Este método se utiliza para almacenar una lista de preguntas obtenida a partir de un conjunto.
         /// </summary>

@@ -50,6 +50,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtAddConjunto = new System.Windows.Forms.TextBox();
             this.btnDispose = new System.Windows.Forms.Button();
+            this.btnLimpiarRanking = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
@@ -289,12 +290,23 @@
             this.btnDispose.UseVisualStyleBackColor = true;
             this.btnDispose.Click += new System.EventHandler(this.btnDispose_Click);
             // 
+            // btnLimpiarRanking
+            // 
+            this.btnLimpiarRanking.Location = new System.Drawing.Point(347, 176);
+            this.btnLimpiarRanking.Name = "btnLimpiarRanking";
+            this.btnLimpiarRanking.Size = new System.Drawing.Size(265, 23);
+            this.btnLimpiarRanking.TabIndex = 12;
+            this.btnLimpiarRanking.Text = "Limpiar Ranking";
+            this.btnLimpiarRanking.UseVisualStyleBackColor = true;
+            this.btnLimpiarRanking.Click += new System.EventHandler(this.btnLimpiarRanking_Click);
+            // 
             // ConfiguracionAdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnSalir;
             this.ClientSize = new System.Drawing.Size(629, 327);
+            this.Controls.Add(this.btnLimpiarRanking);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnDispose);
@@ -341,5 +353,6 @@
         private System.Windows.Forms.Button btnDispose;
         private System.Windows.Forms.ComboBox comboTipoConjunto;
         private System.Windows.Forms.Label lblTipoConjunto;
+        private System.Windows.Forms.Button btnLimpiarRanking;
     }
 }
