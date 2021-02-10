@@ -56,6 +56,12 @@ namespace ShockQuiz.Servicios
             }
         }
 
+        /// <summary>
+        /// Este método se utiliza para obtener un conjunto presente en la base de datos a partir de
+        /// su ID.
+        /// </summary>
+        /// <param name="pIdConjunto">El ID del conjunto a obtener.</param>
+        /// <returns></returns>
         public static Conjunto ObtenerConjunto(int pIdConjunto)
         {
             using (var bDbContext = new ShockQuizDbContext())

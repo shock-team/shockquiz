@@ -46,27 +46,6 @@ namespace ShockQuiz.Servicios
         }
 
         /// <summary>
-        /// Este método se utiliza para obtener una lista de preguntas presentes en la base de datos a
-        /// partir de su conjunto, dificultad y categoría.
-        /// </summary>
-        /// <param name="pIdConjunto">El ID del conjunto de las preguntas.</param>
-        /// <param name="pIdDificultad">El ID de la dificultad de las preguntas.</param>
-        /// <param name="pIdCategoria">El ID de la categoría de las preguntas.</param>
-        /// <param name="pCantidad">La cantidad de preguntas.</param>
-        /// <returns></returns>
-        public static List<Pregunta> ObtenerPreguntas(int pIdConjunto, int pIdDificultad, int pIdCategoria, int pCantidad)
-        {
-            Random random = new Random();
-            using (var bDbContext = new ShockQuizDbContext())
-            {
-                using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
-                {
-                    return bUoW.RepositorioPregunta.ObtenerPreguntas(pIdCategoria, pIdDificultad, pIdConjunto, pCantidad).OrderBy(x => random.Next()).ToList();
-                }
-            }
-        }
-
-        /// <summary>
         /// Este método se utiliza para obtener una pregunta presente en la base de datos
         /// a partir de su ID.
         /// </summary>
