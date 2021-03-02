@@ -25,10 +25,10 @@ namespace ShockQuiz.Dominio
         /// </summary>
         /// <param name="pEsCorrecta">Si la respuesta dada a la pregunta fue correcta</param>
         /// <returns></returns>
-        public bool Responder(bool pEsCorrecta)
+        public bool Responder(bool pEsCorrecta, int pIdPregunta)
         {
             bool finSesion = false;
-            Pregunta pregunta = Preguntas.First();
+            Pregunta pregunta = Preguntas.Where(x => x.PreguntaId == pIdPregunta).FirstOrDefault();
 
             if (pEsCorrecta)
             {
@@ -68,7 +68,7 @@ namespace ShockQuiz.Dominio
         /// <returns></returns>
         public int ObtenerIdSiguientePregunta()
         {
-            return Preguntas.First().PreguntaId;
+            return Preguntas.OrderBy(x => Guid.NewGuid()).First().PreguntaId;
         }
 
         /// <summary>

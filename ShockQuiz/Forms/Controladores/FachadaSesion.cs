@@ -63,7 +63,7 @@ namespace ShockQuiz
         {
             DetenerTimer();
             ResultadoRespuesta resultado = ServiciosPregunta.Responder(pIdPregunta, pIdRespuesta);
-            resultado.FinSesion = ServiciosSesion.Responder(pIdSesionActual, ayudanteTimer.TiempoTranscurrido, resultado.EsCorrecta);
+            resultado.FinSesion = ServiciosSesion.Responder(pIdSesionActual, ayudanteTimer.TiempoTranscurrido, resultado.EsCorrecta, pIdPregunta);
             return resultado;
         }
 

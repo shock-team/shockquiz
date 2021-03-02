@@ -50,7 +50,7 @@ namespace ShockQuiz.Servicios
                     sesionActiva.FechaFin = DateTime.Now;
                     foreach (Pregunta pregunta in sesionActiva.Preguntas.ToList())
                     {
-                        sesionActiva.Responder(false);
+                        sesionActiva.Responder(false, pregunta.PreguntaId);
                     }
                     sesionActiva.SesionFinalizada = true;
                     bUoW.GuardarCambios();
@@ -130,7 +130,7 @@ namespace ShockQuiz.Servicios
         /// <param name="pSegundosTranscurridos">Los segundos transcurridos hasta la respuesta.</param>
         /// <param name="pEsCorrecta">Si la respuesta fue correcta o no.</param>
         /// <returns></returns>
-        public static bool Responder(int pIdSesion, double pSegundosTranscurridos, bool pEsCorrecta)
+        public static bool Responder(int pIdSesion, double pSegundosTranscurridos, bool pEsCorrecta, int pIdPregunta)
         {
             using (var bDbContext = new ShockQuizDbContext())
             {
@@ -138,7 +138,7 @@ namespace ShockQuiz.Servicios
                 {
                     Sesion sesionActual = bUoW.RepositorioSesion.ObtenerSesionId(pIdSesion);
                     sesionActual.SegundosTranscurridos += pSegundosTranscurridos;
-                    bool resultado = sesionActual.Responder(pEsCorrecta);
+                    bool resultado = sesionActual.Responder(pEsCorrecta, pIdPregunta);
                     bUoW.GuardarCambios();
                     return resultado;
                 }
