@@ -81,7 +81,7 @@ namespace ShockQuiz.Servicios
                 using (UnitOfWork bUoW = new UnitOfWork(bDbContext))
                 {
                     sesion.Usuario = bUoW.RepositorioUsuario.Obtener(pUsuario);
-                    sesion.Preguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(pCategoria, pDificultad, pConjunto, pCantidad).OrderBy(x => random.Next()).ToList();
+                    sesion.Preguntas = bUoW.RepositorioPregunta.ObtenerPreguntas(pCategoria, pDificultad, pConjunto, pCantidad).ToList();
                     bUoW.RepositorioSesion.Agregar(sesion);
                     bUoW.GuardarCambios();
                 }

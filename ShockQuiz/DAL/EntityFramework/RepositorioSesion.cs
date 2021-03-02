@@ -44,7 +44,7 @@ namespace ShockQuiz.DAL.EntityFramework
         /// <returns></returns>
         public Sesion ObtenerSesionActiva(int pIdUsuario)
         {
-            var sesionActiva = from s in iDbContext.Sesiones
+            var sesionesActivas = from s in iDbContext.Sesiones
                                .Include("Preguntas")
                                .Include("Preguntas.Conjunto")
                                .Include("Preguntas.Dificultad")
@@ -52,9 +52,17 @@ namespace ShockQuiz.DAL.EntityFramework
                                .Include("Preguntas.Sesiones")
                                where !s.SesionFinalizada && s.UsuarioId == pIdUsuario
                                select s;
-            if (sesionActiva.Count() > 0)
+
+            
+            int cantSesionesActivas = sesionesActivas.Count();
+
+            if (cantSesionesActivas > 0)
             {
-                return sesionActiva.First();
+                Sesion sesion = sesionesActivas.First();
+
+                EliminarSesionesAdicionales(sesionesActivas);
+
+                return sesion;
             }
             else
             {
@@ -79,6 +87,16 @@ namespace ShockQuiz.DAL.EntityFramework
                                where s.SesionId == pIdSesion
                                select s;
             return sesionActiva.First();
+        }
+
+        private void EliminarSesionesAdicionales(IQueryable<Sesion> sesiones)
+        {
+            var aux = sesiones.OrderBy(x => x.SesionId).Skip(1);
+            foreach (var item in aux)
+            {
+                iDbContext.Sesiones.Remove(item);
+            }
+            iDbContext.SaveChanges();
         }
     }
 }
